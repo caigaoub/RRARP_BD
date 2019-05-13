@@ -1,28 +1,44 @@
 #ifndef _INSTANCEGENERATOR_H_
 #define _INSTANCEGENERATOR_H_
-
 #include <fstream>
 #include <sstream>
 #include <iostream>
 #include <vector>
+#include <math.h>
 using namespace std;
+struct Vertex{
+  int x;
+  int y;
+};
 
-class costInfo{
-
+class InstanceGenerator{
 private:
-    const char* filename;
-    int n;// number of nodes
-    double* x;
-    double* y;
-    double** cost;
+    int num_targets;
+
+
+    Vertex lower_left_corner;
+    int scale;
+    int panel_width;
+    int panel_height;
+
+    Vertex depot1_loc;
+    Vertex depot2_loc;
+    vector<Vertex> targets_locs;
+    vector<int> radii;
 public:
-    ~costInfo();
-    costInfo(const char* filename);
-	  inline double** getCost() { return cost;};
-    inline int getNumNodes(){return n;};
-    inline const char* getFileName(){return filename;};
-    double getCost (int i, int j);
-    void print();
+    InstanceGenerator(int);
+    ~InstanceGenerator(){};
+    void set_panel(Vertex);
+    void set_locations();
+    void set_radii(int);
+    bool check_correctness();
+
+    bool is_disc_in_panel(int);
+    bool is_point_in_panel(Vertex);
+    bool is_intersected(int, int);
+    void produce(int);
+    void printInstance();
+
     inline static string itos(int i) {stringstream s; s << i; return s.str();};
     inline static string dtos(double i) {stringstream s; s << i; return s.str();};
 };
