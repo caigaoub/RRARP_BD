@@ -24,7 +24,8 @@ private:
     Vertex depot1_loc;
     Vertex depot2_loc;
     vector<Vertex> targets_locs;
-    vector<int> radii;
+    vector<double> radii;
+    double aver_bry_dist; // average boundary distance
 public:
     InstanceGenerator(int);
     ~InstanceGenerator(){};
@@ -37,7 +38,11 @@ public:
     bool is_point_in_panel(Vertex);
     bool is_intersected(int, int);
     void produce(int);
-    void printInstance();
+    double get_aver_bry_dist();
+    void print_instance();
+    void write_RRARP_instance();
+    void write_TSP_instance();
+
 
     inline static string itos(int i) {stringstream s; s << i; return s.str();};
     inline static string dtos(double i) {stringstream s; s << i; return s.str();};
