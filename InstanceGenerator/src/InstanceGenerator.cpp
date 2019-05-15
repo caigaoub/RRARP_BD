@@ -14,6 +14,7 @@ InstanceGenerator::InstanceGenerator(int var_num_targets,GRBModel *model){
   }
 
   model->set(GRB_IntAttr_ModelSense, 1);
+  model->set(GRB_IntParam_OutputFlag, 0);
   r = new GRBVar[num_targets];
   double UB = 10000000;
   for(int i = 0; i< num_targets; i++){
@@ -24,19 +25,13 @@ InstanceGenerator::InstanceGenerator(int var_num_targets,GRBModel *model){
 
 void InstanceGenerator::produce(int difflevel){
   set_panel({0, 0});
-  while(true){
-    set_locations();
-    get_max_radii();
-    set_radii(difflevel);
-    if(is_in_panel()){
-      /*write the instance*/
-      write_RRARP_instance();
-      write_TSP_instance();
-      get_aver_bry_dist();
-      print_instance();
-      break;
-    }
-  }
+  set_locations();
+  get_max_radii();
+  set_radii(difflevel);
+  write_RRARP_instance();
+  write_TSP_instance();
+  get_aver_bry_dist();
+  print_instance();
 }
 
 void InstanceGenerator::set_panel(Vertex llc){
@@ -52,11 +47,10 @@ void InstanceGenerator::set_panel(Vertex llc){
 }
 
 void InstanceGenerator::set_locations(){
-
-  unsigned int time_ui = static_cast<unsigned int>( time(NULL)%1000 );
-  srand( time_ui );
   int crd_x, crd_y;
   while(true){
+    unsigned int time_ui = static_cast<unsigned int>( time(NULL)%1000 );
+    srand( time_ui );
     for(int i = 0; i < num_targets + 2; i++){
       if (i == 0) {
         crd_x = rand()%(panel_width + 1) + lower_left_corner.x;
@@ -117,19 +111,36 @@ void InstanceGenerator::get_max_radii(){
   /* constraints*/
   double smallest_dist = 100000000;
   double len;
+  for(int i =0; i< num_targets; i++){
+    len = eucl_distance(depot1_loc, targets_locs[i]);
+    cout << "d1" << "-" << i+1 << " : "<< len << endl;
+    model->addConstr(r[i] <= len, "C_d1" + itos(i+1));
+    if (len < smallest_dist){
+      smallest_dist = len;
+    }
+  }
+  for(int i =0; i< num_targets; i++){
+    len = eucl_distance(depot2_loc, targets_locs[i]);
+    cout << "d2" << "-" << i+1 << " : "<< len << endl;
+    model->addConstr(r[i] <= len, "C_d2" + itos(i+1));
+    if (len < smallest_dist){
+      smallest_dist = len;
+    }
+  }
   for(int i = 0; i < num_targets; i++){
     for(int j = 0; j < i; j++){
       len = eucl_distance(targets_locs[i], targets_locs[j]);
-      model->addConstr(r[i] + r[j] <= len, "C_" + itos(i) + itos(j));
+      cout << i+1 << "-" << j+1 << " : "<< len << endl;
+      model->addConstr(r[i] + r[j] <= len, "C_" + itos(i+1) + itos(j+1));
       if (len < smallest_dist){
         smallest_dist = len;
       }
     }
   }
   model->update();
-  double r_LB = min(1.0, smallest_dist/2.0);
+  double r_LB = min(5.0, smallest_dist/2.0);
   for(int i = 0; i < num_targets; i++){
-    r[i] >= r_LB;
+    model->addConstr( r[i] >= r_LB, "Clb_" + itos(i));
   }
   model->update();
   try	{
@@ -150,7 +161,6 @@ void InstanceGenerator::get_max_radii(){
 		cout << "Error during optimization" << endl;
 	}
 }
-
 
 double InstanceGenerator::eucl_distance(Vertex p, Vertex q){
   return sqrt(pow(p.x - q.x, 2) + pow(p.y - q.y, 2));
