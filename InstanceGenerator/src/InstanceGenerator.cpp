@@ -5,7 +5,7 @@
 InstanceGenerator::InstanceGenerator(int var_num_targets,GRBModel *model){
   this->num_targets = var_num_targets;
   this->model = model;
-  this->scale = 10;
+  this->scale = 20;
 
   for(int i = 0;i < num_targets;i++){
     targets_locs.push_back({-1, -1});
@@ -278,7 +278,7 @@ void InstanceGenerator::print_instance(){
 
 void InstanceGenerator::write_RRARP_instance(){
   ofstream myfile;
-  myfile.open("RRARP_instance.dat");
+  myfile.open("RRARP_instance_n_"+ itos(num_targets)+"_E_" + ".dat");
   myfile << num_targets << '\n';
   myfile <<  depot1_loc.x << '\t' << depot1_loc.y << '\n';
   myfile <<  depot2_loc.x << '\t' << depot2_loc.y << '\n';
@@ -294,8 +294,8 @@ void InstanceGenerator::write_RRARP_instance(){
 
 void InstanceGenerator::write_TSP_instance(){
   ofstream of;
-  of.open("TSP_instance.dat");
-  of << num_targets << '\n';
+  of.open("TSP_instance_n_"+ itos(num_targets)+"_E_" + ".dat");
+  of << num_targets + 2 << '\n';
   of <<  depot1_loc.x << '\t' << depot1_loc.y << '\n';
   for(int i =0 ;i<num_targets;i++){
       of << targets_locs[i].x << '\t' << targets_locs[i].y << '\n';
