@@ -32,28 +32,26 @@ private:
 public:
     InstanceGenerator(int, GRBModel*);
     ~InstanceGenerator(){};
+    /* --- Primary functions --- */
     void set_panel(Vertex);
     void set_locations();
-    void set_radii(int);
     void get_max_radii();
-
+    void set_radii(int);
+    void produce(int);
+    /*--- Correctness Check ---*/
     bool is_same_loc();
     bool is_same_loc(Vertex, Vertex);
     bool is_in_panel();
     bool is_disc_in_panel(int);
     bool is_point_in_panel(Vertex);
     bool is_intersected(int, int);
-
-    void produce(int);
+    /* --- Others --- */
     double eucl_distance(Vertex, Vertex);
     double get_aver_bry_dist();
-
-
+    /*--- Output ---*/
     void print_instance();
     void write_RRARP_instance();
     void write_TSP_instance();
-
-
 
     inline static string itos(int i) {stringstream s; s << i; return s.str();};
     inline static string dtos(double i) {stringstream s; s << i; return s.str();};
