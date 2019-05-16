@@ -10,7 +10,10 @@ CPPLIBGRB = -L$(GRBPATH)/lib/ -lgurobi_c++ -lgurobi80 $(CPPSTDLIB) -lpthread -lm
 all:
 	$(CPP) $(CPPARGS) $(SRCPATH)SubtourElimCuts.cpp \
 	$(SRCPATH)STEFormulation.cpp \
-	$(SRCPATH)costInfo.cpp -o $(BINPATH)MainRun $(SRCPATH)main.cpp $(INCGRB) $(CPPLIBGRB)
+	$(SRCPATH)myNameSpace.cpp \
+	$(SRCPATH)DataHandler.cpp \
+	$(SRCPATH)PartiScheme.cpp \
+	$(SRCPATH)CostInfo.cpp -o $(BINPATH)MainRun $(SRCPATH)main.cpp $(INCGRB) $(CPPLIBGRB)
 
 clean:
 	rm -rf $(BINPATH)*.o $(BINPATH)*.dSYM $(BINPATH)main

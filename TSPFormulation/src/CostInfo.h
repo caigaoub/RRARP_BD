@@ -6,22 +6,23 @@
 #include <sstream>
 #include <iostream>
 #include <vector>
+#include "DataHandler.h"
+
 using namespace std;
 
-class costInfo{
+class CostInfo{
 
 private:
-    const char* filename;
+    DataHandler * DH;
     int n;// number of nodes
     double* x;
     double* y;
     double** cost;
 public:
-    ~costInfo();
-    costInfo(const char* filename);
+    ~CostInfo();
+    CostInfo(DataHandler*);
 	  inline double** getCost() { return cost;};
     inline int getNumNodes(){return n;};
-    inline const char* getFileName(){return filename;};
     double getCost (int i, int j);
     void print();
     inline static string itos(int i) {stringstream s; s << i; return s.str();};

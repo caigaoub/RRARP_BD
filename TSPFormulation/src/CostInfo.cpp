@@ -1,23 +1,28 @@
 #include <iostream>
 #include <math.h>
-#include "costInfo.h"
+#include "CostInfo.h"
 #include <algorithm>
 
 using namespace std;
 
-costInfo::costInfo(const char* filename) {
-	this->filename = filename;
-	fstream file(filename);
-	if (!file) {
-		cerr << "ERROR: could not open file '" << filename
-			<< "' for reading" << endl;
-		throw (-1);
-	}
-	file >> n;
+CostInfo::CostInfo(DataHandler* dh_var) {
+	this->DH = dh_var;
+	this->n = DH->get_num_targets() + 2;
 	x = new double[n];
 	y = new double[n];
 	for (int i = 0; i < n; i++) {
-		file >> x[i] >> y[i];
+		if(i == 0){
+			x[i] = DH->get_depot1_loc().x;
+			y[i] = DH->get_depot1_loc().y;
+		}
+		if (i == n-1){
+			x[i] = DH->get_depot2_loc().x;
+			y[i] = DH->get_depot2_loc().y;
+		}
+		if(i != 0 && i != n-1){
+			x[i] = DH->get_target_locs()[i].x;
+			y[i] = DH->get_target_locs()[i].y;
+		}
 	}
 	/* Cost Matrix */
 	cost = new double*[n];
@@ -33,7 +38,7 @@ costInfo::costInfo(const char* filename) {
 	}
 }
 
-double costInfo::getCost(int i, int j){
+double CostInfo::getCost(int i, int j){
     if (i<j)
         return cost[i][j];
     else if(j<i)
@@ -42,15 +47,14 @@ double costInfo::getCost(int i, int j){
         return 0;
 }
 
-void costInfo::print(){
+void CostInfo::print(){
     for (int i=0; i<n; i++)
         for (int j=i+1; j<n; j++){
             cout<<i<<" "<<j<<" "<<cost[i][j]<<endl;
         }
 }
 
-costInfo::~costInfo(){
-
+CostInfo::~CostInfo(){
     for (int i=0; i<n; i++){
         delete(cost[i]);
     }

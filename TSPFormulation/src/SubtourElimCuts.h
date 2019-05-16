@@ -5,7 +5,7 @@
 #include <cstdlib>
 #include <cmath>
 #include <sstream>
-#include "costInfo.h"
+#include "CostInfo.h"
 #include <algorithm>
 using namespace std;
 

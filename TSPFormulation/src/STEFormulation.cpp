@@ -4,13 +4,12 @@
 #include <sstream>
 #include <fstream>
 #include "STEFormulation.h"
-#include "costInfo.h"
+#include "CostInfo.h"
 using namespace std;
 extern void findsubtour(int  n, double** sol, int*  tourlenP, int*  tour);
-STEFormulation::STEFormulation(costInfo* c, GRBModel * model)
+STEFormulation::STEFormulation(CostInfo* c, GRBModel * model)
 {
 	this->cost = c;
-	this->filename = c->getFileName();
 	N = cost->getNumNodes();
 	// set up the model
 	model->set(GRB_IntAttr_ModelSense, 1);
@@ -53,7 +52,7 @@ STEFormulation::STEFormulation(costInfo* c, GRBModel * model)
 	model->update();
 }
 
-void STEFormulation::solve(GRBModel *model)
+void STEFormulation::solve(GRBModel *model, vector<int> & fseq)
 {
 	try
 	{
@@ -63,8 +62,28 @@ void STEFormulation::solve(GRBModel *model)
 		model->optimize();
 		numSubtourConst = cb.get_numSubtourCuts();
 		cout << numSubtourConst << endl;
-		if (model->get(GRB_IntAttr_Status) == GRB_OPTIMAL)
+		if (model->get(GRB_IntAttr_Status) == GRB_OPTIMAL){
 			status = 0;
+			double **sol = new double*[N];
+			int i;
+			for (i = 0; i < N; i++)
+				sol[i] = model->get(GRB_DoubleAttr_X, y[i], N);
+
+			int* tour = new int[N];
+			int len;
+
+			findsubtour(N, sol, &len, tour);
+
+			cout << "Tour: ";
+			for (i = 0; i < len; i++)
+				fseq[i] = tour[i];
+
+			for (i = 0; i < N; i++)
+				delete[] sol[i];
+			delete[] sol;
+			delete[] tour;
+		}
+
 	}
 	catch (GRBException e) {
 		cout << "Error number: " << e.getErrorCode() << endl;
@@ -74,7 +93,7 @@ void STEFormulation::solve(GRBModel *model)
 		cout << "Error during optimization" << endl;
 	}
 }
-
+/*
 void STEFormulation::writeSol(GRBModel * model){
 	if (model->get(GRB_IntAttr_SolCount) > 0)
 	{
@@ -100,8 +119,7 @@ void STEFormulation::writeSol(GRBModel * model){
 		delete[] tour;
 	}
 }
-
-
+*/
 
 void STEFormulation::printSol(GRBModel *model) {
 	if (model->get(GRB_IntAttr_SolCount) > 0)
