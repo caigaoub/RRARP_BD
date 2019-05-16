@@ -16,10 +16,9 @@ CoefReduction::CoefReduction(GRBModel * tsp2, int N) {
 	}
 }
 
-
-void CoefReduction::set_objective(double beta_sink, vector<tuple<int, int, double>> & CoefSet) {
+void CoefReduction::set_objective(double alpha_endDepot, vector<tuple<int, int, double>> & CoefSet) {
 	GRBLinExpr expr = 0;
-	expr += beta_sink;
+	expr += alpha_endDepot;
 	for (unsigned int i = 0; i < CoefSet.size(); i++) {
 		expr -= get<2>(CoefSet[i]) * w[get<0>(CoefSet[i])][get<1>(CoefSet[i])];
 //		cout << get<0>(CoefSet[i]) << " " << get<1>(CoefSet[i]) << endl;
@@ -30,8 +29,6 @@ void CoefReduction::set_objective(double beta_sink, vector<tuple<int, int, doubl
 
 void CoefReduction::set_constraints() {
 	GRBLinExpr expr1, expr2;
-//	GRBLinExpr exprA = 0;
-//	GRBLinExpr exprB = 0;
 	for (int i = 0; i < N; i++) {
 		expr1 = 0;
 		expr2 = 0;
@@ -42,15 +39,9 @@ void CoefReduction::set_constraints() {
 		model->addConstr(expr1 == 1, "Deg1_Row" + itos(i));
 		model->addConstr(expr2 == 1, "Deg1_Col" + itos(i));
 		model->update();
-		//	if (i > 0 && i < N - 1) {
-		//		exprA += i * (w[0][i]);
-		//		exprB += i * (w[i][N - 1]);
-		//	}
 	}
-	//	model_tsp2->addConstr(exprA <= exprB, "C_Inv_Constr");
-	//	model_tsp2->update();
+
 	w[N - 1][0].set(GRB_DoubleAttr_LB, 1);
-//	model->addConstr(w[N - 1][0] == 1, "Sink_2_Source");
 	model->update();
 	for (int i = 0; i < N; i++) {
 		w[i][i].set(GRB_DoubleAttr_UB, 0);

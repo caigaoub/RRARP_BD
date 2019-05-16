@@ -10,17 +10,13 @@
 using namespace std;
 
 class SubtourCuts : public GRBCallback {
-
 private:
 	int N;
 	int num_targets;
 	vector<vector<GRBVar>>  w;
-
 public:
 	SubtourCuts(vector<vector<GRBVar>> &, int);
-//	void check_subcomponents(double**, vector<int>&, int&, vector<int>&);
 	string itos(int i) { stringstream s; s << i; return s.str(); }
-
 protected:
 	void callback();
 };

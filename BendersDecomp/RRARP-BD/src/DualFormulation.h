@@ -22,13 +22,12 @@ private:
 	int num_dstzn;
 	int num_targets;
 
-	GRBVar* beta;
-	GRBVar** alpha;
-	
+	GRBVar* alpha;
+	GRBVar** beta;	
 	int size_alpha;
-	int size_beta;
-
+	int size_constrs;
 	int status_dual;
+
 public:
 	DualFormulation(GRBModel*, PartitionScheme *, int );
 	~DualFormulation();

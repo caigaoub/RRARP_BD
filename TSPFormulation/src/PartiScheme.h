@@ -11,7 +11,6 @@ private:
 	vector<double> par_optOBdist;
 	vector<double> par_varOBdist;
 
-	
 	// members for receiving geographical info
 	int num_targets;
 	Vertex  depot1_loc;
@@ -20,7 +19,6 @@ private:
 	vector<double> radii;
 	vector<double> bdg_rewards;
 	vector<double> risk_thold;
-
 
 	// discretization info
 	int num_dstzn;

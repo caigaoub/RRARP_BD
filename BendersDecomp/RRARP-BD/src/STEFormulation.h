@@ -5,7 +5,7 @@
 #include "gurobi_c++.h"
 #include "PartitionScheme.h"
 #include "BendersCuts.h"
-#include "CoefReduction.h"
+//#include "CoefReduction.h"
 
 using namespace std;
 
@@ -36,7 +36,7 @@ public:
 	pair<double, double> solve_IP_TSP();
 	void get_optimal_sol(double **);
 	double add_USER_cuts(double**);
-	bool add_SEP_cuts(double **);
+	bool add_SECs(double **);
 	void check_cutting_point(int, double**, vector<int> &, int&, vector<int>&);
 	void check_subcomponents(double**, vector<int>&, int&, vector<int>&);
 	void print_num_Benders_cuts() { cout << "Benders' cut: " << num_Benders_cuts_const << endl; }

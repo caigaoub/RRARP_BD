@@ -4,16 +4,19 @@
 #include "myNameClass.h"
 #include "PartitionScheme.h"
 #include "STEFormulation.h"
-#include "CoefReduction.h"
+// #include "CoefReduction.h"
 #include "BendersCuts.h"
 
 using namespace std;
 void Fischetti_method(int , STEFormulation & );
-int main(int argc, const char* argv[]) {
-	const int num_dstzn = atoi(argv[1]);
-	argc = argc; // just for avoid warning: unused argc
-  const char* filename = argv[2];
+int main() {
+//	int argc, const char* argv[]
+//	const int num_dstzn = atoi(argv[1]);
+//	argc = argc; // just for avoid warning: unused argc
+//  const char* filename = argv[2];
 	try {
+		int num_dstzn = 4;
+		const char* filename = "sample_n_10.txt";
 		DataHandler instance(filename);
 		PartitionScheme ps(num_dstzn, instance);
 
@@ -28,8 +31,6 @@ int main(int argc, const char* argv[]) {
 	//	model_tsp.getEnv().set(GRB_IntParam_OutputFlag, 0);
 		STEFormulation STEForm(&model_MP, &ps, &DualForm);
 
-
-		//
 		int algorithm = 1;
 		if (algorithm == 1) {
 			STEForm.solve_IP_TSP();
@@ -40,8 +41,6 @@ int main(int argc, const char* argv[]) {
 		if (algorithm == 2) {
 			Fischetti_method(ps.get_num_targets() + 2, STEForm);
 		}
-
-
 	}
 	catch (const GRBException& ex) {
 		cout << "Error number: " << ex.getErrorCode() << endl;
@@ -50,7 +49,7 @@ int main(int argc, const char* argv[]) {
 	catch (...) {
 		cerr << "Error" << endl;
 	}
-
+	system("pause");
 	return 0;
 }
 
@@ -109,7 +108,7 @@ void Fischetti_method(int N, STEFormulation & stef) {
 	while (is_disconnected || UB - LB > 0.0000001) {
 		cout << "UB: " << UB << "   " << "LB: " << LB << '\n';
 
-		is_disconnected = stef.add_SEP_cuts(y_star); //if one subtour elimi constrait is added, flag is
+		is_disconnected = stef.add_SECs(y_star); //if one subtour elimi constrait is added, flag is
 		if (!is_disconnected) {
 			for (int i = 0; i < N; i++) { // update the stablizer
 				for (int j = 0; j < N; j++) {

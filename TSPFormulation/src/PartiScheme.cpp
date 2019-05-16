@@ -8,35 +8,39 @@
 #define INF numeric_limits<double>::infinity()
 
 PartiScheme::PartiScheme(int k, DataHandler& instance) {
-	// read information about current instance
+	/* retriving basic data info from current instance */
 	this->num_dstzn = k;
 	this->num_targets = instance.get_num_targets();
 	this->depot1_loc = instance.get_depot1_loc();
 	this->depot2_loc = instance.get_depot2_loc();
-// retriving basic data info
-	target_locs.push_back({INF, INF }); // null value when index = 0
+
+	/* for index ease, let all related data start counting from 1 to num_targets */
+	target_locs.push_back({ INF, INF });
 	for (int i = 0; i < num_targets; i++) {
 		target_locs.push_back(instance.get_target_locs()[i]);
 	}
-	radii.push_back(INF); // null value when index = 0
+	radii.push_back(INF);
 	for (int i = 0; i < num_targets; i++)
 		radii.push_back(instance.get_radii()[i]);
-
-	bdg_rewards.push_back(INF); // null value when index = 0
+	bdg_rewards.push_back(INF);
 	for (int i = 0; i < num_targets; i++)
 		bdg_rewards.push_back(instance.get_bdg_rewards()[i]);
-
-	risk_thold.push_back(0); // null value when index = 0
+	risk_thold.push_back(INF);
 	for (int i = 0; i < num_targets; i++)
 		risk_thold.push_back(instance.get_risk_thold()[i]);
 
-	// Graph: G = (V, E), where V is the set {start depot, end depot, entries, exits}
+	/* Graph: G = (V, E), where
+      - node set V: consisting of start depot, end depot, all entries and all exits
+	  - edge set (p,q) in E: a) 0 means no connection existed or zero risk if connection is allowed;
+	                         b) INF means inadmissible path from p to q;
+							 c) positive value means path is admissible;
+	*/
 	num_V = 2 * num_targets * k + 2;
 	G = new double*[num_V];
 	for (int i = 0; i < num_V; i++) {
 		G[i] = new double[num_V]();
 	}
-	//Matrix: each entity in this matrix represents the minimum risk from boundary i to boundary j;
+	/* every entity with positive value represents the minimum risk between boundary i and boundary j */
 	min_risk_mat = new double*[num_targets + 2];
 	for (int i = 0; i < num_targets + 2; i++) {
 		min_risk_mat[i] = new double[num_targets + 2];
@@ -44,13 +48,13 @@ PartiScheme::PartiScheme(int k, DataHandler& instance) {
 	subarc_angle = 2.0 * PI / num_dstzn;
 
 	// parameters initialization for risk&reward functions
-	par_c1.push_back(0);// null value when index = 0
+	par_c1.push_back(0);
 	for (int i = 0; i < num_targets; i++)
 		par_c1.push_back(1);
-	par_optOBdist.push_back(0);// null value when index = 0
+	par_optOBdist.push_back(0);
 	for (int i = 0; i < num_targets; i++)
-		optOBdist.push_back(radii[i+1]/2.0);
-	par_varOBdist.push_back(0);// null value when index = 0
+		par_optOBdist.push_back(radii[i+1]/2.0);
+	par_varOBdist.push_back(0);
 	for (int i = 0; i < num_targets; i++)
 		par_varOBdist.push_back(1);
 
@@ -91,14 +95,13 @@ vector<vector<Vertex>> PartiScheme::get_nodes_crds() {
 	return TP;
 }
 
-
+/*
+As risk&reward functions have rotatory symmetry,  we select one turning point
+and calculate its risk from itself to every other turning point in the each region.
+Keep it in "risk_innerpath"
+*/
 void PartiScheme::get_risk_innerTrajc() {
 	int s, i, j, idx_row, idx_col, flag;
-	/*
-	 As risk&reward functions have rotatory symmetry,  we select one turning point
-	 and calculate its risk from itself to every other turning point in the each region.
-	 Keep it in "risk_innerpath"
-	*/
 	vector<double> risk_innerpath(num_dstzn, -1);
 	double temp_risk_lineseg, temp_reward_lineseg;
 
@@ -109,47 +112,30 @@ void PartiScheme::get_risk_innerTrajc() {
 				risk_innerpath[i] = INF;
 			}
 			else {
-
 			//	temp_risk_lineseg = get_risk_innerTrajc(TP[s][0], TP[s][i], s);
 			//	temp_reward_lineseg = get_reward_innerTrajc(TP[s][0], TP[s][i], s);
 
 				// test the correctness by using euclidean distance
-				temp_risk_lineseg = get_lineSeg_len(TP[s][0], TP[s][i]);  //@@@@@@@@@@@@@@@@@
+				temp_risk_lineseg = get_lineSeg_len(TP[s][0], TP[s][i]);
 				temp_reward_lineseg = get_lineSeg_len(TP[s][0], TP[s][i]);
-
-
-				if (temp_risk_lineseg < max_risks[s] && temp_reward_lineseg >= min_rewards[s]) {
-					// find an admissible inner path
-					risk_innerpath[i] = temp_risk_lineseg;
+				if (temp_risk_lineseg < risk_thold[s] && temp_reward_lineseg >= bdg_rewards[s]) {
+					risk_innerpath[i] = temp_risk_lineseg; 	// find an admissible inner path
 				}
 				else {
 					risk_innerpath[i] = INF;
 				}
 			}
 		}
-
-
+		// write in matrix G
 		idx_row = (s - 1) * 2 * num_dstzn + 1;
 		idx_col = (s - 1) * 2 * num_dstzn + num_dstzn + 1;
 		for (i = 0; i < num_dstzn; i++) {
-			for (j = 0; j < num_dstzn; j++) { // j-th chord at that entry i
-
+			for (j = 0; j < num_dstzn; j++) {
 				flag = (num_dstzn - i + j) % num_dstzn;
 				G[idx_row + i][idx_col + j] = risk_innerpath[flag];
 			}
 		}
-
 	}
-
-	/*
-	cout << "------PRINT-----------" << endl;
-	for (i = 0; i < num_V; i++) {
-		for (j = 0; j < num_V; j++) {
-			cout << G[i][j] << "  ";
-		}
-		cout << "\n";
-	}
-	*/
 }
 
 double PartiScheme::get_reward_innerTrajc(Vertex entry, Vertex exit, int i) {
@@ -163,7 +149,7 @@ double PartiScheme::get_reward_innerTrajc(Vertex entry, Vertex exit, int i) {
 	for (int j = 0; j < num_intervals; j++) {
 		l2 = sqrt(radii[i] * radii[i] - l1 *l1);
 		d = sqrt(l2 *l2 + pow(len_interval * j, 2));
-		double temp = exp(-pow(d - optOBdist[i], 2) / (2 * pow(varOBdist[i], 2)));
+		double temp = exp(-pow(d - par_optOBdist[i], 2) / (2 * pow(par_varOBdist[i], 2)));
 		total_reward = total_reward + temp * len_interval;
 	}
 	total_reward = 2 * total_reward;
@@ -177,23 +163,18 @@ double PartiScheme::get_risk_innerTrajc(Vertex entry, Vertex exit, int i) {
 	return val_risk;
 }
 
+/* Generate the accumulated risk on outer paths*/
 void PartiScheme::get_risk_outerTrajc() {
-	// --------- Step 1:  calculate the risk for outer paths and keep in the matrix G -----------
-	int s, t, i, j;
+	int s, t, i, j, idxmat_1, idxmat_2, idxmat_3, idxmat_4;
 	double val_risk, val_min_risk;
-	// depot <-> boundary t
-	int idxmat_1, idxmat_2, idxmat_3, idxmat_4;
+	// i) start depot <-> boundary t
 	for (t = 1; t <= num_targets; t++) {
-		idxmat_1 = (t - 1) * 2 * num_dstzn + 1; // entry index
-		idxmat_2 = (t - 1) * 2 * num_dstzn + num_dstzn + 1; // exit index
+		idxmat_1 = (t - 1) * 2 * num_dstzn + 1;
 		val_min_risk = INF;
 		for (i = 0; i < num_dstzn; i++) {
-		//	val_risk = get_risk_outerTrajc(TP[t][i], depot_location);
-
-			val_risk = get_lineSeg_len(TP[t][i], depot_location); //@@@@@@@@@@@@@@@@@
-
+		//	val_risk = get_risk_outerTrajc(TP[t][i], depot1_loc);
+			val_risk = get_lineSeg_len(TP[t][i], depot1_loc); // for testing
 			G[0][idxmat_1 + i] = val_risk;
-			G[idxmat_2 + i][0] = val_risk;
 			if (val_risk < val_min_risk) {
 				val_min_risk = val_risk;
 			}
@@ -201,12 +182,10 @@ void PartiScheme::get_risk_outerTrajc() {
 		min_risk_mat[0][t] = val_min_risk;
 		min_risk_mat[t][0] = val_min_risk;
 	}
-
-	// boundary s <-> boudary t
+	// ii) boundary s <-> boudary t
 	for (s = 1; s <= num_targets; s++) {
 		idxmat_1 = (s - 1) * 2 * num_dstzn + num_dstzn + 1; // vertices on boundary s acting as exits
 		idxmat_3 = (s - 1) * 2 * num_dstzn + 1; // vertices on boundary s acting as entries
-
 		for (t = 1; t <= num_targets && s != t; t++) {
 			idxmat_2 = (t - 1) * 2 * num_dstzn + 1; // vertices on boundary t acted as entries
 			idxmat_4 = (t - 1) * 2 * num_dstzn + num_dstzn + 1; // vertices on boundary t acted as exits
@@ -214,8 +193,7 @@ void PartiScheme::get_risk_outerTrajc() {
 			for (i = 0; i < num_dstzn; i++) {
 				for (j = 0; j < num_dstzn; j++) {
 				//	val_risk = get_risk_outerTrajc(TP[s][i], TP[t][j]);
-
-					val_risk = get_lineSeg_len(TP[s][i], TP[t][j]); //@@@@@@@@@@@@@@@@@
+					val_risk = get_lineSeg_len(TP[s][i], TP[t][j]); // for testing
 					G[idxmat_1 + i][idxmat_2 + j] = val_risk;
 					G[idxmat_4 + j][idxmat_3 + i] = val_risk;
 					if (val_risk < val_min_risk) {
@@ -226,8 +204,23 @@ void PartiScheme::get_risk_outerTrajc() {
 			min_risk_mat[s][t] = val_min_risk;
 			min_risk_mat[t][s] = val_min_risk;
 		}
-
 	}
+	// iii) boundary s <->  end depot
+	for (s = 1; s <= num_targets; s++) {
+		idxmat_2 = (s - 1) * 2 * num_dstzn + num_dstzn + 1;
+		val_min_risk = INF;
+		for (i = 0; i < num_dstzn; i++) {
+		//	val_risk = get_risk_outerTrajc(TP[t][i], depot2_loc);
+			val_risk = get_lineSeg_len(TP[s][i], depot2_loc); // for testing
+			G[idxmat_2 + i][num_V - 1] = val_risk;
+			if (val_risk < val_min_risk) {
+				val_min_risk = val_risk;
+			}
+		}
+		min_risk_mat[s][num_targets + 1] = val_min_risk;
+		min_risk_mat[num_targets + 1][s] = val_min_risk;
+	}
+
 	/*
 	ofstream file_G("./matrixG.txt");
 	for (int i = 0; i < num_V; i++) {
@@ -238,17 +231,15 @@ void PartiScheme::get_risk_outerTrajc() {
 	}
 	*/
 
+
 	// ------------  Step 2: subtract the min_risk_mat[s][t] from G[i][j]   -------------
-	/**/
 	for (t = 1; t <= num_targets; t++) {
 		idxmat_1 = (t - 1) * 2 * num_dstzn + 1;
 		idxmat_2 = (t - 1) * 2 * num_dstzn + num_dstzn + 1;
 		for (i = 0; i < num_dstzn; i++) {
 			G[0][idxmat_1 + i] = G[0][idxmat_1 + i] - min_risk_mat[0][t];
-			G[idxmat_2 + i][0] = G[idxmat_2 + i][0] - min_risk_mat[t][0];
 		}
 	}
-
 	for (s = 1; s <= num_targets; s++) {
 		idxmat_1 = (s - 1) * 2 * num_dstzn + num_dstzn + 1; // vertices worked as exits in boundary s
 		idxmat_3 = (s - 1) * 2 * num_dstzn + 1; // vertices worked as entries in boundary s
@@ -263,9 +254,18 @@ void PartiScheme::get_risk_outerTrajc() {
 			}
 		}
 	}
-	for (s = 0; s <= num_targets; s++) {
+	for (s = 1; s <= num_targets; s++) {
+		idxmat_2 = (s - 1) * 2 * num_dstzn + num_dstzn + 1;
+		for (i = 0; i < num_dstzn; i++) {
+			G[idxmat_2 + i][num_V - 1] = G[idxmat_2 + i][num_V - 1] - min_risk_mat[s][num_targets + 1];
+		}
+	}
+
+	for (s = 0; s <= num_targets + 1; s++) {
 		min_risk_mat[s][s] = 0.0;
 	}
+	min_risk_mat[0][num_targets + 1] = 0.0;
+	min_risk_mat[num_targets + 1][0] = 0.0;
 
 	/*
 	cout << "\n";
@@ -277,8 +277,8 @@ void PartiScheme::get_risk_outerTrajc() {
 	}
 
 	cout << "\n";
-	for (i = 0; i <= num_targets; i++) {
-		for (j = 0; j <= num_targets; j++) {
+	for (i = 0; i <= num_targets + 1; i++) {
+		for (j = 0; j <= num_targets + 1; j++) {
 			cout << min_risk_mat[i][j] << "  ";
 		}
 		cout << "\n";
@@ -286,9 +286,9 @@ void PartiScheme::get_risk_outerTrajc() {
 	*/
 }
 
+
 double PartiScheme::get_risk_outerTrajc(Vertex v, Vertex u) {
 	double total_risk = outer_risk_function(get_lineSeg_len(v, u)); // total risk over the line segment
-
 	for (int i = 1; i <= num_targets; i++) { // additional possible risk caused when passing through some region(s)
 		tuple<bool, double, double> result = is_intersected(v, u, i);
 		if (get<0>(result) == true) {
@@ -298,9 +298,11 @@ double PartiScheme::get_risk_outerTrajc(Vertex v, Vertex u) {
 	return total_risk;
 }
 
+
 tuple<bool, double,double> PartiScheme::is_intersected(Vertex v, Vertex u, int i) {
+
 	// line segment v -> u, center is denoted as o;
-	Vertex o = { target_locations[i].x, target_locations[i].y };
+	Vertex o = { target_locs[i].x, target_locs[i].y };
 	myVector v_2_o(v, o); // vector v->o
 	myVector v_2_u(v, u); // vector v->u
 	double len_v_2_o = v_2_o.get_vecLen();
@@ -325,10 +327,10 @@ double PartiScheme::inner_risk_function(double l1, double l2, int i) {
 }
 
 double PartiScheme::outer_risk_function(double dist) {
-	return c * dist;
+	return par_c_hat * dist;
 }
 
-// supporting functions
+/*  supporting functions */
 double PartiScheme::dot_product(myVector vec1, myVector vec2) {
 	return vec1.get_x() * vec2.get_x() + vec1.get_y() * vec2.get_y();
 }
@@ -338,26 +340,28 @@ double PartiScheme::get_lineSeg_len(Vertex v, Vertex u) {
 }
 
 double PartiScheme::solve_shortestpath(vector<vector<double>> & SDS, vector<int> & seq) {
-  int i, idxmat_1, idxmat_2, idxmat_3;
+
+	int idxmat_1, idxmat_2, idxmat_3;
 	vector<double> entry_dist(num_dstzn, INF);
 	vector<double> exit_dist(num_dstzn, INF);
 	vector<double> INF_dist(num_dstzn, INF);
-	double dist_sink = INF;
+	double dist_endDepot = INF;
+
 	double dist = 0.0;
-	//1. depot: SDS is in default set to be 0.0.
+	// i) SDS[start depot] = 0.0
 	SDS[0].resize(1);
 	SDS[0][0] = 0.0;
-	//2: nodes in the first circle
+
+	// ii) SDS[*] of boundary points of the first visited target
 	int pos = 1;
 	int idx_circle = seq[pos];
 	SDS[1].resize(num_dstzn);
-	idxmat_1 = (idx_circle - 1) * 2 * num_dstzn + 1; // 1st entry at first target
-	for (i = 0; i < num_dstzn; i++)	{
+	idxmat_1 = (idx_circle - 1) * 2 * num_dstzn + 1; // index of 1st entry at 1st target visited
+	for (int i = 0; i < num_dstzn; i++)	{
 		entry_dist[i] = G[0][idxmat_1 + i];
 		SDS[1][i] = entry_dist[i];
 	}
-
-	idxmat_2 = (idx_circle - 1) * 2 * num_dstzn + num_dstzn + 1;
+	idxmat_2 = (idx_circle - 1) * 2 * num_dstzn + num_dstzn + 1;  // index of 1st exit at 1st target visited
 	for (int i = 0; i < num_dstzn; i++) {
 		for (int j = 0; j < num_dstzn; j++) {
 			dist = entry_dist[i] + G[idxmat_1 + i][idxmat_2 + j];
@@ -366,17 +370,16 @@ double PartiScheme::solve_shortestpath(vector<vector<double>> & SDS, vector<int>
 		}
 	}
 	entry_dist = INF_dist;
-	//3: nodes from seq[2] to seq[num_circles]
+
+	// iii) nodes from seq[2] to seq[num_circles]
 	int idx_fr_circle = 0;
 	int idx_lat_circle = 0;
-	for (pos = 2; pos <= num_targets; pos++) // circle # seq[2], seq[3], seq[4], seq[5], seq[6]...
-	{
+	for (pos = 2; pos <= num_targets; pos++) {
 		SDS[pos].resize(num_dstzn);
-		idx_fr_circle = seq[pos - 1]; // the idx of front circle
-		idx_lat_circle = seq[pos]; // the idx of latter circle
+		idx_fr_circle = seq[pos - 1];
+		idx_lat_circle = seq[pos];
 		idxmat_1 = (idx_fr_circle - 1) * 2 * num_dstzn + num_dstzn + 1;
 		idxmat_2 = (idx_lat_circle - 1) * 2 * num_dstzn + 1;
-		//update entry
 		for (int i = 0; i < num_dstzn; i++) {
 			for (int j = 0; j < num_dstzn; j++) {
 				dist = exit_dist[i] + G[idxmat_1 + i][idxmat_2 + j];
@@ -384,7 +387,6 @@ double PartiScheme::solve_shortestpath(vector<vector<double>> & SDS, vector<int>
 					entry_dist[j] = dist;
 			}
 		}
-
 		for (int i = 0; i < num_dstzn; i++) {
 			SDS[pos][i] = entry_dist[i];
 		}
@@ -400,15 +402,15 @@ double PartiScheme::solve_shortestpath(vector<vector<double>> & SDS, vector<int>
 		}
 		entry_dist = INF_dist;
 	}
-
+	// iv) the last target <-> the end depot
 	idx_circle = seq[num_targets];
 	SDS[num_targets + 1].resize(1);
 	idxmat_1 = (idx_circle - 1) * 2 * num_dstzn + num_dstzn + 1;
 	for (int i = 0; i < num_dstzn; i++) {
-		dist = exit_dist[i] + G[idxmat_1 + i][0];
-		if (dist < dist_sink)
-			dist_sink = dist;
+		dist = exit_dist[i] + G[idxmat_1 + i][num_V - 1];
+		if (dist < dist_endDepot)
+			dist_endDepot = dist;
 	}
-	SDS[num_targets + 1][0] = dist_sink;
-	return dist_sink;
+	SDS[num_targets + 1][0] = dist_endDepot;
+	return dist_endDepot;
 }

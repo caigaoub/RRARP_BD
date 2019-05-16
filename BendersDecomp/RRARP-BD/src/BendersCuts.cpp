@@ -1,7 +1,7 @@
 #include "BendersCuts.h"
 #include "SubtourCuts.h"
 #include <tuple>
-#include "CoefReduction.h"
+//#include "CoefReduction.h"
 
 void print_sequence(vector<int> * fseq) {
 	cout << "sequence: ";
@@ -14,7 +14,6 @@ void print_sequence(vector<int> * fseq) {
 
 BendersCuts::BendersCuts(GRBModel* m_tsp, GRBVar** yVars, GRBVar* vVar, PartitionScheme* PSVar, DualFormulation* dl) {
 
-
 	this->model_tsp = m_tsp;
 	this->DL = dl;
 	y = yVars;
@@ -25,19 +24,19 @@ BendersCuts::BendersCuts(GRBModel* m_tsp, GRBVar** yVars, GRBVar* vVar, Partitio
 	this->num_dstzn = PSVar->get_num_dstzn();
 	G = PS->get_G();
 
-	this->fseq = new vector<int>(N, 0);
-	flag = 1;
+	for (int i = 0; i <= num_targets; i++)
+		fseq.push_back(-1);
 
 	num_Benders_cuts = 0;
 	num_subtour_cuts = 0;
-	count = 0;
+
+
 //	evn_CoefRedc = new GRBEnv();
 //	model_CoefRedc = new GRBModel(*evn_CoefRedc);
 //	model_CoefRedc->getEnv().set(GRB_IntParam_OutputFlag, 0);
 }
-
+/*
 double BendersCuts::improve_coef(int s, int t, double beta_sink, vector<tuple<int, int, double>> & CoefSet) {
-
 
 	GRBEnv * evn_CoefRedc = new GRBEnv();
 	GRBModel model_CoefRedc = GRBModel(*evn_CoefRedc);
@@ -51,88 +50,58 @@ double BendersCuts::improve_coef(int s, int t, double beta_sink, vector<tuple<in
 	return gain;
 
 }
-
+*/
 
 void BendersCuts::callback() {
 	try {
-		if (where == GRB_CB_MIPSOL) {
-			int i;
-
+		if (where == GRB_CB_MIPSOL) {		
 			double **y_sol = new double*[N];
-			for (i = 0; i < N; i++) {
+			for (int i = 0; i < N; i++) {
 				y_sol[i] = new double[N];
 				y_sol[i] = getSolution(y[i], N);
 			}
-
-			vector<int> tour;
-			int num_subcompts = 0;
-			vector<int> size_subcompts;
-			check_subcomponents(y_sol, tour, num_subcompts, size_subcompts);
-
-			if (num_subcompts > 1) {
+			int *tour = new int[N];
+			int len;
+			findsubtour(N, y_sol, &len, tour);
+			if (len < N) {
 				GRBLinExpr expr = 0;
-				int size;
-				// if the graph has only two components, add just one constraints
-				int num_subtourelim_constraints = ((num_subcompts == 2) ? 1 : num_subcompts);
-				int start = 0;
-				for (int i = 0; i < num_subtourelim_constraints; i++) {
-					expr = 0;
-					size = size_subcompts[i];
-					for (int j = 0; j < size; j++) {
-						for (int k = j + 1; k < size; k++) {
-							expr += y[tour[start + j]][tour[start + k]] + y[tour[start + k]][tour[start + j]];
-						}
+				for (int i = 0; i < len; i++) {
+					for (int j = i + 1; j < len; j++) {
+						expr += y[tour[i]][tour[j]] + y[tour[j]][tour[i]];
 					}
-					start += size;
-					addLazy(expr <= size - 1);
-					num_subtour_cuts++;
 				}
+				addLazy(expr <= len - 1);
+				num_subtour_cuts++;
 			}
-			else {
-
-				int *tour2 = new int[N];
-
-				int i, len;
-				findsubtour(N, y_sol, &len, tour2);
-
-				// add Benders optimality cuts by solving shortest path problem
-				vector<int> fseq2(N);
-				for (i = 1; i < len; i++) {
-					fseq2.at(i) = tour2[i];
-				}
-
-				if (!is_inSeqPool(fseq2)) {
-					SeqPool.push_back(fseq2);
-			//		print_sequence(&fseq2);
-
-					SDS = new vector<vector<double>>(num_targets + 2);
-					PS->solve_shortestpath(*SDS, fseq2);
-
-					expr = 0;
-					expr = generate_Benderscut_SP(&fseq2);
-
-					addLazy(expr >= 0);
-					num_Benders_cuts++;
-				}
-
+			else {		
 				/*
+				// add Benders optimality cuts by solving shortest path problem
+				for (int i = 0; i < N - 1; i++) {
+					fseq.at(i) = tour[i];
+				}
+				SDS = new vector<vector<double>>(num_targets + 2);
+				PS->solve_shortestpath(*SDS, fseq);
+				expr = 0;
+				expr = generate_Benderscut_SP(&fseq);
+				addLazy(expr >= 0);
+				num_Benders_cuts++;
+				vector<int> fseq2(N);
+				*/				
+	
 				// Test the correctness of adding Benders cuts by solving the dual model
 				DL->set_objective(y_sol);
 				double dist = DL->solve();
 				expr = 0;
 				DL->get_Benders_user_cut(expr, y);
 				addLazy(expr <= *v);
-				num_Benders_cuts++;
-				*/
+				num_Benders_cuts++;							
 			}
-
-			for (i = 0; i < N; i++)
+			
+			for (int i = 0; i < N; i++)
 				delete[] y_sol[i];
 			delete[] y_sol;
+			delete[] tour;
 		}
-
-	//	if (where == GRB_CB_MIPNODE && getDoubleInfo(GRB_CB_MIPNODE_SOLCNT) < 2 )
-
 	}
 	catch (GRBException e) {
 		cout << "Error number: " << e.getErrorCode() << endl;
@@ -141,19 +110,13 @@ void BendersCuts::callback() {
 	catch (...) {
 		cout << "Error during callback" << endl;
 	}
-
-
 }
 
-
-// generate Benders optimality cuts by solving shortest path problem
+/* Function:  generate Benders optimality cuts by solving shortest path problem */
 GRBLinExpr BendersCuts::generate_Benderscut_SP(vector<int> * fseq) {
-
 	int i, j, idx_circle, idxmat_1, idxmat_2;
 	double coef, dist;
-
 	double sd = (*SDS)[num_targets + 1][0]; // sink node (depot)
-
 	vector<tuple<int, int, double>>  CoefSet;
 	double smallest_coef = INFINITY;
 	// (1) node weight from 0 to all nodes in each circle
@@ -173,7 +136,6 @@ GRBLinExpr BendersCuts::generate_Benderscut_SP(vector<int> * fseq) {
 		if (coef < smallest_coef) {
 			smallest_coef = coef;
 		}
-
 		CoefSet.push_back(make_tuple(0, idx_circle, coef));
 	//	expr += coef * y[0][idx_circle];
 	}
@@ -199,13 +161,11 @@ GRBLinExpr BendersCuts::generate_Benderscut_SP(vector<int> * fseq) {
 					break;
 				}
 			}
-
 			if (coef < smallest_coef) {
 				smallest_coef = coef;
 			}
 			if (coef > 0.000001)
 				CoefSet.push_back(make_tuple(circle_from, circle_to, coef));
-
 		//	expr += coef * y[circle_from][circle_to];
 
 		}
@@ -278,7 +238,6 @@ GRBLinExpr BendersCuts::generate_Benderscut_SP(vector<int> * fseq) {
 		count++;
 	}
 	cout << endl;
-
 	*/
 	for (unsigned int i = 0; i < CoefSet.size(); i++) {
 		expr += get<2>(CoefSet[i]) * y[get<0>(CoefSet[i])][get<1>(CoefSet[i])];
@@ -287,8 +246,6 @@ GRBLinExpr BendersCuts::generate_Benderscut_SP(vector<int> * fseq) {
 //	cout << endl;
 
 	expr = expr + *v - sd;
-
-
 	delete SDS;
 	return expr;
 }
@@ -297,10 +254,8 @@ void BendersCuts::findsubtour(int  n, double** sol, int*  tourlenP, int*  tour) 
 	bool* seen = new bool[n];
 	int bestind, bestlen;
 	int i, node, len, start;
-
 	for (i = 0; i < n; i++)
 		seen[i] = false;
-
 	start = 0;
 	bestlen = n + 1;
 	bestind = -1;
@@ -320,7 +275,7 @@ void BendersCuts::findsubtour(int  n, double** sol, int*  tourlenP, int*  tour) 
 					break;
 				}
 			}
-			if (i == n) {
+			if (i == n) { // all adj(node) are visited 
 				len++;
 				if (len < bestlen) {
 					bestlen = len;
@@ -339,144 +294,12 @@ void BendersCuts::findsubtour(int  n, double** sol, int*  tourlenP, int*  tour) 
 	delete[] seen;
 }
 
-
-bool BendersCuts::is_inSeqPool(vector<int> & seqVar) {
-
-	bool isIn = false;
-	bool isSame;
-	for (unsigned int i = 0; i < SeqPool.size(); i++) {
-		isSame = true;
+void BendersCuts::print_ySol(double ** y_sol) {
+	for (int i = 0; i < N; i++) {
 		for (int j = 0; j < N; j++) {
-			if (SeqPool[i][j] != seqVar.at(j)) {
-				isSame = false;
-				break;
-			}
+			cout << y_sol[i][j] << "   ";
 		}
-		if (isSame == true) {
-			isIn = true;
-		}
-	}
-
-	return isIn;
-
-}
-
-
-void BendersCuts::check_subcomponents(double** sol, vector<int>& tour, int& num_subcompts, vector<int>& size_subcompts) {
-	int i, node, cur_node;
-
-	bool* seen = new bool[N];
-	for (i = 0; i < N; i++) {
-		seen[i] = false; // all targets are unvisited at first
-	}
-
-	queue<int> que;
-	que.push(0); // always begin by node 0.
-	seen[0] = true; // node 0 is labeled as 'seen'.
-
-
-	tour.push_back(0);
-	int total_num_visited = 0;
-	num_subcompts = 1; // at least one component exists
-	int num_visited_cursubtour; // number of visited nodes in the current subtour
-
-	while (true) {
-		num_visited_cursubtour = 1;
-		while (!que.empty()) {
-			// extract the first node out of queue
-			cur_node = que.front();
-			que.pop();
-			for (i = 0; i < N; i++) {
-				if (sol[cur_node][i] > 0.001 && !seen[i]) {
-					que.push(i); // push those unvisited nodes into the queue
-					seen[i] = true;
-					tour.push_back(i);
-					num_visited_cursubtour++;
-				}
-			}
-		}
-
-		size_subcompts.push_back(num_visited_cursubtour);
-		total_num_visited += num_visited_cursubtour;
-		if (num_visited_cursubtour == N) { // only one component exists and all nodes are visited
-			break;
-		}
-		else if (total_num_visited == N) { // multiple components exist and all nodes are visited
-			break;
-		}
-
-		for (node = 0; node < N; node++) { // if there exists unvisited target(s), start with visiting one of its node
-			if (!seen[node]) {
-				num_subcompts++;
-				que.push(node);
-				seen[node] = true;
-				tour.push_back(node);
-				break;
-			}
-		}
-
-	}
-
-	delete[] seen;
-}
-
-void BendersCuts::check_cutting_point(int cuttingPoint, double** sol, vector<int> & tour, int& num_subcompts, vector<int>& size_subcompts) {
-	int i, node, cur_node;
-	vector<bool> seen(N, false);
-	seen[cuttingPoint] = true;
-
-	queue<int> que;
-	if (cuttingPoint == 0) {
-		que.push(1);
-		tour.push_back(1);
-		seen[1] = true;
-	}
-	else {
-		que.push(0);
-		tour.push_back(0);
-		seen[0] = true;
-	}
-
-	int total_num_visited = 0;
-	num_subcompts = 1;
-	int cur_subtour_visited; // number of visited nodes
-
-	while (true) {
-		cur_subtour_visited = 1;
-		while (!que.empty()) {
-			// pop out the first node of the queue
-			cur_node = que.front();
-			que.pop();
-
-			for (i = 0; i < N; i++) {
-				if (sol[cur_node][i] > 0.001 && !seen[i]) {
-					que.push(i);
-					seen[i] = true;
-					tour.push_back(i);
-					cur_subtour_visited++;
-				}
-			}
-		}
-
-		size_subcompts.push_back(cur_subtour_visited);
-		total_num_visited += cur_subtour_visited;
-		if (cur_subtour_visited == N - 1) {
-			break;
-		}
-		else if (total_num_visited == N - 1) {
-			break;
-		}
-
-		for (node = 0; node < N; node++) {
-			if (!seen[node]) {
-				num_subcompts++;
-				que.push(node);
-				tour.push_back(node);
-				seen[node] = true;
-				break;
-			}
-		}
-
+		cout << endl;
 	}
 
 }
