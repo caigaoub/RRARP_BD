@@ -54,7 +54,7 @@ double BendersCuts::improve_coef(int s, int t, double beta_sink, vector<tuple<in
 
 void BendersCuts::callback() {
 	try {
-		if (where == GRB_CB_MIPSOL) {		
+		if (where == GRB_CB_MIPSOL) {
 			double **y_sol = new double*[N];
 			for (int i = 0; i < N; i++) {
 				y_sol[i] = new double[N];
@@ -73,8 +73,7 @@ void BendersCuts::callback() {
 				addLazy(expr <= len - 1);
 				num_subtour_cuts++;
 			}
-			else {		
-				/*
+			else {
 				// add Benders optimality cuts by solving shortest path problem
 				for (int i = 0; i < N - 1; i++) {
 					fseq.at(i) = tour[i];
@@ -86,17 +85,18 @@ void BendersCuts::callback() {
 				addLazy(expr >= 0);
 				num_Benders_cuts++;
 				vector<int> fseq2(N);
-				*/				
-	
+
+				/*
 				// Test the correctness of adding Benders cuts by solving the dual model
 				DL->set_objective(y_sol);
 				double dist = DL->solve();
 				expr = 0;
 				DL->get_Benders_user_cut(expr, y);
 				addLazy(expr <= *v);
-				num_Benders_cuts++;							
+				num_Benders_cuts++;
+				*/
 			}
-			
+
 			for (int i = 0; i < N; i++)
 				delete[] y_sol[i];
 			delete[] y_sol;
@@ -275,7 +275,7 @@ void BendersCuts::findsubtour(int  n, double** sol, int*  tourlenP, int*  tour) 
 					break;
 				}
 			}
-			if (i == n) { // all adj(node) are visited 
+			if (i == n) { // all adj(node) are visited
 				len++;
 				if (len < bestlen) {
 					bestlen = len;

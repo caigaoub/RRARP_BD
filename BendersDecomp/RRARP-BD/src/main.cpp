@@ -9,14 +9,13 @@
 
 using namespace std;
 void Fischetti_method(int , STEFormulation & );
-int main() {
-//	int argc, const char* argv[]
-//	const int num_dstzn = atoi(argv[1]);
-//	argc = argc; // just for avoid warning: unused argc
-//  const char* filename = argv[2];
+int main(int argc, const char* argv[]) {
+ argc = argc; // just for avoid warning: unused argc
+ const char* filename = argv[1];
+ const int num_dstzn = atoi(argv[2]);
 	try {
-		int num_dstzn = 4;
-		const char* filename = "sample_n_10.txt";
+//		int num_dstzn = 4;
+//		const char* filename = "sample_n_10.txt";
 		DataHandler instance(filename);
 		PartitionScheme ps(num_dstzn, instance);
 
@@ -49,7 +48,7 @@ int main() {
 	catch (...) {
 		cerr << "Error" << endl;
 	}
-	system("pause");
+//	system("pause");
 	return 0;
 }
 
