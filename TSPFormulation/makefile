@@ -13,7 +13,7 @@ all:
 	$(SRCPATH)myNameSpace.cpp \
 	$(SRCPATH)DataHandler.cpp \
 	$(SRCPATH)PartiScheme.cpp \
-	$(SRCPATH)CostInfo.cpp -o $(BINPATH)MainRun $(SRCPATH)main.cpp $(INCGRB) $(CPPLIBGRB)
+	$(SRCPATH)CostInfo.cpp -g -o $(BINPATH)MainRun $(SRCPATH)main.cpp $(INCGRB) $(CPPLIBGRB)
 
 clean:
 	rm -rf $(BINPATH)*.o $(BINPATH)*.dSYM $(BINPATH)main

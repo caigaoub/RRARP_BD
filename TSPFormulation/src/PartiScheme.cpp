@@ -231,7 +231,7 @@ void PartiScheme::get_risk_outerTrajc() {
 	}
 	*/
 
-
+	/*
 	// ------------  Step 2: subtract the min_risk_mat[s][t] from G[i][j]   -------------
 	for (t = 1; t <= num_targets; t++) {
 		idxmat_1 = (t - 1) * 2 * num_dstzn + 1;
@@ -266,7 +266,7 @@ void PartiScheme::get_risk_outerTrajc() {
 	}
 	min_risk_mat[0][num_targets + 1] = 0.0;
 	min_risk_mat[num_targets + 1][0] = 0.0;
-
+	*/
 	/*
 	cout << "\n";
 	for (i = 0; i < num_V; i++) {

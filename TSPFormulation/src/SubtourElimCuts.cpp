@@ -1,14 +1,10 @@
 #include "SubtourElimCuts.h"
 
-SubtourElimCuts::SubtourElimCuts(GRBVar** yVars, int yn)
-{
+SubtourElimCuts::SubtourElimCuts(GRBVar** yVars, int yn){
 	y = yVars;
 	N = yn;
-
 	numSubtourCuts = 0;
-
 }
-
 
 void findsubtour(int  n, double** sol, int*  tourlenP, int*  tour)
 {
@@ -60,7 +56,7 @@ void findsubtour(int  n, double** sol, int*  tourlenP, int*  tour)
 void SubtourElimCuts::callback()
 {
 	try {
-		if (where == GRB_CB_MIPSOL) 
+		if (where == GRB_CB_MIPSOL)
 		{
 			// Found an integer feasible solution - does it visit every node?
 			double **x = new double*[N];
@@ -76,7 +72,7 @@ void SubtourElimCuts::callback()
 			{
 			//	for (j = 0; j < N; j++)
 			//	{
-					
+
 				//	cout << x[i][j] << '\t';
 			//	x[i] = getSolution(y[i], N);
 				//}
@@ -106,7 +102,7 @@ void SubtourElimCuts::callback()
 			*/
 			findsubtour(N, x, &len, tour);
 
-			if (len < N) 
+			if (len < N)
 			{
 				// Add subtour elimination constraint
 				GRBLinExpr expr = 0;
@@ -131,4 +127,3 @@ void SubtourElimCuts::callback()
 		cout << "Error during callback" << endl;
 	}
 }
-

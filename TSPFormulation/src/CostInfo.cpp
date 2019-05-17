@@ -7,7 +7,7 @@ using namespace std;
 
 CostInfo::CostInfo(DataHandler* dh_var) {
 	this->DH = dh_var;
-	this->n = DH->get_num_targets() + 2;
+	this-> n = DH->get_num_targets() + 2;
 	x = new double[n];
 	y = new double[n];
 	for (int i = 0; i < n; i++) {
