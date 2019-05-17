@@ -28,15 +28,19 @@ int main(	int argc, const char* argv[]) {
 
 		GRBEnv * evn_MP = new GRBEnv();
 		GRBModel model_MP = GRBModel(*evn_MP);
-	//	model_tsp.getEnv().set(GRB_IntParam_OutputFlag, 0);
+		model_MP.getEnv().set(GRB_IntParam_OutputFlag, 0);
 		STEFormulation STEForm(&model_MP, &ps, &DualForm);
 
 		int algorithm = 1;
 		if (algorithm == 1) {
-			STEForm.solve_IP_TSP();
-			STEForm.printSol(&model_MP);
-			STEForm.print_num_Benders_cuts();
-			STEForm.print_num_subtour_cuts();
+	     pair<double, double> ret	=	STEForm.solve_IP_TSP();
+	//	 STEForm.printSol(&model_MP);
+	//   STEForm.print_num_Benders_cuts();
+	//	 STEForm.print_num_subtour_cuts();
+      fstream fs;
+	    fs.open("./ret/opt_objval.dat", fstream::app);
+	    fs << ret.first << '\n';
+	    fs.close();
 		}
 		if (algorithm == 2) {
 			Fischetti_method(ps.get_num_targets() + 2, STEForm);

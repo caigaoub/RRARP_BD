@@ -29,6 +29,10 @@ int main(int argc, char * argv[]){
 	vector<vector<double>> SDS(instance.get_num_targets() + 2);
 	double val = ps.solve_shortestpath(SDS, fseq);
 	cout << "RRARP tour by TSP: " << val << endl;
+	fstream fs;
+	fs.open("./out/tsp_objval.dat", fstream::app);
+	fs << val << '\n';
+	fs.close();
 //	system("pause");
 	return 0;
 }
