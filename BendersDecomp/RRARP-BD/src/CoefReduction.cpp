@@ -4,7 +4,7 @@
 CoefReduction::CoefReduction(GRBModel * tsp2, int N) {
 	this->N = N;
 	this->model = tsp2;
-	model->set(GRB_IntParam_LazyConstraints, 1);
+	model->getEnv().set(GRB_IntParam_LazyConstraints, 1);
 	w = vector<vector<GRBVar>>(N);
 	for (int i = 0; i < N; i++) {
 		w[i].resize(N);
