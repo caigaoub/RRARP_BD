@@ -11,13 +11,13 @@ using namespace std;
 
 class STEFormulation {
 private:
-	
+
 	int N;
 	GRBModel* model;
 	GRBVar** y;
 	GRBVar* v;
 
-	// -- used for accepting para. 
+	// -- used for accepting para.
 	PartitionScheme* PS;
 	DualFormulation * DL;
 	double** min_risk_mat;
@@ -41,6 +41,8 @@ public:
 	void check_subcomponents(double**, vector<int>&, int&, vector<int>&);
 	void print_num_Benders_cuts() { cout << "Benders' cut: " << num_Benders_cuts_const << endl; }
 	void print_num_subtour_cuts() { cout << "Subtour' cut: " << num_subtour_cuts_const << endl; }
+	int get_num_Benders_cuts() { return num_Benders_cuts_const; }
+	int get_num_subtour_cuts() { return num_subtour_cuts_const; }
 	string itos(int i) { stringstream s; s << i; return s.str(); }
 	void set_model_MIP();
 	void set_model_LP();

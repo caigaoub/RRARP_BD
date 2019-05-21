@@ -1,11 +1,10 @@
 #include "GlobalMC.h"
 #include <float.h>
-#include<bits/stdc++.h>
+//#include<bits/stdc++.h>
 
 using namespace std;
 
-GlobalMC::GlobalMC(int n, int m, double** x)
-{
+GlobalMC::GlobalMC(int n, int m, double** x) {
 	mc_n = n;
 	mc_m = m;
 	nodePartition.resize(n);
@@ -37,7 +36,6 @@ GlobalMC::GlobalMC(int n, int m, double** x)
 			}
 		}
 	}
-
 }
 
 pair<int, int> GlobalMC::getKey(int v1, int v2) {
@@ -126,57 +124,35 @@ std::tuple<double, std::unordered_set<Edge*>, std::vector<int>> GlobalMC::Global
 		mc_mrg_edges.insert(pair<pair<int, int>, vector<pair<int, int>>>(my_e.first, vector<pair<int, int>>()));
 		mc_mrg_edges.at(my_e.first).push_back(my_e.first);
 	}
-
 	set<int> A;
 	double gMinCut = DBL_MAX;
 	double tmpMinCut = -1;
 	vector<int> partition;
-
 	//set<int> inA;
 	int u = -1; //neighbor
-//	int u1;
 	int vm = -1;
-//	int k;
-
 	//vector<int> verID;
 	vector<vector<pair<int, int>>> mySol;
 	vector<pair<int, int>> tmp_cut, tmp_mc;
 	map<int, int> revVerID;
 	//minCut update phase
-
-	//int cnt = 0;
-	//int err_num = 3;
-	while (mc_n > 1)
-	{
-		//cout << ++cnt << endl;
-		//if (cnt == err_num){
-		//	int tt00 = 0;
-		//}
+	while (mc_n > 1){
 		A.clear(); //clear set A
-
-
-				   //ini the vector of min-cut
+        //ini the vector of min-cut
 		mySol.clear();
 		mySol.assign(mc_n, vector<pair<int, int>>());
-
-
 		//(v, cost)
 		typedef pair<const int, double>* prim_node;
-
 		struct mycomp {
-			bool operator() (const prim_node v1, const prim_node v2) const
-			{
+			bool operator() (const prim_node v1, const prim_node v2) const	{
 				return v1->second < v2->second;
 			};
 		};
 		typedef boost::heap::fibonacci_heap<prim_node, boost::heap::compare<mycomp>> my_heap;
-
 		my_heap use_heap;
 		map<int, my_heap::handle_type> keys;
 		map<int, double> nodes_set;
-
 		//initial the minimal element
-
 		int ini = 0;
 		for (set<int>::iterator it = mcVers.begin(); it != mcVers.end(); ++it) {
 			if (ini == 0) {
@@ -187,28 +163,21 @@ std::tuple<double, std::unordered_set<Edge*>, std::vector<int>> GlobalMC::Global
 				nodes_set.insert(pair<int, double>(*it, 0));
 			}
 		}
-
 		//initialize the heap
 		for (map<int, double>::iterator it = nodes_set.begin(); it != nodes_set.end(); ++it) {
 			keys.insert(pair<int, my_heap::handle_type>(it->first, use_heap.push(&(*it))));
 		}
-
-
 		prim_node v_m = NULL;
 		prim_node u_m = NULL;
 		//minCut calc phase
 		while (A.size() <= (mc_n - 1)) {
-
 			//get mincut
 			if (A.size() == (mc_n - 1)) {
-
 				u_m = use_heap.top();
 				use_heap.pop();
 				keys.erase(u_m->first);
-
 				//u_m = PQ->extractMin();
 				tmpMinCut = u_m->second;
-
 				u = u_m->first;
 				tmp_cut.clear();
 				for (int v : mcAdjVers.at(u)) {
@@ -217,15 +186,12 @@ std::tuple<double, std::unordered_set<Edge*>, std::vector<int>> GlobalMC::Global
 					pair<int, int> my_p(v1, v2);
 					tmp_cut.insert(tmp_cut.end(), mc_mrg_edges.at(my_p).begin(), mc_mrg_edges.at(my_p).end());
 				}
-
 				vm = v_m->first;
 				break;
 			}
-
 			v_m = use_heap.top();
 			use_heap.pop();
 			keys.erase(v_m->first);
-
 			//A.push_back(v_m->first);
 			A.insert(v_m->first);
 			//inA.at(v_m->first) = true;
@@ -245,16 +211,12 @@ std::tuple<double, std::unordered_set<Edge*>, std::vector<int>> GlobalMC::Global
 						nodes_set.at(u_0) += mcEdges.at(eKey)->w;
 						use_heap.increase(keys.at(u_0));
 					}
-
 				}
-
 			}
-
 		}
 		//delete PQ;
 		//merge v_m->v and u
 		MergeVers(vm, u);
-
 		//update new global min-cut
 		if (tmpMinCut < gMinCut) {
 			gMinCut = tmpMinCut;

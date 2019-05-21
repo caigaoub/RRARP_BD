@@ -35,8 +35,8 @@ private:
 //	GRBModel * model_CoefRedc;
 //	CoefReduction * CR;
 
-	unsigned int num_Benders_cuts;
-	unsigned int num_subtour_cuts;
+	int num_Benders_cuts;
+	int num_subtour_cuts;
 
 
 public:
@@ -45,6 +45,7 @@ public:
 	inline int get_num_Benders_cuts() { return num_Benders_cuts; }
 	inline int get_num_subtour_cuts() { return num_subtour_cuts; }
 	GRBLinExpr generate_Benderscut_SP(vector<int> *);
+  GRBLinExpr generate_StrongBenderscut(vector<int> *);
 	string itos(int i) { stringstream s; s << i; return s.str(); }
 	void print_ySol(double**);
 //	double improve_coef(int, int, double, vector<tuple<int, int, double>> &);

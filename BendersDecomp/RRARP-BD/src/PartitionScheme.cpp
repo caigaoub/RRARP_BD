@@ -6,7 +6,7 @@
 
 #define PI atan(1.0) * 4
 #define INF numeric_limits<double>::infinity()
-
+#define M  10000000;
 PartitionScheme::PartitionScheme(int k, DataHandler& instance) {
 	/* retriving basic data info from current instance */
 	this->num_dstzn = k;
@@ -65,15 +65,6 @@ PartitionScheme::PartitionScheme(int k, DataHandler& instance) {
 	get_risk_outerTrajc(); // 'min_risk_mat' is generated in this function.
 }
 
-
-PartitionScheme::~PartitionScheme() {
-//	delete target_locations;
-	for (int i = 0; i < num_V; i++) {
-		delete[] G[i];
-	}
-	delete[] G;
-}
-
 vector<vector<Vertex>> PartitionScheme::get_nodes_crds() {
 	// 0. all discretized boundary points are called turning point (TP)
 	TP.resize(num_targets + 2);
@@ -112,10 +103,9 @@ void PartitionScheme::get_risk_innerTrajc() {
 				risk_innerpath[i] = INF;
 			}
 			else {
-			//	temp_risk_lineseg = get_risk_innerTrajc(TP[s][0], TP[s][i], s);
-			//	temp_reward_lineseg = get_reward_innerTrajc(TP[s][0], TP[s][i], s);
-
-				// test the correctness by using euclidean distance
+		//		temp_risk_lineseg = get_risk_innerTrajc(TP[s][0], TP[s][i], s);
+		//		temp_reward_lineseg = get_reward_innerTrajc(TP[s][0], TP[s][i], s);
+			//  test the correctness by using euclidean distance
 				temp_risk_lineseg = get_lineSeg_len(TP[s][0], TP[s][i]);  
 				temp_reward_lineseg = get_lineSeg_len(TP[s][0], TP[s][i]);
 				if (temp_risk_lineseg < risk_thold[s] && temp_reward_lineseg >= bdg_rewards[s]) {
@@ -323,6 +313,7 @@ tuple<bool, double,double> PartitionScheme::is_intersected(Vertex v, Vertex u, i
 
 double PartitionScheme::inner_risk_function(double l1, double l2, int i) {
 	double T = 2 * par_c1[i] * atan(l1 / l2) / l2;
+	
 	return T;
 }
 
@@ -413,4 +404,12 @@ void PartitionScheme::solve_shortestpath(vector<vector<double>> & SDS, vector<in
 			dist_endDepot = dist;
 	}
 	SDS[num_targets + 1][0] = dist_endDepot;
+}
+
+PartitionScheme::~PartitionScheme() {
+	//	delete target_locations;
+	for (int i = 0; i < num_V; i++) {
+		delete[] G[i];
+	}
+	delete[] G;
 }

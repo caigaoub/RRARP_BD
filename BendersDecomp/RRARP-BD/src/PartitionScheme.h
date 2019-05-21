@@ -1,3 +1,12 @@
+/*
+  PartitionScheme.h & PartitionScheme.cpp
+  a)  accept basic target info and output geographical locations of discretized points:
+  b)  risk & reward functions 
+  c)  risk & rewward info along all possible paths
+*/
+
+
+
 #ifndef _PARTITIONSCHEME_H_
 #define _PARTITIONSCHEME_H_
 #include "DataHandler.h"
@@ -23,8 +32,9 @@ private:
 	vector<vector<Vertex>> TP;
 	int num_V;
 	double** G;	
-	double** min_risk_mat;// minimum risk for every pair of boundaries
+	double** min_risk_mat;// minimum risk between every pair of boundaries
 
+	// params in risk & reward functions
 	vector<double> par_c1;
 	double par_c_hat; 
 	vector<double> par_optOBdist;
@@ -56,7 +66,6 @@ public:
 	double get_lineSeg_len(Vertex, Vertex);
 	void solve_shortestpath(vector<vector<double>> &, vector<int> &);
 };
-
 
 
 #endif // !_PAR

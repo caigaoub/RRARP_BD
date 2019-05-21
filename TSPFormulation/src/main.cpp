@@ -20,7 +20,7 @@ int main(int argc, char * argv[]){
 	GRBModel model = GRBModel(*env);
 	model.getEnv().set(GRB_DoubleParam_TimeLimit,1000);
 	model.getEnv().set(GRB_IntParam_OutputFlag, 0);
-  /*run the instance */
+   /*run the instance */
 	STEFormulation STEForm(&cost, &model);
 	vector<int> fseq(instance.get_num_targets() + 2);
 	STEForm.solve(&model, fseq);

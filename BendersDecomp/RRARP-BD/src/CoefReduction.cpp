@@ -26,7 +26,6 @@ void CoefReduction::set_objective(double alpha_endDepot, vector<tuple<int, int, 
 	model->setObjective(expr, GRB_MAXIMIZE);
 }
 
-
 void CoefReduction::set_constraints() {
 	GRBLinExpr expr1, expr2;
 	for (int i = 0; i < N; i++) {
@@ -54,9 +53,7 @@ double CoefReduction::solve() {
 	try {
 		SubtourCuts * cb = new SubtourCuts(w, N);
 		model->setCallback(cb);
-
 		model->optimize();
-//		model->write("tsp3.lp");
 		if (model->get(GRB_IntAttr_Status) == GRB_OPTIMAL) {
 			double obj_val = model->get(GRB_DoubleAttr_ObjVal);
 			delete cb;
@@ -64,7 +61,6 @@ double CoefReduction::solve() {
 		}else{
 			delete cb;
 		}
-
 	}
 	catch (GRBException e) {
 		cout << "Error number: " << e.getErrorCode() << endl;

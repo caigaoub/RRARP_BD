@@ -15,7 +15,7 @@ STEFormulation::STEFormulation(GRBModel* model_TSP, PartitionScheme* PS, DualFor
 	model->getEnv().set(GRB_IntParam_LazyConstraints, 1);
 	model->getEnv().set(GRB_IntParam_PreCrush, 1);
 	model->getEnv().set(GRB_IntParam_NumericFocus, 1);
-	// Step 1: create master problem variables 
+	// Step 1: create master problem variables
 	int i, j;
 	y = new GRBVar*[N];
 	for (i = 0; i < N; i++) {
@@ -125,6 +125,7 @@ double STEFormulation::add_USER_cuts(double** y_sol) {
 	DL->get_Benders_user_cut(expr, y);
 	model->addConstr(expr <= *v, "Fischeti-cut");
 	model->update();
+	num_Benders_cuts_const++;
 	return obj_dual;
 }
 
@@ -152,6 +153,7 @@ bool STEFormulation::add_SECs(double** y_sol) {
 			start += size;
 			model->addConstr(expr <= size - 1, "SEC1_Cut");
 			model->update();
+			num_subtour_cuts_const++;
 		}
 		is_disconnected = true;
 	}
@@ -176,6 +178,7 @@ bool STEFormulation::add_SECs(double** y_sol) {
 					start += size;
 					model->addConstr(expr <= size - 1, "SEC2_Cut");
 					model->update();
+					num_subtour_cuts_const++;
 				}
 			}
 			else { // iii)  check global min cut
@@ -217,8 +220,8 @@ bool STEFormulation::add_SECs(double** y_sol) {
 						}
 					}
 					model->addConstr(expr <= lens - 1, "SEC3_Cut");
-					//					cout << "SEP_3_Cut is added!!" << endl;
 					model->update();
+					num_subtour_cuts_const++;
 				}
 
 				for (int i = 0; i < N; i++)
@@ -399,6 +402,3 @@ void STEFormulation::printSol(GRBModel *model) {
 		cerr << "Error" << endl;
 	}
 }
-
-
-

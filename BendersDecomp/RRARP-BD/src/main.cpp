@@ -6,17 +6,20 @@
 #include "STEFormulation.h"
 // #include "CoefReduction.h"
 #include "BendersCuts.h"
+#include <ctime>
+#include <chrono>
 
 using namespace std;
 void Fischetti_method(int , STEFormulation & );
-int main(	int argc, const char* argv[]) {
+int main(int argc, const char* argv[]) {
 
- argc = argc; // just for avoid warning: unused argc
- const char* filename = argv[1];
- const int num_dstzn = atoi(argv[2]);
+	argc = argc; // just for avoid warning: unused argc
+	const char* filename = argv[1];
+    const int num_dstzn = atoi(argv[2]);
 	try {
 //		int num_dstzn = 4;
 //		const char* filename = "RRARP_n_7_E_3.txt";
+		auto start = chrono::system_clock::now();
 		DataHandler instance(filename);
 		PartitionScheme ps(num_dstzn, instance);
 
@@ -37,13 +40,27 @@ int main(	int argc, const char* argv[]) {
 	//	 STEForm.printSol(&model_MP);
 	//   STEForm.print_num_Benders_cuts();
 	//	 STEForm.print_num_subtour_cuts();
-      fstream fs;
-	    fs.open("./ret/opt_objval.dat", fstream::app);
-	    fs << ret.first << '\n';
+			auto end = chrono::system_clock::now();
+			chrono::duration<double> elapsed_seconds = end-start;
+			time_t end_time = chrono::system_clock::to_time_t(end);
+		  fstream fs;
+	    fs.open("./ret/table2.dat", fstream::app | fstream::out);
+	    fs << elapsed_seconds.count() << '\t' << model_MP.get(GRB_DoubleAttr_MIPGap) << '\t' \
+			   << STEForm.get_num_subtour_cuts() << '\t' << STEForm.get_num_Benders_cuts() << '\n';
 	    fs.close();
+
 		}
 		if (algorithm == 2) {
 			Fischetti_method(ps.get_num_targets() + 2, STEForm);
+			auto end = chrono::system_clock::now();
+			chrono::duration<double> elapsed_seconds = end-start;
+			time_t end_time = std::chrono::system_clock::to_time_t(end);
+
+			fstream fs;
+			fs.open("./ret/table2.dat", fstream::app | fstream::out);
+			fs << elapsed_seconds.count() << '\t' << model_MP.get(GRB_DoubleAttr_MIPGap) << '\t' \
+			   << STEForm.get_num_subtour_cuts() << '\t' << STEForm.get_num_Benders_cuts() << '\n';
+	    fs.close();
 		}
 	}
 	catch (const GRBException& ex) {
