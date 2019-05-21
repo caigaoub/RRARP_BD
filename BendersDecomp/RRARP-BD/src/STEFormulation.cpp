@@ -11,6 +11,7 @@ STEFormulation::STEFormulation(GRBModel* model_TSP, PartitionScheme* PS, DualFor
 	num_dstzn = PS->get_num_dstzn();
 	this->model = model_TSP;
 	DL = dl;
+	num_user_cuts = 0;
 	// Step 0: set up the model
 	model->getEnv().set(GRB_IntParam_LazyConstraints, 1);
 	model->getEnv().set(GRB_IntParam_PreCrush, 1);
@@ -63,11 +64,11 @@ pair<double, double> STEFormulation::solve_IP_TSP() {
 		BendersCuts * cb = new BendersCuts(model, y, v, PS, DL);
 		model->setCallback(cb);
 		model->optimize();
-		if (model->get(GRB_IntAttr_Status) == GRB_OPTIMAL) {
+		if (model->get(GRB_IntAttr_Status) == GRB_OPTIMAL|| model->get(GRB_IntAttr_Status) == GRB_TIME_LIMIT) {
 			status = 0;
 			double obj_val = model->get(GRB_DoubleAttr_ObjVal);
 			double v_val = (*v).get(GRB_DoubleAttr_X);
-			num_Benders_cuts_const = cb->get_num_Benders_cuts();
+			num_Benders_cuts_const = cb->get_num_Benders_cuts() + num_user_cuts;
 			num_subtour_cuts_const = cb->get_num_subtour_cuts();
 			delete cb;
 			return make_pair(obj_val, v_val);
@@ -125,7 +126,7 @@ double STEFormulation::add_USER_cuts(double** y_sol) {
 	DL->get_Benders_user_cut(expr, y);
 	model->addConstr(expr <= *v, "Fischeti-cut");
 	model->update();
-	num_Benders_cuts_const++;
+	num_user_cuts++;
 	return obj_dual;
 }
 

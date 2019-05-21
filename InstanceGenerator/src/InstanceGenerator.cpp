@@ -29,7 +29,7 @@ void InstanceGenerator::produce(int difflevel){
   get_max_radii();
   set_radii(difflevel);
   write_RRARP_instance();
-  write_TSP_instance();
+//  write_TSP_instance();
   get_aver_bry_dist();
   print_instance();
 }
@@ -278,7 +278,7 @@ void InstanceGenerator::print_instance(){
 
 void InstanceGenerator::write_RRARP_instance(){
   ofstream myfile;
-  myfile.open("RRARP_instance_n_"+ itos(num_targets)+"_E_" + ".dat");
+  myfile.open("RRARP_instance_n_"+ itos(num_targets)+"__1" + ".dat");
   myfile << num_targets << '\n';
   myfile <<  depot1_loc.x << '\t' << depot1_loc.y << '\n';
   myfile <<  depot2_loc.x << '\t' << depot2_loc.y << '\n';
@@ -288,6 +288,13 @@ void InstanceGenerator::write_RRARP_instance(){
   myfile << '\n';
   for(int i =0 ;i<num_targets;i++){
       myfile << targets_locs[i].x << '\t' << targets_locs[i].y << '\n';
+  }
+  for(int i =0 ;i<num_targets;i++){
+      myfile << 0.000001 << '\t';
+  }
+  myfile << '\n';
+  for(int i =0 ;i<num_targets;i++){
+      myfile << 10000000 << '\t';
   }
   myfile.close();
 }

@@ -81,8 +81,8 @@ void BendersCuts::callback() {
 				SDS = new vector<vector<double>>(num_targets + 2);
 				PS->solve_shortestpath(*SDS, fseq);
 				expr = 0;
-				expr = generate_Benderscut_SP(&fseq);
-		//		expr = generate_StrongBenderscut(&fseq);
+		//		expr = generate_Benderscut_SP(&fseq);
+				expr = generate_StrongBenderscut(&fseq);
 				addLazy(expr >= 0);
 				num_Benders_cuts++;
 				vector<int> fseq2(N);
@@ -268,11 +268,11 @@ GRBLinExpr BendersCuts::generate_StrongBenderscut(vector<int> * fseq) {
 		if (coef > 0.000001)
 			CoefSet.push_back(make_tuple(idx_circle, num_targets + 1, coef));
 	}
-	/*
+
 	// generate the cut
 	double delta = sd - smallest_coef;
 	if (smallest_coef < sd * 0.5) {
-		for (int i = 0; i < CoefSet.size(); i++) {
+		for (unsigned int i = 0; i < CoefSet.size(); i++) {
 			if (get<2>(CoefSet[i]) >= delta) {
 		//		expr += delta * y[get<0>(CoefSet[i])][get<1>(CoefSet[i])];
 				CoefSet.at(i) = make_tuple(get<0>(CoefSet[i]), get<1>(CoefSet[i]), delta);
@@ -288,7 +288,7 @@ GRBLinExpr BendersCuts::generate_StrongBenderscut(vector<int> * fseq) {
 	//	cout << endl;
 	}
 	else {
-		for (int i = 0; i < CoefSet.size(); i++) {
+		for (unsigned int i = 0; i < CoefSet.size(); i++) {
 		//	expr += sd * 0.5 * y[get<0>(CoefSet[i])][get<1>(CoefSet[i])];
 			CoefSet.at(i) = make_tuple(get<0>(CoefSet[i]), get<1>(CoefSet[i]), sd * 0.5);
 	//		cout << sd * 0.5 << "*" << "y_" << get<0>(CoefSet[i]) << get<1>(CoefSet[i]) << " + ";
@@ -296,7 +296,7 @@ GRBLinExpr BendersCuts::generate_StrongBenderscut(vector<int> * fseq) {
 	//	expr = expr + *v - sd;
 	//	cout << endl;
 	}
-	*/
+
 	/*
 	if (count <= 1) {
 		int s, t;

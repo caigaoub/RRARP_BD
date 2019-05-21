@@ -28,6 +28,7 @@ private:
 
 	int num_Benders_cuts_const;
 	int num_subtour_cuts_const;
+	int num_user_cuts;
 
 public:
 	STEFormulation(GRBModel*, PartitionScheme*, DualFormulation *);

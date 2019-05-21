@@ -31,18 +31,19 @@ int main(int argc, const char* argv[]) {
 
 		GRBEnv * evn_MP = new GRBEnv();
 		GRBModel model_MP = GRBModel(*evn_MP);
-		model_MP.getEnv().set(GRB_IntParam_OutputFlag, 0);
+		model_MP.getEnv().set(GRB_DoubleParam_TimeLimit, 72000);
+//		model_MP.getEnv().set(GRB_IntParam_OutputFlag, 0);
 		STEFormulation STEForm(&model_MP, &ps, &DualForm);
 
-		int algorithm = 1;
+		int algorithm = 2;
 		if (algorithm == 1) {
-	     pair<double, double> ret	=	STEForm.solve_IP_TSP();
-	//	 STEForm.printSol(&model_MP);
+	//     pair<double, double> ret	=	STEForm.solve_IP_TSP();
+			 STEForm.solve_IP_TSP();
+	//  	 STEForm.printSol(&model_MP);
 	//   STEForm.print_num_Benders_cuts();
 	//	 STEForm.print_num_subtour_cuts();
 			auto end = chrono::system_clock::now();
 			chrono::duration<double> elapsed_seconds = end-start;
-			time_t end_time = chrono::system_clock::to_time_t(end);
 		  fstream fs;
 	    fs.open("./ret/table2.dat", fstream::app | fstream::out);
 	    fs << elapsed_seconds.count() << '\t' << model_MP.get(GRB_DoubleAttr_MIPGap) << '\t' \
@@ -54,8 +55,6 @@ int main(int argc, const char* argv[]) {
 			Fischetti_method(ps.get_num_targets() + 2, STEForm);
 			auto end = chrono::system_clock::now();
 			chrono::duration<double> elapsed_seconds = end-start;
-			time_t end_time = std::chrono::system_clock::to_time_t(end);
-
 			fstream fs;
 			fs.open("./ret/table2.dat", fstream::app | fstream::out);
 			fs << elapsed_seconds.count() << '\t' << model_MP.get(GRB_DoubleAttr_MIPGap) << '\t' \
