@@ -81,8 +81,8 @@ void BendersCuts::callback() {
 				SDS = new vector<vector<double>>(num_targets + 2);
 				PS->solve_shortestpath(*SDS, fseq);
 				expr = 0;
-		//		expr = generate_Benderscut_SP(&fseq);
-				expr = generate_StrongBenderscut(&fseq);
+		//  	expr = generate_Benderscut_SP(&fseq);
+					expr = generate_StrongBenderscut(&fseq);
 				addLazy(expr >= 0);
 				num_Benders_cuts++;
 				vector<int> fseq2(N);

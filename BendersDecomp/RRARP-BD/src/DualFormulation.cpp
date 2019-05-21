@@ -11,7 +11,7 @@ DualFormulation::DualFormulation(GRBModel * m_dual, PartitionScheme * ps, int k)
 	this->num_targets = ps->get_num_targets();
 
 	/* add dual variables [alpha] associated with the flow balance constraints */
-	size_alpha = 2 * num_targets * num_dstzn + 2; 	
+	size_alpha = 2 * num_targets * num_dstzn + 2;
 	alpha = new GRBVar[size_alpha];
 	for (int i = 0; i < size_alpha; i++) {
 		alpha[i] = model_dual->addVar(-GRB_INFINITY, GRB_INFINITY, 1.0, GRB_CONTINUOUS, "alpha_" + itos(i));
@@ -154,7 +154,7 @@ void DualFormulation::set_constraints( ) {
 
 	for (int s = 1; s <= num_targets; s++) {
 		idxmat_1 = (s - 1) * 2 * num_dstzn + 1;
-		idxmat_2 = (s - 1) * 2 * num_dstzn + num_dstzn + 1; 
+		idxmat_2 = (s - 1) * 2 * num_dstzn + num_dstzn + 1;
 		for (int i = 0; i < num_dstzn; i++) {
 			for (int j = 0; j < num_dstzn; j++) {
 				expr_constr = alpha[idxmat_2 + j] - alpha[idxmat_1 + i] - G[idxmat_1 + i][idxmat_2 + j];
@@ -168,7 +168,7 @@ void DualFormulation::set_constraints( ) {
 
 double DualFormulation::solve() {
 	try {
-		model_dual->write("dual.lp");
+//		model_dual->write("dual.lp");
 		model_dual->optimize();
 		if (model_dual->get(GRB_IntAttr_Status) == GRB_OPTIMAL){
 			status_dual = 0;
