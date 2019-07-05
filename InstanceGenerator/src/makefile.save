@@ -1,9 +1,0 @@
-CPP       = g++
-CPPARGS   = -O3 -m64 -std=c++14 -Wall -Wextra -pedantic
-SRCPATH	  = ./
-GRBPATH   = /opt/gurobi801/linux64
-INCGRB    = -I$(GRBPATH)/include/
-CPPLIBGRB = -L$(GRBPATH)/lib/ -lgurobi_c++ -lgurobi80 $(CPPSTDLIB) -lpthread -lm
-
-all:
-	$(CPP) $(CPPARGS) $(SRCPATH)InstanceGenerator.cpp -o $MainRun $(SRCPATH)main.cpp $(INCGRB) $(CPPLIBGR

@@ -3,8 +3,13 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include <string>
+#include <string.h>
 #include <vector>
 #include <math.h>
+#include <cstdlib> // for std::rand() and std::srand()
+#include <ctime> // for std::time()
+#include <random>
 #include "gurobi_c++.h"
 using namespace std;
 struct Vertex{
@@ -14,11 +19,14 @@ struct Vertex{
 
 class InstanceGenerator{
 private:
-    int num_targets;
-    GRBModel * model;
-    GRBVar* r;
+    int              num_targets;
+    GRBModel *       model;
+    GRBVar*           r;
 
-    Vertex lower_left_corner;
+    random_device     _rd;//obtain a random number from hardware
+    mt19937           _eng;
+
+    Vertex bot_left_corner;
     int scale;
     int panel_width;
     int panel_height;
@@ -33,16 +41,14 @@ public:
     InstanceGenerator(int, GRBModel*);
     ~InstanceGenerator(){};
     /* --- Primary functions --- */
-    void set_panel(Vertex);
+    void set_panel(Vertex, double, double);
     void set_locations();
     void get_max_radii();
-    void set_radii(int);
-    void produce(int);
+    void set_radii(const char*);
+    void produce(const char*);
     /*--- Correctness Check ---*/
     bool is_same_loc();
     bool is_same_loc(Vertex, Vertex);
-    bool is_in_panel();
-    bool is_disc_in_panel(int);
     bool is_point_in_panel(Vertex);
     bool is_intersected(int, int);
     /* --- Others --- */
@@ -50,8 +56,7 @@ public:
     double get_aver_bry_dist();
     /*--- Output ---*/
     void print_instance();
-    void write_RRARP_instance();
-    void write_TSP_instance();
+    void write_RRARP_instance(string);
 
     inline static string itos(int i) {stringstream s; s << i; return s.str();};
     inline static string dtos(double i) {stringstream s; s << i; return s.str();};
