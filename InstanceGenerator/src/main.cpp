@@ -64,21 +64,61 @@ int main() {
   }
 */
   cout << "--creating clustered instances " << endl;
-  int nb_t = 15;
-  boost::filesystem::path dir = "/media/caigao/LENOVO/ROTK/RRARP_BD/InstanceGenerator/ret/cluster_n_"+\
-                                to_string(nb_t);
-  if(!boost::filesystem::exists(dir)){
-      boost::filesystem::create_directories(dir);
+  for(int nb_t= 6; nb_t <=30; nb_t++){
+    boost::filesystem::path dir = "/media/caigao/LENOVO/ROTK/RRARP_BD/InstanceGenerator/ret/cluster_n_"+\
+                                  to_string(nb_t);
+    if(!boost::filesystem::exists(dir)){
+        boost::filesystem::create_directories(dir);
+    }
+    if (nb_t <= 12){
+      int nb_cls = 2;
+      for(int j = 1; j <= 10; j++){
+        InstanceGenerator cluster(nb_t, &model);
+        cluster.produce_clusters("m", nb_cls);
+        string file = "/media/caigao/LENOVO/ROTK/RRARP_BD/InstanceGenerator/ret/cluster_n_"+ \
+                       to_string(nb_t)+ "/n_"+to_string(nb_t)+"_c_"+to_string(nb_cls) + "_" + to_string(j)+".txt";
+        cluster.write_RRARP_cluster(file);
+        model.reset();
+      }
+    }
+    if (nb_t <= 16 && nb_t >12){
+      int nb_cls = 3;
+      for(int j = 1; j <= 10; j++){
+        InstanceGenerator cluster(nb_t, &model);
+        cluster.produce_clusters("m", nb_cls);
+        string file = "/media/caigao/LENOVO/ROTK/RRARP_BD/InstanceGenerator/ret/cluster_n_"+ \
+                       to_string(nb_t)+ "/n_"+to_string(nb_t)+"_c_"+to_string(nb_cls) + "_" + to_string(j)+".txt";
+        cluster.write_RRARP_cluster(file);
+        model.reset();
+      }
+    }
+
+    if (nb_t <= 20 && nb_t >16){
+      int nb_cls = 4;
+      for(int j = 1; j <= 10; j++){
+        InstanceGenerator cluster(nb_t, &model);
+        cluster.produce_clusters("m", nb_cls);
+        string file = "/media/caigao/LENOVO/ROTK/RRARP_BD/InstanceGenerator/ret/cluster_n_"+ \
+                       to_string(nb_t)+ "/n_"+to_string(nb_t)+"_c_"+to_string(nb_cls) + "_" + to_string(j)+".txt";
+        cluster.write_RRARP_cluster(file);
+        model.reset();
+      }
+    }
+
+    if (nb_t <= 30 && nb_t >20){
+      int nb_cls = 5;
+      for(int j = 1; j <= 10; j++){
+        InstanceGenerator cluster(nb_t, &model);
+        cluster.produce_clusters("m", nb_cls);
+        string file = "/media/caigao/LENOVO/ROTK/RRARP_BD/InstanceGenerator/ret/cluster_n_"+ \
+                       to_string(nb_t)+ "/n_"+to_string(nb_t)+"_c_"+to_string(nb_cls) + "_" + to_string(j)+".txt";
+        cluster.write_RRARP_cluster(file);
+        model.reset();
+      }
+    }
+
   }
-  int nb_cls = 3;
-  for(int j = 1; j <= 10; j++){
-    InstanceGenerator cluster(nb_t, &model);
-    cluster.produce_clusters("m", nb_cls);
-    string file = "/media/caigao/LENOVO/ROTK/RRARP_BD/InstanceGenerator/ret/cluster_n_"+ \
-                   to_string(nb_t)+ "/n_"+to_string(nb_t)+"_c_"+to_string(nb_cls) + "_" + to_string(j)+".txt";
-    cluster.write_RRARP_cluster(file);
-    model.reset();
-  }
+
 
   cout << "This is the end. Thank you!" << endl;
   return 0;
