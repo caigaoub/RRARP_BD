@@ -30,6 +30,8 @@ private:
     int scale;
     int panel_width;
     int panel_height;
+    int nb_cls;
+
 
     Vertex depot1_loc;
     Vertex depot2_loc;
@@ -43,9 +45,11 @@ public:
     /* --- Primary functions --- */
     void set_panel(Vertex, double, double);
     void set_locations();
+    void set_locations(int nb_cls);
     void get_max_radii();
     void set_radii(const char*);
     void produce(const char*);
+    void produce_clusters(const char*, int);
     /*--- Correctness Check ---*/
     bool is_same_loc();
     bool is_same_loc(Vertex, Vertex);
@@ -57,7 +61,7 @@ public:
     /*--- Output ---*/
     void print_instance();
     void write_RRARP_instance(string);
-
+    void write_RRARP_cluster(string); // generate clusters
     inline static string itos(int i) {stringstream s; s << i; return s.str();};
     inline static string dtos(double i) {stringstream s; s << i; return s.str();};
 };

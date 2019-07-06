@@ -1,6 +1,6 @@
 #include "InstanceGenerator.h"
 
-InstanceGenerator::InstanceGenerator(int var_num_targets,GRBModel *model){
+InstanceGenerator::InstanceGenerator(int var_num_targets, GRBModel *model){
   this->num_targets = var_num_targets;
   this->model = model;
   this->scale = 20;
@@ -22,6 +22,7 @@ InstanceGenerator::InstanceGenerator(int var_num_targets,GRBModel *model){
   model ->update();
 }
 
+
 void InstanceGenerator::produce(const char* difflevel){
   /* test
   int i = 1;
@@ -38,6 +39,17 @@ void InstanceGenerator::produce(const char* difflevel){
   set_radii(difflevel);
 //  print_instance();
 }
+
+
+void InstanceGenerator::produce_clusters(const char* difflevel, int nb_cls){
+  this->nb_cls = nb_cls;
+  set_panel({0, 0}, num_targets* scale, num_targets * scale);
+  set_locations(nb_cls);
+  get_max_radii();
+  set_radii(difflevel);
+//  print_instance();
+}
+
 
 void InstanceGenerator::set_panel(Vertex llc, double width, double height){
   /* a square panel with for points:
@@ -82,6 +94,59 @@ void InstanceGenerator::set_locations(){
   }
 
 }
+
+void InstanceGenerator::set_locations(int nb_cls){
+  double cl_dist = scale * num_targets/2.0;
+  while(true){
+    vector<Vertex> clu(nb_cls);
+    _eng = mt19937(_rd());// seed the random generator
+    auto randx = uniform_int_distribution<>(bot_left_corner.x, bot_left_corner.x + panel_width);
+    auto randy = uniform_int_distribution<>(bot_left_corner.y, bot_left_corner.y + panel_height);
+    while (true){ // generate a dummy center for each cluster
+        bool ctn_flag = true;
+        for(unsigned i =0; i < clu.size(); i++){
+          clu[i] = {randx(_eng), randy(_eng)};
+        }
+        for(unsigned i=0; i< clu.size(); i++){
+          for(unsigned j=0; j<clu.size(); j++){
+            if (i != j){
+                if (eucl_distance(clu[i], clu[j])<cl_dist){
+                  ctn_flag = false;
+                  break;
+                }
+            }
+          }
+          if (ctn_flag == false)
+            break;
+        }
+        if (ctn_flag == true){
+          break;
+        }
+    }
+
+    vector<int> nb_tars_cl(nb_cls, num_targets/nb_cls);
+    for(int i = 0; i < num_targets % nb_cls; i++){ // number of targets in each cluster
+      nb_tars_cl[i] += 1;
+    }
+    // generate centers
+    depot1_loc = {randx(_eng), randy(_eng)};
+    depot2_loc = {randx(_eng), randy(_eng)};
+    int k = 0;
+    for(int i=0; i< nb_cls; i++){
+      auto randx = uniform_int_distribution<>(clu[i].x - scale/4, clu[i].x + scale/4);
+      auto randy = uniform_int_distribution<>(clu[i].y - scale/4, clu[i].y + scale/4);
+      for(int j=0; j< nb_tars_cl[i]; j++){
+        targets_locs[k] = {randx(_eng), randy(_eng)};
+        k++;
+      }
+    }
+    if (!is_same_loc()){
+      break;
+    }
+  }
+
+}
+
 
 void InstanceGenerator::set_radii(const char* difflevel){
   _eng = mt19937(_rd());// seed the random generator
@@ -258,6 +323,19 @@ void InstanceGenerator::write_RRARP_instance(string path){
   }
   myfile.close();
 }
+
+void InstanceGenerator::write_RRARP_cluster(string path){
+  ofstream myfile;
+  myfile.open(path);
+  myfile << num_targets << '\t' << nb_cls << '\n';
+  myfile <<  depot1_loc.x << '\t' << depot1_loc.y << '\n';
+  myfile <<  depot2_loc.x << '\t' << depot2_loc.y << '\n';
+  for(int i =0 ;i<num_targets;i++){
+      myfile << targets_locs[i].x << '\t' << targets_locs[i].y << '\t' << radii[i] << '\n';
+  }
+  myfile.close();
+}
+
 
 
 double InstanceGenerator::get_aver_bry_dist(){

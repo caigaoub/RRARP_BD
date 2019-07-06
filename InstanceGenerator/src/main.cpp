@@ -3,16 +3,16 @@
 #include "InstanceGenerator.h"
 #include <boost/filesystem.hpp>
 
-
 using namespace std;
-
-int main(int argc, char* argv[]) {
+int main() {
 //  int num_targets = atoi(argv[1]);
 //  char* difflevel = argv[2];
-  argc = argc;
+
+
   cout << "Instance Generator: " << endl;
   GRBEnv* evn = new GRBEnv();
   GRBModel model = GRBModel(*evn);
+  /*
   for(int nb_t = 6; nb_t <= 20; nb_t++){
       cout << "--creating instace " << nb_t << endl;
       InstanceGenerator sample(nb_t, &model);
@@ -62,8 +62,23 @@ int main(int argc, char* argv[]) {
         model.reset();
       }
   }
-
-//  sample.write_RRARP_instance(dir);
+*/
+  cout << "--creating clustered instances " << endl;
+  int nb_t = 15;
+  boost::filesystem::path dir = "/media/caigao/LENOVO/ROTK/RRARP_BD/InstanceGenerator/ret/cluster_n_"+\
+                                to_string(nb_t);
+  if(!boost::filesystem::exists(dir)){
+      boost::filesystem::create_directories(dir);
+  }
+  int nb_cls = 3;
+  for(int j = 1; j <= 10; j++){
+    InstanceGenerator cluster(nb_t, &model);
+    cluster.produce_clusters("m", nb_cls);
+    string file = "/media/caigao/LENOVO/ROTK/RRARP_BD/InstanceGenerator/ret/cluster_n_"+ \
+                   to_string(nb_t)+ "/n_"+to_string(nb_t)+"_c_"+to_string(nb_cls) + "_" + to_string(j)+".txt";
+    cluster.write_RRARP_cluster(file);
+    model.reset();
+  }
 
   cout << "This is the end. Thank you!" << endl;
   return 0;
