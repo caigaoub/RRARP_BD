@@ -38,7 +38,7 @@ private:
     vector<Vertex> targets_locs;
     vector<double> max_radii;
     vector<double> radii;
-    double aver_bry_dist; // average boundary distance
+
 public:
     InstanceGenerator(int, GRBModel*);
     ~InstanceGenerator(){};
@@ -57,7 +57,6 @@ public:
     bool is_intersected(int, int);
     /* --- Others --- */
     double eucl_distance(Vertex, Vertex);
-    double get_aver_bry_dist();
     /*--- Output ---*/
     void print_instance();
     void write_RRARP_instance(string);

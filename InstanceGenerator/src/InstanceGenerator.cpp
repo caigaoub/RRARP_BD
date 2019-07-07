@@ -191,7 +191,7 @@ void InstanceGenerator::get_max_radii(){
   double len;
   for(int i =0; i< num_targets; i++){
     len = eucl_distance(depot1_loc, targets_locs[i]);
-//    cout << "d1" << "-" << i+1 << " : "<< len << endl;
+    cout << "d1" << "-" << i+1 << " : "<< len << endl;
     model->addConstr(r[i] <= len, "C_d1" + itos(i+1));
     if (len < smallest_dist){
       smallest_dist = len;
@@ -199,7 +199,7 @@ void InstanceGenerator::get_max_radii(){
   }
   for(int i =0; i< num_targets; i++){
     len = eucl_distance(depot2_loc, targets_locs[i]);
-//    cout << "d2" << "-" << i+1 << " : "<< len << endl;
+    cout << "d2" << "-" << i+1 << " : "<< len << endl;
     model->addConstr(r[i] <= len, "C_d2" + itos(i+1));
     if (len < smallest_dist){
       smallest_dist = len;
@@ -208,7 +208,7 @@ void InstanceGenerator::get_max_radii(){
   for(int i = 0; i < num_targets; i++){
     for(int j = 0; j < i; j++){
       len = eucl_distance(targets_locs[i], targets_locs[j]);
-//      cout << i+1 << "-" << j+1 << " : "<< len << endl;
+     cout << i+1 << "-" << j+1 << " : "<< len << endl;
       model->addConstr(r[i] + r[j] <= len, "C_" + itos(i+1) + itos(j+1));
       if (len < smallest_dist){
         smallest_dist = len;
@@ -216,6 +216,7 @@ void InstanceGenerator::get_max_radii(){
     }
   }
   model->update();
+//  double r_LB = min((double)num_targets, smallest_dist/2.0);
   double r_LB = smallest_dist/2.0;
   for(int i = 0; i < num_targets; i++){
     model->addConstr( r[i] >= r_LB, "Clb_" + itos(i));
@@ -226,7 +227,7 @@ void InstanceGenerator::get_max_radii(){
 		if (model->get(GRB_IntAttr_Status) == GRB_OPTIMAL){
       for(int i = 0; i < num_targets; i++){
         max_radii[i] = r[i].get(GRB_DoubleAttr_X);
-//        cout << max_radii[i] << "  ";
+        cout << max_radii[i] << "  ";
       }
     }
 //    cout << endl;
@@ -308,7 +309,6 @@ void InstanceGenerator::print_instance(){
       cout << "target " << i+1 << " " << targets_locs[i].x << " " << \
           targets_locs[i].y << " radius " << radii[i] << endl;
   }
-  cout << "average boundary distance: " << aver_bry_dist << endl;
 
 }
 
@@ -334,37 +334,4 @@ void InstanceGenerator::write_RRARP_cluster(string path){
       myfile << targets_locs[i].x << '\t' << targets_locs[i].y << '\t' << radii[i] << '\n';
   }
   myfile.close();
-}
-
-
-
-double InstanceGenerator::get_aver_bry_dist(){
-  /*average boundary distance */
-  double total_dist = 0.0;
-  int num_pairs = 0;
-  total_dist += sqrt(pow(depot1_loc.x - depot2_loc.x, 2) + \
-                pow(depot1_loc.y - depot2_loc.y, 2));
-  num_pairs++;
-  for(int i=0;i<num_targets;i++){
-    total_dist += sqrt(pow(targets_locs[i].x - depot1_loc.x, 2) + \
-                  pow(targets_locs[i].y - depot1_loc.y, 2)) - radii[i];
-    num_pairs++;
-  }
-  for(int i=0;i<num_targets;i++){
-    total_dist += sqrt(pow(targets_locs[i].x - depot2_loc.x, 2) + \
-                  pow(targets_locs[i].y - depot2_loc.y, 2)) - radii[i];
-    num_pairs++;
-  }
-  for(int i = 0; i < num_targets; i++){
-    for(int j = 0; j < num_targets; j++){
-      if (i != j){
-        num_pairs++;
-        total_dist += sqrt(pow(targets_locs[i].x - targets_locs[j].x, 2) + \
-                      pow(targets_locs[i].y - targets_locs[j].y, 2)) - radii[i] - radii[j];
-      }
-    }
-  }
-
-  aver_bry_dist = total_dist / (double)num_pairs;
-  return aver_bry_dist;
 }

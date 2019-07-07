@@ -11,7 +11,7 @@ CPPLIBBOOST = -L /usr/lib/  -lboost_system -lboost_filesystem
 
 
 all:
-	$(CPP) $(CPPARGS) $(SRCPATH)InstanceGenerator.cpp -g -o $(BINPATH)main  $(SRCPATH)main.cpp $(INCGRB) $(INCBOOST) $(CPPLIBGRB) $(CPPLIBBOOST)
+	$(CPP) $(CPPARGS) $(SRCPATH)InstanceGenerator.cpp $(SRCPATH)Reader.cpp -g -o $(BINPATH)main  $(SRCPATH)main.cpp $(INCGRB) $(INCBOOST) $(CPPLIBGRB) $(CPPLIBBOOST)
 
 # clean:
 #	rm -rf $(BINPATH)*.o $(BINPATH)*.dSYM $(BINPATH)main
