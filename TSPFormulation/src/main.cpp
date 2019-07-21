@@ -17,6 +17,7 @@ int main(int argc, char * argv[]){
 
 	/* build the env&model in gurobi */
 	GRBEnv* env = new GRBEnv();
+	
 	GRBModel model = GRBModel(*env);
 	model.getEnv().set(GRB_DoubleParam_TimeLimit,1000);
 	model.getEnv().set(GRB_IntParam_OutputFlag, 0);
