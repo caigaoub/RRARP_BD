@@ -18,7 +18,8 @@ InstanceGenerator::InstanceGenerator(int var_num_targets, GRBModel *model){
   for(int i = 0; i< num_targets; i++){
     r[i] = model->addVar(0.0, UB, 1.0, GRB_CONTINUOUS, "r_" + itos(i));
   }
-
+  min_reward_pct.resize(num_targets);
+  max_risk_pct.resize(num_targets);
   model ->update();
 }
 
@@ -37,6 +38,7 @@ void InstanceGenerator::produce(const char* difflevel){
   set_locations();
   get_max_radii();
   set_radii(difflevel);
+  set_RR_threshold();
 //  print_instance();
 }
 
@@ -47,6 +49,7 @@ void InstanceGenerator::produce_clusters(const char* difflevel, int nb_cls){
   set_locations(nb_cls);
   get_max_radii();
   set_radii(difflevel);
+  set_RR_threshold();
 //  print_instance();
 }
 
@@ -178,6 +181,20 @@ void InstanceGenerator::set_radii(const char* difflevel){
     throw "Wrong difficulty level input";
   }
 }
+
+void InstanceGenerator::set_RR_threshold(){
+  _eng = mt19937(_rd());// seed the random generator
+  double ratio = 0.0;
+  for(int i = 0; i < num_targets; i++){
+    auto rand_real_reward = uniform_real_distribution<>(0.3, 0.5);
+    ratio = rand_real_reward(_eng);
+    min_reward_pct[i] = ratio;
+    auto rand_real_risk = uniform_real_distribution<>(0.4, 0.6);
+    ratio = rand_real_risk(_eng);
+    max_risk_pct[i] = ratio;
+  }
+}
+
 
 void InstanceGenerator::get_max_radii(){
   /* Objective */
@@ -321,6 +338,20 @@ void InstanceGenerator::write_RRARP_instance(string path){
   for(int i =0 ;i<num_targets;i++){
       myfile << targets_locs[i].x << '\t' << targets_locs[i].y << '\t' << radii[i] << '\n';
   }
+  for(int i =0 ;i<num_targets;i++){
+    if(i != num_targets-1){
+      myfile << min_reward_pct[i] << '\t';
+    }else{
+      myfile << min_reward_pct[i] << '\n';
+    }
+  }
+  for(int i =0 ;i<num_targets;i++){
+    if(i != num_targets-1){
+      myfile << max_risk_pct[i] << '\t';
+    }else{
+      myfile << max_risk_pct[i] << '\n';
+    }
+  }
   myfile.close();
 }
 
@@ -332,6 +363,20 @@ void InstanceGenerator::write_RRARP_cluster(string path){
   myfile <<  depot2_loc.x << '\t' << depot2_loc.y << '\n';
   for(int i =0 ;i<num_targets;i++){
       myfile << targets_locs[i].x << '\t' << targets_locs[i].y << '\t' << radii[i] << '\n';
+  }
+  for(int i =0 ;i<num_targets;i++){
+    if(i != num_targets - 1){
+      myfile << min_reward_pct[i] << '\t';
+    }else{
+      myfile << min_reward_pct[i] << '\n';
+    }
+  }
+  for(int i =0 ;i<num_targets;i++){
+    if(i != num_targets - 1){
+      myfile << max_risk_pct[i] << '\t';
+    }else{
+      myfile << max_risk_pct[i] << '\n';
+    }
   }
   myfile.close();
 }

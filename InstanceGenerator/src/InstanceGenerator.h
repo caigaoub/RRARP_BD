@@ -38,6 +38,8 @@ private:
     vector<Vertex> targets_locs;
     vector<double> max_radii;
     vector<double> radii;
+    vector<double> min_reward_pct;
+    vector<double> max_risk_pct;
 
 public:
     InstanceGenerator(int, GRBModel*);
@@ -48,6 +50,7 @@ public:
     void set_locations(int nb_cls);
     void get_max_radii();
     void set_radii(const char*);
+    void set_RR_threshold();
     void produce(const char*);
     void produce_clusters(const char*, int);
     /*--- Correctness Check ---*/
