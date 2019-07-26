@@ -5,33 +5,36 @@
 #include <set>
 #include <iostream>
 #include <fstream>
+#include <string>
+#include <cmath>
 #include "myNameClass.h"
 using namespace std;
+struct Vertex {
+	double x;
+	double y;
 
-class DataHandler {
-private:
-	int num_targets;
-	Vertex depot1_loc;
-	Vertex depot2_loc;
-	double* radii;
-	double* bdg_rewards; // budgetary rewards
-	double* risk_thold;
-	Vertex* target_locs;
-
-public:
-	DataHandler(const char* filename);
-	~DataHandler();
-
-	inline int get_num_targets() { return num_targets; }
-	inline Vertex get_depot1_loc() { return depot1_loc; }
-	inline Vertex get_depot2_loc() { return depot2_loc; }
-	inline Vertex * get_target_locs() { return target_locs; }
-	inline double * get_radii() { return radii; }
-	inline double * get_risk_thold() { return	risk_thold; }
-	inline double * get_bdg_rewards() { return bdg_rewards; };
-	void print_data_info();
-
+	Vertex& operator= (Vertex other) {
+		swap(x, other.x);
+		swap(y, other.y);
+		return *this;
+	}
 };
 
+class DataHandler {
+public:
+	int				_nb_targets;
+	int				_nb_clusters = 0; // default no cluster
+	Vertex			_depot1_loc;
+	Vertex			_depot2_loc;
+	Vertex*			_target_locs;
+	double*			_radii;
+	double*			_bdg_rewards_ratio; // budgetary rewards ratio
+	double*			_risk_thold_ratio; // maximum risk taken at that inner trajectory	
+
+	DataHandler() {};
+	~DataHandler();
+	void parse(const char* filename, bool is_cluster);
+	void print();
+};
 
 #endif // !_DATAHANDLER_H_

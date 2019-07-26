@@ -17,8 +17,8 @@ int main(int argc, const char* argv[]) {
 	const char* filename = argv[1];
     const int num_dstzn = atoi(argv[2]);
 	try {
-//		int num_dstzn = 4;
-//		const char* filename = "RRARP_n_7_E_3.txt";
+		int num_dstzn = 4;
+		const char* filename = "n_8_e_1";
 		auto start = chrono::system_clock::now();
 		DataHandler instance(filename);
 		PartitionScheme ps(num_dstzn, instance);

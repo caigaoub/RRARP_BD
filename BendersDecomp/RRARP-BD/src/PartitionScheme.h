@@ -1,55 +1,41 @@
-/*
-  PartitionScheme.h & PartitionScheme.cpp
-  a)  accept basic target info and output geographical locations of discretized points:
-  b)  risk & reward functions 
-  c)  risk & rewward info along all possible paths
-*/
-
-
-
 #ifndef _PARTITIONSCHEME_H_
 #define _PARTITIONSCHEME_H_
 #include "DataHandler.h"
-#include "myNameClass.h"
 #include <tuple>
+#include <cmath>
+#include <math.h>
+class myVector {
+public:
+	double x;
+	double y;
+	myVector(Vertex initial_point, Vertex terminal_point) {
+		this->x = terminal_point.x - initial_point.x;
+		this->y = terminal_point.y - initial_point.y;
+	}
+	~myVector() {};
+	inline double get_vecLen() { return sqrt(x*x + y*y); };
+};
 
 class PartitionScheme {
-private:
-	// members for receiving geographical info
-	int num_targets;
-	Vertex  depot1_loc;
-	Vertex  depot2_loc;
-	vector<Vertex> target_locs;
-	vector<double> radii;
-	vector<double> bdg_rewards;
-	vector<double> risk_thold;
-
-	// discretization info
-	int num_dstzn;
-	double subarc_angle;
-
-	// graph G = (V,E)
-	vector<vector<Vertex>> TP;
-	int num_V;
-	double** G;	
-	double** min_risk_mat;// minimum risk between every pair of boundaries
-
-	// params in risk & reward functions
-	vector<double> par_c1;
-	double par_c_hat; 
+public:
+	DataHandler *								_dataset = nullptr;
+	int											_nb_dstzn = -1;
+	double										_subarc_angle = -1;
+	vector<vector<Vertex>>						_points; // all turning points 
+	int											_size_G;
+	vector<vector<pair<bool, double>>>			_G;
+	vector<vector<double>> _min_risk_tars;// minimum risk between every pair of boundaries
+					 
+	vector<double> par_c1;  // params in risk & reward functions
+	double par_c_hat;
 	vector<double> par_optOBdist;
 	vector<double> par_varOBdist;
-
-public:
-	PartitionScheme(int, DataHandler&);
+	//PartitionScheme(int, DataHandler&);
+	PartitionScheme() {};
 	~PartitionScheme();
 
-	inline int get_num_targets() { return num_targets; };
-	inline double** get_min_risk_mat() { return min_risk_mat; };
-	inline double** get_G() { return G; };
-	inline int get_num_dstzn() { return num_dstzn; };
-
-	vector<vector<Vertex>> get_nodes_crds();
+	void build(DataHandler& instance, int nb_dstzn);
+	void build_nodes_crds();
 
 	void get_risk_innerTrajc();
 	double get_risk_innerTrajc(Vertex, Vertex, int);
