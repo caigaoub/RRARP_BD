@@ -10,12 +10,12 @@
 #include "myNameClass.h"
 using namespace std;
 struct Vertex {
-	double x;
-	double y;
+	double _x;
+	double _y;
 
 	Vertex& operator= (Vertex other) {
-		swap(x, other.x);
-		swap(y, other.y);
+		swap(_x, other._x);
+		swap(_y, other._y);
 		return *this;
 	}
 };

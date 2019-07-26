@@ -13,8 +13,8 @@ void DataHandler::parse(const char* filename, bool is_cluster) {
 	}else {
 		file >> _nb_targets >> _nb_clusters;
 	}
-	file >> _depot1_loc.x >> _depot1_loc.y;
-	file >> _depot2_loc.x >> _depot2_loc.y;
+	file >> _depot1_loc._x >> _depot1_loc._y;
+	file >> _depot2_loc._x >> _depot2_loc._y;
 
 	_radii = new double[_nb_targets];
 	for (int i = 0; i < _nb_targets; i++) {
@@ -22,7 +22,7 @@ void DataHandler::parse(const char* filename, bool is_cluster) {
 	}
 	_target_locs = new Vertex[_nb_targets];
 	for (int i = 0; i < _nb_targets; i++) {
-		file >> _target_locs[i].x >> _target_locs[i].y;
+		file >> _target_locs[i]._x >> _target_locs[i]._y;
 	}
 
 	_bdg_rewards_ratio = new double[_nb_targets];
@@ -47,8 +47,8 @@ void DataHandler::print() {
 	if (_nb_clusters != 0) {
 		cout << "0. this instance is clustered: " << _nb_clusters << endl;
 	}	
-	cout << "1. start depot:  " << _depot1_loc.x << " " << _depot1_loc.y << endl;
-	cout << "2. end depot:  " << _depot2_loc.x << " " << _depot2_loc.y << endl;
+	cout << "1. start depot:  " << _depot1_loc._x << " " << _depot1_loc._y << endl;
+	cout << "2. end depot:  " << _depot2_loc._x << " " << _depot2_loc._y << endl;
 	cout << "3. # of cirlces:  " << _nb_targets << endl;
 	cout << "4. the lengths of radius are:  ";
 	for (int i = 0; i < _nb_targets; i++)
@@ -57,7 +57,7 @@ void DataHandler::print() {
 	cout << "\n";
 	cout << "5. coordinates of targets' locations are:  \n";
 	for (int i = 0; i < _nb_targets; i++)
-		cout << _target_locs[i].x << "\t" << _target_locs[i].y << "\n";
+		cout << _target_locs[i]._x << "\t" << _target_locs[i]._y << "\n";
 
 	cout << "6. lower bounds of rewards:  ";
 	for (int i = 0; i < _nb_targets; i++)
