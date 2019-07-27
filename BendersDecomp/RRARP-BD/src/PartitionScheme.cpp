@@ -10,11 +10,11 @@ void PartitionScheme::build(DataHandler& instance, int nb_dstzn) {
 	_size_G = 2 * _dataset->_nb_targets * _nb_dstzn + 2;
 	_G.resize(_size_G);
 	for (int i = 0; i < _size_G; i++) {
-		_G[i].resize(_size_G, make_pair(false, -1));
+		_G[i].resize(_size_G, make_pair(false, -1.0));
 	}
 	_min_risk_tars.resize(_dataset->_nb_targets + 2);
 	for (int i = 0; i < _dataset->_nb_targets + 2; i++) {
-		_min_risk_tars[i].resize(_dataset->_nb_targets + 2);
+		_min_risk_tars[i].resize(_dataset->_nb_targets + 2, 0); // either 0 or positive for building TSP model
 	}
 	this->_subarc_angle = 2.0 * M_PI / _nb_dstzn;
 	// parameters initialization for risk&reward functions
@@ -35,11 +35,11 @@ void PartitionScheme::build_nodes_crds() {
 	_points.resize(_dataset->_nb_targets + 2);
 	_points[0].resize(1); //departure depot
 	_points[0][0] = _dataset->_depot1_loc;
-	for (int pos = 1; pos <= _dataset->_nb_targets; pos++) {
+	for (int pos = 0; pos < _dataset->_nb_targets; pos++) {
 		_points[pos].resize(_nb_dstzn);
 		for (int i = 0; i < _nb_dstzn; i++) {
-			_points[pos][i]._x = _dataset->_radii[pos] * cos(i * _subarc_angle) + _dataset->_target_locs[pos]._x;
-			_points[pos][i]._y = _dataset->_radii[pos] * sin(i * _subarc_angle) + _dataset->_target_locs[pos]._y;
+			_points[pos+1][i]._x = _dataset->_radii[pos] * cos(i * _subarc_angle) + _dataset->_target_locs[pos]._x;
+			_points[pos+1][i]._y = _dataset->_radii[pos] * sin(i * _subarc_angle) + _dataset->_target_locs[pos]._y;
 		}
 	}
 	_points[_dataset->_nb_targets + 1].resize(1); //landing depot
@@ -54,11 +54,12 @@ void PartitionScheme::get_risk_linearInnerTrajc() {
 	Keep it in "risk_innerpath"
 	*/
 	int s, i, j, idx_row, idx_col, flag;
+	double max_reward, max_risk;
 	vector<double> risk_innerpath(_nb_dstzn, -1);
 	vector<double> reward_innerpath(_nb_dstzn, -1);
-	for (s = 1; s <= _dataset->_nb_targets; s++) {
-		double max_reward = 0.0;
-		double max_risk = 0.0;
+	for (s = 0; s < _dataset->_nb_targets; s++) {
+		max_reward = 0.0;
+		max_risk = 0.0;
 		for (i = 0; i < _nb_dstzn; i++) {
 			if (i == 0) {
 				risk_innerpath[i] = 0.0;
@@ -66,22 +67,23 @@ void PartitionScheme::get_risk_linearInnerTrajc() {
 			}
 			else {
 				//  test the correctness by using euclidean distance
-				//	temp_risk_lineseg = get_lineSeg_len(TP[s][0], TP[s][i]);  
-				//	temp_reward_lineseg = get_lineSeg_len(TP[s][0], TP[s][i]);
-				risk_innerpath[i] = get_risk_linearInnerTrajc(_points[s][0], _points[s][i], s-1);
-				reward_innerpath[i] = get_reward_linearInnerTrajc(_points[s][0], _points[s][i], s-1);
+				//	temp_risk_lineseg = get_lineSeg_len(_points[s+1][0], _points[s+1][i]);  
+				//	temp_reward_lineseg = get_lineSeg_len(_points[s+1][0], _points[s+1][i]);
+				risk_innerpath[i] = get_risk_linearInnerTrajc(_points[s+1][0], _points[s+1][i], s);
+				reward_innerpath[i] = get_reward_linearInnerTrajc(_points[s+1][0], _points[s+1][i], s);
 				if (risk_innerpath[i] > max_risk)
 					max_risk = risk_innerpath[i];
 				if (reward_innerpath[i] > max_reward)
 					max_reward = reward_innerpath[i];
 			}
 		}
-		idx_row = (s - 1) * 2 * _nb_dstzn + 1; // write in matrix G 
-		idx_col = (s - 1) * 2 * _nb_dstzn + _nb_dstzn + 1;
+		cout << "------ maximum inner risk: " << max_risk << endl;
+		idx_row = s * 2 * _nb_dstzn + 1; // write in matrix G 
+		idx_col = s * 2 * _nb_dstzn + _nb_dstzn + 1;
 		for (i = 0; i < _nb_dstzn; i++) {
 			for (j = 0; j < _nb_dstzn; j++) {
 				flag = (_nb_dstzn - i + j) % _nb_dstzn;
-				if (risk_innerpath[flag] <= (max_risk*_dataset->_risk_thold_ratio[s-1]) && reward_innerpath[flag] >= (max_reward*_dataset->_bdg_rewards_ratio[s-1]))
+				if (risk_innerpath[flag] <= (max_risk*_dataset->_risk_thold_ratio[s]) && reward_innerpath[flag] >= (max_reward*_dataset->_bdg_rewards_ratio[s]))
 					_G[idx_row + i][idx_col + j] = make_pair(true,risk_innerpath[flag]);
 			}
 		}
@@ -109,8 +111,7 @@ double PartitionScheme::get_reward_linearInnerTrajc(Vertex entry, Vertex exit, i
 double PartitionScheme::get_risk_linearInnerTrajc(Vertex entry, Vertex exit, int tar) {
 	double l1 = get_lineSeg_len(entry, exit) / 2.0;
 	double l2 = sqrt(_dataset->_radii[tar] * _dataset->_radii[tar] - l1* l1);
-	double val_risk = inner_risk_function(l1, l2, tar);
-	return val_risk;
+	return inner_risk_function(l1, l2, tar);
 }
 
 void PartitionScheme::get_risk_outerTrajc() {
@@ -130,6 +131,7 @@ void PartitionScheme::get_risk_outerTrajc() {
 		}
 		_min_risk_tars[0][t] = val_min_risk;
 		_min_risk_tars[t][0] = val_min_risk;
+		cout << " ------ depot 1 to target: " << val_min_risk << endl;
 	}
 	
 	for (s = 1; s <= _dataset->_nb_targets; s++) { // ii) boundary s <-> boudary t
@@ -151,6 +153,7 @@ void PartitionScheme::get_risk_outerTrajc() {
 			}
 			_min_risk_tars[s][t] = val_min_risk;
 			_min_risk_tars[t][s] = val_min_risk;
+			cout << " ------ min-risk target s to target t: " << val_min_risk << endl;
 		}
 	}
 
@@ -166,13 +169,17 @@ void PartitionScheme::get_risk_outerTrajc() {
 		}
 		_min_risk_tars[s][_dataset->_nb_targets + 1] = val_min_risk;
 		_min_risk_tars[_dataset->_nb_targets + 1][s] = val_min_risk;
+		cout << " ------ depot 2 to target: " << val_min_risk << endl;
 	}
 
+	/* diagonal elements -- 
 	for (s = 0; s <= _dataset->_nb_targets + 1; s++) {
 		_min_risk_tars[s][s] = 0.0;
 	}
 	_min_risk_tars[0][_dataset->_nb_targets + 1] = 0.0;
 	_min_risk_tars[_dataset->_nb_targets + 1][0] = 0.0;
+	*/
+
 	/*
 	ofstream file_G("./matrixG.txt");
 	for (int i = 0; i < _size_G; i++) {

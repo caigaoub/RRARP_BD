@@ -11,28 +11,23 @@ using namespace std;
 
 class STEFormulation {
 private:
-
-	int N;
-	GRBModel* model;
-	GRBVar** y;
-	GRBVar* v;
-
-	// -- used for accepting para.
-	PartitionScheme* PS;
-	DualFormulation * DL;
-	double** min_risk_mat;
-	double** G;
-	int num_dstzn;
+	PartitionScheme *					_partition = nullptr;
+	DualFormulation *					_dual = nullptr;
+	int									_size_var_y;
+	GRBModel*							_model;
+	GRBVar**							_var_y;
+	GRBVar*								_var_v;
 
 	int status;
 
-	int num_Benders_cuts_const;
-	int num_subtour_cuts_const;
-	int num_user_cuts;
-
+	int num_Benders_cuts_const = 0;
+	int num_subtour_cuts_const = 0;
+	int num_user_cuts = 0;
 public:
-	STEFormulation(GRBModel*, PartitionScheme*, DualFormulation *);
+	STEFormulation() {};
 	~STEFormulation() {};
+	void build_model(GRBModel*, PartitionScheme*, DualFormulation *);
+	
 	pair<double, double> solve_LP_TSP();
 	pair<double, double> solve_IP_TSP();
 	void get_optimal_sol(double **);

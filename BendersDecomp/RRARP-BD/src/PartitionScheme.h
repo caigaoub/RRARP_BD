@@ -31,6 +31,8 @@ public:
 	double										_par_c_hat;
 	vector<double>								_par_optOBdist;
 	vector<double>								_par_varOBdist;
+
+
 	PartitionScheme() {};
 	~PartitionScheme() {};
 

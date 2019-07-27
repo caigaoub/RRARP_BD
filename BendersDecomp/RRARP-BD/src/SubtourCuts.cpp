@@ -3,7 +3,6 @@
 SubtourCuts::SubtourCuts(vector<vector<GRBVar>> & wVar, int N) {
 	this->w = wVar;
 	this->N = N;
-
 }
 
 void SubtourCuts::callback() {
