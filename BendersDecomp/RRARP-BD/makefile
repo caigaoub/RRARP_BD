@@ -3,9 +3,9 @@ CPPARGS   = -O3 -m64 -std=c++14 -Wall -Wextra -pedantic
 SRCPATH		= ./src/
 BINPATH		= ./bin/
 DATPATH		= ./dat/
-GRBPATH   = /opt/gurobi801/linux64
+GRBPATH   = /opt/gurobi900/linux64
 INCGRB    = -I$(GRBPATH)/include/
-CPPLIBGRB = -L$(GRBPATH)/lib/ -lgurobi_c++ -lgurobi80 $(CPPSTDLIB) -lpthread -lm
+CPPLIBGRB = -L$(GRBPATH)/lib/ -lgurobi_c++ -lgurobi90 $(CPPSTDLIB) -lpthread -lm
 INSTANCE	= 7 $(DATPATH)sample_n_25.txt
 
 all:
