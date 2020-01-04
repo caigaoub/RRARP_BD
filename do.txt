@@ -1,0 +1,1 @@
+1. gurobi compilation https://www.leandro-coelho.com/how-to-compile-c-with-gurobi-in-linux/
