@@ -9,29 +9,29 @@ class myVector {
 public:
 	double _x;
 	double _y;
-	myVector(Vertex initial_point, Vertex terminal_point) {
-		this->_x = terminal_point._x - initial_point._x;
-		this->_y = terminal_point._y - initial_point._y;
+	myVector(Vertex initialp, Vertex endp) {
+		this->_x = endp._x - initialp._x;
+		this->_y = endp._y - initialp._y;
 	}
 	~myVector() {};
-	inline double get_vecLen() { return sqrt(_x*_x + _y*_y); };
+	inline double get_vecLen() {return sqrt(_x*_x + _y*_y); };
 };
+
 
 class PartitionScheme {
 public:
 	DataHandler *								_dataset = nullptr;
-	int											_nb_dstzn = -1;
+	int											_nb_dstzn = -1; // 
 	double										_subarc_angle = -1;
 	vector<vector<Vertex>>						_points; // all turning points 
 	int											_size_G;
-	vector<vector<pair<bool, double>>>			_G;
+	vector<vector<pair<bool, double>>>			_G; // network constructed after partitioning
 	vector<vector<double>>						_min_risk_tars;// minimum risk between targets
 					 
 	vector<double>								_par_c1;  // params in risk & reward functions
 	double										_par_c_hat;
 	vector<double>								_par_optOBdist;
 	vector<double>								_par_varOBdist;
-
 
 	PartitionScheme() {};
 	~PartitionScheme() {};

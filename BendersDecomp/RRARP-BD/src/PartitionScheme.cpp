@@ -4,6 +4,11 @@
 
 #include "PartitionScheme.h"
 
+void exit_error(int line_num) {
+    fprintf(stderr, "error occured at line %d\n", line_num);
+    exit(1);
+}
+
 void PartitionScheme::build(DataHandler& instance, int nb_dstzn) {
 	this->_dataset = &instance;
 	this->_nb_dstzn = nb_dstzn;

@@ -1,8 +1,7 @@
 #include <stdlib.h>
 #include "gurobi_c++.h"
 #include "DataHandler.h"
-#include "myNameClass.h"
-// #include "PartitionScheme.h"
+#include "PartitionScheme.h"
 // #include "STEFormulation.h"
 // #include "CoefReduction.h"
 // #include "BendersCuts.h"
@@ -14,53 +13,61 @@ using namespace std;
 int main(int argc, const char* argv[]) {
 
 	argc = argc; // just for avoid warning: unused argc
-	const char* filename = argv[1];
-    const int num_dstzn = atoi(argv[2]);
+	const int nb_dstzn = atoi(argv[1]);
+	const char* filename = argv[2];    
+	cout << nb_dstzn << filename << endl;
 	try {
-		int num_dstzn = 4;
-		const char* filename = "n_8_e_1";
-		auto start = chrono::system_clock::now();
-		DataHandler instance(filename);
-// 		PartitionScheme ps(num_dstzn, instance);
+		// int num_dstzn = 4;
+		// const char* filename = "n_8_e_1";
+		// auto start = chrono::system_clock::now();
+		DataHandler dataset;
+		dataset.parse(filename,false);
+		dataset.print();
+		PartitionScheme network;
+		network.build(dataset, nb_dstzn);
+		
+		/*
+		PartitionScheme ps(num_dstzn, instance);
 
-// 		GRBEnv * evn_dual = new GRBEnv();
-// 		GRBModel model_dual = GRBModel(*evn_dual);
-// 		model_dual.getEnv().set(GRB_IntParam_OutputFlag, 0);
-// 		DualFormulation DualForm(&model_dual, &ps, num_dstzn);
-// 		DualForm.set_constraints();
+		GRBEnv * evn_dual = new GRBEnv();
+		GRBModel model_dual = GRBModel(*evn_dual);
+		model_dual.getEnv().set(GRB_IntParam_OutputFlag, 0);
+		DualFormulation DualForm(&model_dual, &ps, num_dstzn);
+		DualForm.set_constraints();
 
-// 		GRBEnv * evn_MP = new GRBEnv();
-// 		GRBModel model_MP = GRBModel(*evn_MP);
-// 		model_MP.getEnv().set(GRB_DoubleParam_TimeLimit, 72000);
-// //		model_MP.getEnv().set(GRB_IntParam_OutputFlag, 0);
-// 		STEFormulation STEForm(&model_MP, &ps, &DualForm);
+		GRBEnv * evn_MP = new GRBEnv();
+		GRBModel model_MP = GRBModel(*evn_MP);
+		model_MP.getEnv().set(GRB_DoubleParam_TimeLimit, 72000);
+//		model_MP.getEnv().set(GRB_IntParam_OutputFlag, 0);
+		STEFormulation STEForm(&model_MP, &ps, &DualForm);
 
-// 		int algorithm = 2;
-// 		if (algorithm == 1) {
-// 	//     pair<double, double> ret	=	STEForm.solve_IP_TSP();
-// 			 STEForm.solve_IP_TSP();
-// 	//  	 STEForm.printSol(&model_MP);
-// 	//   STEForm.print_num_Benders_cuts();
-// 	//	 STEForm.print_num_subtour_cuts();
-// 			auto end = chrono::system_clock::now();
-// 			chrono::duration<double> elapsed_seconds = end-start;
-// 		  fstream fs;
-// 	    fs.open("./ret/table2.dat", fstream::app | fstream::out);
-// 	    fs << elapsed_seconds.count() << '\t' << model_MP.get(GRB_DoubleAttr_MIPGap) << '\t' \
-// 			   << STEForm.get_num_subtour_cuts() << '\t' << STEForm.get_num_Benders_cuts() << '\n';
-// 	    fs.close();
+		int algorithm = 2;
+		if (algorithm == 1) {
+	//     pair<double, double> ret	=	STEForm.solve_IP_TSP();
+			 STEForm.solve_IP_TSP();
+	//  	 STEForm.printSol(&model_MP);
+	//   STEForm.print_num_Benders_cuts();
+	//	 STEForm.print_num_subtour_cuts();
+			auto end = chrono::system_clock::now();
+			chrono::duration<double> elapsed_seconds = end-start;
+		  fstream fs;
+	    fs.open("./ret/table2.dat", fstream::app | fstream::out);
+	    fs << elapsed_seconds.count() << '\t' << model_MP.get(GRB_DoubleAttr_MIPGap) << '\t' \
+			   << STEForm.get_num_subtour_cuts() << '\t' << STEForm.get_num_Benders_cuts() << '\n';
+	    fs.close();
 
-// 		}
-// 		if (algorithm == 2) {
-// 			Fischetti_method(ps.get_num_targets() + 2, STEForm);
-// 			auto end = chrono::system_clock::now();
-// 			chrono::duration<double> elapsed_seconds = end-start;
-// 			fstream fs;
-// 			fs.open("./ret/table2.dat", fstream::app | fstream::out);
-// 			fs << elapsed_seconds.count() << '\t' << model_MP.get(GRB_DoubleAttr_MIPGap) << '\t' \
-// 			   << STEForm.get_num_subtour_cuts() << '\t' << STEForm.get_num_Benders_cuts() << '\n';
-// 	    fs.close();
-// 		}
+		}
+		if (algorithm == 2) {
+			Fischetti_method(ps.get_num_targets() + 2, STEForm);
+			auto end = chrono::system_clock::now();
+			chrono::duration<double> elapsed_seconds = end-start;
+			fstream fs;
+			fs.open("./ret/table2.dat", fstream::app | fstream::out);
+			fs << elapsed_seconds.count() << '\t' << model_MP.get(GRB_DoubleAttr_MIPGap) << '\t' \
+			   << STEForm.get_num_subtour_cuts() << '\t' << STEForm.get_num_Benders_cuts() << '\n';
+	    fs.close();
+		} 
+		*/
 	}
 	catch (const GRBException& ex) {
 		cout << "Error number: " << ex.getErrorCode() << endl;

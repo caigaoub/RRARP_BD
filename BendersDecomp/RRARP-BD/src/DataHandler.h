@@ -7,16 +7,17 @@
 #include <fstream>
 #include <string>
 #include <cmath>
-#include "myNameClass.h"
+#include <limits>
 using namespace std;
 
 struct Vertex {
 	double _x;
 	double _y;
-
 	Vertex& operator= (Vertex other) {
-		swap(_x, other._x);
-		swap(_y, other._y);
+		// swap(_x, other._x);
+		// swap(_y, other._y);
+		_x = other._x;
+		_y = other._y;
 		return *this;
 	}
 };

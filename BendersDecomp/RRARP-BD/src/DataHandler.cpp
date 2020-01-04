@@ -45,7 +45,7 @@ DataHandler::~DataHandler() {
 
 void DataHandler::print() {
 	if (_nb_clusters != 0) {
-		cout << "0. this instance is clustered: " << _nb_clusters << endl;
+		cout << "0. targets are clustered: " << _nb_clusters << endl;
 	}	
 	cout << "1. start depot:  " << _depot1_loc._x << " " << _depot1_loc._y << endl;
 	cout << "2. end depot:  " << _depot2_loc._x << " " << _depot2_loc._y << endl;
@@ -67,4 +67,5 @@ void DataHandler::print() {
 	cout << "7. upper bounds of risks:  ";
 	for (int i = 0; i < _nb_targets; i++)
 		cout << _risk_thold_ratio[i] << "  ";
+	cout << "\n";
 }
