@@ -9,6 +9,7 @@
 #include <cmath>
 #include "myNameClass.h"
 using namespace std;
+
 struct Vertex {
 	double _x;
 	double _y;
