@@ -25,13 +25,13 @@ public:
 	double										_subarc_angle = -1;
 	vector<vector<Vertex>>						_points; // all turning points 
 	int											_size_G;
-	vector<vector<pair<bool, double>>>			_G; // network constructed after partitioning
+	vector<vector<pair<bool, double>>>			_G; // network constructed after partitioning pair<travelable edge, risk value>
 	vector<vector<double>>						_min_risk_tars;// minimum risk between targets
 					 
 	vector<double>								_par_c1;  // params in risk & reward functions
 	double										_par_c_hat;
-	vector<double>								_par_optOBdist;
-	vector<double>								_par_varOBdist;
+	vector<double>								_par_optOBdist; // mean of optimal obervation distance
+	vector<double>								_par_varOBdist; // variance of optimal obs. distance
 
 	PartitionScheme() {};
 	~PartitionScheme() {};
@@ -39,10 +39,10 @@ public:
 	void build(DataHandler& instance, int nb_dstzn);
 	void build_nodes_crds();
 
-	void get_risk_linearInnerTrajc();
+	void get_risk_reward_linearInnerTrajc();
 	double get_risk_linearInnerTrajc(Vertex, Vertex, int);
 	double get_reward_linearInnerTrajc(Vertex, Vertex, int);
-	void get_risk_outerTrajc();
+	void get_risk_reward_outerTrajc();
 	double get_risk_outerTrajc(Vertex, Vertex);
 	tuple<bool,double,double> is_intersected(Vertex v, Vertex u, int i);
 	// risk&reward-related functions

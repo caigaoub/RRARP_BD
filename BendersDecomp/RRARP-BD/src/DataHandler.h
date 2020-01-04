@@ -20,6 +20,7 @@ struct Vertex {
 		_y = other._y;
 		return *this;
 	}
+	inline void print(){cout << "Vertex: (" << _x << "," << _y << ")" << endl;};
 };
 
 class DataHandler {

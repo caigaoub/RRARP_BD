@@ -15,7 +15,6 @@ int main(int argc, const char* argv[]) {
 	argc = argc; // just for avoid warning: unused argc
 	const int nb_dstzn = atoi(argv[1]);
 	const char* filename = argv[2];    
-	cout << nb_dstzn << filename << endl;
 	try {
 		// int num_dstzn = 4;
 		// const char* filename = "n_8_e_1";
