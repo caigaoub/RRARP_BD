@@ -19,11 +19,11 @@ int main(int argc, const char* argv[]) {
 		// int num_dstzn = 4;
 		// const char* filename = "n_8_e_1";
 		// auto start = chrono::system_clock::now();
-		DataHandler dataset;
-		dataset.parse(filename,false);
-		dataset.print();
-		PartitionScheme network;
-		network.build(dataset, nb_dstzn);
+		DataHandler dataset_;
+		dataset_.parse(filename,false);
+		// dataset_.print();
+		PartitionScheme network_;
+		network_.build(dataset_, nb_dstzn);
 		
 		/*
 		PartitionScheme ps(num_dstzn, instance);

@@ -23,7 +23,7 @@ public:
 	DataHandler *								_dataset = nullptr;
 	int											_nb_dstzn = -1; // 
 	double										_subarc_angle = -1;
-	vector<vector<Vertex>>						_points; // all turning points 
+	vector<vector<Vertex>>						_points; // all turning points after boundary partitioning
 	int											_size_G;
 	vector<vector<pair<bool, double>>>			_G; // network constructed after partitioning pair<travelable edge, risk value>
 	vector<vector<double>>						_min_risk_tars;// minimum risk between targets

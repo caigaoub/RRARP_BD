@@ -126,7 +126,8 @@ void PartitionScheme::get_risk_reward_outerTrajc() {
 	/* Generate the accumulated risk on outer paths*/
 	int s, t, i, j, idxmat_1, idxmat_2, idxmat_3, idxmat_4;
 	double val_risk, val_min_risk;
-	for (t = 1; t <= _dataset->_nb_targets; t++) {	// i) start depot <-> boundary t
+	/* i) departure depot --> each entry turning point of a target */
+	for (t = 1; t <= _dataset->_nb_targets; t++) {	
 		idxmat_1 = (t - 1) * 2 * _dataset->_nb_targets + 1; 
 		val_min_risk = INF;
 		for (i = 0; i < _nb_dstzn; i++) {
@@ -142,6 +143,7 @@ void PartitionScheme::get_risk_reward_outerTrajc() {
 		cout << " ------ depot 1 to target: " << val_min_risk << endl;
 	}
 	
+
 	for (s = 1; s <= _dataset->_nb_targets; s++) { // ii) boundary s <-> boudary t
 		idxmat_1 = (s - 1) * 2 * _nb_dstzn + _nb_dstzn + 1; // vertices on boundary s acting as exits
 		idxmat_3 = (s - 1) * 2 * _nb_dstzn + 1; // vertices on boundary s acting as entries
@@ -230,29 +232,39 @@ void PartitionScheme::get_risk_reward_outerTrajc() {
 
 double PartitionScheme::get_risk_outerTrajc(Vertex v, Vertex u) {
 	double total_risk = outer_risk_function(get_lineSeg_len(v, u)); // total risk over the line segment
+	// cout << total_risk << "_*_";
 	for (int i = 0; i < _dataset->_nb_targets; i++) { // additional possible risk caused when passing through some region(s)
 		tuple<bool, double, double> result = is_intersected(v, u, i);
-		if (get<0>(result) == true) {
+		cout << get<0>(result) << "**" << get<1>(result) << "**"<<get<2>(result) << endl;
+		if (get<0>(result) == true){ // if current straight line intersects with region Ui, we add additional risk to this outer path
 			total_risk = total_risk + get<1>(result) - get<2>(result);
 		}
 	}
+	// cout << total_risk << " ";
 	return total_risk;
 }
 
 tuple<bool, double,double> PartitionScheme::is_intersected(Vertex v, Vertex u, int tar) {
-	// line segment v -> u, center is denoted as o;
+	// current target center is denoted as o;
 	Vertex o = { _dataset->_target_locs[tar]._x, _dataset->_target_locs[tar]._y };
 	myVector v_2_o(v, o); // vector v->o
 	myVector v_2_u(v, u); // vector v->u
+	myVector o_2_u(o, u); // vector o->u
 	double len_v_2_o = v_2_o.get_vecLen();
 	double len_v_2_u = v_2_u.get_vecLen();
-	double angle = acos(dot_product(v_2_o, v_2_u) / (len_v_2_o * len_v_2_u));
+	double len_o_2_u = o_2_u.get_vecLen();	
+	double angle = acos((len_o_2_u*len_o_2_u + len_v_2_u*len_v_2_u-len_v_2_o*len_v_2_o)/(2.0*len_o_2_u*len_v_2_u));
 	double l2 = len_v_2_o * sin(angle); // vertical distance from center o to the chord
 	double l1; // half length of the chord
 	double risk_vu_on_Ui; // risk of path vu when passing through target region Ui
-	if (angle < (M_PI / 2.0) && len_v_2_o * cos(angle)+ 0.0000001 < len_v_2_u && l2 + 0.0000001 < _dataset->_radii[tar]) {
+	if (l2 + 0.0000001 < _dataset->_radii[tar] && angle < (M_PI / 2.0) && len_v_2_o * cos(angle)+ 0.0000001 < len_v_2_u) {
 		l1 = sqrt(_dataset->_radii[tar] * _dataset->_radii[tar] - l2 * l2);
 		risk_vu_on_Ui = inner_risk_function(l1, l2, tar);
+		cout << "vo:" << len_v_2_o << " vu:" << len_v_2_u << " ou:" << len_o_2_u << endl;
+		cout << "v:" << v._x << "," << v._y << endl;
+		cout << "u:" << u._x << "," << u._y << endl;
+		cout << "o:" << o._x << "," << o._y << endl;
+		cout << len_v_2_u << " " << l1 << " " << l2 <<  " r=" << _dataset->_radii[tar] << endl;
 		return make_tuple(true, risk_vu_on_Ui, outer_risk_function(2 * l1));
 	}
 	else {
