@@ -16,7 +16,7 @@ def set_plot_attributes(plt, ax):
 def plot_instance(instancefile):
     file_ = open(instancefile, 'r')
     line_ = file_.readline()
-    list_ = re.split("\n", line_)
+    list_ = re.split("\t|\n", line_)
     nb_tars_ = int(list_[0])
     fig, ax  = plt.subplots()
     # set_plot_attributes(plt, ax)
@@ -34,7 +34,7 @@ def plot_instance(instancefile):
     maxx = max(maxx, departure[0])
     miny = min(miny, departure[1])
     maxy = max(maxy, departure[1])
-    rect = pch.Rectangle((departure[0], departure[1]), 1, 1, edgecolor='r', facecolor='r', alpha=1)
+    rect = pch.Rectangle((departure[0], departure[1]), 5, 5, edgecolor='r', facecolor='r', alpha=1)
     ax.add_patch(rect)
     #arrival
     line_ = file_.readline()
@@ -45,7 +45,7 @@ def plot_instance(instancefile):
     maxx = max(maxx, arrival[0])
     miny = min(miny, arrival[1])
     maxy = max(maxy, arrival[1])
-    rect = pch.Rectangle((arrival[0], arrival[1]), 1, 1, edgecolor='r', facecolor='r', alpha=1)
+    rect = pch.Rectangle((arrival[0], arrival[1]), 5, 5, edgecolor='r', facecolor='r', alpha=1)
     ax.add_patch(rect)
     #target circles
     itr = 1
@@ -69,8 +69,11 @@ def plot_instance(instancefile):
     ax.set_aspect('equal', adjustable='box')
 
     plt.show()
+
 ################################################################################################
 
 #  transformation files
-instancefile = '../ret/inst_n_30/n_30_e_1.txt'
+# instancefile = '../ret/inst_n_20/n_20_h_1.txt'
+instancefile = '../ret/cluster_n_30/n_30_c_5_1.txt'
+
 plot_instance(instancefile)

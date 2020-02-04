@@ -9,12 +9,12 @@ void stats() {
     double avg_radius = 0;
     double avg_bdy_dist = 0;
     double avg_ctr_dist = 0;
-    myfile.open("/media/caigao/LENOVO/ROTK/RRARP_BD/InstanceGenerator/ret/instancesstat.txt");
+    boost::filesystem::path cur_dir  = boost::filesystem::current_path();
+    myfile.open(cur_dir.string()+"/ret/instancesstat.txt");
     for(int nb_t = 6; nb_t <= 20; nb_t++){
         Instance pe; // --------easy
         for(int j = 1; j <= 10; j++){
-          string file = "/media/caigao/LENOVO/ROTK/RRARP_BD/InstanceGenerator/ret/inst_n_"+ \
-                         to_string(nb_t)+ "/n_"+to_string(nb_t)+"_e_"+to_string(j)+".txt";
+          string file = cur_dir.string()+"/ret/inst_n_"+ to_string(nb_t)+ "/n_"+to_string(nb_t)+"_e_"+to_string(j)+".txt";
           pe.read(file);
           pe.analyze();
           avg_radius += pe._avg_radius;
@@ -31,8 +31,7 @@ void stats() {
         avg_bdy_dist = 0;
         avg_ctr_dist = 0;
           for(int j = 1; j <= 10; j++){
-          string file = "/media/caigao/LENOVO/ROTK/RRARP_BD/InstanceGenerator/ret/inst_n_"+ \
-                         to_string(nb_t)+ "/n_"+to_string(nb_t)+"_m_"+to_string(j)+".txt";
+          string file = cur_dir.string()+"/ret/inst_n_"+ to_string(nb_t)+ "/n_"+to_string(nb_t)+"_m_"+to_string(j)+".txt";
           pm.read(file);
           pm.analyze();
           avg_radius += pm._avg_radius;
@@ -49,8 +48,7 @@ void stats() {
         avg_bdy_dist = 0;
         avg_ctr_dist = 0;
           for(int j = 1; j <= 10; j++){
-          string file = "/media/caigao/LENOVO/ROTK/RRARP_BD/InstanceGenerator/ret/inst_n_"+ \
-                         to_string(nb_t)+ "/n_"+to_string(nb_t)+"_h_"+to_string(j)+".txt";
+          string file = cur_dir.string()+"/ret/inst_n_" + to_string(nb_t)+ "/n_"+to_string(nb_t)+"_h_"+to_string(j)+".txt";
           ph.read(file);
           ph.analyze();
           avg_radius += ph._avg_radius;
@@ -69,8 +67,7 @@ void stats() {
       avg_bdy_dist = 0;
       avg_ctr_dist = 0;
       for(int j = 1; j <= 10; j++){
-        string file = "/media/caigao/LENOVO/ROTK/RRARP_BD/InstanceGenerator/ret/inst_n_"+ \
-                       to_string(nb_t)+ "/n_"+to_string(nb_t)+"_e_"+to_string(j)+".txt";
+        string file = cur_dir.string()+"/ret/inst_n_"+to_string(nb_t)+ "/n_"+to_string(nb_t)+"_e_"+to_string(j)+".txt";
         pee.read(file);
         pee.analyze();
         avg_radius += pee._avg_radius;
