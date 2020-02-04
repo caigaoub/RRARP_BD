@@ -1,17 +1,22 @@
 #include "DataHandler.h"
 
 
-void DataHandler::parse(const char* filename, bool is_cluster) {
+void DataHandler::parse(string filename) {
 	fstream file(filename);
 	if (!file) {
 		cerr << "ERROR: could not open file '" << filename << "' for reading'" << endl;
 		throw(-1);
 	}
 	// Geographic Information of Targets
-	if (!is_cluster) {
+	auto pos = filename.find_last_of("/");
+    string name = filename.substr(pos+1, filename.size());
+    size_t found = name.find("c");
+	if (found == string::npos) {
 		file >> _nb_targets;
+		cout << "This instance is clustered!" << endl;
 	}else {
 		file >> _nb_targets >> _nb_clusters;
+		cout << "This is a clustered instance:" << _nb_clusters << endl;
 	}
 	file >> _depot1_loc._x >> _depot1_loc._y;
 	file >> _depot2_loc._x >> _depot2_loc._y;

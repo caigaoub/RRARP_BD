@@ -36,7 +36,7 @@ public:
 
 	DataHandler() {};
 	~DataHandler();
-	void parse(const char* filename, bool is_cluster);
+	void parse(string filename);
 	void print();
 };
 

@@ -14,16 +14,16 @@ int main(int argc, const char* argv[]) {
 
 	argc = argc; // just for avoid warning: unused argc
 	const int nb_dstzn = atoi(argv[1]);
-	const char* filename = argv[2];    
+	string filename = argv[2];    
 	try {
 		// int num_dstzn = 4;
 		// const char* filename = "n_8_e_1";
 		// auto start = chrono::system_clock::now();
 		DataHandler dataset_;
-		dataset_.parse(filename,false);
+		dataset_.parse(filename);
 		// dataset_.print();
 		PartitionScheme network_;
-		network_.build(dataset_, nb_dstzn);
+		// network_.build(dataset_, nb_dstzn);
 		
 		/*
 		PartitionScheme ps(num_dstzn, instance);
