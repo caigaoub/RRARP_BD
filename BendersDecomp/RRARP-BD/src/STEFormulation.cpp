@@ -3,14 +3,13 @@
 #include "GlobalMC.h"
 #define INF numeric_limits<double>::infinity()
 
-void STEFormulation::build_model(GRBModel* model_TSP, PartitionScheme* PS, DualFormulation * dl) {
-	this->_partition = PS;
+void STEFormulation::build_model(GRBModel* model_MP_, PartitionScheme* network_, DualFormulation * dlform_) {
+	this->_partition = network_;
 	this->_size_var_y = _partition->_dataset->_nb_targets+ 2;
-	this->_model = model_TSP;
-	this->_dual = dl;
-	num_user_cuts = 0;
+	this->_model = model_MP_;
+	this->_dual = dlform_;
 	
-	// Step 0: set up the model
+	/* set up the model */
 	_model->getEnv().set(GRB_IntParam_LazyConstraints, 1);
 	_model->getEnv().set(GRB_IntParam_PreCrush, 1);
 	_model->getEnv().set(GRB_IntParam_NumericFocus, 1);

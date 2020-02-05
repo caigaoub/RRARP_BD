@@ -10,20 +10,20 @@
 using namespace std;
 
 class STEFormulation {
-private:
+public:
 	PartitionScheme *					_partition = nullptr;
 	DualFormulation *					_dual = nullptr;
+
 	int									_size_var_y;
 	GRBModel*							_model;
 	GRBVar**							_var_y;
 	GRBVar*								_var_v;
 
-	int status;
+	int 								_num_Benders_cuts_const = 0;
+	int									_num_subtour_cuts_const = 0;
+	int 								_num_user_cuts = 0;
+	int 								_status;
 
-	int num_Benders_cuts_const = 0;
-	int num_subtour_cuts_const = 0;
-	int num_user_cuts = 0;
-public:
 	STEFormulation() {};
 	~STEFormulation() {};
 	void build_model(GRBModel*, PartitionScheme*, DualFormulation *);

@@ -13,8 +13,8 @@ int main() {
 //  char* difflevel = argv[2];
 
 //  stats();
-  // createInstance();
-  createInstanceClustered();
+  createInstance();
+  // createInstanceClustered();
   
 
 

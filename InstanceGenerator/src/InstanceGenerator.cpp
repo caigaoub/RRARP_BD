@@ -186,12 +186,12 @@ void InstanceGenerator::set_RR_threshold(){
   _eng = mt19937(_rd());// seed the random generator
   double ratio = 0.0;
   for(int i = 0; i < num_targets; i++){
-    auto rand_real_reward = uniform_real_distribution<>(0.3, 0.5);
-    ratio = rand_real_reward(_eng);
-    min_reward_pct[i] = ratio;
-    auto rand_real_risk = uniform_real_distribution<>(0.4, 0.6);
-    ratio = rand_real_risk(_eng);
-    max_risk_pct[i] = ratio;
+    // auto rand_real_reward = uniform_real_distribution<>(0.3, 0.5);
+    // ratio = rand_real_reward(_eng);
+    min_reward_pct[i] = 0.000001;
+    // auto rand_real_risk = uniform_real_distribution<>(0.4, 0.6);
+    // ratio = rand_real_risk(_eng);
+    max_risk_pct[i] = 100000;
   }
 }
 

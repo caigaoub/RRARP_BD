@@ -16,29 +16,25 @@ int main(int argc, const char* argv[]) {
 	const int nb_dstzn = atoi(argv[1]);
 	string filename = argv[2];    
 	try {
-		// int num_dstzn = 4;
-		// const char* filename = "n_8_e_1";
-		// auto start = chrono::system_clock::now();
+		auto start = chrono::system_clock::now();
 		DataHandler dataset_;
 		dataset_.parse(filename);
-		// dataset_.print();
+		dataset_.print();
 		PartitionScheme network_;
-		// network_.build(dataset_, nb_dstzn);
+		network_.build(dataset_, nb_dstzn);
 		
-		/*
-		PartitionScheme ps(num_dstzn, instance);
-
-		GRBEnv * evn_dual = new GRBEnv();
-		GRBModel model_dual = GRBModel(*evn_dual);
-		model_dual.getEnv().set(GRB_IntParam_OutputFlag, 0);
+		GRBEnv * evn_dual_ = new GRBEnv();
+		GRBModel model_dual_ = GRBModel(*evn_dual_);
+		model_dual_.getEnv().set(GRB_IntParam_OutputFlag, 0);
+	
 		DualFormulation DualForm(&model_dual, &ps, num_dstzn);
 		DualForm.set_constraints();
 
-		GRBEnv * evn_MP = new GRBEnv();
-		GRBModel model_MP = GRBModel(*evn_MP);
-		model_MP.getEnv().set(GRB_DoubleParam_TimeLimit, 72000);
+		GRBEnv * evn_MP_ = new GRBEnv();
+		GRBModel model_MP_ = GRBModel(*evn_MP_);
+		model_MP_.getEnv().set(GRB_DoubleParam_TimeLimit, 72000);
 //		model_MP.getEnv().set(GRB_IntParam_OutputFlag, 0);
-		STEFormulation STEForm(&model_MP, &ps, &DualForm);
+		STEFormulation STEForm(&model_MP, &network_, &DualForm);
 
 		int algorithm = 2;
 		if (algorithm == 1) {
@@ -66,7 +62,7 @@ int main(int argc, const char* argv[]) {
 			   << STEForm.get_num_subtour_cuts() << '\t' << STEForm.get_num_Benders_cuts() << '\n';
 	    fs.close();
 		} 
-		*/
+		
 	}
 	catch (const GRBException& ex) {
 		cout << "Error number: " << ex.getErrorCode() << endl;

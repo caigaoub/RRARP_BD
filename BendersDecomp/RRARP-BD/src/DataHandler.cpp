@@ -21,13 +21,10 @@ void DataHandler::parse(string filename) {
 	file >> _depot1_loc._x >> _depot1_loc._y;
 	file >> _depot2_loc._x >> _depot2_loc._y;
 
+	_target_locs = new Vertex[_nb_targets];
 	_radii = new double[_nb_targets];
 	for (int i = 0; i < _nb_targets; i++) {
-		file >> _radii[i];
-	}
-	_target_locs = new Vertex[_nb_targets];
-	for (int i = 0; i < _nb_targets; i++) {
-		file >> _target_locs[i]._x >> _target_locs[i]._y;
+		file >> _target_locs[i]._x >> _target_locs[i]._y >> _radii[i];
 	}
 
 	_bdg_rewards_ratio = new double[_nb_targets];

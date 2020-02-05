@@ -73,7 +73,7 @@ def plot_instance(instancefile):
 ################################################################################################
 
 #  transformation files
-# instancefile = '../ret/inst_n_20/n_20_h_1.txt'
-instancefile = '../ret/cluster_n_30/n_30_c_5_1.txt'
+instancefile = '../ret/inst_n_10/n_10_e_1.txt'
+# instancefile = '../ret/cluster_n_30/n_30_c_5_1.txt'
 
 plot_instance(instancefile)
