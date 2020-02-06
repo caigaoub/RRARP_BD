@@ -10,7 +10,10 @@ CPPLIBGRB = -L$(GRBPATH)/lib/ -lgurobi_c++ -lgurobi90 $(CPPSTDLIB) -lpthread -lm
 
 all:
 	$(CPP) $(CPPARGS) $(SRCPATH)DataHandler.cpp \
-	$(SRCPATH)PartitionScheme.cpp -o $(BINPATH)main $(SRCPATH)main.cpp $(INCGRB) $(CPPLIBGRB)
+	$(SRCPATH)PartitionScheme.cpp \
+	$(SRCPATH)STEFormulation.cpp \
+	$(SRCPATH)BendersCuts.cpp \
+	-o $(BINPATH)main $(SRCPATH)main.cpp $(INCGRB) $(CPPLIBGRB)
 
 clean:
 	rm -rf $(BINPATH)*.o $(BINPATH)*.dSYM $(BINPATH)main

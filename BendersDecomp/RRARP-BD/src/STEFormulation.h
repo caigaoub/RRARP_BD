@@ -12,33 +12,29 @@ using namespace std;
 class STEFormulation {
 public:
 	PartitionScheme *					_partition = nullptr;
-	DualFormulation *					_dual = nullptr;
+	// DualFormulation *					_formul_dual = nullptr;
 
 	int									_size_var_y;
 	GRBModel*							_model;
 	GRBVar**							_var_y;
 	GRBVar*								_var_v;
 
-	int 								_num_Benders_cuts_const = 0;
-	int									_num_subtour_cuts_const = 0;
-	int 								_num_user_cuts = 0;
+	int 								_total_nb_Benders_cuts = 0;
+	int									_total_nb_subtour_cuts = 0;
+	int 								_total_nb_user_cuts = 0;
 	int 								_status;
 
 	STEFormulation() {};
 	~STEFormulation() {};
-	void build_model(GRBModel*, PartitionScheme*, DualFormulation *);
+	void build_formul(GRBModel*, PartitionScheme*);
 	
 	pair<double, double> solve_LP_TSP();
 	pair<double, double> solve_IP_TSP();
 	void get_optimal_sol(double **);
-	double add_USER_cuts(double**);
-	bool add_SECs(double **);
+	// double add_USER_cuts(double**);
+	// bool add_SECs(double **);
 	void check_cutting_point(int, double**, vector<int> &, int&, vector<int>&);
-	void check_subcomponents(double**, vector<int>&, int&, vector<int>&);
-	void print_num_Benders_cuts() { cout << "Benders' cut: " << num_Benders_cuts_const << endl; }
-	void print_num_subtour_cuts() { cout << "Subtour' cut: " << num_subtour_cuts_const << endl; }
-	int get_num_Benders_cuts() { return num_Benders_cuts_const; }
-	int get_num_subtour_cuts() { return num_subtour_cuts_const; }
+	// void check_subcomponents(double**, vector<int>&, int&, vector<int>&);
 	string itos(int i) { stringstream s; s << i; return s.str(); }
 	void set_model_MIP();
 	void set_model_LP();

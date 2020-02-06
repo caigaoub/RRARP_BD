@@ -7,46 +7,49 @@
 #include <ctime>
 #include <chrono>
 #include <queue>
+#include <sstream>
 #include "gurobi_c++.h"
 #include "PartitionScheme.h"
-#include "DualFormulation.h"
+
+// #include "DualFormulation.h"
 //#include "CoefReduction.h"
 using namespace std;
 
 class BendersCuts : public GRBCallback {
 private:
-  int N;
-  int num_dstzn;
-	int num_targets;
-	PartitionScheme* PS;
-	DualFormulation* DL;
-	double** G; // network G=(V,E)
+  	// int 										_N;
+  	int 										_nb_dstzn;
+	int 										_nb_targets;
+	PartitionScheme* 							_partition;
+	// DualFormulation* 							_dual_formul;
+	vector<vector<pair<bool, double>>> * 		_G; // network G=(V,E)
+	
+	// GRBModel * 					_model_tsp;
+	GRBVar ** 					_var_y;
+	GRBVar *					_var_v;
 
-	GRBVar ** y;
-	GRBVar *v;
-	GRBModel * model_tsp;
+	vector<vector<double>> * 	_SDS;
+	vector<int> 				_fseq;
+	vector<vector<int>> 		_SeqPool;
 
-	vector<vector<double>> * SDS;
-	vector<int> fseq;
-	vector<vector<int>> SeqPool;
-
-	GRBLinExpr expr;
+	// GRBLinExpr expr;
 //	GRBEnv * evn_CoefRedc;
 //	GRBModel * model_CoefRedc;
 //	CoefReduction * CR;
 
-	int num_Benders_cuts;
-	int num_subtour_cuts;
+	int 						_CB_nb_Benders_cuts=0;
+	int 						_CB_nb_subtour_cuts=0;
 
 
 public:
-	BendersCuts(GRBModel*, GRBVar**, GRBVar*, PartitionScheme*, DualFormulation *);
+	BendersCuts(GRBVar**, GRBVar*, PartitionScheme*);
+	// BendersCuts(GRBVar**, GRBVar*, PartitionScheme*, DualFormulation *);
 	static void findsubtour(int, double**, int*, int* );
-	inline int get_num_Benders_cuts() { return num_Benders_cuts; }
-	inline int get_num_subtour_cuts() { return num_subtour_cuts; }
+	inline int get_nb_Benders_cuts() { return _CB_nb_Benders_cuts; }
+	inline int get_nb_subtour_cuts() { return _CB_nb_subtour_cuts; }
 	GRBLinExpr generate_Benderscut_SP(vector<int> *);
-  GRBLinExpr generate_StrongBenderscut(vector<int> *);
-	string itos(int i) { stringstream s; s << i; return s.str(); }
+  	GRBLinExpr generate_StrongBenderscut(vector<int> *);
+	inline string itos(int i) { stringstream s; s << i; return s.str(); }
 	void print_ySol(double**);
 //	double improve_coef(int, int, double, vector<tuple<int, int, double>> &);
 protected:

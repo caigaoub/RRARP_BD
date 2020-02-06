@@ -2,9 +2,9 @@
 #include "gurobi_c++.h"
 #include "DataHandler.h"
 #include "PartitionScheme.h"
-// #include "STEFormulation.h"
+#include "STEFormulation.h"
 // #include "CoefReduction.h"
-// #include "BendersCuts.h"
+#include "BendersCuts.h"
 #include <ctime>
 #include <chrono>
 
@@ -23,44 +23,38 @@ int main(int argc, const char* argv[]) {
 		PartitionScheme network_;
 		network_.build(dataset_, nb_dstzn);
 		
-		GRBEnv * evn_dual_ = new GRBEnv();
-		GRBModel model_dual_ = GRBModel(*evn_dual_);
-		model_dual_.getEnv().set(GRB_IntParam_OutputFlag, 0);
+		// GRBEnv * evn_dual_ = new GRBEnv();
+		// GRBModel model_dual_ = GRBModel(*evn_dual_);
+		// model_dual_.getEnv().set(GRB_IntParam_OutputFlag, 0);
 	
-		DualFormulation DualForm(&model_dual, &ps, num_dstzn);
-		DualForm.set_constraints();
+		// DualFormulation dualform_(&model_dual, &ps, num_dstzn);
+		// dualform_.set_constraints();
 
 		GRBEnv * evn_MP_ = new GRBEnv();
 		GRBModel model_MP_ = GRBModel(*evn_MP_);
-		model_MP_.getEnv().set(GRB_DoubleParam_TimeLimit, 72000);
-//		model_MP.getEnv().set(GRB_IntParam_OutputFlag, 0);
-		STEFormulation STEForm(&model_MP, &network_, &DualForm);
+		// model_MP_.getEnv().set(GRB_DoubleParam_TimeLimit, 7200);
+//		model_MP_.getEnv().set(GRB_IntParam_OutputFlag, 0);
+		STEFormulation formul_master;
+		formul_master.build_formul(&model_MP_, &network_);
 
-		int algorithm = 2;
+		int algorithm = 1;
 		if (algorithm == 1) {
-	//     pair<double, double> ret	=	STEForm.solve_IP_TSP();
-			 STEForm.solve_IP_TSP();
-	//  	 STEForm.printSol(&model_MP);
-	//   STEForm.print_num_Benders_cuts();
-	//	 STEForm.print_num_subtour_cuts();
 			auto end = chrono::system_clock::now();
+			formul_master.solve_IP_TSP();
 			chrono::duration<double> elapsed_seconds = end-start;
-		  fstream fs;
-	    fs.open("./ret/table2.dat", fstream::app | fstream::out);
-	    fs << elapsed_seconds.count() << '\t' << model_MP.get(GRB_DoubleAttr_MIPGap) << '\t' \
-			   << STEForm.get_num_subtour_cuts() << '\t' << STEForm.get_num_Benders_cuts() << '\n';
-	    fs.close();
-
+		  	// fstream fs;
+	    // 	fs.open("./ret/table2.dat", fstream::app | fstream::out);
+	    // 	fs << "Time(secs):" << elapsed_seconds.count() << '\t' << model_MP_.get(GRB_DoubleAttr_MIPGap) << '\t' << formul_master._total_nb_subtour_cuts << '\t' << formul_master._total_nb_Benders_cuts << '\n';
+	    // 	fs.close();
 		}
 		if (algorithm == 2) {
-			Fischetti_method(ps.get_num_targets() + 2, STEForm);
-			auto end = chrono::system_clock::now();
-			chrono::duration<double> elapsed_seconds = end-start;
-			fstream fs;
-			fs.open("./ret/table2.dat", fstream::app | fstream::out);
-			fs << elapsed_seconds.count() << '\t' << model_MP.get(GRB_DoubleAttr_MIPGap) << '\t' \
-			   << STEForm.get_num_subtour_cuts() << '\t' << STEForm.get_num_Benders_cuts() << '\n';
-	    fs.close();
+			// Fischetti_method(ps.get_num_targets() + 2, STEForm);
+			// auto end = chrono::system_clock::now();
+			// chrono::duration<double> elapsed_seconds = end-start;
+			// fstream fs;
+			// fs.open("./ret/table2.dat", fstream::app | fstream::out);
+	    	// fs << elapsed_seconds.count() << '\t' << model_MP_.get(GRB_DoubleAttr_MIPGap) << '\t' << formul_master._total_nb_subtour_cuts << '\t' << formul_master._total_nb_Benders_cuts << '\n';
+	      //  		fs.close();
 		} 
 		
 	}
