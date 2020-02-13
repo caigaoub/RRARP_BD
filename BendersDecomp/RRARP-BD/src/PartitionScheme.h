@@ -52,6 +52,7 @@ public:
 	double dot_product(myVector vec1, myVector vec2);
 	double get_lineSeg_len(Vertex, Vertex);
 	void solve_shortestpath(vector<int> &, vector<vector<double>> &);
+	double calc_sequence_distance(vector<int> &);
 };
 
 

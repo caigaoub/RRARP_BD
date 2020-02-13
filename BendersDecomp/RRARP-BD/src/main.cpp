@@ -19,7 +19,7 @@ int main(int argc, const char* argv[]) {
 		auto start = chrono::system_clock::now();
 		DataHandler dataset_;
 		dataset_.parse(filename);
-		dataset_.print();
+		// dataset_.print();
 		PartitionScheme network_;
 		network_.build(dataset_, nb_dstzn);
 		
@@ -41,6 +41,7 @@ int main(int argc, const char* argv[]) {
 		if (algorithm == 1) {
 			auto end = chrono::system_clock::now();
 			formul_master.solve_IP_TSP();
+			formul_master.printSol(&model_MP_);
 			chrono::duration<double> elapsed_seconds = end-start;
 		  	// fstream fs;
 	    // 	fs.open("./ret/table2.dat", fstream::app | fstream::out);

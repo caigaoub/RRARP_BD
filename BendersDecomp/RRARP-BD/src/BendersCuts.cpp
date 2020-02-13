@@ -10,6 +10,13 @@ void print_sequence(vector<int> * fseq) {
 	}
 	cout << endl;
 }
+void print_sequence(vector<int> fseq) {
+	cout << "sequence: ";
+	for (unsigned int i=0; i < fseq.size(); i++) {
+		cout << fseq[i] << " ";
+	}
+	cout << endl;
+}
 
 // BendersCuts::BendersCuts(GRBVar** y_, GRBVar* v_, PartitionScheme* partition_, DualFormulation* dual_)
 BendersCuts::BendersCuts(GRBVar** y_, GRBVar* v_, PartitionScheme* partition_) {
@@ -72,8 +79,12 @@ void BendersCuts::callback() {
 				for (int i = 0; i < _nb_targets + 1; i++) {
 					_fseq.at(i) = tour[i];
 				}
+				print_sequence(_fseq);
 				_SDS = new vector<vector<double>>(_nb_targets + 2);
 				_partition->solve_shortestpath(_fseq, *_SDS);
+				// cout << " shortest dist: " << (*_SDS)[_nb_targets+1][0] + _partition->calc_sequence_distance(_fseq) << endl;
+				cout << " shortest dist: " << (*_SDS)[_nb_targets+1][0] << endl;
+				
 				GRBLinExpr expr = 0;
 			 	expr = generate_Benderscut_SP(&_fseq);
 				// expr = generate_StrongBenderscut(&_fseq);

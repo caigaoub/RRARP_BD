@@ -81,9 +81,14 @@ pair<double, double> STEFormulation::solve_IP_TSP() {
 			double v_val = (*_var_v).get(GRB_DoubleAttr_X);
 			_total_nb_Benders_cuts = cb->get_nb_Benders_cuts();
 			_total_nb_subtour_cuts = cb->get_nb_subtour_cuts();
-			cout << "nb of Benders cuts(not including user cut): " << _total_nb_Benders_cuts << endl;
-			cout << "nb of Benders cuts(user cuts): " <<  _total_nb_user_cuts << endl;
-			cout << "nb of subtour cuts: " << _total_nb_subtour_cuts << endl;
+			cout << "**************** ***** ****************"<< endl;
+			cout << "**************** ***** ****************"<< endl;
+			cout << "**************** ***** ****************"<< endl;
+			cout << "====>> objective value: " << obj_val << endl;
+			cout << "====>> v value: " << v_val  << endl;
+			cout << "====>> nb of Benders cuts(not including user cut): " << _total_nb_Benders_cuts << endl;
+			cout << "====>> nb of Benders cuts(user cuts): " <<  _total_nb_user_cuts << endl;
+			cout << "====>> nb of subtour cuts: " << _total_nb_subtour_cuts << endl;
 			delete cb;
 			return make_pair(obj_val, v_val);
 		}
@@ -388,19 +393,27 @@ void STEFormulation::printSol(GRBModel *model) {
 					sol[i][j] = _var_y[i][j].get(GRB_DoubleAttr_X);
 				}
 			}
+			cout << "====>> optimal TSP Solution matrix: " << '\n';
 			for (i = 0; i < _size_var_y; i++) {
 				for (j = 0; j < _size_var_y; j++) {
-					cout << sol[i][j] << '\t';
+					if(abs(sol[i][j]) < 1e-6){
+							cout << 0 << "  ";
+					}
+					if(abs(sol[i][j]-1) < 1e-6){
+						cout << 1 << "  ";
+					}
+					// cout << sol[i][j] << "   ";	
 				}
 				cout << endl;
 			}
 			int len;
 			int *tour2 = new int[_size_var_y];
 			BendersCuts::findsubtour(_size_var_y, sol, &len, tour2);
-			cout << '\n';
+			cout << "====>> current best visiting sequence: ";
 			for (i = 0; i < len; i++) {
-				cout << tour2[i] << '\t';
+				cout << tour2[i] << "  ";
 			}
+			cout << '\n';
 			for (i = 0; i < _size_var_y; i++)
 				delete[] sol[i];
 			delete[] sol;
