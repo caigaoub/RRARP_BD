@@ -15,7 +15,7 @@ void PartitionScheme::build(DataHandler& dataset, int nb_dstzn) {
 	_size_G = 2 * _dataset->_nb_targets * _nb_dstzn + 2;
 	_G.resize(_size_G);
 	for (int i = 0; i < _size_G; i++) {
-		_G[i].resize(_size_G, make_pair(false, -1.0));
+		_G[i].resize(_size_G, make_pair(false, 0));
 	}
 	_min_risk_tars.resize(_dataset->_nb_targets + 2);
 	for (int i = 0; i < _dataset->_nb_targets + 2; i++) {
@@ -162,16 +162,17 @@ void PartitionScheme::get_risk_reward_outerTrajc() {
 		idxmat_1 = (s - 1) * 2 * _nb_dstzn + _nb_dstzn + 1; // exit of target s
 		idxmat_3 = (s - 1) * 2 * _nb_dstzn + 1; // entries  of target s
 		for (int t = 1; t <= _dataset->_nb_targets; t++) {
+			val_min_risk = INF;
 			if(s != t){
 				idxmat_2 = (t - 1) * 2 * _nb_dstzn + 1; // vertices on boundary t acted as entries
 				idxmat_4 = (t - 1) * 2 * _nb_dstzn + _nb_dstzn + 1; // vertices on boundary t acted as exits
-				val_min_risk = INF;
 				for (int i = 0; i < _nb_dstzn; i++) {
 					for (int j = 0; j < _nb_dstzn; j++) {
 						// val_risk = get_risk_outerTrajc(_points[s][i], _points[t][j]);
 						val_risk = get_lineSeg_len(_points[s][i], _points[t][j]); // for testing
 						_G[idxmat_1 + i][idxmat_2 + j] = make_pair(true, val_risk);
 						_G[idxmat_4 + j][idxmat_3 + i] = make_pair(true, val_risk);
+						// cout<< s << " " << t << ": " << idxmat_1+i << "-->" << idxmat_2+j << " dist: "<< _G[idxmat_1 + i][idxmat_2 + j].second << endl;
 						// cout << idxmat_1+i << "-->" << idxmat_2+j << " : " << _G[idxmat_1 + i][idxmat_2 + j].second << '\n';
 						if (val_risk < val_min_risk)
 							val_min_risk = val_risk;
@@ -221,23 +222,30 @@ void PartitionScheme::get_risk_reward_outerTrajc() {
 	if(true){
 		for (int t = 1; t <= _dataset->_nb_targets; t++) {
 		idxmat_1 = (t - 1) * 2 * _nb_dstzn + 1;
-		idxmat_2 = (t - 1) * 2 * _nb_dstzn + _nb_dstzn + 1;
+		// idxmat_2 = (t - 1) * 2 * _nb_dstzn + _nb_dstzn + 1;
 		for (int i = 0; i < _nb_dstzn; i++) {
-			if(_G[0][idxmat_1 + i].first == true)
+			if(_G[0][idxmat_1 + i].first == true){
 				_G[0][idxmat_1 + i].second -= _min_risk_tars[0][t];
+				// cout << "0" << idxmat_1 + i << " " << _min_risk_tars[0][t] << endl;
+			}
+
 		}
 		}
 		for (int s = 1; s <= _dataset->_nb_targets; s++) {
 			idxmat_1 = (s - 1) * 2 * _nb_dstzn + _nb_dstzn + 1; // vertices worked as exits in boundary s
 			idxmat_3 = (s - 1) * 2 * _nb_dstzn + 1; // vertices worked as entries in boundary s
 			for (int t = 1; t <= _dataset->_nb_targets; t++) {
-				if(s != t){
+				if(s != t && s < t){
 					idxmat_2 = (t - 1) * 2 * _nb_dstzn + 1; // vertices worked as entries on boundary t
 					idxmat_4 = (t - 1) * 2 * _nb_dstzn + _nb_dstzn + 1; // vertices worked as exits on boundary t
 					for (int i = 0; i < _nb_dstzn; i++) {
 						for (int j = 0; j < _nb_dstzn; j++) {
-							if(_G[idxmat_1 + i][idxmat_2 + j].first == true)
+							if(_G[idxmat_1 + i][idxmat_2 + j].first == true){
+								// cout<< s << " " << t << ": " << idxmat_1+i << "-->" << idxmat_2+j << " dist: ";
+								// cout << _G[idxmat_1 + i][idxmat_2 + j].second << " "<< _min_risk_tars[s][t] << " ";
 								_G[idxmat_1 + i][idxmat_2 + j].second -= _min_risk_tars[s][t];
+								// cout << " = " << _G[idxmat_1 + i][idxmat_2 + j].second << endl;
+							}
 							if(_G[idxmat_4 + j][idxmat_3 + i].first == true)
 								_G[idxmat_4 + j][idxmat_3 + i].second -= _min_risk_tars[t][s];
 						}
@@ -256,7 +264,7 @@ void PartitionScheme::get_risk_reward_outerTrajc() {
 	
 
 	/*print for debugging: */
-	if(true){
+	if(false){
 		for (int i = 0; i < _size_G; i++) {
 			for (int j = 0; j < _size_G; j++) {
 				cout << _G[i][j].second << ' ';

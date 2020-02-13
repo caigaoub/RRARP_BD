@@ -82,9 +82,9 @@ def plot_instance(instancefile):
 ################################################################################################
 
 #  transformation files
-instancefile = '../ret/inst_n_10/n_10_e_1.txt'
+# instancefile = '../ret/inst_n_10/n_10_e_1.txt'
 # instancefile = '../ret/cluster_n_30/n_30_c_5_1.txt'
-instancefile = '/home/cai/Dropbox/Box_Research/Github/RRARP_BD/BendersDecomp/RRARP-BD/dat/test_n_6.txt'
-
+# instancefile = '/home/cai/Dropbox/Box_Research/Github/RRARP_BD/BendersDecomp/RRARP-BD/dat/test_n_6.txt'
+instancefile = '/home/caigao/Dropbox/Box_Research/Github/RRARP_BD/BendersDecomp/RRARP-BD/dat/test_n_6.txt'
 
 plot_instance(instancefile)
