@@ -1,8 +1,0 @@
-1. gurobi compilation https://www.leandro-coelho.com/how-to-compile-c-with-gurobi-in-linux/
-
-
-Things to do
- debug "get_risk_reward_outerTrajc()" function in partitionschme.cpp 
-
-Questions need to discuss:
-a) we have two different drone routing strategies. one is straight line and the other is rotatory trajectory. no matter which strategy we adopt, the numerical experiments wouldn't be affected that much. 
