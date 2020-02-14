@@ -23,6 +23,18 @@ int main(int argc, const char* argv[]) {
 		PartitionScheme network_;
 		network_.build(dataset_, nb_dstzn);
 		
+		vector<int> fseq_;
+		fseq_.push_back(0);
+		fseq_.push_back(1);
+		fseq_.push_back(2);
+		fseq_.push_back(3);
+		fseq_.push_back(4);
+		fseq_.push_back(5);
+		fseq_.push_back(6);
+		vector<vector<double>> * SDS = new vector<vector<double>>(dataset_._nb_targets + 2);
+		network_.solve_shortestpath_v2(fseq_, *SDS);
+
+
 		// GRBEnv * evn_dual_ = new GRBEnv();
 		// GRBModel model_dual_ = GRBModel(*evn_dual_);
 		// model_dual_.getEnv().set(GRB_IntParam_OutputFlag, 0);
@@ -37,7 +49,7 @@ int main(int argc, const char* argv[]) {
 		STEFormulation formul_master;
 		formul_master.build_formul(&model_MP_, &network_);
 
-		int algorithm = 1;
+		int algorithm = 0;
 		if (algorithm == 1) {
 			auto end = chrono::system_clock::now();
 			formul_master.solve_IP_TSP();

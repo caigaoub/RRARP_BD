@@ -218,15 +218,17 @@ void PartitionScheme::get_risk_reward_outerTrajc() {
 	}
 	*/
 
-	// ------------  Step 2: subtract the min_risk_mat[s][t] from G[i][j]   -------------
+	// ------------  Step 2: subtract the _min_risk_tars[s][t] from _G[i][j]   -------------
 	if(true){
 		for (int t = 1; t <= _dataset->_nb_targets; t++) {
 		idxmat_1 = (t - 1) * 2 * _nb_dstzn + 1;
 		// idxmat_2 = (t - 1) * 2 * _nb_dstzn + _nb_dstzn + 1;
 		for (int i = 0; i < _nb_dstzn; i++) {
 			if(_G[0][idxmat_1 + i].first == true){
+				// cout << "D" << " " << t << ": " << "D" << "-->" << idxmat_1+i << " dist: ";
+				// cout << _G[0][idxmat_1 + i].second << " "<< _min_risk_tars[0][t] << " ";
 				_G[0][idxmat_1 + i].second -= _min_risk_tars[0][t];
-				// cout << "0" << idxmat_1 + i << " " << _min_risk_tars[0][t] << endl;
+				// cout << " = " << _G[0][idxmat_1 + i].second << endl;
 			}
 
 		}
@@ -246,8 +248,13 @@ void PartitionScheme::get_risk_reward_outerTrajc() {
 								_G[idxmat_1 + i][idxmat_2 + j].second -= _min_risk_tars[s][t];
 								// cout << " = " << _G[idxmat_1 + i][idxmat_2 + j].second << endl;
 							}
-							if(_G[idxmat_4 + j][idxmat_3 + i].first == true)
+							if(_G[idxmat_4 + j][idxmat_3 + i].first == true){
+								// cout<< t << " " << s << ": " << idxmat_4+j << "-->" << idxmat_3+i << " dist: ";
+								// cout << _G[idxmat_4 + j][idxmat_3 + i].second << " "<< _min_risk_tars[t][s] << " ";
 								_G[idxmat_4 + j][idxmat_3 + i].second -= _min_risk_tars[t][s];
+						
+								// cout << " = " << _G[idxmat_4 + j][idxmat_3 + i].second << endl;
+							}
 						}
 					}	
 				}			
@@ -256,8 +263,12 @@ void PartitionScheme::get_risk_reward_outerTrajc() {
 		for (int s = 1; s <= _dataset->_nb_targets; s++) {
 			idxmat_2 = (s - 1) * 2 * _nb_dstzn + _nb_dstzn + 1;
 			for (int i = 0; i < _nb_dstzn; i++) {
-				if(_G[idxmat_2 + i][_size_G - 1].first == true)
+				if(_G[idxmat_2 + i][_size_G - 1].first == true){
+					// cout<< s << " " << "A" << ": " << idxmat_2+i << "-->" << _size_G - 1 << " dist: ";
+					// cout << _G[idxmat_2 + i][_size_G - 1].second << " "<< _min_risk_tars[s][_dataset->_nb_targets + 1] << " ";
 					_G[idxmat_2 + i][_size_G - 1].second -= _min_risk_tars[s][_dataset->_nb_targets + 1];
+					// cout << " = " << _G[idxmat_2 + i][_size_G - 1].second << endl;
+				}
 			}
 		}
 	}
@@ -349,12 +360,10 @@ void PartitionScheme::solve_shortestpath(vector<int> & seq, vector<vector<double
 	vector<double> exit_dist(_nb_dstzn, INF);
 	vector<double> INF_dist(_nb_dstzn, INF);
 	double dist_endDepot = INF;
-
 	double dist = 0.0;
 	// i) SDS[start depot] = 0.0
 	SDS[0].resize(1);
 	SDS[0][0] = 0.0;
-
 	// ii) SDS[*] of boundary points of the first visited target
 	int pos = 1;
 	int idx_circle = seq[pos];
@@ -425,6 +434,132 @@ void PartitionScheme::solve_shortestpath(vector<int> & seq, vector<vector<double
 		}
 	}
 	SDS[_dataset->_nb_targets + 1][0] = dist_endDepot;
+}
+
+
+void PartitionScheme::solve_shortestpath_v2(vector<int> & seq, vector<vector<double>> & SDS) {
+	int idxmat_1, idxmat_2, idxmat_3;
+	vector<double> entry_dist(_nb_dstzn, INF);
+	vector<double> exit_dist(_nb_dstzn, INF);
+	vector<double> INF_dist(_nb_dstzn, INF);
+	double dist_endDepot = INF;
+	double dist = 0.0;
+	vector<vector<pair<int,int>>> prevnodes_tars(2 * _dataset->_nb_targets); //pair<target, turning point>
+	for(int i = 0;i< 2* _dataset->_nb_targets; i++){
+		prevnodes_tars[i].resize(_nb_dstzn);
+	}
+
+	pair<int,int> prevnode_arrival;
+	int col_layer = 0;
+	// i) SDS[start depot] = 0.0
+	SDS[0].resize(1);
+	SDS[0][0] = 0.0;
+	// ii) SDS[*] of boundary points of the first visited target
+	int pos = 1;
+	int idx_circle = seq[pos];
+	SDS[1].resize(_nb_dstzn);
+	idxmat_1 = (idx_circle - 1) * 2 * _nb_dstzn + 1; //first entry of the first visited target
+	for (int i = 0; i < _nb_dstzn; i++)	{
+		if (_G[0][idxmat_1 + i].first == true) {
+			entry_dist[i] = _G[0][idxmat_1 + i].second;
+			SDS[1][i] = entry_dist[i];
+			prevnodes_tars[col_layer][i] = make_pair(col_layer,0);
+		}
+	}
+
+	col_layer++;
+	idxmat_2 = (idx_circle - 1) * 2 * _nb_dstzn + _nb_dstzn + 1;
+	for (int i = 0; i < _nb_dstzn; i++) {
+		for (int j = 0; j < _nb_dstzn; j++) {
+			if (_G[idxmat_1 + i][idxmat_2 + j].first == true) {
+				dist = entry_dist[i] + _G[idxmat_1 + i][idxmat_2 + j].second;
+				if (dist < exit_dist[j]){
+					exit_dist[j] = dist;
+					prevnodes_tars[col_layer][j] = make_pair(idx_circle,i);
+				}
+			}
+		}
+	}
+	entry_dist = INF_dist;
+	// iii) nodes from seq[2] to seq[num_circles]
+	int idx_fr_circle = 0;
+	int idx_lat_circle = 0;
+	col_layer++;
+	for (pos = 2; pos <= _dataset->_nb_targets; pos++) {
+		SDS[pos].resize(_nb_dstzn);
+		idx_fr_circle = seq[pos - 1]; 
+		idx_lat_circle = seq[pos]; 
+		idxmat_1 = (idx_fr_circle - 1) * 2 * _nb_dstzn + _nb_dstzn + 1;
+		idxmat_2 = (idx_lat_circle - 1) * 2 * _nb_dstzn + 1;
+
+		for (int i = 0; i < _nb_dstzn; i++) {
+			for (int j = 0; j < _nb_dstzn; j++) {
+				if (_G[idxmat_1 + i][idxmat_2 + j].first == true) {
+					dist = exit_dist[i] + _G[idxmat_1 + i][idxmat_2 + j].second;
+					if (dist < entry_dist[j]){
+						entry_dist[j] = dist;
+						prevnodes_tars[col_layer][j] = make_pair(idx_fr_circle, i);
+					}
+				}
+			}
+		}
+		col_layer++;
+
+		for (int i = 0; i < _nb_dstzn; i++) {
+			SDS[pos][i] = entry_dist[i];
+		}
+		exit_dist = INF_dist;
+		idxmat_3 = (idx_lat_circle - 1) * 2 * _nb_dstzn + _nb_dstzn + 1;
+		// update exits
+		for (int i = 0; i < _nb_dstzn; i++) {
+			for (int j = 0; j < _nb_dstzn; j++) {
+				if (_G[idxmat_2 + i][idxmat_3 + j].first == true) {
+					dist = entry_dist[i] + _G[idxmat_2 + i][idxmat_3 + j].second;
+					if (dist < exit_dist[j]){
+						exit_dist[j] = dist;
+						prevnodes_tars[col_layer][j] = make_pair(idx_lat_circle, i);
+					}
+				}
+			}
+		}
+		col_layer++;
+		entry_dist = INF_dist;
+	}
+	// iv) the last target <-> the end depot
+	idx_circle = seq[_dataset->_nb_targets];
+	SDS[_dataset->_nb_targets + 1].resize(1);
+	idxmat_1 = (idx_circle - 1) * 2 * _nb_dstzn + _nb_dstzn + 1;
+	for (int i = 0; i < _nb_dstzn; i++) {
+		if (_G[idxmat_1 + i][_size_G - 1].first == true) {
+			dist = exit_dist[i] + _G[idxmat_1 + i][_size_G - 1].second;
+			if (dist < dist_endDepot){
+				dist_endDepot = dist;
+				prevnode_arrival = make_pair(idx_circle, i);
+			}
+		}
+	}
+	SDS[_dataset->_nb_targets + 1][0] = dist_endDepot;
+
+	/* retrieve the shortest path */
+	deque<pair<int,Vertex>> OptPath;
+	OptPath.push_front(make_pair(_dataset->_nb_targets+1, _points[_dataset->_nb_targets+1][0]));
+	OptPath.push_front(make_pair(prevnode_arrival.first, _points[prevnode_arrival.first][prevnode_arrival.second]));
+	// int pre_tar = prevnode_arrival.first;
+	int tpidx_pre_tar = prevnode_arrival.second;
+	for(int i = 2*_dataset->_nb_targets-1; i >= 0; i--){
+		OptPath.push_front(make_pair(prevnodes_tars[i][tpidx_pre_tar].first, _points[prevnodes_tars[i][tpidx_pre_tar].first][prevnodes_tars[i][tpidx_pre_tar].second]));
+		tpidx_pre_tar = prevnodes_tars[i][tpidx_pre_tar].second;
+	}
+
+	cout << " =====>> optimal path: " << '\n';
+	for(auto itr = OptPath.begin(); itr != OptPath.end(); itr++){
+		cout << (*itr).first << ": (" << (*itr).second._x << ',' << (*itr).second._y << ")\n";
+	}
+
+	ofstream file_OptPath("./ret/OptimalPath.txt");
+	for(auto itr = OptPath.begin(); itr != OptPath.end(); itr++){
+		file_OptPath << (*itr).first << '\t' << (*itr).second._x << '\t' << (*itr).second._y << '\n';
+	}
 }
 
 double PartitionScheme::calc_sequence_distance(vector<int> & fseq_){
