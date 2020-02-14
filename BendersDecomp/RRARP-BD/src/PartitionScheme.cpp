@@ -204,7 +204,7 @@ void PartitionScheme::get_risk_reward_outerTrajc() {
 		// cout << " ------ depot 2 to target: " << val_min_risk << endl;
 	}
 
-	
+
 	/* diagonal elements -- 
 	for (s = 0; s <= _dataset->_nb_targets + 1; s++) {
 		_min_risk_tars[s][s] = 0.0;
@@ -288,7 +288,7 @@ void PartitionScheme::get_risk_reward_outerTrajc() {
 			cout << '\n';
 		}
 	}
-	if(true){
+	if(false){
 		for (int s = 0; s < _dataset->_nb_targets+2; s++) {
 			for (int t = 0; t < _dataset->_nb_targets+2; t++) {
 				cout << _min_risk_tars[s][t] << ' ';

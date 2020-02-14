@@ -65,7 +65,7 @@ void STEFormulation::build_formul(GRBModel* model_MP_, PartitionScheme* network_
 	for (int i = 0; i < _size_var_y; i++) {
 		_var_y[i][i].set(GRB_DoubleAttr_UB, 0);
 	}
-	_model->write("./ret/model.lp");
+	// _model->write("./ret/model.lp");
 }
 /**
 	solve master problem(TSP)
