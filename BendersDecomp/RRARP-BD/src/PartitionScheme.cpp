@@ -154,7 +154,9 @@ void PartitionScheme::get_risk_reward_outerTrajc() {
 		}
 		/*minimum risk matrix is symmetic*/
 		_min_risk_tars[0][t] = val_min_risk;
-		_min_risk_tars[t][0] = val_min_risk;
+		// _min_risk_tars[t][0] = val_min_risk;
+		_min_risk_tars[t][0] = 0;
+
 		// cout << " ====>> minimum risk from departure to target " << t << ": " << val_min_risk << endl;
 	}
 	/* each pair of entry and exit between targets*/
@@ -196,10 +198,13 @@ void PartitionScheme::get_risk_reward_outerTrajc() {
 				val_min_risk = val_risk;
 		}
 		_min_risk_tars[s][_dataset->_nb_targets + 1] = val_min_risk;
-		_min_risk_tars[_dataset->_nb_targets + 1][s] = val_min_risk;
+		// _min_risk_tars[_dataset->_nb_targets + 1][s] = val_min_risk;
+		_min_risk_tars[_dataset->_nb_targets + 1][s] = 0;
+
 		// cout << " ------ depot 2 to target: " << val_min_risk << endl;
 	}
 
+	
 	/* diagonal elements -- 
 	for (s = 0; s <= _dataset->_nb_targets + 1; s++) {
 		_min_risk_tars[s][s] = 0.0;
@@ -283,7 +288,7 @@ void PartitionScheme::get_risk_reward_outerTrajc() {
 			cout << '\n';
 		}
 	}
-	if(false){
+	if(true){
 		for (int s = 0; s < _dataset->_nb_targets+2; s++) {
 			for (int t = 0; t < _dataset->_nb_targets+2; t++) {
 				cout << _min_risk_tars[s][t] << ' ';
@@ -551,7 +556,7 @@ void PartitionScheme::solve_shortestpath_v2(vector<int> & seq, vector<vector<dou
 		tpidx_pre_tar = prevnodes_tars[i][tpidx_pre_tar].second;
 	}
 
-	cout << " =====>> optimal path: " << '\n';
+	cout << " =====>> optimal entries and exits selected: " << '\n';
 	for(auto itr = OptPath.begin(); itr != OptPath.end(); itr++){
 		cout << (*itr).first << ": (" << (*itr).second._x << ',' << (*itr).second._y << ")\n";
 	}

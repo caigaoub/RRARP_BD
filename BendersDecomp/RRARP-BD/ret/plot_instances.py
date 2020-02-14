@@ -78,7 +78,7 @@ def plot_instance(instancefile):
     plt.yticks(np.arange(miny,maxy,1))
     plt.grid(alpha=.5)
     
-    if True:
+    if False:
         print("print the claimed optimal path: ")
         path_X = []
         path_Y = []

@@ -79,11 +79,12 @@ void BendersCuts::callback() {
 				for (int i = 0; i < _nb_targets + 1; i++) {
 					_fseq.at(i) = tour[i];
 				}
-				print_sequence(_fseq);
+				// print_sequence(_fseq);
 				_SDS = new vector<vector<double>>(_nb_targets + 2);
 				_partition->solve_shortestpath(_fseq, *_SDS);
 				// cout << " shortest dist: " << (*_SDS)[_nb_targets+1][0] + _partition->calc_sequence_distance(_fseq) << endl;
-				// cout << " shortest dist: " << (*_SDS)[_nb_targets+1][0] << " ?=" << (*_SDS)[_nb_targets+1][0] << " + " <<_partition->calc_sequence_distance(_fseq) << endl;
+				// cout << " shortest dist: " << (*_SDS)[_nb_targets+1][0] << endl;
+
 				
 				GRBLinExpr expr = 0;
 			 	expr = generate_Benderscut_SP(&_fseq);

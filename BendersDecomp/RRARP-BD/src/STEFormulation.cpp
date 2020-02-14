@@ -9,7 +9,7 @@
 */
 void STEFormulation::build_formul(GRBModel* model_MP_, PartitionScheme* network_) {
 	this->_partition = network_;
-	this->_size_var_y = _partition->_dataset->_nb_targets+ 2;
+	this->_size_var_y = _partition->_dataset->_nb_targets + 2;
 	this->_model = model_MP_;
 
 	/* Create dual formulation*/ 
@@ -58,13 +58,14 @@ void STEFormulation::build_formul(GRBModel* model_MP_, PartitionScheme* network_
 			exprB += i * (_var_y[i][_size_var_y - 1]);
 		}
 	}
-	_model->addConstr(exprA <= exprB, "rm_inv_seq");
+	// _model->addConstr(exprA <= exprB, "rm_inv_seq");
 	_model->update();
 
 	_var_y[_size_var_y - 1][0].set(GRB_DoubleAttr_LB, 1);
 	for (int i = 0; i < _size_var_y; i++) {
 		_var_y[i][i].set(GRB_DoubleAttr_UB, 0);
 	}
+	_model->write("./ret/model.lp");
 }
 /**
 	solve master problem(TSP)
