@@ -80,10 +80,12 @@ void BendersCuts::callback() {
 					_fseq.at(i) = tour[i];
 				}
 				// print_sequence(_fseq);
-				_SDS = new vector<vector<double>>(_nb_targets + 2);
+				
 
-				int choose_cut = 2;
+				int choose_cut = 1;
 				if(choose_cut == 1){
+					_SDS = new vector<vector<double>>(_nb_targets + 2);
+					_partition->solve_shortestpath(_fseq, *_SDS);
 					GRBLinExpr expr = 0;
 					expr = generate_Benderscut_SP(&_fseq);
 					// expr = generate_StrongBenderscut(&_fseq);
