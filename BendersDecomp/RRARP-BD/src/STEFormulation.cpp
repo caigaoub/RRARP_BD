@@ -1,7 +1,10 @@
 #include "STEFormulation.h"
-#include "DualFormulation.h"
-#include "GlobalMC.h"
 #define INF numeric_limits<double>::infinity()
+
+void STEFormulation::add_dualformul(DualFormulation* dual_){
+	this->_formul_dual = dual_;
+}
+
 
 /**
  	serve the master formulation with Gurobi model and the underlying network 
@@ -11,14 +14,6 @@ void STEFormulation::build_formul(GRBModel* model_MP_, PartitionScheme* network_
 	this->_partition = network_;
 	this->_size_var_y = _partition->_dataset->_nb_targets + 2;
 	this->_model = model_MP_;
-
-	/* Create dual formulation*/ 
-	// GRBEnv * evn_dual_ = new GRBEnv();
-	// GRBModel model_dual_ = GRBModel(*evn_dual_);
-	// model_dual_.getEnv().set(GRB_IntParam_OutputFlag, 0);
-	// DualFormulation formul_dual_(&model_dual_, &_partition);
-	// formul_dual_.set_constraints();
-	// this->_formul_dual = &formul_dual_;
 
 	/* set up model parameters */
 	_model->getEnv().set(GRB_IntParam_LazyConstraints, 1);
@@ -72,8 +67,8 @@ void STEFormulation::build_formul(GRBModel* model_MP_, PartitionScheme* network_
 */
 pair<double, double> STEFormulation::solve_IP_TSP() {
 	try {
-		BendersCuts * cb = new BendersCuts(_var_y, _var_v, _partition);
-		// BendersCuts * cb = new BendersCuts(_var_y, _var_v, _partition, _formul_dual);
+		// BendersCuts * cb = new BendersCuts(_var_y, _var_v, _partition);
+		BendersCuts * cb = new BendersCuts(_var_y, _var_v, _partition, _formul_dual);
 		_model->setCallback(cb);
 		_model->optimize();
 		if (_model->get(GRB_IntAttr_Status) == GRB_OPTIMAL|| _model->get(GRB_IntAttr_Status) == GRB_TIME_LIMIT) {

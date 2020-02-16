@@ -18,9 +18,8 @@ void print_sequence(vector<int> fseq) {
 	cout << endl;
 }
 
-// BendersCuts::BendersCuts(GRBVar** y_, GRBVar* v_, PartitionScheme* partition_, DualFormulation* dual_)
-BendersCuts::BendersCuts(GRBVar** y_, GRBVar* v_, PartitionScheme* partition_) {
-	// this->_formul_dual = dual_;
+BendersCuts::BendersCuts(GRBVar** y_, GRBVar* v_, PartitionScheme* partition_, DualFormulation* dual_){
+// BendersCuts::BendersCuts(GRBVar** y_, GRBVar* v_, PartitionScheme* partition_) {
 	this->_var_y = y_;
 	this->_var_v = v_;
 	this->_partition = partition_;
@@ -28,6 +27,7 @@ BendersCuts::BendersCuts(GRBVar** y_, GRBVar* v_, PartitionScheme* partition_) {
 	// this->_N = _nb_targets + 2;
 	this->_nb_dstzn = _partition->_nb_dstzn;
 	this->_G = &(_partition->_G);
+	this->_formul_dual = dual_;
 
 	for (int i = 0; i <= _nb_targets; i++)
 		_fseq.push_back(-1);
@@ -81,27 +81,25 @@ void BendersCuts::callback() {
 				}
 				// print_sequence(_fseq);
 				_SDS = new vector<vector<double>>(_nb_targets + 2);
-				_partition->solve_shortestpath(_fseq, *_SDS);
-				// cout << " shortest dist: " << (*_SDS)[_nb_targets+1][0] + _partition->calc_sequence_distance(_fseq) << endl;
-				// cout << " shortest dist: " << (*_SDS)[_nb_targets+1][0] << endl;
 
-				
-				GRBLinExpr expr = 0;
-			 	expr = generate_Benderscut_SP(&_fseq);
-				// expr = generate_StrongBenderscut(&_fseq);
-				addLazy(expr >= 0);
-				_CB_nb_Benders_cuts++;
-				// vector<int> fseq2(N);
-
-				/*
-				// Test the correctness of adding Benders cuts by solving the dual model
-				_dual_formul->set_objective(y_sol);
-				double dist = _dual_formul->solve();
-				expr = 0;
-				_dual_formul->get_Benders_user_cut(expr, y);
-				addLazy(expr <= *v);
-				num_Benders_cuts++;
-				*/
+				int choose_cut = 2;
+				if(choose_cut == 1){
+					GRBLinExpr expr = 0;
+					expr = generate_Benderscut_SP(&_fseq);
+					// expr = generate_StrongBenderscut(&_fseq);
+					addLazy(expr >= 0);
+					_CB_nb_Benders_cuts++;
+					// vector<int> fseq2(N);
+				}
+				if(choose_cut == 2){// Test the correctness of adding Benders cuts by solving the dual model			
+					// print_ySol(y_sol);
+					_formul_dual->set_objective(y_sol);
+					_formul_dual->solve();
+					GRBLinExpr expr = 0;
+					_formul_dual->get_Benders_user_cut(expr, _var_y);
+					addLazy(expr <= *_var_v);
+					_CB_nb_Benders_cuts++;
+				}
 			}
 
 			for (int i = 0; i < _nb_targets+2; i++)

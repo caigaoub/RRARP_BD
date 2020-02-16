@@ -35,21 +35,21 @@ int main(int argc, const char* argv[]) {
 		// vector<vector<double>> * SDS = new vector<vector<double>>(dataset_._nb_targets + 2);
 		// network_.solve_shortestpath_v2(fseq_, *SDS);
 
-
-		// GRBEnv * evn_dual_ = new GRBEnv();
-		// GRBModel model_dual_ = GRBModel(*evn_dual_);
-		// model_dual_.getEnv().set(GRB_IntParam_OutputFlag, 0);
-	
-		// DualFormulation dualform_(&model_dual, &ps, num_dstzn);
-		// dualform_.set_constraints();
-
 		GRBEnv * evn_MP_ = new GRBEnv();
 		GRBModel model_MP_ = GRBModel(*evn_MP_);
-		// model_MP_.getEnv().set(GRB_DoubleParam_TimeLimit, 7200);
-//		model_MP_.getEnv().set(GRB_IntParam_OutputFlag, 0);
 		STEFormulation formul_master;
 		formul_master.build_formul(&model_MP_, &network_);
 
+
+		/* Create dual formulation*/ 
+		GRBEnv * evn_dual_ = new GRBEnv();
+		GRBModel model_dual_ = GRBModel(*evn_dual_);
+		model_dual_.getEnv().set(GRB_IntParam_OutputFlag, 0);
+		DualFormulation formul_dual_;
+		formul_dual_.create_variables(&model_dual_, &network_);
+		formul_dual_.set_constraints();
+
+		formul_master.add_dualformul(&formul_dual_);
 		int algorithm = 1;
 		if (algorithm == 1) {
 			auto end = chrono::system_clock::now();

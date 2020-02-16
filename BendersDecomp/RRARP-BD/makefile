@@ -13,6 +13,7 @@ all:
 	$(SRCPATH)PartitionScheme.cpp \
 	$(SRCPATH)STEFormulation.cpp \
 	$(SRCPATH)BendersCuts.cpp \
+	$(SRCPATH)DualFormulation.cpp \
 	-o $(BINPATH)main $(SRCPATH)main.cpp $(INCGRB) $(CPPLIBGRB)
 
 clean:

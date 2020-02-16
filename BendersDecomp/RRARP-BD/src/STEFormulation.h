@@ -7,12 +7,15 @@
 #include "BendersCuts.h"
 //#include "CoefReduction.h"
 
+#include "DualFormulation.h"
+#include "GlobalMC.h"
+
 using namespace std;
 
 class STEFormulation {
 public:
 	PartitionScheme *					_partition = nullptr;
-	// DualFormulation *					_formul_dual = nullptr;
+	DualFormulation *					_formul_dual = nullptr;
 
 	int									_size_var_y;
 	GRBModel*							_model;
@@ -28,6 +31,8 @@ public:
 	~STEFormulation() {};
 	void build_formul(GRBModel*, PartitionScheme*);
 	
+	void add_dualformul(DualFormulation *);
+
 	pair<double, double> solve_LP_TSP();
 	pair<double, double> solve_IP_TSP();
 	void get_optimal_sol(double **);

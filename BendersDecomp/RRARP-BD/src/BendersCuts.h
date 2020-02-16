@@ -10,8 +10,7 @@
 #include <sstream>
 #include "gurobi_c++.h"
 #include "PartitionScheme.h"
-
-// #include "DualFormulation.h"
+#include "DualFormulation.h"
 //#include "CoefReduction.h"
 using namespace std;
 
@@ -21,7 +20,7 @@ private:
   	int 										_nb_dstzn;
 	int 										_nb_targets;
 	PartitionScheme* 							_partition;
-	// DualFormulation* 							_dual_formul;
+	DualFormulation* 							_formul_dual;
 	vector<vector<pair<bool, double>>> * 		_G; // network G=(V,E)
 	
 	// GRBModel * 					_model_tsp;
@@ -42,8 +41,8 @@ private:
 
 
 public:
-	BendersCuts(GRBVar**, GRBVar*, PartitionScheme*);
-	// BendersCuts(GRBVar**, GRBVar*, PartitionScheme*, DualFormulation *);
+	// BendersCuts(GRBVar**, GRBVar*, PartitionScheme*);
+	BendersCuts(GRBVar**, GRBVar*, PartitionScheme*, DualFormulation *);
 	static void findsubtour(int, double**, int*, int* );
 	inline int get_nb_Benders_cuts() { return _CB_nb_Benders_cuts; }
 	inline int get_nb_subtour_cuts() { return _CB_nb_subtour_cuts; }
