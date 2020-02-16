@@ -14,10 +14,11 @@ all:
 	$(SRCPATH)STEFormulation.cpp \
 	$(SRCPATH)BendersCuts.cpp \
 	$(SRCPATH)DualFormulation.cpp \
+	$(SRCPATH)GlobalMC.cpp \
 	-o $(BINPATH)main $(SRCPATH)main.cpp $(INCGRB) $(CPPLIBGRB)
 
 clean:
 	rm -rf $(BINPATH)*.o $(BINPATH)*.dSYM $(BINPATH)main
 
 run:
-	$(BINPATH)main 
+	$(BINPATH)main

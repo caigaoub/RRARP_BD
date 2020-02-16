@@ -18,7 +18,7 @@ void print_sequence(vector<int> fseq) {
 	cout << endl;
 }
 
-BendersCuts::BendersCuts(GRBVar** y_, GRBVar* v_, PartitionScheme* partition_, DualFormulation* dual_){
+BendersCuts::BendersCuts(GRBVar** y_, GRBVar* v_, PartitionScheme* partition_, DualFormulation* dual_, int which_cut){
 // BendersCuts::BendersCuts(GRBVar** y_, GRBVar* v_, PartitionScheme* partition_) {
 	this->_var_y = y_;
 	this->_var_v = v_;
@@ -28,6 +28,7 @@ BendersCuts::BendersCuts(GRBVar** y_, GRBVar* v_, PartitionScheme* partition_, D
 	this->_nb_dstzn = _partition->_nb_dstzn;
 	this->_G = &(_partition->_G);
 	this->_formul_dual = dual_;
+	this->_which_Bcut = which_cut;
 
 	for (int i = 0; i <= _nb_targets; i++)
 		_fseq.push_back(-1);
@@ -80,20 +81,7 @@ void BendersCuts::callback() {
 					_fseq.at(i) = tour[i];
 				}
 				// print_sequence(_fseq);
-				
-
-				int choose_cut = 1;
-				if(choose_cut == 1){
-					_SDS = new vector<vector<double>>(_nb_targets + 2);
-					_partition->solve_shortestpath(_fseq, *_SDS);
-					GRBLinExpr expr = 0;
-					expr = generate_Benderscut_SP(&_fseq);
-					// expr = generate_StrongBenderscut(&_fseq);
-					addLazy(expr >= 0);
-					_CB_nb_Benders_cuts++;
-					// vector<int> fseq2(N);
-				}
-				if(choose_cut == 2){// Test the correctness of adding Benders cuts by solving the dual model			
+				if(_which_Bcut == 1){// Test the correctness of adding Benders cuts by solving the dual model			
 					// print_ySol(y_sol);
 					_formul_dual->set_objective(y_sol);
 					_formul_dual->solve();
@@ -102,6 +90,25 @@ void BendersCuts::callback() {
 					addLazy(expr <= *_var_v);
 					_CB_nb_Benders_cuts++;
 				}
+
+				if(_which_Bcut == 2){
+					_SDS = new vector<vector<double>>(_nb_targets + 2);
+					_partition->solve_shortestpath(_fseq, *_SDS);
+					GRBLinExpr expr = 0;
+					expr = generate_Benderscut_SP(&_fseq);
+					addLazy(expr >= 0);
+					_CB_nb_Benders_cuts++;
+				}
+
+				if(_which_Bcut == 3){
+					_SDS = new vector<vector<double>>(_nb_targets + 2);
+					_partition->solve_shortestpath(_fseq, *_SDS);
+					GRBLinExpr expr = 0;
+					expr = generate_StrongBenderscut(&_fseq);
+					addLazy(expr >= 0);
+					_CB_nb_Benders_cuts++;
+				}
+
 			}
 
 			for (int i = 0; i < _nb_targets+2; i++)

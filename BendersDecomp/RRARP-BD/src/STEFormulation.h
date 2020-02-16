@@ -33,17 +33,17 @@ public:
 	
 	void add_dualformul(DualFormulation *);
 
-	pair<double, double> solve_LP_TSP();
-	pair<double, double> solve_IP_TSP();
+	pair<double, double> solve_formul_wCB(int);// with callback
+	pair<double, double> solve_formul_woCB(); // without callback
 	void get_optimal_sol(double **);
-	// double add_USER_cuts(double**);
-	// bool add_SECs(double **);
+	double add_USER_cuts(double**);
+	bool add_SECs(double **);
 	void check_cutting_point(int, double**, vector<int> &, int&, vector<int>&);
-	// void check_subcomponents(double**, vector<int>&, int&, vector<int>&);
+	void check_subcomponents(double**, vector<int>&, int&, vector<int>&);
 	string itos(int i) { stringstream s; s << i; return s.str(); }
-	void set_model_MIP();
-	void set_model_LP();
-	void printSol(GRBModel*);
+	void set_vars_integer();
+	void set_vars_continuous();
+	void print_solution(GRBModel*);
 };
 
 

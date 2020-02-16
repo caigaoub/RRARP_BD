@@ -22,6 +22,7 @@ private:
 	PartitionScheme* 							_partition;
 	DualFormulation* 							_formul_dual;
 	vector<vector<pair<bool, double>>> * 		_G; // network G=(V,E)
+	int 										_which_Bcut;
 	
 	// GRBModel * 					_model_tsp;
 	GRBVar ** 					_var_y;
@@ -42,7 +43,7 @@ private:
 
 public:
 	// BendersCuts(GRBVar**, GRBVar*, PartitionScheme*);
-	BendersCuts(GRBVar**, GRBVar*, PartitionScheme*, DualFormulation *);
+	BendersCuts(GRBVar**, GRBVar*, PartitionScheme*, DualFormulation *, int);
 	static void findsubtour(int, double**, int*, int* );
 	inline int get_nb_Benders_cuts() { return _CB_nb_Benders_cuts; }
 	inline int get_nb_subtour_cuts() { return _CB_nb_subtour_cuts; }
