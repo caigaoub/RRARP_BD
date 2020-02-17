@@ -60,7 +60,7 @@ int main(int argc, const char* argv[]) {
 		auto end = chrono::system_clock::now();
 		formul_master.print_solution(&model_MP_);
 		chrono::duration<double> elapsed_seconds = end-start;
-		cout << "====>>> Cut: " << which_cut << " time: " << std::chrono::duration<double>(elapsed_seconds).count()  << endl;		
+		cout << "====>>> Algorithm: " << which_cut << " time: " << std::chrono::duration<double>(elapsed_seconds).count()  << endl;		
 
 		
 		// if(Fischetti_on){

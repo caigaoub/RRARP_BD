@@ -74,17 +74,17 @@ def plot_instance(instancefile):
     file_.close()
     ax.set(xlim=(minx,maxx), ylim=(miny,maxy))
     ax.set_aspect('equal', adjustable='box')
-    plt.xticks(np.arange(minx,maxx,1))
-    plt.yticks(np.arange(miny,maxy,1))
+    # plt.xticks(np.arange(minx,maxx,1))
+    # plt.yticks(np.arange(miny,maxy,1))
     plt.grid(alpha=.5)
     plt.show()
 
 ################################################################################################
 
 #  transformation files
-# instancefile = '../ret/inst_n_10/n_10_e_1.txt'
+instancefile = '../ret/inst_n_10/n_10_h_6.txt'
 # instancefile = '../ret/cluster_n_30/n_30_c_5_1.txt'
 # instancefile = '/home/cai/Dropbox/Box_Research/Github/RRARP_BD/BendersDecomp/RRARP-BD/dat/test_n_6.txt'
-instancefile = '/home/caigao/Dropbox/Box_Research/Github/RRARP_BD/BendersDecomp/RRARP-BD/dat/test_n_6.txt'
+# instancefile = '/home/caigao/Dropbox/Box_Research/Github/RRARP_BD/BendersDecomp/RRARP-BD/dat/test_n_6.txt'
 
 plot_instance(instancefile)
