@@ -197,11 +197,15 @@ void DualFormulation::set_constraints( ) {
 
 double DualFormulation::solve() {
 	try {
+		// _model_dual->write("./ret/dual.lp");
 		_model_dual->optimize();
 		if (_model_dual->get(GRB_IntAttr_Status) == GRB_OPTIMAL){
 			_status = 0;
 			double obj_val = _model_dual->get(GRB_DoubleAttr_ObjVal);
 			return	obj_val;
+		}else{
+			_status = -1;
+			cout << "infeasible +++" << endl;
 		}
 	}
 	catch (GRBException e) {
@@ -218,7 +222,9 @@ void DualFormulation::get_Benders_user_cut(GRBLinExpr & expr, GRBVar** var_y) {
 
 	int idxmat_1, idxmat_2;
 	double coef = 0.0;
-	expr += _alpha[_size_alpha - 1].get(GRB_DoubleAttr_X);;
+
+	expr += _alpha[_size_alpha - 1].get(GRB_DoubleAttr_X);
+
 	for (int s = 1; s <= _nb_targets; s++) {
 		idxmat_1 = (s - 1) * 2 * _nb_dstzn + 1;
 		coef = 0.0;
@@ -228,6 +234,7 @@ void DualFormulation::get_Benders_user_cut(GRBLinExpr & expr, GRBVar** var_y) {
 		}
 		expr -= coef * var_y[0][s];
 	}
+
 	for (int s = 1; s <= _nb_targets; s++) {
 		idxmat_1 = (s - 1) * 2 * _nb_dstzn + _nb_dstzn + 1;
 		for (int t = 1; t <= _nb_targets; t++) {

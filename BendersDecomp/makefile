@@ -1,12 +1,12 @@
 CPP       = g++
-CPPARGS   = -O3 -m64 -std=c++1y -Wall -Wextra -pedantic
+CPPARGS   = -O3 -m64 -std=c++14 -Wall -Wextra -pedantic
 SRCPATH		= ./src/
 BINPATH		= ./bin/
 DATPATH		= ./dat/
 ## GRBPATH =  /util/academic/gurobi/gurobi900/linux64
-GRBPATH =  /opt/gurobi900/linux64
-INCGRB    = -I$(GRBPATH)/include
-CPPLIBGRB = -L$(GRBPATH)/lib -lgurobi90 -lgurobi_c++ $(CPPSTDLIB) -lpthread -lm
+GRBPATH =  /opt/gurobi900/linux64/
+INCGRB    = -I$(GRBPATH)/include/
+CPPLIBGRB = -L$(GRBPATH)/lib/ -lgurobi_c++ -lgurobi90 $(CPPSTDLIB) -lpthread -lm
 
 
 all:

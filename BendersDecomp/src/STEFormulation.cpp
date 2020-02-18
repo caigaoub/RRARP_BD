@@ -127,21 +127,31 @@ pair<double, double> STEFormulation::solve_formul_woCB() {
 }
 
 void STEFormulation::get_optimal_sol(double ** sol) {
+	// cout << " flag ***" << endl;
 	for (int i = 0; i < _size_var_y; i++) {
 		for (int j = 0; j < _size_var_y; j++) {
 			sol[i][j] = _var_y[i][j].get(GRB_DoubleAttr_X);
 		}
 	}
+	// cout << "end flag======" << endl;
 }
 
 double STEFormulation::add_USER_cuts(double** y_sol) {
+	// for(int i =0; i< _size_var_y; i++){
+	// 	for(int j=0; j < _size_var_y; j++){
+	// 		cout << y_sol[i][j] << " ";
+	// 	}
+	// 	cout << endl;
+	// }
 	_formul_dual->set_objective(y_sol);
 	double obj_dual = _formul_dual->solve();
 	GRBLinExpr expr = 0;
 	_formul_dual->get_Benders_user_cut(expr, _var_y);
+
 	_model->addConstr(expr <= *_var_v, "Fischeti-cut");
 	_model->update();
 	_total_nb_user_cuts++;
+
 	return obj_dual;
 }
 
