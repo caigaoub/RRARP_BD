@@ -147,8 +147,9 @@ double STEFormulation::add_USER_cuts(double** y_sol) {
 
 
 /* add subtour elimination constraints (SEC) at the root */
-bool STEFormulation::add_SECs(double** y_sol) {
+pair<bool,int> STEFormulation::add_SECs(double** y_sol) {
 	bool is_disconnected = false; // one whole graph in default
+	int new_subtour_cuts = 0;
 	vector<int> tour;
 	int num_compts;
 	vector<int> size_subcompts;
@@ -168,6 +169,7 @@ bool STEFormulation::add_SECs(double** y_sol) {
 			}
 			start += size;
 			_model->addConstr(expr <= size - 1, "SEC1_Cut");
+			new_subtour_cuts++;
 			_model->update();
 			_total_nb_subtour_cuts++;
 		}
@@ -193,6 +195,7 @@ bool STEFormulation::add_SECs(double** y_sol) {
 					}
 					start += size;
 					_model->addConstr(expr <= size - 1, "SEC2_Cut");
+					new_subtour_cuts++;
 					_model->update();
 					_total_nb_subtour_cuts++;
 				}
@@ -236,6 +239,7 @@ bool STEFormulation::add_SECs(double** y_sol) {
 						}
 					}
 					_model->addConstr(expr <= lens - 1, "SEC3_Cut");
+					new_subtour_cuts++;
 					_model->update();
 					_total_nb_subtour_cuts++;
 				}
@@ -246,7 +250,7 @@ bool STEFormulation::add_SECs(double** y_sol) {
 			}
 		}
 	}
-	return is_disconnected;
+	return make_pair(is_disconnected,new_subtour_cuts);
 }
 
 

@@ -9,7 +9,7 @@
 #include <chrono>
 
 using namespace std;
-void Fischetti_method(int , STEFormulation & );
+pair<int,int> Fischetti_method(int , STEFormulation & );
 
 
 
@@ -18,8 +18,8 @@ int main(int argc, const char* argv[]) {
 	argc = argc; // just for avoid warning: unused argc
 	const int nb_dstzn = atoi(argv[1]);
 	string filename = argv[2];   
-	// int Fischetti_on = atoi(argv[3]); 
-	int which_cut = atoi(argv[3]);
+	int Fischetti_on = atoi(argv[3]); 
+	// int which_cut = atoi(argv[3]);
 	try {
 		DataHandler dataset_;
 		dataset_.parse(filename);
@@ -54,29 +54,30 @@ int main(int argc, const char* argv[]) {
 		formul_dual_.set_constraints();
 
 		formul_master.add_dualformul(&formul_dual_);
-	
-		auto start = chrono::system_clock::now();
-		formul_master.solve_formul_wCB(which_cut);
-		auto end = chrono::system_clock::now();
-		formul_master.print_solution(&model_MP_);
-		chrono::duration<double> elapsed_seconds = end-start;
-		cout << "====>>> Algorithm: " << which_cut << " time: " << std::chrono::duration<double>(elapsed_seconds).count()  << endl;		
-
+		int which_cut = 1;
+		if(false){
+			auto start = chrono::system_clock::now();
+			formul_master.solve_formul_wCB(which_cut);
+			auto end = chrono::system_clock::now();
+			formul_master.print_solution(&model_MP_);
+			chrono::duration<double> elapsed_seconds = end-start;
+			cout << "====>>> Algorithm: " << which_cut << " time: " << std::chrono::duration<double>(elapsed_seconds).count()  << endl;		
+		}
 		
-		// if(Fischetti_on){
-		// 	auto start_fischetti= chrono::system_clock::now();
-		// 	Fischetti_method(dataset_._nb_targets + 2, formul_master);
-		// 	auto endt_fischetti = chrono::system_clock::now();
-		// 	chrono::duration<double> elapsed_seconds_fischetti = endt_fischetti-start_fischetti;
-		// 	cout << "====>>> Fischetti_method: " << std::chrono::duration<double>(elapsed_seconds_fischetti).count()  << endl;		
-		// }else{
-		// 	auto start_no_fischetti= chrono::system_clock::now();
-		// 	formul_master.set_vars_integer();
-		// 	formul_master.solve_formul_woCB();
-		// 	auto endt_no_fischetti = chrono::system_clock::now();
-		// 	chrono::duration<double> elapsed_seconds_no_fischetti = endt_no_fischetti-start_no_fischetti;
-		// 	cout << "====>>> NO Fischetti_method: " << std::chrono::duration<double>(elapsed_seconds_no_fischetti).count()  << endl;		
-		// }
+		if(Fischetti_on){
+			auto start_fischetti= chrono::system_clock::now();
+			Fischetti_method(dataset_._nb_targets + 2, formul_master);
+			auto endt_fischetti = chrono::system_clock::now();
+			chrono::duration<double> elapsed_seconds_fischetti = endt_fischetti-start_fischetti;
+			cout << "====>>> Fischetti_method: " << std::chrono::duration<double>(elapsed_seconds_fischetti).count()  << endl;		
+		}else{
+			auto start_no_fischetti= chrono::system_clock::now();
+			formul_master.set_vars_integer();
+			formul_master.solve_formul_woCB();
+			auto endt_no_fischetti = chrono::system_clock::now();
+			chrono::duration<double> elapsed_seconds_no_fischetti = endt_no_fischetti-start_no_fischetti;
+			cout << "====>>> NO Fischetti_method: " << std::chrono::duration<double>(elapsed_seconds_no_fischetti).count()  << endl;		
+		}
 		
 	}
 	catch (const GRBException& ex) {
@@ -91,8 +92,13 @@ int main(int argc, const char* argv[]) {
 }
 
 
-void Fischetti_method(int N, STEFormulation & formul_master) {
+pair<int,int> Fischetti_method(int N, STEFormulation & formul_master) {
 
+	int nb_Subtour_Cuts = 0;
+	int nb_USER_Cuts = 0;
+	auto s_= chrono::system_clock::now();
+	auto e_= chrono::system_clock::now();
+	chrono::duration<double> total_time_SP = e_ - s_;
 	/* create variables */
 	double** y_tilde = new double*[N]; // stablizer point
 	double** y_star = new double*[N]; // optimal solution of current TSP_LP
@@ -115,20 +121,10 @@ void Fischetti_method(int N, STEFormulation & formul_master) {
 	y_tilde[N - 1][0] = 1;
 
 
-	formul_master.set_vars_continuous(); // solve LP-TSP model
+	formul_master.set_vars_continuous(); // solve linear relaxation 
 	formul_master.solve_formul_woCB();
 	formul_master.get_optimal_sol(y_star);
 
-	/*
-	for (int i = 0; i < N; i++) {
-		for (int j = 0; j < N; j++) {
-			cout << y_star[i][j] << '\t';
-		}
-		cout << '\n';
-	}
-	cout << "--------------------------------------------" << endl;
-
-	*/
 	double alpha = 0.2;
 	double UB = INFINITY;
 	double LB = -INFINITY;
@@ -136,14 +132,15 @@ void Fischetti_method(int N, STEFormulation & formul_master) {
 	double dual_obj;
 	double old_LB = -1;
 	int iteration = 0;
-	bool is_disconnected = true;
+	pair<bool,int> is_disconnected = make_pair(true,0);
 
 
-	while (is_disconnected || UB - LB > 0.0000001) {
+	while (is_disconnected.first || UB - LB > 0.0000001) {
 		cout << "UB: " << UB << "   " << "LB: " << LB << '\n';
 
-		is_disconnected = formul_master.add_SECs(y_star); //if one subtour elimi constrait is added, flag is
-		if (!is_disconnected) {
+		is_disconnected = formul_master.add_SECs(y_star); // add subtour elimi constraint
+		nb_Subtour_Cuts += is_disconnected.second;
+		if (!is_disconnected.first) {
 			for (int i = 0; i < N; i++) { // update the stablizer
 				for (int j = 0; j < N; j++) {
 					y_tilde[i][j] = 0.5 * (y_star[i][j] + y_tilde[i][j]);
@@ -155,12 +152,17 @@ void Fischetti_method(int N, STEFormulation & formul_master) {
 				}
 			}
 			dual_obj = formul_master.add_USER_cuts(y_bar);
+			nb_USER_Cuts++;
 		}
 
+		auto start_= chrono::system_clock::now();
 		pair<double, double> result_tsp =formul_master.solve_formul_woCB();
+		auto end_= chrono::system_clock::now();
+		total_time_SP = end_ - start_;
+
 		formul_master.get_optimal_sol(y_star);
 
-		if (!is_disconnected) {
+		if (!is_disconnected.first) {
 			LB = result_tsp.first;
 			if (old_LB == LB) {
 				iteration++;
@@ -175,10 +177,10 @@ void Fischetti_method(int N, STEFormulation & formul_master) {
 	}
 	cout << "UB: " << UB << "   " << "LB: " << LB << '\n';
 
-	cout << "Gap is closed!" << '\n';
+	// cout << "Gap is closed!" << '\n';
 
-
-	formul_master.set_vars_integer(); // solve IP-TSP
-	formul_master.solve_formul_woCB(); // add Benders cuts
-
+	cout << "====>>> total time of solving dual problem: " << chrono::duration<double>(total_time_SP).count()  << endl;		
+	// formul_master.set_vars_integer(); // solve IP-TSP
+	// formul_master.solve_formul_woCB(); // add Benders cuts
+	return make_pair(nb_Subtour_Cuts, nb_USER_Cuts);
 }

@@ -37,7 +37,7 @@ public:
 	pair<double, double> solve_formul_woCB(); // without callback
 	void get_optimal_sol(double **);
 	double add_USER_cuts(double**);
-	bool add_SECs(double **);
+	pair<bool,int> add_SECs(double **);
 	void check_cutting_point(int, double**, vector<int> &, int&, vector<int>&);
 	void check_subcomponents(double**, vector<int>&, int&, vector<int>&);
 	string itos(int i) { stringstream s; s << i; return s.str(); }
