@@ -1,6 +1,105 @@
 NPROCS=0
-start computing now
+g++ -O3 -m64 -std=c++1y -Wall -Wextra -pedantic ./src/DataHandler.cpp \
+./src/PartitionScheme.cpp \
+./src/STEFormulation.cpp \
+./src/BendersCuts.cpp \
+./src/DualFormulation.cpp \
+./src/GlobalMC.cpp \
+-o ./bin/main ./src/main.cpp -I/util/academic/gurobi/gurobi900/linux64/include/ -L/util/academic/gurobi/gurobi900/linux64/lib/ -lgurobi90 -lgurobi_c++  -lpthread -lm
 This instance is clustered!
-Error number: 10009
-HostID mismatch (licensed to 666770f4, hostid is 7729e46c)
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 24 rows, 145 columns and 288 nonzeros
+Model fingerprint: 0x2df34999
+Variable types: 1 continuous, 144 integer (144 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 1e+00]
+  Objective range  [1e+00, 2e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 1e+00]
+Presolve removed 2 rows and 33 columns
+Presolve time: 0.00s
+Presolved: 22 rows, 112 columns, 222 nonzeros
+Variable types: 1 continuous, 111 integer (111 binary)
+
+Root relaxation: objective 4.073728e+02, 21 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  510.33261    0   13          -  510.33261      -     -    0s
+H    0     0                     567.2759781  510.33261  10.0%     -    0s
+     0     0  513.44725    0   27  567.27598  513.44725  9.49%     -    0s
+     0     0  513.46321    0   27  567.27598  513.46321  9.49%     -    0s
+     0     0  513.89187    0   26  567.27598  513.89187  9.41%     -    0s
+     0     0  513.89187    0   26  567.27598  513.89187  9.41%     -    0s
+     0     0  516.52071    0   24  567.27598  516.52071  8.95%     -    0s
+H    0     0                     564.5040039  516.52071  8.50%     -    0s
+     0     0  523.09272    0   28  564.50400  523.09272  7.34%     -    0s
+H    0     0                     563.1248240  523.09272  7.11%     -    0s
+     0     0  523.89569    0   28  563.12482  523.89569  6.97%     -    0s
+     0     0  526.66306    0   29  563.12482  526.66306  6.47%     -    0s
+     0     0  526.96293    0   29  563.12482  526.96293  6.42%     -    0s
+     0     0  527.13211    0   28  563.12482  527.13211  6.39%     -    0s
+     0     0  527.14105    0   30  563.12482  527.14105  6.39%     -    0s
+     0     0  527.15535    0   29  563.12482  527.15535  6.39%     -    0s
+     0     0  527.23357    0   29  563.12482  527.23357  6.37%     -    0s
+     0     0  528.13323    0   30  563.12482  528.13323  6.21%     -    0s
+     0     0  528.14357    0   31  563.12482  528.14357  6.21%     -    0s
+     0     0  528.18670    0   30  563.12482  528.18670  6.20%     -    0s
+     0     0  528.58150    0   33  563.12482  528.58150  6.13%     -    0s
+     0     0  528.63048    0   31  563.12482  528.63048  6.13%     -    0s
+     0     0  528.63209    0   31  563.12482  528.63209  6.13%     -    0s
+     0     0  528.63209    0   31  563.12482  528.63209  6.13%     -    0s
+     0     0  536.22997    0   25  563.12482  536.22997  4.78%     -    0s
+H    0     0                     558.9179368  536.22997  4.06%     -    0s
+     0     0  536.22997    0   29  558.91794  536.22997  4.06%     -    0s
+     0     0  536.22997    0   29  558.91794  536.22997  4.06%     -    0s
+     0     0  536.22997    0   31  558.91794  536.22997  4.06%     -    0s
+     0     0  536.22997    0   31  558.91794  536.22997  4.06%     -    0s
+     0     0  536.22997    0   31  558.91794  536.22997  4.06%     -    0s
+     0     0  536.22997    0   31  558.91794  536.22997  4.06%     -    0s
+     0     0  536.22997    0   33  558.91794  536.22997  4.06%     -    0s
+     0     0  536.22997    0   33  558.91794  536.22997  4.06%     -    0s
+     0     0  536.22997    0   33  558.91794  536.22997  4.06%     -    0s
+     0     2  536.22997    0   33  558.91794  536.22997  4.06%     -    0s
+
+Cutting planes:
+  Gomory: 3
+  Clique: 1
+  MIR: 2
+  Zero half: 5
+  Lazy constraints: 10
+
+Explored 55 nodes (513 simplex iterations) in 0.16 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 4: 558.918 563.125 564.504 567.276 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 5.589179367559e+02, best bound 5.589179367559e+02, gap 0.0000%
+
+User-callback calls 372, time in user-callback 0.00 sec
+**************** ***** ****************
+**************** ***** ****************
+**************** ***** ****************
+====>> objective value: 558.918
+====>> v value: 53.1698
+====>> nb of Benders cuts(not including user cut): 21
+====>> nb of Benders cuts(user cuts): 0
+====>> nb of subtour cuts: 12
+====>> optimal TSP Solution matrix: 
+0  0  0  0  0  0  0  0  0  0  1  0  
+0  0  0  0  0  0  0  0  0  1  0  0  
+0  0  0  0  0  0  0  0  1  0  0  0  
+0  1  0  0  0  0  0  0  0  0  0  0  
+0  0  0  0  0  0  0  1  0  0  0  0  
+0  0  0  0  0  0  0  0  0  0  0  1  
+0  0  0  0  1  0  0  0  0  0  0  0  
+0  0  0  1  0  0  0  0  0  0  0  0  
+0  0  0  0  0  0  1  0  0  0  0  0  
+0  0  0  0  0  1  0  0  0  0  0  0  
+0  0  1  0  0  0  0  0  0  0  0  0  
+1  0  0  0  0  0  0  0  0  0  0  0  
+====>> current best visiting sequence: 0  10  2  8  6  4  7  3  1  9  5  11  
+====>>> Algorithm: 3 time: 0.15802
 All Done!

@@ -26,32 +26,9 @@
 NPROCS=`srun --nodes=${SLURM_NNODES}$ bash -c 'hostname' |wc -l`
 echo "NPROCS="$NPROCS
 
-echo "start computing now"
-PP       = g++
-CPPARGS   = -O3 -m64 -std=c++1y -Wall -Wextra -pedantic
-SRCPATH		= ./src/
-BINPATH		= ./bin/
-DATPATH		= ./dat/
-# GRBPATH   = /opt/gurobi900/linux64
-GRBPATH =  /util/academic/gurobi/gurobi900/linux64
-INCGRB    = -I$(GRBPATH)/include/
-CPPLIBGRB = -L$(GRBPATH)/lib/ -lgurobi_c++ -lgurobi90 $(CPPSTDLIB) -lpthread -lm
-# INSTANCE	= 7 $(DATPATH)sample_n_25.txt
+module load gurobi/9.0.0
 
-all:
-	$(CPP) $(CPPARGS) $(SRCPATH)DataHandler.cpp \
-	$(SRCPATH)PartitionScheme.cpp \
-	$(SRCPATH)STEFormulation.cpp \
-	$(SRCPATH)BendersCuts.cpp \
-	$(SRCPATH)DualFormulation.cpp \
-	$(SRCPATH)GlobalMC.cpp \
-	-o $(BINPATH)main $(SRCPATH)main.cpp $(INCGRB) $(CPPLIBGRB)
-
-clean:
-	rm -rf $(BINPATH)*.o $(BINPATH)*.dSYM $(BINPATH)main
-
-run:
-	$(BINPATH)main
+make
 
 ./bin/main  8 ../InstanceGenerator/ret/inst_n_10/n_10_e_1.txt 3
 echo "All Done!"
