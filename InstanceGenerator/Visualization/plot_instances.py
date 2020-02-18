@@ -4,6 +4,7 @@ import matplotlib.patches as pch
 import re
 import math
 import time
+from sys import argv
 
 def set_plot_attributes(plt, ax):
     plt.grid(alpha=.5)
@@ -82,9 +83,10 @@ def plot_instance(instancefile):
 ################################################################################################
 
 #  transformation files
-instancefile = '../ret/inst_n_10/n_10_h_6.txt'
+# instancefile = '../ret/inst_n_10/n_10_h_6.txt'
 # instancefile = '../ret/cluster_n_30/n_30_c_5_1.txt'
 # instancefile = '/home/cai/Dropbox/Box_Research/Github/RRARP_BD/BendersDecomp/RRARP-BD/dat/test_n_6.txt'
 # instancefile = '/home/caigao/Dropbox/Box_Research/Github/RRARP_BD/BendersDecomp/RRARP-BD/dat/test_n_6.txt'
 
+instancefile = argv[1]
 plot_instance(instancefile)
