@@ -1,7 +1,7 @@
 #include "BendersCuts.h"
 #include "SubtourCuts.h"
 #include <tuple>
-//#include "CoefReduction.h"
+// #include "SuperCutFormulation.h"
 
 void print_sequence(vector<int> * fseq) {
 	cout << "sequence: ";
@@ -18,7 +18,7 @@ void print_sequence(vector<int> fseq) {
 	cout << endl;
 }
 
-BendersCuts::BendersCuts(GRBVar** y_, GRBVar* v_, PartitionScheme* partition_, DualFormulation* dual_, int which_cut){
+BendersCuts::BendersCuts(GRBVar** y_, GRBVar* v_, PartitionScheme* partition_, DualFormulation* dual_, SuperCutFormulation* supercut_formul_, int which_cut){
 // BendersCuts::BendersCuts(GRBVar** y_, GRBVar* v_, PartitionScheme* partition_) {
 	this->_var_y = y_;
 	this->_var_v = v_;
@@ -28,31 +28,14 @@ BendersCuts::BendersCuts(GRBVar** y_, GRBVar* v_, PartitionScheme* partition_, D
 	this->_nb_dstzn = _partition->_nb_dstzn;
 	this->_G = &(_partition->_G);
 	this->_formul_dual = dual_;
+	this->_formul_supercut = supercut_formul_;
 	this->_which_Bcut = which_cut;
 
 	for (int i = 0; i <= _nb_targets; i++)
 		_fseq.push_back(-1);
 
-//	evn_CoefRedc = new GRBEnv();
-//	model_CoefRedc = new GRBModel(*evn_CoefRedc);
-//	model_CoefRedc->getEnv().set(GRB_IntParam_OutputFlag, 0);
 }
-/*
-double BendersCuts::improve_coef(int s, int t, double beta_sink, vector<tuple<int, int, double>> & CoefSet) {
 
-	GRBEnv * evn_CoefRedc = new GRBEnv();
-	GRBModel model_CoefRedc = GRBModel(*evn_CoefRedc);
-	model_CoefRedc.getEnv().set(GRB_IntParam_OutputFlag, 0);
-	CoefReduction CR(&model_CoefRedc, N);
-	CR.set_constraints();
-	CR.set_objective(beta_sink, CoefSet);
-	CR.fix_edge(s, t);
-	double gain = CR.solve();
-	CR.free_edge(s, t);
-	return gain;
-
-}
-*/
 
 void BendersCuts::callback() {
 	try {
@@ -104,7 +87,16 @@ void BendersCuts::callback() {
 					_SDS = new vector<vector<double>>(_nb_targets + 2);
 					_partition->solve_shortestpath(_fseq, *_SDS);
 					GRBLinExpr expr = 0;
-					expr = generate_StrongBenderscut(&_fseq);
+					expr = generate_StrongBenderscut(&_fseq, false);
+					addLazy(expr >= 0);
+					_CB_nb_Benders_cuts++;
+				}
+
+				if(_which_Bcut == 4){
+					_SDS = new vector<vector<double>>(_nb_targets + 2);
+					_partition->solve_shortestpath(_fseq, *_SDS);
+					GRBLinExpr expr = 0;
+					expr = generate_StrongBenderscut(&_fseq, true);
 					addLazy(expr >= 0);
 					_CB_nb_Benders_cuts++;
 				}
@@ -218,7 +210,7 @@ GRBLinExpr BendersCuts::generate_Benderscut_SP(vector<int> * fseq_) {
 	return expr;
 }
 
-GRBLinExpr BendersCuts::generate_StrongBenderscut(vector<int> * fseq) {
+GRBLinExpr BendersCuts::generate_StrongBenderscut(vector<int> * fseq, bool supercut_on) {
 	int i, j, idx_circle, idxmat_1, idxmat_2;
 	double coef, dist;
 	double sd = (*_SDS)[_nb_targets + 1][0]; // sink node (depot)
@@ -279,8 +271,8 @@ GRBLinExpr BendersCuts::generate_StrongBenderscut(vector<int> * fseq) {
 		idx_circle = fseq->at(to);
 		idxmat_1 = (idx_circle - 1) * 2 * _nb_dstzn + _nb_dstzn + 1;
 		for (i = 0; i < _nb_dstzn; i++) {
-			if((*_G)[idxmat_1 + i][0].first == true){
-				dist = (*_G)[idxmat_1 + i][0].second;
+			if((*_G)[idxmat_1 + i][_partition->_size_G -1].first == true){
+				dist = (*_G)[idxmat_1 + i][_partition->_size_G -1].second;
 				coef = max(coef, max(0.0, (*_SDS)[_nb_targets + 1][0] - (*_SDS)[to][i] - dist));
 				if (coef >= sd) {
 					coef = sd;
@@ -323,24 +315,42 @@ GRBLinExpr BendersCuts::generate_StrongBenderscut(vector<int> * fseq) {
 	//	cout << endl;
 	}
 
-	/*
-	if (count <= 1) {
+	
+	if (supercut_on) {
 		int s, t;
-		double val;
-		for (int i = 0; i < CoefSet.size(); i++) {
-			s = get<0>(CoefSet[i]);
-			t = get<1>(CoefSet[i]);
-			val = improve_coef(s, t, sd, CoefSet);
-			if (val < 0) {
-				cout << "............." << endl;
-				val = max(0.0, get<2>(CoefSet[i]) + val);
-				CoefSet.at(i) = make_tuple(s, t, val);
+		double gain;
+		if(_idx_supercut <= _max_supercuts){
+			for (unsigned int i = 0; i < CoefSet.size(); i++) {
+				s = get<0>(CoefSet[i]);
+				t = get<1>(CoefSet[i]);
+				/* solve */
+				_formul_supercut->fix_edge(s, t);
+				_formul_supercut->set_objective(sd, CoefSet);
+				// if(i == 20)
+				// 	_formul_supercutsupercut->_model->write("./ret/supercutformul.lp");
+				gain = _formul_supercut->solve();
+				_formul_supercut->free_edge(s, t);
+
+				// cout << i << ": " << s << "-->" << t << "   alpha= " << sd <<  "\t old coef:" << get<2>(CoefSet[i]) << " reduction: " << gain << endl;
+
+				// gain = improve_coef(s, t, sd, CoefSet);
+				if (gain > 0) {
+					// cout << i << ": " << s << "-->" << t << "\t old coef:" << get<2>(CoefSet[i]) << " reduction: " << gain << endl;
+					// cout << "flag************** " << endl;
+					// exit(0);
+
+					gain = max(0.0, get<2>(CoefSet[i]) - gain);
+					CoefSet.at(i) = make_tuple(s, t, gain);
+				}
 			}
+			_idx_supercut++;
+			// cout << "=================================================" << endl;
+
 		}
-		count++;
+		
 	}
-	cout << endl;
-	*/
+	// cout << endl;
+	
 	GRBLinExpr expr = 0;
 	for (unsigned int i = 0; i < CoefSet.size(); i++) {
 		expr += get<2>(CoefSet[i]) * _var_y[get<0>(CoefSet[i])][get<1>(CoefSet[i])];
@@ -351,6 +361,18 @@ GRBLinExpr BendersCuts::generate_StrongBenderscut(vector<int> * fseq) {
 	delete _SDS;
 	return expr;
 }
+
+
+double BendersCuts::improve_coef(int s, int t, double val_alpha_arrival, vector<tuple<int, int, double>> & CoefSet) {
+	_formul_supercut->fix_edge(s, t);
+	_formul_supercut->set_objective(val_alpha_arrival, CoefSet);
+	_formul_supercut->_model->write("./ret/supercutformul.lp");
+
+	double gain = _formul_supercut->solve();
+	_formul_supercut->free_edge(s, t);
+	return gain;
+}
+
 
 
 void BendersCuts::findsubtour(int  n, double** sol, int*  tourlenP, int*  tour) {

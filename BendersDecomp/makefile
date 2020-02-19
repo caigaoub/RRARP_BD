@@ -16,6 +16,8 @@ all:
 	$(SRCPATH)BendersCuts.cpp \
 	$(SRCPATH)DualFormulation.cpp \
 	$(SRCPATH)GlobalMC.cpp \
+	$(SRCPATH)SuperCutFormulation.cpp \
+	$(SRCPATH)SubtourCuts.cpp \
 	-o $(BINPATH)main $(SRCPATH)main.cpp $(INCGRB) $(CPPLIBGRB)
 
 clean:

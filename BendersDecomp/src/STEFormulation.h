@@ -5,8 +5,7 @@
 #include "gurobi_c++.h"
 #include "PartitionScheme.h"
 #include "BendersCuts.h"
-//#include "CoefReduction.h"
-
+#include "SuperCutFormulation.h"
 #include "DualFormulation.h"
 #include "GlobalMC.h"
 
@@ -16,7 +15,7 @@ class STEFormulation {
 public:
 	PartitionScheme *					_partition = nullptr;
 	DualFormulation *					_formul_dual = nullptr;
-
+	SuperCutFormulation *				_formul_supercut = nullptr;
 	int									_size_var_y;
 	GRBModel*							_model;
 	GRBVar**							_var_y;
@@ -32,7 +31,7 @@ public:
 	void build_formul(GRBModel*, PartitionScheme*);
 	
 	void add_dualformul(DualFormulation *);
-
+	void add_SuperCutformul(SuperCutFormulation*);
 	pair<double, double> solve_formul_wCB(int);// with callback
 	pair<double, double> solve_formul_woCB(); // without callback
 	void get_optimal_sol(double **);

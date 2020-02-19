@@ -3,7 +3,7 @@
 #include "DataHandler.h"
 #include "PartitionScheme.h"
 #include "STEFormulation.h"
-// #include "CoefReduction.h"
+#include "SuperCutFormulation.h"
 #include "BendersCuts.h"
 #include <ctime>
 #include <chrono>
@@ -19,7 +19,7 @@ int main(int argc, const char* argv[]) {
 	const int nb_dstzn = atoi(argv[1]);
 	string filename = argv[2];   
 	// int Fischetti_on = atoi(argv[3]); 
-	int which_cut = atoi(argv[3]);
+	int which_BDCut = atoi(argv[3]);
 	try {
 		DataHandler dataset_;
 		dataset_.parse(filename);
@@ -39,13 +39,14 @@ int main(int argc, const char* argv[]) {
 		// vector<vector<double>> * SDS = new vector<vector<double>>(dataset_._nb_targets + 2);
 		// network_.solve_shortestpath_v2(fseq_, *SDS);
 
+		/*Gurobi model for master problem */
 		GRBEnv * evn_MP_ = new GRBEnv();
 		GRBModel model_MP_ = GRBModel(*evn_MP_);
 		STEFormulation formul_master;
 		formul_master.build_formul(&model_MP_, &network_);
 
 
-		/* Create dual formulation*/ 
+		/*Gurobi model for dual formulation */ 
 		GRBEnv * evn_dual_ = new GRBEnv();
 		GRBModel model_dual_ = GRBModel(*evn_dual_);
 		model_dual_.getEnv().set(GRB_IntParam_OutputFlag, 0);
@@ -53,15 +54,26 @@ int main(int argc, const char* argv[]) {
 		formul_dual_.create_variables(&model_dual_, &network_);
 		formul_dual_.set_constraints();
 
+		/*Gurobi model for SuperCut formulation */
+		GRBEnv * evn_supercut_ = new GRBEnv();
+		GRBModel model_supercut_ = GRBModel(*evn_supercut_);
+		model_supercut_.getEnv().set(GRB_IntParam_OutputFlag, 0);
+		SuperCutFormulation formul_supercut_;
+		formul_supercut_.create_variables(&model_supercut_, dataset_._nb_targets+2);
+		formul_supercut_.set_constraints();
+
+
+
 		formul_master.add_dualformul(&formul_dual_);
-		// int which_cut = 1;
+		formul_master.add_SuperCutformul(&formul_supercut_);
+		// int which_BDCut = 1;
 		if(true){
 			auto start = chrono::system_clock::now();
-			formul_master.solve_formul_wCB(which_cut);
+			formul_master.solve_formul_wCB(which_BDCut);
 			auto end = chrono::system_clock::now();
 			formul_master.print_solution(&model_MP_);
 			chrono::duration<double> elapsed_seconds = end-start;
-			cout << "====>>> Algorithm: " << which_cut << " time: " << std::chrono::duration<double>(elapsed_seconds).count()  << endl;		
+			cout << "====>>> Algorithm: " << which_BDCut << " time: " << std::chrono::duration<double>(elapsed_seconds).count()  << endl;		
 		}
 		
 		if(false){
@@ -71,11 +83,11 @@ int main(int argc, const char* argv[]) {
 			chrono::duration<double> elapsed_seconds_fischetti = endt_fischetti-start_fischetti;
 			cout << "====>>> Total time of Fischetti_method: " << std::chrono::duration<double>(elapsed_seconds_fischetti).count()  << endl;		
 		}else{
-			auto start_no_fischetti= chrono::system_clock::now();
-			improve_root(dataset_._nb_targets + 2, formul_master);
-			auto endt_no_fischetti = chrono::system_clock::now();
-			chrono::duration<double> elapsed_seconds_no_fischetti = endt_no_fischetti-start_no_fischetti;
-			cout << "====>>> Total time of NO Fischetti_method: " << std::chrono::duration<double>(elapsed_seconds_no_fischetti).count()  << endl;		
+			// auto start_no_fischetti= chrono::system_clock::now();
+			// improve_root(dataset_._nb_targets + 2, formul_master);
+			// auto endt_no_fischetti = chrono::system_clock::now();
+			// chrono::duration<double> elapsed_seconds_no_fischetti = endt_no_fischetti-start_no_fischetti;
+			// cout << "====>>> Total time of NO Fischetti_method: " << std::chrono::duration<double>(elapsed_seconds_no_fischetti).count()  << endl;		
 		}
 		
 	}

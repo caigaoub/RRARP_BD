@@ -5,6 +5,10 @@ void STEFormulation::add_dualformul(DualFormulation* dual_){
 	this->_formul_dual = dual_;
 }
 
+void STEFormulation::add_SuperCutformul(SuperCutFormulation* supercut_){
+	this->_formul_supercut = supercut_;
+}
+
 
 /**
  	serve the master formulation with Gurobi model and the underlying network 
@@ -68,7 +72,7 @@ void STEFormulation::build_formul(GRBModel* model_MP_, PartitionScheme* network_
 pair<double, double> STEFormulation::solve_formul_wCB(int which_cut) {
 	try {
 		// BendersCuts * cb = new BendersCuts(_var_y, _var_v, _partition);
-		BendersCuts * cb = new BendersCuts(_var_y, _var_v, _partition, _formul_dual, which_cut);
+		BendersCuts * cb = new BendersCuts(_var_y, _var_v, _partition, _formul_dual, _formul_supercut, which_cut);
 		_model->setCallback(cb);
 		_model->optimize();
 		if (_model->get(GRB_IntAttr_Status) == GRB_OPTIMAL|| _model->get(GRB_IntAttr_Status) == GRB_TIME_LIMIT) {

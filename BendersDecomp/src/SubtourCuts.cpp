@@ -1,19 +1,18 @@
 #include "SubtourCuts.h"
 
-SubtourCuts::SubtourCuts(vector<vector<GRBVar>> & wVar, int N) {
-	this->w = wVar;
-	this->N = N;
+SubtourCuts::SubtourCuts(GRBVar** xVars, int size_xVars) {
+	this->_var_x = xVars;
+	this->_size_var_x = size_xVars;
 }
 
 void SubtourCuts::callback() {
 	try {
 		if (where == GRB_CB_MIPSOL) {
-			double **w_sol = new double*[N];
-			for (int i = 0; i < N; i++) {
-				w_sol[i] = new double[N];
-				for (int j = 0; j < N; j++) {				
-					w_sol[i][j] = getSolution(w[i][j]);
-				}				
+
+			double **x_sol = new double*[_size_var_x];
+			for (int i = 0; i < _size_var_x; i++) {
+				x_sol[i] = new double[_size_var_x];			
+				x_sol[i] = getSolution(_var_x[i],_size_var_x);
 			}
 			/*
 			for (int i = 0; i < N; i++) {
@@ -23,23 +22,23 @@ void SubtourCuts::callback() {
 				cout << endl;
 			}
 			*/
-			int *tour = new int[N];
+			int *tour = new int[_size_var_x];
 			int len;
-			BendersCuts::findsubtour(N, w_sol, &len, tour);
-			if (len < N) {
+			BendersCuts::findsubtour(_size_var_x, x_sol, &len, tour);
+			if (len < _size_var_x) {
 				// Add subtour elimination constraint
 				GRBLinExpr expr = 0;
 				for (int i = 0; i < len; i++) {
 					for (int j = i + 1; j < len; j++) {
-						expr += w[tour[i]][tour[j]] + w[tour[j]][tour[i]];					
+						expr += _var_x[tour[i]][tour[j]] + _var_x[tour[j]][tour[i]];					
 					}
 				}
 				addLazy(expr <= len - 1);									
 			}
 
-			for (int i = 0; i < N; i++)
-				delete[] w_sol[i];
-			delete[] w_sol;
+			for (int i = 0; i < _size_var_x; i++)
+				delete[] x_sol[i];
+			delete[] x_sol;
 			delete[] tour;
 		}
 	}

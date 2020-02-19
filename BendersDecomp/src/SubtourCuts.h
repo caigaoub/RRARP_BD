@@ -11,11 +11,10 @@ using namespace std;
 
 class SubtourCuts : public GRBCallback {
 private:
-	int N;
-	int num_targets;
-	vector<vector<GRBVar>>  w;
+	int 						_size_var_x;
+	GRBVar** 					_var_x;
 public:
-	SubtourCuts(vector<vector<GRBVar>> &, int);
+	SubtourCuts(GRBVar**, int);
 	string itos(int i) { stringstream s; s << i; return s.str(); }
 protected:
 	void callback();
