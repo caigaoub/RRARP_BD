@@ -150,8 +150,10 @@ pair<int,int> Fischetti_method(int N, STEFormulation & formul_master) {
 					y_bar[i][j] = alpha * y_star[i][j] + (1 - alpha) * y_tilde[i][j];
 				}
 			}
-			
+			auto start_= chrono::system_clock::now();
 			dual_obj = formul_master.add_USER_cuts(y_bar);
+			auto end_= chrono::system_clock::now();
+			total_time_SP += end_ - start_;			
 			nb_USER_Cuts++;
 		}
 
@@ -246,8 +248,10 @@ pair<int,int> improve_root(int N, STEFormulation & formul_master) {
 			// 		y_bar[i][j] = alpha * y_star[i][j] + (1 - alpha) * y_tilde[i][j];
 			// 	}
 			// }
-			
+			auto start_= chrono::system_clock::now();
 			dual_obj = formul_master.add_USER_cuts(y_star);
+			auto end_= chrono::system_clock::now();
+			total_time_SP += end_ - start_;
 			nb_USER_Cuts++;
 		}
 
