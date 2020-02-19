@@ -18,8 +18,8 @@ int main(int argc, const char* argv[]) {
 	argc = argc; // just for avoid warning: unused argc
 	const int nb_dstzn = atoi(argv[1]);
 	string filename = argv[2];   
-	int Fischetti_on = atoi(argv[3]); 
-	// int which_cut = atoi(argv[3]);
+	// int Fischetti_on = atoi(argv[3]); 
+	int which_cut = atoi(argv[3]);
 	try {
 		DataHandler dataset_;
 		dataset_.parse(filename);
@@ -54,8 +54,8 @@ int main(int argc, const char* argv[]) {
 		formul_dual_.set_constraints();
 
 		formul_master.add_dualformul(&formul_dual_);
-		int which_cut = 1;
-		if(false){
+		// int which_cut = 1;
+		if(true){
 			auto start = chrono::system_clock::now();
 			formul_master.solve_formul_wCB(which_cut);
 			auto end = chrono::system_clock::now();
@@ -64,7 +64,7 @@ int main(int argc, const char* argv[]) {
 			cout << "====>>> Algorithm: " << which_cut << " time: " << std::chrono::duration<double>(elapsed_seconds).count()  << endl;		
 		}
 		
-		if(Fischetti_on){
+		if(false){
 			auto start_fischetti= chrono::system_clock::now();
 			Fischetti_method(dataset_._nb_targets + 2, formul_master);
 			auto endt_fischetti = chrono::system_clock::now();
