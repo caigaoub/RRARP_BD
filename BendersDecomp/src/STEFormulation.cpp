@@ -141,12 +141,6 @@ void STEFormulation::get_optimal_sol(double ** sol) {
 }
 
 double STEFormulation::add_USER_cuts(double** y_sol) {
-	// for(int i =0; i< _size_var_y; i++){
-	// 	for(int j=0; j < _size_var_y; j++){
-	// 		cout << y_sol[i][j] << " ";
-	// 	}
-	// 	cout << endl;
-	// }
 	_formul_dual->set_objective(y_sol);
 	double obj_dual = _formul_dual->solve();
 	GRBLinExpr expr = 0;

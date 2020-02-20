@@ -4,14 +4,14 @@
 // #include "SuperCutFormulation.h"
 
 void print_sequence(vector<int> * fseq) {
-	cout << "sequence: ";
+	// cout << " sequence: ";
 	for (vector<int>::iterator it = fseq->begin(); it != fseq->end(); ++it) {
 		cout << *it << " ";
 	}
 	cout << endl;
 }
 void print_sequence(vector<int> fseq) {
-	cout << "sequence: ";
+	// cout << " sequence: ";
 	for (unsigned int i=0; i < fseq.size(); i++) {
 		cout << fseq[i] << " ";
 	}
@@ -323,29 +323,94 @@ GRBLinExpr BendersCuts::generate_StrongBenderscut(vector<int> * fseq, bool super
 			for (unsigned int i = 0; i < CoefSet.size(); i++) {
 				s = get<0>(CoefSet[i]);
 				t = get<1>(CoefSet[i]);
-				/* solve */
+				cout <<"====>> fix edge: " << s << " " << t << " = " << get<2>(CoefSet[i]) << endl;
+				/* solve the super cut formulation */
 				_formul_supercut->fix_edge(s, t);
 				_formul_supercut->set_objective(sd, CoefSet);
 				// if(i == 20)
 				// 	_formul_supercutsupercut->_model->write("./ret/supercutformul.lp");
+				double **sol2 = new double*[_formul_supercut->_size_var_x];
+				for (int ii = 0; ii < _formul_supercut->_size_var_x; ii++) {
+					sol2[ii] = new double[_formul_supercut->_size_var_x];
+					// sol2[ii] = getSolution(_formul_supercut->_var_x[ii], _nb_targets+2);
+				}
+				sol2 = _formul_supercut->solve_tmp();
 				gain = _formul_supercut->solve();
+
 				_formul_supercut->free_edge(s, t);
+				cout << "gain: " << gain << endl;
+				/******************************TEST *********************************8*/
+				cout << "===>> Sequence 1: ";
+				print_sequence(fseq);
+				double L1 = sd;
+				cout << "====>> L1 = " << L1 << endl;
+				
+				double delta_1 = 0.0;
+				for (unsigned int kk = 0; kk < CoefSet.size(); kk++){
+					delta_1 += get<2>(CoefSet[kk]) * sol2[get<0>(CoefSet[kk])][get<1>(CoefSet[kk])];
+				}
+				cout << "====>> delta_1: " << delta_1 << endl;
 
+				cout << "====>> sequence 2 matrix: " << '\n';
+				for (int ki = 0; ki < _formul_supercut->_size_var_x; ki++) {
+					for (int kj = 0; kj < _formul_supercut->_size_var_x; kj++) {
+						if(abs(sol2[ki][kj]) < 1e-6){
+								cout << 0 << "  ";
+						}
+						if(abs(sol2[ki][kj]-1) < 1e-6){
+							cout << 1 << "  ";
+						}
+						// cout << sol[i][j] << "   ";	
+					}
+					cout << endl;
+				}
+				int len;
+				int *tour2 = new int[_formul_supercut->_size_var_x];
+				BendersCuts::findsubtour(_formul_supercut->_size_var_x, sol2, &len, tour2);
+				vector<int> fseq22;
+				for (int mi = 0; mi < _nb_targets + 1; mi++) {
+					fseq22.push_back(tour2[mi]);
+				}
+
+				for (int mi = 0; mi < _nb_targets; mi++) {
+					for(int jj= 0; jj < CoefSet.size(); jj++){
+						if(get<0>(CoefSet[jj]) ==  fseq22[mi] && get<1>((CoefSet[jj])) == fseq22[mi+1]){
+							cout << fseq22[mi] << " -> " << fseq22[mi+1] << " : " << get<2>(CoefSet[jj]) << endl;
+						}
+					}
+					
+				}
+				cout << "==========================" << endl;
+				for(int jj= 0; jj < CoefSet.size(); jj++){
+					cout << get<0>(CoefSet[jj]) << " -> " << get<1>(CoefSet[jj]) << ": " << get<2>(CoefSet[jj]) << endl;
+				}
+
+
+
+				vector<vector<double>> * SDS2 = new vector<vector<double>>(_nb_targets + 2);
+				_partition->solve_shortestpath(fseq22, (*SDS2));
+				double L2 = (*SDS2)[_nb_targets+1][0];
+				cout << "====>> Sequence 2: ";
+				print_sequence(fseq22);
+				// for (int ni = 0; ni < len; ni++) {
+				// 	cout << tour2[ni] << "  ";
+				// }
+				// cout << '\n';
+				cout << "====>> L2 = " << L2 << endl;
+
+				cout << "L1 - L2 = " << L1 - L2 << endl;
+				for (int ni = 0; ni < _formul_supercut->_size_var_x; ni++)
+					delete[] sol2[ni];
+				delete[] sol2;
+
+				exit(0);
 				// cout << i << ": " << s << "-->" << t << "   alpha= " << sd <<  "\t old coef:" << get<2>(CoefSet[i]) << " reduction: " << gain << endl;
-
-				// gain = improve_coef(s, t, sd, CoefSet);
-				if (gain > 0) {
-					// cout << i << ": " << s << "-->" << t << "\t old coef:" << get<2>(CoefSet[i]) << " reduction: " << gain << endl;
-					// cout << "flag************** " << endl;
-					// exit(0);
-
+				if (gain > 0) { 
 					gain = max(0.0, get<2>(CoefSet[i]) - gain);
 					CoefSet.at(i) = make_tuple(s, t, gain);
 				}
 			}
 			_idx_supercut++;
-			// cout << "=================================================" << endl;
-
 		}
 		
 	}
