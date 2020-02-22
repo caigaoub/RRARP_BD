@@ -93,33 +93,7 @@ void STEFormulation::solve(GRBModel *model, vector<int> & fseq)
 		cout << "Error during optimization" << endl;
 	}
 }
-/*
-void STEFormulation::writeSol(GRBModel * model){
-	if (model->get(GRB_IntAttr_SolCount) > 0)
-	{
-		fstream fs;
-		fs.open("./out/TSPSols.dat", fstream::app);
-	//	ofstream TSPSols("TSPSols.dat");
-		fs << filename << ":" << '\t';
-		double **sol = new double*[N];
-		int i;
-		for (i = 0; i < N; i++)
-			sol[i] = model->get(GRB_DoubleAttr_X, y[i], N);
 
-		int* tour = new int[N];
-		int len;
-		findsubtour(N, sol, &len, tour);
-		for (i = 0; i < len; i++)
-				fs << tour[i]<< '\t';
-		fs << '\n';
-
-		for (i = 0; i < N; i++)
-			delete[] sol[i];
-		delete[] sol;
-		delete[] tour;
-	}
-}
-*/
 
 void STEFormulation::printSol(GRBModel *model) {
 	if (model->get(GRB_IntAttr_SolCount) > 0)

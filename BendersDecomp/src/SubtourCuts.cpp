@@ -8,20 +8,11 @@ SubtourCuts::SubtourCuts(GRBVar** xVars, int size_xVars) {
 void SubtourCuts::callback() {
 	try {
 		if (where == GRB_CB_MIPSOL) {
-
 			double **x_sol = new double*[_size_var_x];
 			for (int i = 0; i < _size_var_x; i++) {
 				x_sol[i] = new double[_size_var_x];			
 				x_sol[i] = getSolution(_var_x[i],_size_var_x);
 			}
-			/*
-			for (int i = 0; i < N; i++) {
-				for (int j = 0; j < N; j++) {
-					cout << w_sol[i][j] << "  ";
-				}
-				cout << endl;
-			}
-			*/
 			int *tour = new int[_size_var_x];
 			int len;
 			BendersCuts::findsubtour(_size_var_x, x_sol, &len, tour);

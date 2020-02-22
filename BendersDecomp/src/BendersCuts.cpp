@@ -24,7 +24,6 @@ BendersCuts::BendersCuts(GRBVar** y_, GRBVar* v_, PartitionScheme* partition_, D
 	this->_var_v = v_;
 	this->_partition = partition_;
 	this->_nb_targets = _partition->_dataset->_nb_targets;
-	// this->_N = _nb_targets + 2;
 	this->_nb_dstzn = _partition->_nb_dstzn;
 	this->_G = &(_partition->_G);
 	this->_formul_dual = dual_;
@@ -75,28 +74,28 @@ void BendersCuts::callback() {
 				}
 
 				if(_which_Bcut == 2){
-					_SDS = new vector<vector<double>>(_nb_targets + 2);
-					_partition->solve_shortestpath(_fseq, *_SDS);
+					vector<vector<double>>  SDS(_nb_targets + 2);
+					_partition->solve_shortestpath(_fseq, SDS);
 					GRBLinExpr expr = 0;
-					expr = generate_Benderscut_SP(&_fseq);
+					expr = generate_Benderscut_SP(&_fseq, SDS);
 					addLazy(expr >= 0);
 					_CB_nb_Benders_cuts++;
 				}
 
 				if(_which_Bcut == 3){
-					_SDS = new vector<vector<double>>(_nb_targets + 2);
-					_partition->solve_shortestpath(_fseq, *_SDS);
+					vector<vector<double>>  SDS(_nb_targets + 2);
+					_partition->solve_shortestpath(_fseq, SDS);
 					GRBLinExpr expr = 0;
-					expr = generate_StrongBenderscut(&_fseq, false);
+					expr = generate_StrongBenderscut(&_fseq, SDS, false); // turn off generating super cut
 					addLazy(expr >= 0);
 					_CB_nb_Benders_cuts++;
 				}
 
 				if(_which_Bcut == 4){
-					_SDS = new vector<vector<double>>(_nb_targets + 2);
-					_partition->solve_shortestpath(_fseq, *_SDS);
+					vector<vector<double>>  SDS(_nb_targets + 2);
+					_partition->solve_shortestpath(_fseq, SDS);
 					GRBLinExpr expr = 0;
-					expr = generate_StrongBenderscut(&_fseq, true);
+					expr = generate_StrongBenderscut(&_fseq, SDS, true);
 					addLazy(expr >= 0);
 					_CB_nb_Benders_cuts++;
 				}
@@ -119,10 +118,10 @@ void BendersCuts::callback() {
 }
 
 /* Function:  generate Benders optimality cuts by solving shortest path problem */
-GRBLinExpr BendersCuts::generate_Benderscut_SP(vector<int> * fseq_) {
+GRBLinExpr BendersCuts::generate_Benderscut_SP(vector<int> * fseq_, vector<vector<double>> & SDS) {
 	int idx_circle, idxmat_1, idxmat_2, circle_from, circle_to;
 	double coef, dist;
-	double sd = (*_SDS)[_nb_targets + 1][0]; // sink node (depot)
+	double sd = SDS[_nb_targets + 1][0]; // sink node (depot)
 	vector<tuple<int, int, double>>  CoefSet;
 	double smallest_coef = INFINITY;
 	//  node weight from 0 to all nodes in each circle
@@ -133,7 +132,7 @@ GRBLinExpr BendersCuts::generate_Benderscut_SP(vector<int> * fseq_) {
 		for (int i = 0; i < _nb_dstzn; i++) {
 			if((*_G)[0][idxmat_1 + i].first == true){
 				dist = (*_G)[0][idxmat_1 + i].second;
-				coef += max(0.0, (*_SDS)[to][i] - dist);
+				coef += max(0.0, SDS[to][i] - dist);
 			//	coef = max(coef, max(0.0, (*SDS)[to][i] - dist));
 				if (coef >= sd) {
 					coef = sd;
@@ -160,7 +159,7 @@ GRBLinExpr BendersCuts::generate_Benderscut_SP(vector<int> * fseq_) {
 				for (int j = 0; j < _nb_dstzn; j++) {
 					if((*_G)[idxmat_1 + i][idxmat_2 + j].first == true){
 						dist = (*_G)[idxmat_1 + i][idxmat_2 + j].second;
-						coef += max(0.0, (*_SDS)[to][j] - (*_SDS)[from][i] - dist);
+						coef += max(0.0, SDS[to][j] - SDS[from][i] - dist);
 				//		coef = max(coef, max(0.0, (*SDS)[to][j] - (*SDS)[from][i] - dist));
 					}
 					
@@ -185,7 +184,7 @@ GRBLinExpr BendersCuts::generate_Benderscut_SP(vector<int> * fseq_) {
 		for (int i = 0; i < _nb_dstzn; i++) {
 			if((*_G)[idxmat_1 + i][0].first == true){
 				dist = (*_G)[idxmat_1 + i][0].second;
-				coef += max(0.0, (*_SDS)[_nb_targets + 1][0] - (*_SDS)[to][i] - dist);
+				coef += max(0.0, SDS[_nb_targets + 1][0] - SDS[to][i] - dist);
 			//	coef = max(coef, max(0.0, (*SDS)[_nb_targets + 1][0] - (*SDS)[to][i] - dist));
 				if (coef >= sd) {
 					coef = sd;
@@ -202,19 +201,19 @@ GRBLinExpr BendersCuts::generate_Benderscut_SP(vector<int> * fseq_) {
 	GRBLinExpr expr = 0;
 	for (unsigned int i = 0; i < CoefSet.size(); i++) {
 		expr += get<2>(CoefSet[i]) * _var_y[get<0>(CoefSet[i])][get<1>(CoefSet[i])];
-	//	cout << get<2>(CoefSet[i]) << "*" << "y_" << get<0>(CoefSet[i]) << get<1>(CoefSet[i]) << " + ";
+		// cout << get<2>(CoefSet[i]) << "*" << "y_" << get<0>(CoefSet[i]) << get<1>(CoefSet[i]) << " + ";
 	}
-//	cout << endl;
+	// cout << endl;
 	expr = expr + *_var_v - sd;
-	delete _SDS;
 	return expr;
 }
 
-GRBLinExpr BendersCuts::generate_StrongBenderscut(vector<int> * fseq, bool supercut_on) {
+GRBLinExpr BendersCuts::generate_StrongBenderscut(vector<int> * fseq, vector<vector<double>> & SDS, bool supercut_on) {
 	int i, j, idx_circle, idxmat_1, idxmat_2;
 	double coef, dist;
-	double sd = (*_SDS)[_nb_targets + 1][0]; // sink node (depot)
-	vector<tuple<int, int, double>>  CoefSet;
+	double sd = SDS[_nb_targets + 1][0]; // sink node (depot)
+
+	vector<pair<pair<int,int>, double>> Coefs;
 	double smallest_coef = INFINITY;
 	// (1) node weight from 0 to all nodes in each circle
 	for (int to = 2; to <= _nb_targets; to++) {
@@ -224,7 +223,7 @@ GRBLinExpr BendersCuts::generate_StrongBenderscut(vector<int> * fseq, bool super
 		for (i = 0; i < _nb_dstzn; i++) {
 			if((*_G)[0][idxmat_1 + i].first == true){
 				dist = (*_G)[0][idxmat_1 + i].second;
-				coef = max(coef, max(0.0, (*_SDS)[to][i] - dist));
+				coef = max(coef, max(0.0, SDS[to][i] - dist));
 				if (coef >= sd) {
 					coef = sd;
 					break;
@@ -234,7 +233,8 @@ GRBLinExpr BendersCuts::generate_StrongBenderscut(vector<int> * fseq, bool super
 		if (coef < smallest_coef) {
 			smallest_coef = coef;
 		}
-		CoefSet.push_back(make_tuple(0, idx_circle, coef));
+
+		Coefs.push_back(make_pair(make_pair(0, idx_circle), coef));
 	}
 
 	// (2)  node weights from circle to circle
@@ -250,7 +250,7 @@ GRBLinExpr BendersCuts::generate_StrongBenderscut(vector<int> * fseq, bool super
 				for (j = 0; j < _nb_dstzn; j++) {
 					if((*_G)[idxmat_1 + i][idxmat_2 + j].first == true){
 						dist = (*_G)[idxmat_1 + i][idxmat_2 + j].second;
-						coef = max(coef, max(0.0, (*_SDS)[to][j] - (*_SDS)[from][i] - dist));
+						coef = max(coef, max(0.0, SDS[to][j] - SDS[from][i] - dist));
 					}					
 				}
 				if (coef >= sd) {
@@ -262,7 +262,7 @@ GRBLinExpr BendersCuts::generate_StrongBenderscut(vector<int> * fseq, bool super
 				smallest_coef = coef;
 			}
 			if (coef > 0.000001)
-				CoefSet.push_back(make_tuple(circle_from, circle_to, coef));
+				Coefs.push_back(make_pair(make_pair(circle_from, circle_to), coef));
 		}
 	}
 	// (3) node weights from circle to sink (or we can call source)
@@ -273,7 +273,7 @@ GRBLinExpr BendersCuts::generate_StrongBenderscut(vector<int> * fseq, bool super
 		for (i = 0; i < _nb_dstzn; i++) {
 			if((*_G)[idxmat_1 + i][_partition->_size_G -1].first == true){
 				dist = (*_G)[idxmat_1 + i][_partition->_size_G -1].second;
-				coef = max(coef, max(0.0, (*_SDS)[_nb_targets + 1][0] - (*_SDS)[to][i] - dist));
+				coef = max(coef, max(0.0, SDS[_nb_targets + 1][0] - SDS[to][i] - dist));
 				if (coef >= sd) {
 					coef = sd;
 					break;
@@ -284,159 +284,70 @@ GRBLinExpr BendersCuts::generate_StrongBenderscut(vector<int> * fseq, bool super
 			smallest_coef = coef;
 		}
 		if (coef > 0.000001)
-			CoefSet.push_back(make_tuple(idx_circle, _nb_targets + 1, coef));
+			Coefs.push_back(make_pair(make_pair(idx_circle, _nb_targets + 1), coef));
 	}
 
 	// generate the cut
 	double delta = sd - smallest_coef;
 	if (smallest_coef < sd * 0.5) {
-		for (unsigned int i = 0; i < CoefSet.size(); i++) {
-			if (get<2>(CoefSet[i]) >= delta) {
-		//		expr += delta * y[get<0>(CoefSet[i])][get<1>(CoefSet[i])];
-				CoefSet.at(i) = make_tuple(get<0>(CoefSet[i]), get<1>(CoefSet[i]), delta);
-		//		cout << delta << "*" << "y_" << get<0>(CoefSet[i]) << get<1>(CoefSet[i]) << " + ";
-			}
-			else {
-		//		expr += get<2>(CoefSet[i]) * y[get<0>(CoefSet[i])][get<1>(CoefSet[i])];
-
-	//			cout << get<2>(CoefSet[i]) << "*" << "y_" << get<0>(CoefSet[i]) << get<1>(CoefSet[i]) << " + ";
+		for (unsigned int i=0; i< Coefs.size(); i++) {
+			if ( Coefs[i].second >= delta) {
+				Coefs[i].second = delta;
 			}
 		}
-//		expr = expr + (*v) - sd;
-	//	cout << endl;
 	}
 	else {
-		for (unsigned int i = 0; i < CoefSet.size(); i++) {
-		//	expr += sd * 0.5 * y[get<0>(CoefSet[i])][get<1>(CoefSet[i])];
-			CoefSet.at(i) = make_tuple(get<0>(CoefSet[i]), get<1>(CoefSet[i]), sd * 0.5);
-	//		cout << sd * 0.5 << "*" << "y_" << get<0>(CoefSet[i]) << get<1>(CoefSet[i]) << " + ";
+		for (unsigned int i=0; i< Coefs.size(); i++) {
+			Coefs[i].second = sd * 0.5;
 		}
-	//	expr = expr + *v - sd;
-	//	cout << endl;
 	}
 
-	
 	if (supercut_on) {
+		if(Coefs.size() != 0){
+			sort(Coefs.begin(), Coefs.end(), [](const pair<pair<int,int>,double> & a, const pair<pair<int,int>,double> & b) -> bool{return a.second> b.second;});
+		}
+
 		int s, t;
-		double gain;
+		double gain = 0;	
+		// cout << "flag **" << endl;
 		if(_idx_supercut <= _max_supercuts){
-			for (unsigned int i = 0; i < CoefSet.size(); i++) {
-				s = get<0>(CoefSet[i]);
-				t = get<1>(CoefSet[i]);
-				cout <<"====>> fix edge: " << s << " " << t << " = " << get<2>(CoefSet[i]) << endl;
-				/* solve the super cut formulation */
+			for (unsigned int i = 0; i < Coefs.size(); i++) {
+				s = Coefs[i].first.first;
+				t = Coefs[i].first.second;
+				/* solve the super cut formulation */				
 				_formul_supercut->fix_edge(s, t);
-				_formul_supercut->set_objective(sd, CoefSet);
-				// if(i == 20)
-				// 	_formul_supercutsupercut->_model->write("./ret/supercutformul.lp");
-				double **sol2 = new double*[_formul_supercut->_size_var_x];
-				for (int ii = 0; ii < _formul_supercut->_size_var_x; ii++) {
-					sol2[ii] = new double[_formul_supercut->_size_var_x];
-					// sol2[ii] = getSolution(_formul_supercut->_var_x[ii], _nb_targets+2);
-				}
-				sol2 = _formul_supercut->solve_tmp();
-				gain = _formul_supercut->solve();
-
+				_formul_supercut->update_coefs(sd, Coefs);				
+				// gain = _formul_supercut->solve();
 				_formul_supercut->free_edge(s, t);
-				cout << "gain: " << gain << endl;
-				/******************************TEST *********************************8*/
-				cout << "===>> Sequence 1: ";
-				print_sequence(fseq);
-				double L1 = sd;
-				cout << "====>> L1 = " << L1 << endl;
-				
-				double delta_1 = 0.0;
-				for (unsigned int kk = 0; kk < CoefSet.size(); kk++){
-					delta_1 += get<2>(CoefSet[kk]) * sol2[get<0>(CoefSet[kk])][get<1>(CoefSet[kk])];
-				}
-				cout << "====>> delta_1: " << delta_1 << endl;
-
-				cout << "====>> sequence 2 matrix: " << '\n';
-				for (int ki = 0; ki < _formul_supercut->_size_var_x; ki++) {
-					for (int kj = 0; kj < _formul_supercut->_size_var_x; kj++) {
-						if(abs(sol2[ki][kj]) < 1e-6){
-								cout << 0 << "  ";
-						}
-						if(abs(sol2[ki][kj]-1) < 1e-6){
-							cout << 1 << "  ";
-						}
-						// cout << sol[i][j] << "   ";	
-					}
-					cout << endl;
-				}
-				int len;
-				int *tour2 = new int[_formul_supercut->_size_var_x];
-				BendersCuts::findsubtour(_formul_supercut->_size_var_x, sol2, &len, tour2);
-				vector<int> fseq22;
-				for (int mi = 0; mi < _nb_targets + 1; mi++) {
-					fseq22.push_back(tour2[mi]);
-				}
-
-				for (int mi = 0; mi < _nb_targets; mi++) {
-					for(int jj= 0; jj < CoefSet.size(); jj++){
-						if(get<0>(CoefSet[jj]) ==  fseq22[mi] && get<1>((CoefSet[jj])) == fseq22[mi+1]){
-							cout << fseq22[mi] << " -> " << fseq22[mi+1] << " : " << get<2>(CoefSet[jj]) << endl;
-						}
-					}
-					
-				}
-				cout << "==========================" << endl;
-				for(int jj= 0; jj < CoefSet.size(); jj++){
-					cout << get<0>(CoefSet[jj]) << " -> " << get<1>(CoefSet[jj]) << ": " << get<2>(CoefSet[jj]) << endl;
-				}
-
-
-
-				vector<vector<double>> * SDS2 = new vector<vector<double>>(_nb_targets + 2);
-				_partition->solve_shortestpath(fseq22, (*SDS2));
-				double L2 = (*SDS2)[_nb_targets+1][0];
-				cout << "====>> Sequence 2: ";
-				print_sequence(fseq22);
-				// for (int ni = 0; ni < len; ni++) {
-				// 	cout << tour2[ni] << "  ";
+				_formul_supercut->_model->reset(0);
+				// cout << "stop" << endl;
+				// cout << "gain = " << gain << endl;
+				// if (gain < 0.0) { 
+				// 	Coefs[i]= make_pair(make_pair(s,t), Coefs[i].second + gain);
 				// }
-				// cout << '\n';
-				cout << "====>> L2 = " << L2 << endl;
-
-				cout << "L1 - L2 = " << L1 - L2 << endl;
-				for (int ni = 0; ni < _formul_supercut->_size_var_x; ni++)
-					delete[] sol2[ni];
-				delete[] sol2;
-
-				exit(0);
-				// cout << i << ": " << s << "-->" << t << "   alpha= " << sd <<  "\t old coef:" << get<2>(CoefSet[i]) << " reduction: " << gain << endl;
-				if (gain > 0) { 
-					gain = max(0.0, get<2>(CoefSet[i]) - gain);
-					CoefSet.at(i) = make_tuple(s, t, gain);
-				}
+				// if(gain >= 0.0){
+				// 	break;
+					// cout << "nothing " <<endl;
+				// }
 			}
 			_idx_supercut++;
+			cout << " ==================================== " << endl;
+				// exit(0);
+
 		}
 		
 	}
-	// cout << endl;
-	
 	GRBLinExpr expr = 0;
-	for (unsigned int i = 0; i < CoefSet.size(); i++) {
-		expr += get<2>(CoefSet[i]) * _var_y[get<0>(CoefSet[i])][get<1>(CoefSet[i])];
-	//	cout << get<2>(CoefSet[i]) << "*" << "y_" << get<0>(CoefSet[i]) << get<1>(CoefSet[i]) << " + ";
+	// cout << sd;
+	for (unsigned int i = 0; i < Coefs.size(); i++) {
+		expr += Coefs[i].second * _var_y[Coefs[i].first.first][Coefs[i].first.second];
+		// cout << " - " << get<2>(CoefSet[i]) << "*" << "x_" << get<0>(CoefSet[i]) <<','<< get<1>(CoefSet[i]);
 	}
-//	cout << endl;
-	expr = expr + *_var_v - sd;
-	delete _SDS;
+	// cout << endl;
+	expr = expr + (*_var_v) - sd;
 	return expr;
 }
 
-
-double BendersCuts::improve_coef(int s, int t, double val_alpha_arrival, vector<tuple<int, int, double>> & CoefSet) {
-	_formul_supercut->fix_edge(s, t);
-	_formul_supercut->set_objective(val_alpha_arrival, CoefSet);
-	_formul_supercut->_model->write("./ret/supercutformul.lp");
-
-	double gain = _formul_supercut->solve();
-	_formul_supercut->free_edge(s, t);
-	return gain;
-}
 
 
 
@@ -492,4 +403,9 @@ void BendersCuts::print_ySol(double ** y_sol) {
 		cout << endl;
 	}
 
+}
+
+
+BendersCuts::~BendersCuts(){
+	;
 }

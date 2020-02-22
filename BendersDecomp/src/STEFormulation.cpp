@@ -71,7 +71,6 @@ void STEFormulation::build_formul(GRBModel* model_MP_, PartitionScheme* network_
 */
 pair<double, double> STEFormulation::solve_formul_wCB(int which_cut) {
 	try {
-		// BendersCuts * cb = new BendersCuts(_var_y, _var_v, _partition);
 		BendersCuts * cb = new BendersCuts(_var_y, _var_v, _partition, _formul_dual, _formul_supercut, which_cut);
 		_model->setCallback(cb);
 		_model->optimize();
@@ -426,9 +425,6 @@ void STEFormulation::print_solution(GRBModel *model) {
 				delete[] sol[i];
 			delete[] sol;
 		}
-		for (int i = 0; i < _size_var_y; i++)
-			delete[] _var_y[i];
-		delete[] _var_y;
 	}
 	catch (const GRBException& ex) {
 		cout << "Error number: " << ex.getErrorCode() << endl;
@@ -437,4 +433,12 @@ void STEFormulation::print_solution(GRBModel *model) {
 	catch (...) {
 		cerr << "Error" << endl;
 	}
+}
+
+STEFormulation::~STEFormulation(){
+	for(int i = 0; i < _size_var_y; i++)
+		delete[] _var_y[i];
+	delete[] _var_y;
+	delete _var_v;
+
 }

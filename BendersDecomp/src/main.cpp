@@ -60,7 +60,9 @@ int main(int argc, const char* argv[]) {
 		model_supercut_.getEnv().set(GRB_IntParam_OutputFlag, 0);
 		SuperCutFormulation formul_supercut_;
 		formul_supercut_.create_variables(&model_supercut_, dataset_._nb_targets+2);
+		// formul_supercut_.set_objective();
 		formul_supercut_.set_constraints();
+
 
 
 
@@ -89,6 +91,11 @@ int main(int argc, const char* argv[]) {
 			// chrono::duration<double> elapsed_seconds_no_fischetti = endt_no_fischetti-start_no_fischetti;
 			// cout << "====>>> Total time of NO Fischetti_method: " << std::chrono::duration<double>(elapsed_seconds_no_fischetti).count()  << endl;		
 		}
+
+
+		delete evn_MP_;
+		delete evn_dual_;
+		delete evn_supercut_;
 		
 	}
 	catch (const GRBException& ex) {

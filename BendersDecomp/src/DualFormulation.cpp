@@ -263,9 +263,9 @@ void DualFormulation::get_Benders_user_cut(GRBLinExpr & expr, GRBVar** var_y) {
 }
 
 DualFormulation::~DualFormulation() {
-	delete _alpha;
+	delete[] _alpha;
 	for (int i = 0; i < _size_alpha; i++) {
 		delete[] _beta[i];
 	}
-	delete _beta;
+	delete[] _beta;
 }

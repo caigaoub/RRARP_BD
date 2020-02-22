@@ -12,16 +12,18 @@ public:
 	int 						_size_var_x = -1;
 	GRBModel* 					_model;
 	GRBVar **				 	_var_x;
-
-
+	GRBVar * 					_var_a;
+	GRBVar * 					_var_z;
+	int 						_idx = 1;
 	~SuperCutFormulation();
 	void create_variables(GRBModel*, int);
-	void set_objective(double, vector<tuple<int, int, double>> &);
+	void set_objective(double, vector<pair<pair<int, int>, double>> &);
+	void set_objective();	
+	void update_coefs(double, vector<pair<pair<int, int>, double>> &);
 	void set_constraints();
 	void fix_edge(int, int);
 	void free_edge(int, int);
 	double solve();
-	double** solve_tmp();
 	void print_solution(double **);
 	string itos(int i) { stringstream s; s << i; return s.str(); }
 };

@@ -39,10 +39,10 @@ void DataHandler::parse(string filename) {
 
 
 DataHandler::~DataHandler() {
-	delete _radii;
-	delete _bdg_rewards_ratio;
-	delete _risk_thold_ratio;
-	delete _target_locs;
+	delete[] _radii;
+	delete[] _bdg_rewards_ratio;
+	delete[] _risk_thold_ratio;
+	delete[] _target_locs;
 }
 
 void DataHandler::print() {

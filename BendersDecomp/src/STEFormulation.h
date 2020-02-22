@@ -27,7 +27,7 @@ public:
 	int 								_status;
 
 	STEFormulation() {};
-	~STEFormulation() {};
+	~STEFormulation();
 	void build_formul(GRBModel*, PartitionScheme*);
 	
 	void add_dualformul(DualFormulation *);
