@@ -1,6 +1,7 @@
 #include "BendersCuts.h"
 #include "SubtourCuts.h"
 #include <tuple>
+#include <assert.h>
 // #include "SuperCutFormulation.h"
 
 void print_sequence(vector<int> * fseq) {
@@ -19,7 +20,6 @@ void print_sequence(vector<int> fseq) {
 }
 
 BendersCuts::BendersCuts(GRBVar** y_, GRBVar* v_, PartitionScheme* partition_, DualFormulation* dual_, SuperCutFormulation* supercut_formul_, int which_cut){
-// BendersCuts::BendersCuts(GRBVar** y_, GRBVar* v_, PartitionScheme* partition_) {
 	this->_var_y = y_;
 	this->_var_v = v_;
 	this->_partition = partition_;
@@ -86,7 +86,7 @@ void BendersCuts::callback() {
 					vector<vector<double>>  SDS(_nb_targets + 2);
 					_partition->solve_shortestpath(_fseq, SDS);
 					GRBLinExpr expr = 0;
-					expr = generate_StrongBenderscut(&_fseq, SDS, false); // turn off generating super cut
+					expr = generate_StrongCut(&_fseq, SDS); 
 					addLazy(expr >= 0);
 					_CB_nb_Benders_cuts++;
 				}
@@ -95,7 +95,7 @@ void BendersCuts::callback() {
 					vector<vector<double>>  SDS(_nb_targets + 2);
 					_partition->solve_shortestpath(_fseq, SDS);
 					GRBLinExpr expr = 0;
-					expr = generate_StrongBenderscut(&_fseq, SDS, true);
+					expr = generate_SuperCut(&_fseq, SDS);
 					addLazy(expr >= 0);
 					_CB_nb_Benders_cuts++;
 				}
@@ -208,7 +208,7 @@ GRBLinExpr BendersCuts::generate_Benderscut_SP(vector<int> * fseq_, vector<vecto
 	return expr;
 }
 
-GRBLinExpr BendersCuts::generate_StrongBenderscut(vector<int> * fseq, vector<vector<double>> & SDS, bool supercut_on) {
+GRBLinExpr BendersCuts::generate_StrongCut(vector<int> * fseq, vector<vector<double>> & SDS) {
 	int i, j, idx_circle, idxmat_1, idxmat_2;
 	double coef, dist;
 	double sd = SDS[_nb_targets + 1][0]; // sink node (depot)
@@ -302,50 +302,161 @@ GRBLinExpr BendersCuts::generate_StrongBenderscut(vector<int> * fseq, vector<vec
 		}
 	}
 
-	if (supercut_on) {
-		if(Coefs.size() != 0){
-			sort(Coefs.begin(), Coefs.end(), [](const pair<pair<int,int>,double> & a, const pair<pair<int,int>,double> & b) -> bool{return a.second> b.second;});
-		}
-
-		int s, t;
-		double gain = 0;	
-		// cout << "flag **" << endl;
-		if(_idx_supercut <= _max_supercuts){
-			for (unsigned int i = 0; i < Coefs.size(); i++) {
-				s = Coefs[i].first.first;
-				t = Coefs[i].first.second;
-				/* solve the super cut formulation */				
-				_formul_supercut->fix_edge(s, t);
-				_formul_supercut->update_coefs(sd, Coefs);				
-				// gain = _formul_supercut->solve();
-				_formul_supercut->free_edge(s, t);
-				_formul_supercut->_model->reset(0);
-				// cout << "stop" << endl;
-				// cout << "gain = " << gain << endl;
-				// if (gain < 0.0) { 
-				// 	Coefs[i]= make_pair(make_pair(s,t), Coefs[i].second + gain);
-				// }
-				// if(gain >= 0.0){
-				// 	break;
-					// cout << "nothing " <<endl;
-				// }
-			}
-			_idx_supercut++;
-			cout << " ==================================== " << endl;
-				// exit(0);
-
-		}
-		
-	}
-	GRBLinExpr expr = 0;
+	GRBLinExpr expr2 = 0;
 	// cout << sd;
 	for (unsigned int i = 0; i < Coefs.size(); i++) {
-		expr += Coefs[i].second * _var_y[Coefs[i].first.first][Coefs[i].first.second];
-		// cout << " - " << get<2>(CoefSet[i]) << "*" << "x_" << get<0>(CoefSet[i]) <<','<< get<1>(CoefSet[i]);
+		expr2 += Coefs[i].second * _var_y[Coefs[i].first.first][Coefs[i].first.second];
+		// cout << " - " << Coefs[i].second << "*" << "x_" << Coefs[i].first.first <<','<< Coefs[i].first.second;
 	}
 	// cout << endl;
-	expr = expr + (*_var_v) - sd;
-	return expr;
+	expr2 = expr2 + (*_var_v) - sd;
+	return expr2;
+}
+
+
+
+
+GRBLinExpr BendersCuts::generate_SuperCut(vector<int> * fseq, vector<vector<double>> & SDS) {
+	int i, j, idx_circle, idxmat_1, idxmat_2;
+	double coef, dist;
+	double sd = SDS[_nb_targets + 1][0]; // sink node (depot)
+
+	vector<pair<pair<int,int>, double>> Coefs;
+	double smallest_coef = INFINITY;
+	// (1) node weight from 0 to all nodes in each circle
+	for (int to = 2; to <= _nb_targets; to++) {
+		coef = 0.0;
+		idx_circle = fseq->at(to);
+		idxmat_1 = (idx_circle - 1) * 2 * _nb_dstzn + 1;
+		for (i = 0; i < _nb_dstzn; i++) {
+			if((*_G)[0][idxmat_1 + i].first == true){
+				dist = (*_G)[0][idxmat_1 + i].second;
+				coef = max(coef, max(0.0, SDS[to][i] - dist));
+				if (coef >= sd) {
+					coef = sd;
+					break;
+				}
+			}
+		}
+		if (coef < smallest_coef) {
+			smallest_coef = coef;
+		}
+
+		Coefs.push_back(make_pair(make_pair(0, idx_circle), coef));
+	}
+
+	// (2)  node weights from circle to circle
+	int circle_from, circle_to, from, to;
+	for (from = 1; from <= _nb_targets - 2; from++) {
+		circle_from = fseq->at(from);
+		idxmat_1 = (circle_from - 1) * 2 * _nb_dstzn + _nb_dstzn + 1;
+		for (to = from + 2; to <= _nb_targets; to++) {
+			circle_to = fseq->at(to);
+			idxmat_2 = (circle_to - 1) * 2 * _nb_dstzn + 1;
+			coef = 0.0;
+			for (i = 0; i < _nb_dstzn; i++) {
+				for (j = 0; j < _nb_dstzn; j++) {
+					if((*_G)[idxmat_1 + i][idxmat_2 + j].first == true){
+						dist = (*_G)[idxmat_1 + i][idxmat_2 + j].second;
+						coef = max(coef, max(0.0, SDS[to][j] - SDS[from][i] - dist));
+					}					
+				}
+				if (coef >= sd) {
+					coef = sd;
+					break;
+				}
+			}
+			if (coef < smallest_coef) {
+				smallest_coef = coef;
+			}
+			if (coef > 0.000001)
+				Coefs.push_back(make_pair(make_pair(circle_from, circle_to), coef));
+		}
+	}
+	// (3) node weights from circle to sink (or we can call source)
+	for (to = 1; to <= _nb_targets - 1; to++) {
+		coef = 0.0;
+		idx_circle = fseq->at(to);
+		idxmat_1 = (idx_circle - 1) * 2 * _nb_dstzn + _nb_dstzn + 1;
+		for (i = 0; i < _nb_dstzn; i++) {
+			if((*_G)[idxmat_1 + i][_partition->_size_G -1].first == true){
+				dist = (*_G)[idxmat_1 + i][_partition->_size_G -1].second;
+				coef = max(coef, max(0.0, SDS[_nb_targets + 1][0] - SDS[to][i] - dist));
+				if (coef >= sd) {
+					coef = sd;
+					break;
+				}
+			}
+		}
+		if (coef < smallest_coef) {
+			smallest_coef = coef;
+		}
+		if (coef > 0.000001)
+			Coefs.push_back(make_pair(make_pair(idx_circle, _nb_targets + 1), coef));
+	}
+
+	// generate the cut
+	double delta = sd - smallest_coef;
+	if (smallest_coef < sd * 0.5) {
+		for (unsigned int i=0; i< Coefs.size(); i++) {
+			if ( Coefs[i].second >= delta) {
+				Coefs[i].second = delta;
+			}
+		}
+	}
+	else {
+		for (unsigned int i=0; i< Coefs.size(); i++) {
+			Coefs[i].second = sd * 0.5;
+		}
+	}
+
+	// cout << "-> " << supercut_on << endl;
+	// if(false){
+		// cout << "doing nothing " << endl;
+	// }
+
+	if(Coefs.size() != 0){
+		sort(Coefs.begin(), Coefs.end(), [](const pair<pair<int,int>,double> & a, const pair<pair<int,int>,double> & b) -> bool{return a.second> b.second;});
+	}
+		
+	int s, t;
+	double gain = 0;	
+	// cout << "coef size " << Coefs.size() << endl;
+	// for(unsigned int i = 0; i < Coefs.size(); i++){
+	// 	cout << Coefs[i].second << ": " << Coefs[i].first.first << ", " << Coefs[i].first.second << " **** ";
+	// }
+
+	if(_idx_supercut <= _max_supercuts){
+		for (unsigned int i = 0; i < Coefs.size(); i++) {
+			// cout << "cut: " << sd;
+			// for (unsigned int j = 0; j < Coefs.size(); j++) {
+			// 		cout << " " << Coefs[j].second << "*X_" << Coefs[j].first.first << "_" << Coefs[j].first.second;		
+			// }
+			// cout << endl;
+			s = Coefs[i].first.first;
+			t = Coefs[i].first.second;		
+			_formul_supercut->_model->reset(0);
+			cout << "size : " << Coefs.size() << endl;
+			gain = _formul_supercut->get_gain(sd, &Coefs, s, t);	
+			if(gain < 0){
+				Coefs[i].second = max(0.0,  Coefs[i].second + gain);
+			}else{
+				break;
+			}	
+		}
+		_idx_supercut++;
+		cout << " done with super cut " << _idx_supercut - 1 << endl;			
+	}
+	
+	GRBLinExpr expr2 = 0;
+	// cout << sd;
+	for (unsigned int i = 0; i < Coefs.size(); i++) {
+		expr2 += Coefs[i].second * _var_y[Coefs[i].first.first][Coefs[i].first.second];
+		// cout << " - " << Coefs[i].second << "*" << "x_" << Coefs[i].first.first <<','<< Coefs[i].first.second;
+	}
+	// cout << endl;
+	expr2 = expr2 + (*_var_v) - sd;
+	return expr2;
 }
 
 

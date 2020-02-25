@@ -1,5 +1,5 @@
 CPP       = g++
-CPPARGS   = -O3 -g -m64 -std=c++14 -Wall -Wextra -pedantic
+CPPARGS   = -O3 -m64 -std=c++14 -Wall -Wextra -pedantic
 SRCPATH		= ./src/
 BINPATH		= ./bin/
 DATPATH		= ./dat/

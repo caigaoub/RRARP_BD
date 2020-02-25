@@ -41,7 +41,7 @@ void STEFormulation::build_formul(GRBModel* model_MP_, PartitionScheme* network_
 	_model->update();
 
 	// Step 2: add constraints: degree constraints and reverse-sequence-avoiding constraints
-	GRBLinExpr expr1, expr2, exprA = 0, exprB = 0;
+	GRBLinExpr expr1, expr2;
 	for (int i = 0; i < _size_var_y; i++) {
 		expr1 = 0;
 		expr2 = 0;
@@ -52,10 +52,10 @@ void STEFormulation::build_formul(GRBModel* model_MP_, PartitionScheme* network_
 		_model->addConstr(expr1 == 1, "deg1_row" + itos(i));
 		_model->addConstr(expr2 == 1, "deg1_col" + itos(i));
 		_model->update();
-		if (i > 0 && i < _size_var_y - 1) {
-			exprA += i * (_var_y[0][i]);
-			exprB += i * (_var_y[i][_size_var_y - 1]);
-		}
+		// if (i > 0 && i < _size_var_y - 1) {
+		// 	exprA += i * (_var_y[0][i]);
+		// 	exprB += i * (_var_y[i][_size_var_y - 1]);
+		// }
 	}
 	// _model->addConstr(exprA <= exprB, "rm_inv_seq");
 	_model->update();

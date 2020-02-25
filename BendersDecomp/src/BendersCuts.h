@@ -48,7 +48,9 @@ public:
 	inline int get_nb_Benders_cuts() { return _CB_nb_Benders_cuts; }
 	inline int get_nb_subtour_cuts() { return _CB_nb_subtour_cuts; }
 	GRBLinExpr generate_Benderscut_SP(vector<int> *, vector<vector<double>> & );
-  	GRBLinExpr generate_StrongBenderscut(vector<int> *, vector<vector<double>> & , bool);
+  	GRBLinExpr generate_StrongCut(vector<int> *, vector<vector<double>> &);
+  	GRBLinExpr generate_SuperCut(vector<int> *, vector<vector<double>> &);
+
 	inline string itos(int i) { stringstream s; s << i; return s.str(); }
 	void print_ySol(double**);
 	// double improve_coef(int, int, double, vector<tuple<int, int, double>> &);

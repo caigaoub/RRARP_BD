@@ -59,11 +59,9 @@ int main(int argc, const char* argv[]) {
 		GRBModel model_supercut_ = GRBModel(*evn_supercut_);
 		model_supercut_.getEnv().set(GRB_IntParam_OutputFlag, 0);
 		SuperCutFormulation formul_supercut_;
-		formul_supercut_.create_variables(&model_supercut_, dataset_._nb_targets+2);
+		formul_supercut_.add_model(&model_supercut_, dataset_._nb_targets+2);
 		// formul_supercut_.set_objective();
-		formul_supercut_.set_constraints();
-
-
+		// formul_supercut_.set_constraints();
 
 
 		formul_master.add_dualformul(&formul_dual_);

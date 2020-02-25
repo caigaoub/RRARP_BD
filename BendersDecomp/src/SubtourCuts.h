@@ -12,9 +12,9 @@ using namespace std;
 class SubtourCuts : public GRBCallback {
 private:
 	int 						_size_var_x;
-	GRBVar** 					_var_x;
+	GRBVar*** 					_var_x;
 public:
-	SubtourCuts(GRBVar**, int);
+	SubtourCuts(GRBVar***, int);
 	string itos(int i) { stringstream s; s << i; return s.str(); }
 protected:
 	void callback();
