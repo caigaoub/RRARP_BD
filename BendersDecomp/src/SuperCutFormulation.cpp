@@ -8,14 +8,14 @@ void SuperCutFormulation::add_model(GRBModel * model_supercut, int N) {
 }
 
 double SuperCutFormulation::get_gain(double alpha_arrival, vector<pair<pair<int, int>, double>> * Coefs, int s, int t) {
-	cout << (*Coefs).size() << endl;
+//	cout << (*Coefs).size() << endl;
 	this->_model->getEnv().set(GRB_IntParam_LazyConstraints, 1);
 	
 	GRBVar** _var_x = new GRBVar*[_size_var_x];
 	for (int i = 0; i < _size_var_x; i++) {
 		_var_x[i] = new GRBVar[_size_var_x] ;
 	}
-	cout << (*Coefs).size() << endl;
+//	cout << (*Coefs).size() << endl;
 
 	for (int i = 0; i < _size_var_x; i++) {
 		for (int j = 0; j < _size_var_x; j++) {
@@ -23,21 +23,21 @@ double SuperCutFormulation::get_gain(double alpha_arrival, vector<pair<pair<int,
 			_model->update();
 		}
 	}
-	cout << (*Coefs).size() << endl;
+//	cout << (*Coefs).size() << endl;
 
 	_model->update();
 
-	cout << (*Coefs).size() << endl;
+//	cout << (*Coefs).size() << endl;
 
-	cout << (*Coefs).size() << endl;
+//	cout << (*Coefs).size() << endl;
 
-	cout << " start: get_gain " << endl;
-	cout << (*Coefs).size() << endl;
+//	cout << " start: get_gain " << endl;
+//	cout << (*Coefs).size() << endl;
 
 	GRBLinExpr expr_obj = alpha_arrival;
-	cout << (*Coefs).size() << endl;
+//	cout << (*Coefs).size() << endl;
 	for (unsigned int i =0; i < (*Coefs).size(); i++) {
-		cout << " " << (*Coefs)[i].second << "*X_" << (*Coefs)[i].first.first << "_" << (*Coefs)[i].first.second << endl;		
+//		cout << " " << (*Coefs)[i].second << "*X_" << (*Coefs)[i].first.first << "_" << (*Coefs)[i].first.second << endl;		
 		expr_obj -= (*Coefs)[i].second * _var_x[(*Coefs)[i].first.first][(*Coefs)[i].first.second];
 	}
 
@@ -70,10 +70,10 @@ double SuperCutFormulation::get_gain(double alpha_arrival, vector<pair<pair<int,
 		_model->setCallback(&cb);
 		_model->update();
 		_model->optimize();
-		cout << " optimal ???" << endl;
+//		cout << " optimal ???" << endl;
 		if (_model->get(GRB_IntAttr_Status) == GRB_OPTIMAL) {
 			double obj_val = _model->get(GRB_DoubleAttr_ObjVal);
-			cout << "the objective value: " << obj_val << endl;
+//			cout << "the objective value: " << obj_val << endl;
 			return obj_val;	
 		}else{
 			cout << "super cut formulation can't reach optimality!!" << endl;

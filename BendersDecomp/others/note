@@ -1,10 +1,8 @@
-export GUROBI_HOME="/opt/gurobi900/linux64"
+export GUROBI_HOME="/util/academic/gurobi/gurobi900/linux64"
 export PATH="${PATH}:${GUROBI_HOME}/bin"
 export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${GUROBI_HOME}/lib"
 
 
-===>>>>>>
-
-update the license
-
+ grbgetkey 12fba0ae-5769-11ea-8d65-0a7c4f30bdbe
+export GRB_LICENSE_FILE="/projects/academic/josewalt/caigao/RRARP_BD/BendersDecomp/y/gurobi.lic"
 

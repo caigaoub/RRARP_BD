@@ -436,7 +436,7 @@ GRBLinExpr BendersCuts::generate_SuperCut(vector<int> * fseq, vector<vector<doub
 			s = Coefs[i].first.first;
 			t = Coefs[i].first.second;		
 			_formul_supercut->_model->reset(0);
-			cout << "size : " << Coefs.size() << endl;
+//			cout << "size : " << Coefs.size() << endl;
 			gain = _formul_supercut->get_gain(sd, &Coefs, s, t);	
 			if(gain < 0){
 				Coefs[i].second = max(0.0,  Coefs[i].second + gain);
