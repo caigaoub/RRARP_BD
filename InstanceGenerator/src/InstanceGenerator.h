@@ -49,7 +49,10 @@ public:
     void set_locations();
     void set_locations(int nb_cls);
     void get_max_radii();
+    void get_max_radii_strategyII();
     void set_radii(const char*);
+    void set_radii_strategyII(const char*);
+    
     void set_RR_threshold();
     void produce(const char*);
     void produce_clusters(const char*, int);

@@ -3,13 +3,13 @@
 InstanceGenerator::InstanceGenerator(int var_num_targets, GRBModel *model){
   this->num_targets = var_num_targets;
   this->model = model;
-  this->scale = 20;
+  this->scale = 1;
 
   for(int i = 0;i < num_targets;i++){
     targets_locs.push_back({-1, -1});
     radii.push_back(-1);
     max_radii.push_back(-1);
-  }
+  } 
 
   model->set(GRB_IntAttr_ModelSense, 1);
   model->set(GRB_IntParam_OutputFlag, 0);
@@ -25,21 +25,21 @@ InstanceGenerator::InstanceGenerator(int var_num_targets, GRBModel *model){
 
 
 void InstanceGenerator::produce(const char* difflevel){
-  /* test
-  int i = 1;
-  while ( i < 20) {
-    _eng = mt19937(_rd());// seed the random generator
-    auto distr = uniform_int_distribution<>(0, 100);
-    cout << distr(_eng) << endl;
-    i++;
-  }
-*/
-  set_panel({0, 0}, num_targets* scale, num_targets * scale);
-  set_locations();
-  get_max_radii();
-  set_radii(difflevel);
-  set_RR_threshold();
+  /*solve the mathemtical model */
+  // set_panel({0, 0}, num_targets* scale, num_targets * scale);
+  // set_locations();
+  // get_max_radii();
+  // set_radii(difflevel);
+  // set_RR_threshold();
 //  print_instance();
+  /* strategy: choose the nearest target and take half length as its maximum radius */
+
+  set_panel({0, 0}, num_targets*num_targets*scale, num_targets*num_targets*scale);
+  set_locations();
+  get_max_radii_strategyII();
+  set_radii_strategyII(difflevel);
+  set_RR_threshold();
+
 }
 
 
@@ -182,9 +182,42 @@ void InstanceGenerator::set_radii(const char* difflevel){
   }
 }
 
-void InstanceGenerator::set_RR_threshold(){
+
+void InstanceGenerator::set_radii_strategyII(const char* difflevel){
   _eng = mt19937(_rd());// seed the random generator
-  double ratio = 0.0;
+  double ratio;
+  char strE[] = "e";
+  char strM[] = "m";
+  char strH[] = "h";
+  if (strcmp(difflevel, strE)==0){ // easy
+    for(int i = 0;i < num_targets; i++){
+      auto rand_real = uniform_real_distribution<>(0.2, 0.4);
+      ratio = rand_real(_eng);
+      radii[i] = max_radii[i] * ratio;
+    }
+
+  }else if (strcmp(difflevel, strM)==0){ // medium
+    for(int i = 0;i < num_targets; i++){
+      auto rand_real = uniform_real_distribution<>(0.4, 0.6);
+      ratio = rand_real(_eng);
+      radii[i] = max_radii[i] * ratio;
+    }
+
+  }else if (strcmp(difflevel, strH)==0){ // hard
+    for(int i = 0;i < num_targets; i++){
+      auto rand_real = uniform_real_distribution<>(0.6, 0.8);
+      ratio = rand_real(_eng);
+      radii[i] = max_radii[i] * ratio;
+    }
+  }else{
+    throw "Wrong difficulty level input";
+  }
+}
+
+
+void InstanceGenerator::set_RR_threshold(){
+  // _eng = mt19937(_rd());// seed the random generator
+  // double ratio = 0.0;
   for(int i = 0; i < num_targets; i++){
     // auto rand_real_reward = uniform_real_distribution<>(0.3, 0.5);
     // ratio = rand_real_reward(_eng);
@@ -257,6 +290,35 @@ void InstanceGenerator::get_max_radii(){
 		cout << "Error during optimization" << endl;
 	}
 }
+
+
+
+void InstanceGenerator::get_max_radii_strategyII(){
+  double smallest_dist = numeric_limits<int>::max();
+  double len = numeric_limits<int>::max();
+  for(int i = 0; i < num_targets; i++){
+    smallest_dist = numeric_limits<int>::max();
+      len = eucl_distance(targets_locs[i], depot1_loc);
+      if (smallest_dist > len){
+        smallest_dist = len;
+      }
+      len = eucl_distance(targets_locs[i], depot2_loc);
+      if (smallest_dist > len){
+        smallest_dist = len;
+      }
+
+    for(int j = 0; j < num_targets; j++){
+      if(i != j){
+        len = eucl_distance(targets_locs[i], targets_locs[j]);
+        if (smallest_dist > len){
+          smallest_dist = len;
+        }
+      }
+    }
+    max_radii[i] = 0.5 * smallest_dist;
+  }
+}
+
 
 double InstanceGenerator::eucl_distance(Vertex p, Vertex q){
   return sqrt(pow(p.x - q.x, 2) + pow(p.y - q.y, 2));
@@ -332,20 +394,21 @@ void InstanceGenerator::print_instance(){
 void InstanceGenerator::write_RRARP_instance(string path){
   ofstream myfile;
   myfile.open(path);
+  // cout << path << endl;
   myfile << num_targets << '\n';
   myfile <<  depot1_loc.x << '\t' << depot1_loc.y << '\n';
   myfile <<  depot2_loc.x << '\t' << depot2_loc.y << '\n';
   for(int i =0 ;i<num_targets;i++){
       myfile << targets_locs[i].x << '\t' << targets_locs[i].y << '\t' << radii[i] << '\n';
   }
-  for(int i =0 ;i<num_targets;i++){
+  for(int i = 0; i<num_targets;i++){
     if(i != num_targets-1){
       myfile << min_reward_pct[i] << '\t';
     }else{
       myfile << min_reward_pct[i] << '\n';
     }
   }
-  for(int i =0 ;i<num_targets;i++){
+  for(int i = 0;i<num_targets;i++){
     if(i != num_targets-1){
       myfile << max_risk_pct[i] << '\t';
     }else{

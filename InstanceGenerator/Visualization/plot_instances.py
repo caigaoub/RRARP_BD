@@ -35,7 +35,7 @@ def plot_instance(instancefile):
     maxx = max(maxx, departure[0]+3)
     miny = min(miny, departure[1]-3)
     maxy = max(maxy, departure[1]+3)
-    circle = pch.Circle((departure[0], departure[1]), radius=0.2, edgecolor='r', facecolor='r', alpha=1)
+    circle = pch.Circle((departure[0], departure[1]), radius=nb_tars_/30.0, edgecolor='r', facecolor='r', alpha=1)
     ax.add_artist(circle)
     ax.annotate("("+str(0)+": " + str(departure[0])+","+str(departure[1])+")", xy=(departure[0], departure[1]), xytext=(departure[0]+0.3, departure[1]+0.3))
 
@@ -48,7 +48,7 @@ def plot_instance(instancefile):
     maxx = max(maxx, arrival[0]+3)
     miny = min(miny, arrival[1]-3)
     maxy = max(maxy, arrival[1]+3)
-    circle = pch.Circle((arrival[0], arrival[1]), radius=0.2, edgecolor='r', facecolor='r', alpha=1)
+    circle = pch.Circle((arrival[0], arrival[1]), radius=nb_tars_/30.0, edgecolor='r', facecolor='r', alpha=1)
     ax.add_artist(circle)
     ax.annotate("("+str(nb_tars_+1)+": "+str(arrival[0])+","+str(arrival[1])+")", xy=(arrival[0], arrival[1]), xytext=(arrival[0]+0.3, arrival[1]+0.3))
 
@@ -67,7 +67,7 @@ def plot_instance(instancefile):
         maxy = max(maxy, tar_loc_y+tar_rad)
         circle = plt.Circle((tar_loc_x, tar_loc_y), radius=tar_rad, edgecolor='k',facecolor='k',alpha=0.2)
         ax.add_artist(circle)
-        circle = plt.Circle((tar_loc_x, tar_loc_y), radius=0.2, edgecolor='r',facecolor='r',alpha=0.8)
+        circle = plt.Circle((tar_loc_x, tar_loc_y), radius=tar_rad/20.0, edgecolor='r',facecolor='r',alpha=0.8)
         ax.add_artist(circle)
         ax.annotate("("+str(itr)+": "+str(tar_loc_x)+","+str(tar_loc_y)+")", xy=(tar_loc_x, tar_loc_y), xytext=(tar_loc_x+0.3, tar_loc_y+0.3))
         itr += 1   
