@@ -10,7 +10,7 @@
 #SBATCH --job-name="ccr_test"
 #SBATCH --output="ccr_test.out"
 #SBATCH --error="ccr_test.err"
-##SBATCH --mail-user=josewalt@buffalo.edu
+##SBATCH --mail-user=caigao@buffalo.edu
 ##SBATCH --mail-type=ALL
 ##SBATCH --requeue
 
@@ -30,6 +30,7 @@ module load gurobi/9.0.0
 
 make
 
-./bin/main  8 ../InstanceGenerator/ret/inst_n_10/n_10_e_1.txt 3
+./bin/main  8 ../InstanceGenerator/ret/n_8_e_1.txt 4
+
 echo "All Done!"
 
