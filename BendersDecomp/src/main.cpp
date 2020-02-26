@@ -68,12 +68,13 @@ int main(int argc, const char* argv[]) {
 		formul_master.add_SuperCutformul(&formul_supercut_);
 		// int which_BDCut = 1;
 		if(true){
-			auto start = chrono::system_clock::now();
+			// auto start = chrono::system_clock::now();
 			formul_master.solve_formul_wCB(which_BDCut);
-			auto end = chrono::system_clock::now();
-			formul_master.print_solution();
-			chrono::duration<double> elapsed_seconds = end-start;
-			cout << "====>>> Algorithm: " << which_BDCut << " time: " << std::chrono::duration<double>(elapsed_seconds).count()  << endl;		
+			// auto end = chrono::system_clock::now();
+			// formul_master.print_solution();
+			formul_master.write_solution();
+			// chrono::duration<double> elapsed_seconds = end-start;
+			// cout << "====>>> Algorithm: " << which_BDCut << " time: " << std::chrono::duration<double>(elapsed_seconds).count()  << endl;		
 		}
 		
 		if(false){

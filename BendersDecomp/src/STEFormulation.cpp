@@ -80,7 +80,7 @@ pair<double, double> STEFormulation::solve_formul_wCB(int which_cut) {
 		_model->setCallback(cb);
 		_model->optimize();
 		_time->end_prog();
-		cout << _time->_elapsed_secs << endl;
+		// cout << _time->_elapsed_secs << endl;
 		if (_model->get(GRB_IntAttr_Status) == GRB_OPTIMAL|| _model->get(GRB_IntAttr_Status) == GRB_TIME_LIMIT) {
 			_status = 0;
 			double obj_val = _model->get(GRB_DoubleAttr_ObjVal);
@@ -443,7 +443,7 @@ void STEFormulation::print_solution() {
 }
 
 void STEFormulation::write_solution() {
-
+	cout << "time: " << _time->_elapsed_secs << endl;
 
 
 }
