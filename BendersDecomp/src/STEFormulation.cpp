@@ -1,6 +1,9 @@
 #include "STEFormulation.h"
 #define INF numeric_limits<double>::infinity()
 
+
+
+
 void STEFormulation::add_dualformul(DualFormulation* dual_){
 	this->_formul_dual = dual_;
 }
@@ -15,6 +18,8 @@ void STEFormulation::add_SuperCutformul(SuperCutFormulation* supercut_){
  	@	
 */
 void STEFormulation::build_formul(GRBModel* model_MP_, PartitionScheme* network_) {
+	_time = new ProgTime();
+	_time->start_prog();
 	this->_partition = network_;
 	this->_size_var_y = _partition->_dataset->_nb_targets + 2;
 	this->_model = model_MP_;
@@ -74,6 +79,8 @@ pair<double, double> STEFormulation::solve_formul_wCB(int which_cut) {
 		BendersCuts * cb = new BendersCuts(_var_y, _var_v, _partition, _formul_dual, _formul_supercut, which_cut);
 		_model->setCallback(cb);
 		_model->optimize();
+		_time->end_prog();
+		cout << _time->_elapsed_secs << endl;
 		if (_model->get(GRB_IntAttr_Status) == GRB_OPTIMAL|| _model->get(GRB_IntAttr_Status) == GRB_TIME_LIMIT) {
 			_status = 0;
 			double obj_val = _model->get(GRB_DoubleAttr_ObjVal);
@@ -387,9 +394,9 @@ void STEFormulation::set_vars_continuous() {
 	_model->update();
 }
 
-void STEFormulation::print_solution(GRBModel *model) {
+void STEFormulation::print_solution() {
 	try {
-		if (model->get(GRB_IntAttr_SolCount) > 0) {
+		if (_model->get(GRB_IntAttr_SolCount) > 0) {
 			int i, j;
 			double **sol = new double*[_size_var_y];
 			for (i = 0; i < _size_var_y; i++) {
@@ -433,6 +440,12 @@ void STEFormulation::print_solution(GRBModel *model) {
 	catch (...) {
 		cerr << "Error" << endl;
 	}
+}
+
+void STEFormulation::write_solution() {
+
+
+
 }
 
 STEFormulation::~STEFormulation(){

@@ -8,6 +8,7 @@
 #include "SuperCutFormulation.h"
 #include "DualFormulation.h"
 #include "GlobalMC.h"
+#include "ProgTime.h"
 
 using namespace std;
 
@@ -26,6 +27,10 @@ public:
 	int 								_total_nb_user_cuts = 0;
 	int 								_status;
 
+
+	ProgTime * 							_time;
+
+
 	STEFormulation() {};
 	~STEFormulation();
 	void build_formul(GRBModel*, PartitionScheme*);
@@ -42,7 +47,8 @@ public:
 	string itos(int i) { stringstream s; s << i; return s.str(); }
 	void set_vars_integer();
 	void set_vars_continuous();
-	void print_solution(GRBModel*);
+	void print_solution();
+	void write_solution();
 };
 
 

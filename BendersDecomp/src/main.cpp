@@ -71,7 +71,7 @@ int main(int argc, const char* argv[]) {
 			auto start = chrono::system_clock::now();
 			formul_master.solve_formul_wCB(which_BDCut);
 			auto end = chrono::system_clock::now();
-			formul_master.print_solution(&model_MP_);
+			formul_master.print_solution();
 			chrono::duration<double> elapsed_seconds = end-start;
 			cout << "====>>> Algorithm: " << which_BDCut << " time: " << std::chrono::duration<double>(elapsed_seconds).count()  << endl;		
 		}

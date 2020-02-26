@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/bin/main",
-            "args": [8, "/home/caigao/Dropbox/Box_Research/Github/RRARP_BD/InstanceGenerator/ret/inst_n_12/n_12_h_2.txt", 4],
+            "args": [8, "/home/caigao/Dropbox/Box_Research/Github/RRARP_BD/InstanceGenerator/ret/n_7_e_1.txt", 4],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/bin/",
             "environment": [],
