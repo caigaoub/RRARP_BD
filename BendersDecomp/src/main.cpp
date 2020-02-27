@@ -26,9 +26,8 @@ int main(int argc, const char* argv[]) {
 	string instancefile;
 	file >> instancefile;
 	file.close();
-	// int Fischetti_on = atoi(argv[3]); 
 	try {
-		instancefile = "../InstanceGenerator/ret/" + instancefile;
+		// instancefile = "../InstanceGenerator/ret/" + instancefile;
 		DataHandler dataset_;
 		dataset_.parse(instancefile);
 		dataset_.print();

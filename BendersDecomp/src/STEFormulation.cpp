@@ -447,7 +447,7 @@ void STEFormulation::write_solution(string instancename, int algo_idx) {
     string name_ = instancename.substr(0, pos);
     // cout << name_ << endl;
     string cur_dir  = boost::filesystem::current_path().string();
- 	cur_dir += "/ret/out_model/";
+ 	cur_dir += "/ret/model_outs/";
  	if(!boost::filesystem::exists(cur_dir)){
         boost::filesystem::create_directories(cur_dir);
      }
