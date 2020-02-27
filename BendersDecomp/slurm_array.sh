@@ -7,9 +7,9 @@
 #SBATCH --ntasks-per-node=12
 #SBATCH --mem=125000
 #SBATCH --job-name="RRARP_CAI"
-#SBATCH --array=1-100
-#SBATCH --output=../ret/out_err/console_%A_%a.out
-#SBATCH --error=../ret/out_err/console_%A_%a.err
+#SBATCH --array=20-21
+#SBATCH --output=../ret/console/console_%A_%a.out
+#SBATCH --error=../ret/console/console_%A_%a.err
 #SBATCH --mail-user=caigao@buffalo.edu
 #SBATCH --mail-type=ALL
 ##SBATCH --exclude=cpn-p26-[07-12]
@@ -31,9 +31,6 @@ echo "SLURM_NTASKS_PER_CORE = "$SLURM_NTASKS_PER_CORE
 NPROCS=`srun --nodes=${SLURM_NNODES} bash -c 'hostname' |wc -l`
 echo "NPROCS="$NPROCS
 
-##module load python/anaconda-4.3.1
-##module load gurobi/7.0.2
-##ulimit -s unlimited
 
 echo ""
 echo "--> BEGINNING"
@@ -42,7 +39,6 @@ echo ""
 make
 
 ./bin/main 4  8 ./ret/configs/config_${SLURM_ARRAY_TASK_ID}
-#./main ./configs/config_algo0 local_config${SLURM_ARRAY_TASK_ID}
 
 echo ""
 echo "--> ALLDONE"

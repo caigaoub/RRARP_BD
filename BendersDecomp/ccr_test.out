@@ -1,0 +1,96 @@
+NPROCS=0
+g++ -O3 -m64 -std=c++1y -Wall -Wextra -pedantic ./src/DataHandler.cpp \
+./src/PartitionScheme.cpp \
+./src/STEFormulation.cpp \
+./src/BendersCuts.cpp \
+./src/DualFormulation.cpp \
+./src/GlobalMC.cpp \
+./src/SuperCutFormulation.cpp \
+./src/SubtourCuts.cpp \
+-o ./bin/main ./src/main.cpp -I/util/academic/gurobi/gurobi900/linux64/include/ -L/util/academic/gurobi/gurobi900/linux64/lib/ -lgurobi_c++ -lgurobi90  -lpthread -lm
+This instance is clustered!
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 20 rows, 101 columns and 200 nonzeros
+Model fingerprint: 0x26cca0fd
+Variable types: 1 continuous, 100 integer (100 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 1e+00]
+  Objective range  [1e+00, 7e+01]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 1e+00]
+Presolve removed 2 rows and 27 columns
+Presolve time: 0.00s
+Presolved: 18 rows, 74 columns, 146 nonzeros
+Variable types: 1 continuous, 73 integer (73 binary)
+
+Root relaxation: objective 1.148511e+02, 12 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  139.43620    0    8          -  139.43620      -     -    0s
+ done with super cut 0
+ done with super cut 1
+H    0     0                     200.0441263  139.43620  30.3%     -    0s
+     0     0  141.84478    0    8  200.04413  141.84478  29.1%     -    0s
+ done with super cut 2
+ done with super cut 3
+H    0     0                     163.6227762  141.84478  13.3%     -    0s
+ done with super cut 4
+     0     0  144.05768    0   17  163.62278  144.05768  12.0%     -    0s
+ done with super cut 5
+ done with super cut 6
+ done with super cut 7
+H    0     0                     160.1377855  144.05768  10.0%     -    0s
+     0     0  148.57945    0   14  160.13779  148.57945  7.22%     -    0s
+     0     0  148.57945    0   18  160.13779  148.57945  7.22%     -    0s
+     0     0  152.98001    0   19  160.13779  152.98001  4.47%     -    0s
+     0     0  153.74911    0   19  160.13779  153.74911  3.99%     -    0s
+     0     0  153.75624    0   19  160.13779  153.75624  3.99%     -    0s
+     0     0  153.75798    0   19  160.13779  153.75798  3.98%     -    0s
+ done with super cut 8
+     0     0  154.92389    0   20  160.13779  154.92389  3.26%     -    0s
+     0     0  155.58133    0    9  160.13779  155.58133  2.85%     -    0s
+     0     0  157.15061    0   12  160.13779  157.15061  1.87%     -    0s
+     0     0  157.57160    0   10  160.13779  157.57160  1.60%     -    0s
+ done with super cut 9
+     0     0     cutoff    0       160.13779  160.13779  0.00%     -    0s
+
+Cutting planes:
+  Gomory: 1
+  Clique: 1
+  Zero half: 2
+  Lazy constraints: 3
+
+Explored 1 nodes (93 simplex iterations) in 0.10 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 3: 160.138 163.623 200.044 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 1.601377855158e+02, best bound 1.601377855158e+02, gap 0.0000%
+
+User-callback calls 137, time in user-callback 0.05 sec
+0.21636
+**************** ***** ****************
+**************** ***** ****************
+**************** ***** ****************
+====>> objective value: 160.138
+====>> v value: 18.1211
+====>> nb of Benders cuts(not including user cut): 10
+====>> nb of Benders cuts(user cuts): 0
+====>> nb of subtour cuts: 11
+====>> optimal TSP Solution matrix: 
+0  1  0  0  0  0  0  0  0  0  
+0  0  0  0  0  1  0  0  0  0  
+0  0  0  0  0  0  0  0  0  1  
+0  0  0  0  0  0  1  0  0  0  
+0  0  1  0  0  0  0  0  0  0  
+0  0  0  0  0  0  0  0  1  0  
+0  0  0  0  0  0  0  1  0  0  
+0  0  0  0  1  0  0  0  0  0  
+0  0  0  1  0  0  0  0  0  0  
+1  0  0  0  0  0  0  0  0  0  
+====>> current best visiting sequence: 0  1  5  8  3  6  7  4  2  9  
+====>>> Algorithm: 4 time: 0.104883
+All Done!
