@@ -28,7 +28,8 @@ void STEFormulation::build_formul(GRBModel* model_MP_, PartitionScheme* network_
 	_model->getEnv().set(GRB_IntParam_LazyConstraints, 1);
 	_model->getEnv().set(GRB_IntParam_PreCrush, 1);
 	_model->getEnv().set(GRB_IntParam_NumericFocus, 1);
-	_model->getEnv().set(GRB_DoubleParam_TimeLimit, 7200);
+	_model->getEnv().set(GRB_DoubleParam_TimeLimit, 20);
+	// _model->getEnv().set(GRB_DoubleParam_TimeLimit, GRB_INFINITY);
 
 	// Step 1: create variables for master problem 
 	_var_y = new GRBVar*[_size_var_y];
@@ -81,20 +82,20 @@ pair<double, double> STEFormulation::solve_formul_wCB(int which_cut) {
 		_model->optimize();
 		_time->end_prog();
 		// cout << _time->_elapsed_secs << endl;
-		if (_model->get(GRB_IntAttr_Status) == GRB_OPTIMAL|| _model->get(GRB_IntAttr_Status) == GRB_TIME_LIMIT) {
-			_status = 0;
+		_optimstatus = _model->get(GRB_IntAttr_Status);
+		if (_model->get(GRB_IntAttr_Status) == GRB_OPTIMAL|| _model->get(GRB_IntAttr_Status) == GRB_TIME_LIMIT) {	
 			double obj_val = _model->get(GRB_DoubleAttr_ObjVal);
 			double v_val = (*_var_v).get(GRB_DoubleAttr_X);
 			_total_nb_Benders_cuts = cb->get_nb_Benders_cuts();
 			_total_nb_subtour_cuts = cb->get_nb_subtour_cuts();
-			cout << "**************** ***** ****************"<< endl;
-			cout << "**************** ***** ****************"<< endl;
-			cout << "**************** ***** ****************"<< endl;
-			cout << "====>> objective value: " << obj_val << endl;
-			cout << "====>> v value: " << v_val  << endl;
-			cout << "====>> nb of Benders cuts(not including user cut): " << _total_nb_Benders_cuts << endl;
-			cout << "====>> nb of Benders cuts(user cuts): " <<  _total_nb_user_cuts << endl;
-			cout << "====>> nb of subtour cuts: " << _total_nb_subtour_cuts << endl;
+			// cout << "**************** ***** ****************"<< endl;
+			// cout << "**************** ***** ****************"<< endl;
+			// cout << "**************** ***** ****************"<< endl;
+			// cout << "====>> objective value: " << obj_val << endl;
+			// cout << "====>> v value: " << v_val  << endl;
+			// cout << "====>> nb of Benders cuts(not including user cut): " << _total_nb_Benders_cuts << endl;
+			// cout << "====>> nb of Benders cuts(user cuts): " <<  _total_nb_user_cuts << endl;
+			// cout << "====>> nb of subtour cuts: " << _total_nb_subtour_cuts << endl;
 			delete cb;
 			return make_pair(obj_val, v_val);
 		}
@@ -120,7 +121,7 @@ pair<double, double> STEFormulation::solve_formul_woCB() {
 	try {
 		_model->optimize();
 		if (_model->get(GRB_IntAttr_Status) == GRB_OPTIMAL) {
-			_status = 0;
+			// _status = 0;
 			double	obj_val = _model->get(GRB_DoubleAttr_ObjVal);
 			double	v_val = (*_var_v).get(GRB_DoubleAttr_X);
 			return make_pair(obj_val, v_val);
@@ -442,10 +443,33 @@ void STEFormulation::print_solution() {
 	}
 }
 
-void STEFormulation::write_solution() {
-	cout << "time: " << _time->_elapsed_secs << endl;
+void STEFormulation::write_solution(string instancename) {
+	ofstream file;
+	auto pos = instancename.find_last_of(".");
+    string name_ = instancename.substr(0, pos);
+    // cout << name_ << endl;
+    string cur_dir  = boost::filesystem::current_path().string();
+	// cout << cur_dir << endl;
+	// pos = cur_dir.find_last_of("/");
+ //    cur_dir = cur_dir.substr(0, pos);
+ 	cur_dir += "/ret/";
+ 	if(!boost::filesystem::exists(cur_dir)){
+        boost::filesystem::create_directories(cur_dir);
+     }
+	file.open(cur_dir + name_ + ".out");
+	file << "---> instance_name: " << name_ << '\n';
+	file << "---> obj_value: " << _model->get(GRB_DoubleAttr_ObjVal) << '\n';
+	file << "---> total_time: " << _time->_elapsed_secs << '\n';
+	file << "---> total_time_gurobi: " << _model->get(GRB_DoubleAttr_Runtime) << '\n';
+	file << "---> total_nb_benders_cuts: " << _total_nb_Benders_cuts << '\n';
+	file << "---> total_nb_subtour_cuts: " << _total_nb_subtour_cuts << '\n'; 
+	file << "---> total_nb_user_cuts: " << _total_nb_user_cuts << '\n';
+	file << "---> GRB_IntAttr_Status: " << _optimstatus << '\n';
+	file << "---> optimality_gap: " << _model->get(GRB_DoubleAttr_MIPGap) << '\n';
+	file << "---> node_count: " << _model->get(GRB_DoubleAttr_NodeCount) << '\n';
 
-
+	// cout << "arrive here!!!" << endl;
+	file.close();
 }
 
 STEFormulation::~STEFormulation(){

@@ -68,21 +68,17 @@ int main(int argc, const char* argv[]) {
 		formul_master.add_SuperCutformul(&formul_supercut_);
 		// int which_BDCut = 1;
 		if(true){
-			// auto start = chrono::system_clock::now();
 			formul_master.solve_formul_wCB(which_BDCut);
-			// auto end = chrono::system_clock::now();
 			// formul_master.print_solution();
-			formul_master.write_solution();
-			// chrono::duration<double> elapsed_seconds = end-start;
-			// cout << "====>>> Algorithm: " << which_BDCut << " time: " << std::chrono::duration<double>(elapsed_seconds).count()  << endl;		
+			formul_master.write_solution(dataset_._name);
 		}
 		
 		if(false){
-			auto start_fischetti= chrono::system_clock::now();
+			// auto start_fischetti= chrono::system_clock::now();
 			Fischetti_method(dataset_._nb_targets + 2, formul_master);
-			auto endt_fischetti = chrono::system_clock::now();
-			chrono::duration<double> elapsed_seconds_fischetti = endt_fischetti-start_fischetti;
-			cout << "====>>> Total time of Fischetti_method: " << std::chrono::duration<double>(elapsed_seconds_fischetti).count()  << endl;		
+			// auto endt_fischetti = chrono::system_clock::now();
+			// chrono::duration<double> elapsed_seconds_fischetti = endt_fischetti-start_fischetti;
+			// cout << "====>>> Total time of Fischetti_method: " << std::chrono::duration<double>(elapsed_seconds_fischetti).count()  << endl;		
 		}else{
 			// auto start_no_fischetti= chrono::system_clock::now();
 			// improve_root(dataset_._nb_targets + 2, formul_master);

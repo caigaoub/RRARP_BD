@@ -9,8 +9,8 @@ void DataHandler::parse(string filename) {
 	}
 	// Geographic Information of Targets
 	auto pos = filename.find_last_of("/");
-    string name = filename.substr(pos+1, filename.size());
-    size_t found = name.find("c");
+    _name = filename.substr(pos+1, filename.size());
+    size_t found = _name.find("c");
 	if (found == string::npos) {
 		file >> _nb_targets;
 		cout << "This instance is clustered!" << endl;

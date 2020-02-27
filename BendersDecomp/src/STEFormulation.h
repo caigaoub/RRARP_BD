@@ -9,6 +9,9 @@
 #include "DualFormulation.h"
 #include "GlobalMC.h"
 #include "ProgTime.h"
+#include <boost/filesystem.hpp>
+
+
 
 using namespace std;
 
@@ -25,8 +28,9 @@ public:
 	int 								_total_nb_Benders_cuts = 0;
 	int									_total_nb_subtour_cuts = 0;
 	int 								_total_nb_user_cuts = 0;
-	int 								_status;
+	
 
+	int 								_optimstatus;
 
 	ProgTime * 							_time;
 
@@ -48,7 +52,7 @@ public:
 	void set_vars_integer();
 	void set_vars_continuous();
 	void print_solution();
-	void write_solution();
+	void write_solution(string);
 };
 
 

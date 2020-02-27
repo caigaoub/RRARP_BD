@@ -25,6 +25,7 @@ struct Vertex {
 
 class DataHandler {
 public:
+	string          _name;
 	int				_nb_targets;
 	int				_nb_clusters = 0; // default no cluster
 	Vertex			_depot1_loc;
