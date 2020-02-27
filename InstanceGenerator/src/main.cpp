@@ -29,7 +29,7 @@ void createInstance(){
     GRBModel model = GRBModel(*evn);
     for(int nb_t = 6; nb_t <= 35; nb_t++){
         cout << " ====>>> start creating instances with " << nb_t << " targets ~_~ " << endl;
-        boost::filesystem::path dir = cur_dir.string() + "/ret/";
+        boost::filesystem::path dir = cur_dir.string() + "/dat/";
         if(!boost::filesystem::exists(dir)){
             boost::filesystem::create_directories(dir);
         }
@@ -37,7 +37,7 @@ void createInstance(){
           cout << " ====>>> easy instance: " << j << endl;
           InstanceGenerator sample(nb_t, &model);
           sample.produce("e");
-          string file = cur_dir.string() + "/ret/n_"+to_string(nb_t)+"_e_"+to_string(j)+".txt";
+          string file = dir.string() + "/n_"+to_string(nb_t)+"_e_"+to_string(j)+".dat";
           sample.write_RRARP_instance(file);
           model.reset();
         }
@@ -46,7 +46,7 @@ void createInstance(){
           cout << " ====>>> easy instance: " << j << endl;
           InstanceGenerator sample(nb_t, &model);
           sample.produce("m");
-          string file = cur_dir.string() + "/ret/n_"+to_string(nb_t)+"_m_"+to_string(j)+".txt";
+          string file = dir.string() + "/n_"+to_string(nb_t)+"_m_"+to_string(j)+".dat";
           sample.write_RRARP_instance(file);
           model.reset();
         }
@@ -55,7 +55,7 @@ void createInstance(){
           cout << " ====>>> hard instance: " << j << endl;
           InstanceGenerator sample(nb_t, &model);
           sample.produce("h");
-          string file = cur_dir.string() + "/ret/n_"+to_string(nb_t)+"_h_"+to_string(j)+".txt";
+          string file = dir.string() + "/n_"+to_string(nb_t)+"_h_"+to_string(j)+".dat";
           sample.write_RRARP_instance(file);
           model.reset();
         }

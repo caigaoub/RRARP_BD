@@ -441,18 +441,13 @@ void STEFormulation::print_solution() {
 	}
 }
 
-void STEFormulation::write_solution(string instancename, int algo_idx) {
+void STEFormulation::write_solution(string instance, int algo_idx) {
 	ofstream file;
-	auto pos = instancename.find_last_of(".");
-    string name_ = instancename.substr(0, pos);
-    // cout << name_ << endl;
-    string cur_dir  = boost::filesystem::current_path().string();
- 	cur_dir += "/ret/model_outs/";
- 	if(!boost::filesystem::exists(cur_dir)){
-        boost::filesystem::create_directories(cur_dir);
-     }
-	file.open(cur_dir + name_ + "_algo_" + to_string(algo_idx) + ".out");
-	file << "---> instance_name: " << name_ << '\n';
+	auto pos = instance.find_last_of(".");
+    string name_only = instance.substr(0, pos);
+	string cur_dir = "../ret/model_outs/";
+	file.open(cur_dir + name_only + "_algo_" + to_string(algo_idx) + ".out");
+	file << "---> instance_name: " << instance << '\n';
 	file << "---> algo_index: " << algo_idx << '\n';
 	file << "---> obj_value: " << _model->get(GRB_DoubleAttr_ObjVal) << '\n';
 	file << "---> total_time: " << _time->_elapsed_secs << '\n';
@@ -464,7 +459,7 @@ void STEFormulation::write_solution(string instancename, int algo_idx) {
 	file << "---> optimality_gap: " << _model->get(GRB_DoubleAttr_MIPGap) << '\n';
 	file << "---> node_count: " << _model->get(GRB_DoubleAttr_NodeCount) << '\n';
 
-	// cout << "arrive here!!!" << endl;
+	cout << " =====>>>>> Solution is written to file in <../ret/model_outs> !!!" << endl;
 	file.close();
 }
 

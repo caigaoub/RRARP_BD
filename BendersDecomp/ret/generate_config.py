@@ -21,7 +21,7 @@ for instsize in range(instsize_min, instsize_max+1):
 	for level in diff_levels:
 		for sidx in range(subidx_min, subidx_max+1):
 			file = open("./configs/config_" + str(idx_config), "w")
-			file.write("../InstanceGenerator/ret/n_"+str(instsize) + '_' + level + '_' + str(sidx)+".txt")
+			file.write("n_"+str(instsize) + '_' + level + '_' + str(sidx)+".dat")
 			file.close()
 			idx_config += 1
 

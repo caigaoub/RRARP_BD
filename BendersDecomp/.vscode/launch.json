@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/bin/main",
-            "args": [8, "/home/caigao/Dropbox/Box_Research/Github/RRARP_BD/InstanceGenerator/ret/n_7_e_1.txt", 4],
+            "args": [4, 8, "/home/caigao/Dropbox/Box_Research/Github/RRARP_BD/BendersDecomp/ret/configs/config_1"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/bin/",
             "environment": [],

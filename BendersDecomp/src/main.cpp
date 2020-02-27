@@ -23,14 +23,17 @@ int main(int argc, const char* argv[]) {
 		cerr << "ERROR: could not open config '" << configfile << "' for reading'" << endl;
 		throw(-1);
 	}
-	string instancefile;
-	file >> instancefile;
+	string instance_name_only;
+	file >> instance_name_only;
 	file.close();
 	try {
-		// instancefile = "../InstanceGenerator/ret/" + instancefile;
+		string cur_dir  = boost::filesystem::current_path().string();
+		auto pos = cur_dir.find_last_of("/");
+    	cur_dir = cur_dir.substr(0, pos);
+		string instance_wPath = cur_dir + "/dat/" + instance_name_only;
 		DataHandler dataset_;
-		dataset_.parse(instancefile);
-		dataset_.print();
+		dataset_.parse(instance_wPath);
+		// dataset_.print();
 		PartitionScheme network_;
 		network_.build(dataset_, nb_dstzn);
 
