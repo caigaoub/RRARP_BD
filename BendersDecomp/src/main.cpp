@@ -14,7 +14,6 @@ pair<int,int> improve_root(int N, STEFormulation & formul_master);
 
 
 int main(int argc, const char* argv[]) {
-
 	argc = argc; // just for avoid warning: unused argc
 	int which_BDCut = atoi(argv[1]);
 	const int nb_dstzn = atoi(argv[2]);

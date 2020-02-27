@@ -30,7 +30,7 @@ module load gurobi/9.0.0
 
 make
 
-./bin/main  8 ../InstanceGenerator/ret/n_8_e_1.txt 4
+./bin/main  8 ../InstanceGenerator/ret/
 
 echo "All Done!"
 
