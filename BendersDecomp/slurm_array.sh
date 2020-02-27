@@ -7,7 +7,7 @@
 #SBATCH --ntasks-per-node=12
 #SBATCH --mem=125000
 #SBATCH --job-name="RRARP_CAI"
-#SBATCH --array=0-749
+#SBATCH --array=0-100
 #SBATCH --output=../ret/console/console_%A_%a.out
 #SBATCH --error=../ret/console/console_%A_%a.err
 #SBATCH --mail-user=caigao@buffalo.edu
@@ -39,9 +39,9 @@ echo ""
 echo "--> BEGINNING"
 echo ""
 
-./bin/main 
+./bin/main 4  8 ./ret/configs${SLURM_ARRAY_TASK_ID}
 #./main ./configs/config_algo0 local_config${SLURM_ARRAY_TASK_ID}
 
 echo ""
 echo "--> ALLDONE"
-
+echo ""

@@ -2,8 +2,6 @@
 #define INF numeric_limits<double>::infinity()
 
 
-
-
 void STEFormulation::add_dualformul(DualFormulation* dual_){
 	this->_formul_dual = dual_;
 }
@@ -28,7 +26,7 @@ void STEFormulation::build_formul(GRBModel* model_MP_, PartitionScheme* network_
 	_model->getEnv().set(GRB_IntParam_LazyConstraints, 1);
 	_model->getEnv().set(GRB_IntParam_PreCrush, 1);
 	_model->getEnv().set(GRB_IntParam_NumericFocus, 1);
-	_model->getEnv().set(GRB_DoubleParam_TimeLimit, 20);
+	_model->getEnv().set(GRB_DoubleParam_TimeLimit, 7200);
 	// _model->getEnv().set(GRB_DoubleParam_TimeLimit, GRB_INFINITY);
 
 	// Step 1: create variables for master problem 
@@ -443,21 +441,19 @@ void STEFormulation::print_solution() {
 	}
 }
 
-void STEFormulation::write_solution(string instancename) {
+void STEFormulation::write_solution(string instancename, int algo_idx) {
 	ofstream file;
 	auto pos = instancename.find_last_of(".");
     string name_ = instancename.substr(0, pos);
     // cout << name_ << endl;
     string cur_dir  = boost::filesystem::current_path().string();
-	// cout << cur_dir << endl;
-	// pos = cur_dir.find_last_of("/");
- //    cur_dir = cur_dir.substr(0, pos);
- 	cur_dir += "/ret/";
+ 	cur_dir += "/ret/out_model/";
  	if(!boost::filesystem::exists(cur_dir)){
         boost::filesystem::create_directories(cur_dir);
      }
-	file.open(cur_dir + name_ + ".out");
+	file.open(cur_dir + name_ + "_algo_" + to_string(algo_idx) + ".out");
 	file << "---> instance_name: " << name_ << '\n';
+	file << "---> algo_index: " << algo_idx << '\n';
 	file << "---> obj_value: " << _model->get(GRB_DoubleAttr_ObjVal) << '\n';
 	file << "---> total_time: " << _time->_elapsed_secs << '\n';
 	file << "---> total_time_gurobi: " << _model->get(GRB_DoubleAttr_Runtime) << '\n';

@@ -16,35 +16,31 @@ pair<int,int> improve_root(int N, STEFormulation & formul_master);
 int main(int argc, const char* argv[]) {
 
 	argc = argc; // just for avoid warning: unused argc
-	const int nb_dstzn = atoi(argv[1]);
-	string filename = argv[2];   
+	int which_BDCut = atoi(argv[1]);
+	const int nb_dstzn = atoi(argv[2]);
+	string configfile = argv[3];
+	fstream file(configfile);
+	if (!file) {
+		cerr << "ERROR: could not open config '" << configfile << "' for reading'" << endl;
+		throw(-1);
+	}
+	string instancefile;
+	file >> instancefile;
+	file.close();
 	// int Fischetti_on = atoi(argv[3]); 
-	int which_BDCut = atoi(argv[3]);
 	try {
+		instancefile = "../InstanceGenerator/ret/" + instancefile;
 		DataHandler dataset_;
-		dataset_.parse(filename);
-		// dataset_.print();
+		dataset_.parse(instancefile);
+		dataset_.print();
 		PartitionScheme network_;
 		network_.build(dataset_, nb_dstzn);
-		
-		/* test */
-		// vector<int> fseq_;
-		// fseq_.push_back(0);
-		// fseq_.push_back(3);
-		// fseq_.push_back(4);
-		// fseq_.push_back(5);
-		// fseq_.push_back(1);
-		// fseq_.push_back(2);
-		// fseq_.push_back(6);
-		// vector<vector<double>> * SDS = new vector<vector<double>>(dataset_._nb_targets + 2);
-		// network_.solve_shortestpath_v2(fseq_, *SDS);
 
 		/*Gurobi model for master problem */
 		GRBEnv * evn_MP_ = new GRBEnv();
 		GRBModel model_MP_ = GRBModel(*evn_MP_);
 		STEFormulation formul_master;
 		formul_master.build_formul(&model_MP_, &network_);
-
 
 		/*Gurobi model for dual formulation */ 
 		GRBEnv * evn_dual_ = new GRBEnv();
@@ -60,8 +56,7 @@ int main(int argc, const char* argv[]) {
 		model_supercut_.getEnv().set(GRB_IntParam_OutputFlag, 0);
 		SuperCutFormulation formul_supercut_;
 		formul_supercut_.add_model(&model_supercut_, dataset_._nb_targets+2);
-		// formul_supercut_.set_objective();
-		// formul_supercut_.set_constraints();
+	
 
 
 		formul_master.add_dualformul(&formul_dual_);
@@ -70,7 +65,7 @@ int main(int argc, const char* argv[]) {
 		if(true){
 			formul_master.solve_formul_wCB(which_BDCut);
 			// formul_master.print_solution();
-			formul_master.write_solution(dataset_._name);
+			formul_master.write_solution(dataset_._name, which_BDCut);
 		}
 		
 		if(false){

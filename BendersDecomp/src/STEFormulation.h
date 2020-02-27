@@ -52,7 +52,7 @@ public:
 	void set_vars_integer();
 	void set_vars_continuous();
 	void print_solution();
-	void write_solution(string);
+	void write_solution(string, int);
 };
 
 
