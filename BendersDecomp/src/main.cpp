@@ -27,10 +27,11 @@ int main(int argc, const char* argv[]) {
 	file >> instance_name_only;
 	file.close();
 	try {
-		string cur_dir  = boost::filesystem::current_path().string();
-		auto pos = cur_dir.find_last_of("/");
-    	cur_dir = cur_dir.substr(0, pos);
-		string instance_wPath = cur_dir + "/dat/" + instance_name_only;
+	//	string cur_dir  = boost::filesystem::current_path().string();
+	//	auto pos = cur_dir.find_last_of("/");
+    	//      cur_dir = cur_dir.substr(0, pos);
+		string cur_dir = "/projects/academic/josewalt/caigao/RRARP_BD/BendersDecomp/dat/";
+		string instance_wPath = cur_dir + instance_name_only;
 		DataHandler dataset_;
 		dataset_.parse(instance_wPath);
 		// dataset_.print();

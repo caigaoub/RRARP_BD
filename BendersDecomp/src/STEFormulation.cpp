@@ -442,11 +442,12 @@ void STEFormulation::print_solution() {
 }
 
 void STEFormulation::write_solution(string instance, int algo_idx) {
-	ofstream file;
 	auto pos = instance.find_last_of(".");
-    string name_only = instance.substr(0, pos);
-	string cur_dir = "../ret/model_outs/";
+        string name_only = instance.substr(0, pos);
+	string cur_dir = "/projects/academic/josewalt/caigao/RRARP_BD/BendersDecomp/ret/model_outs/";
+	ofstream file;
 	file.open(cur_dir + name_only + "_algo_" + to_string(algo_idx) + ".out");
+	cout << cur_dir + name_only + "_algo_" + to_string(algo_idx) + ".out" << endl;
 	file << "---> instance_name: " << instance << '\n';
 	file << "---> algo_index: " << algo_idx << '\n';
 	file << "---> obj_value: " << _model->get(GRB_DoubleAttr_ObjVal) << '\n';

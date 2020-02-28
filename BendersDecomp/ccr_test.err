@@ -1,8 +1,0 @@
-srun: error: "1$" is not a valid node count
-./src/main.cpp: In function ‘std::pair<int, int> improve_root(int, STEFormulation&)’:
-./src/main.cpp:247:9: warning: variable ‘old_LB’ set but not used [-Wunused-but-set-variable]
-  double old_LB = -1;
-         ^
-./src/main.cpp:248:6: warning: unused variable ‘iteration’ [-Wunused-variable]
-  int iteration = 0;
-      ^

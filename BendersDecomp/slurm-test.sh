@@ -1,17 +1,19 @@
 #!/bin/sh
 ##SBATCH --account=pi-josewalt
-#SBATCH --clusters=faculty
-#SBATCH --partition=isecc
-#SBATCH --qos=isecc
+#SBATCH  --clusters=faculty
+#SBATCH  --partition=isecc
+#SBATCH  --qos=isecc
 ##SBATCH --time=05:00:00
-#SBATCH --nodes=1
-#SBATCH --ntasks-per-node=8
+#SBATCH  --nodes=1
+#SBATCH  --ntasks-per-node=12
 ##SBATCH --mem=120000
-#SBATCH --job-name="ccr_test"
-#SBATCH --output="ccr_test.out"
-#SBATCH --error="ccr_test.err"
-##SBATCH --mail-user=caigao@buffalo.edu
-##SBATCH --mail-type=ALL
+#SBATCH  --array=1-630
+#SBATCH  --job-name="RRARP"
+#SBATCH  --output="./ret/console/slurm-%A_%a.out"
+#SBATCH  --error="./ret/console/slurm-%A_%a.err"
+#SBATCH --mail-user=caigao@buffalo.edu
+#SBATCH --mail-type=ALL
+##SBATCH --exclude=cpn-p26-[7-12]
 ##SBATCH --requeue
 
 ##echo "SLURM_JOB_ID="$SLURM_JOB_ID
@@ -28,9 +30,12 @@ echo "NPROCS="$NPROCS
 
 module load gurobi/9.0.0
 
-make
+#make
 
-./bin/main  8 ../InstanceGenerator/ret/
+#./bin/main 2  8  ./ret/configs/config_${SLURM_ARRAY_TASK_ID}
 
-echo "All Done!"
+./bin/main 3  8  ./ret/configs/config_${SLURM_ARRAY_TASK_ID}
+
+
+echo "===>> All Done!"
 
