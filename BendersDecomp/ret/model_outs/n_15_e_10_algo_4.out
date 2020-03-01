@@ -1,0 +1,11 @@
+---> instance_name: n_15_e_10.dat
+---> algo_index: 4
+---> obj_value: 730.786
+---> total_time: 2.3931
+---> total_time_gurobi: 1.96838
+---> total_nb_benders_cuts: 94
+---> total_nb_subtour_cuts: 83
+---> total_nb_user_cuts: 0
+---> GRB_IntAttr_Status: 2
+---> optimality_gap: 0
+---> node_count: 2021

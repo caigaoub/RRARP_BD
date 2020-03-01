@@ -1,0 +1,11 @@
+---> instance_name: n_21_e_1.dat
+---> algo_index: 3
+---> obj_value: 1742.27
+---> total_time: 14.5294
+---> total_time_gurobi: 13.24
+---> total_nb_benders_cuts: 787
+---> total_nb_subtour_cuts: 459
+---> total_nb_user_cuts: 0
+---> GRB_IntAttr_Status: 2
+---> optimality_gap: 0
+---> node_count: 33186

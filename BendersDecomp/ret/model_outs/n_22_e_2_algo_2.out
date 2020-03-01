@@ -1,0 +1,11 @@
+---> instance_name: n_22_e_2.dat
+---> algo_index: 2
+---> obj_value: 1801.2
+---> total_time: 4589.53
+---> total_time_gurobi: 4588.02
+---> total_nb_benders_cuts: 53245
+---> total_nb_subtour_cuts: 805
+---> total_nb_user_cuts: 0
+---> GRB_IntAttr_Status: 2
+---> optimality_gap: 0
+---> node_count: 340383

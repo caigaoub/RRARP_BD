@@ -1,0 +1,11 @@
+---> instance_name: n_16_h_1.dat
+---> algo_index: 4
+---> obj_value: 651.237
+---> total_time: 549.419
+---> total_time_gurobi: 548.888
+---> total_nb_benders_cuts: 3372
+---> total_nb_subtour_cuts: 1595
+---> total_nb_user_cuts: 0
+---> GRB_IntAttr_Status: 2
+---> optimality_gap: 0
+---> node_count: 361231
