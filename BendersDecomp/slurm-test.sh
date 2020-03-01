@@ -7,13 +7,13 @@
 #SBATCH  --nodes=1
 #SBATCH  --ntasks-per-node=12
 ##SBATCH --mem=120000
-#SBATCH  --array=1-630
+#SBATCH  --array=301-400
 #SBATCH  --job-name="RRARP"
 #SBATCH  --output="./ret/console/slurm-%A_%a.out"
 #SBATCH  --error="./ret/console/slurm-%A_%a.err"
 #SBATCH --mail-user=caigao@buffalo.edu
 #SBATCH --mail-type=ALL
-##SBATCH --exclude=cpn-p26-[7-12]
+##SBATCH --exclude=cpn-p26-[07-12]
 ##SBATCH --requeue
 
 ##echo "SLURM_JOB_ID="$SLURM_JOB_ID
@@ -34,7 +34,9 @@ module load gurobi/9.0.0
 
 #./bin/main 2  8  ./ret/configs/config_${SLURM_ARRAY_TASK_ID}
 
-./bin/main 3  8  ./ret/configs/config_${SLURM_ARRAY_TASK_ID}
+# ./bin/main 3  8  ./ret/configs/config_${SLURM_ARRAY_TASK_ID}
+
+ ./bin/main 4  8  ./ret/configs/config_${SLURM_ARRAY_TASK_ID}
 
 
 echo "===>> All Done!"
