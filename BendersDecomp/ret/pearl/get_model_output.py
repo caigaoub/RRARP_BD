@@ -47,10 +47,9 @@ for n in range(nb_targets[0], nb_targets[1]+1):
 					status_GRB = int(fileOO.readline().split(":")[1])
 					gap = float(fileOO.readline().split(":")[1])
 					gap = float("{0:.3f}".format(gap))
-					nodes_GRB = int(fileOO.readline().split(":")[1])
+					nodes_GRB = fileOO.readline().split(":")[1]
 					# print(name, algidx, objval, time_GRB, BDcuts, STcuts, Uscuts, status_GRB, gap, nodes_GRB)
-					fileII.write('{:7s}'.format(str(objval))+'\t'+ '{:7s}'.format(str(time_GRB))+'\t' + '{:7s}'.format(str(BDcuts))+'\t' + '{:7s}'.format(str(STcuts)) + '\t' + '{:7s}'.format(str(gap*100.0)) +'\t' + '{:7s}'.format(str(nodes_GRB))+'\t'+'{:7s}'.format("~~"))
-				
+					fileII.write('{:7s}'.format(str(objval))+'\t'+ '{:7s}'.format(str(time_GRB))+'\t' + '{:7s}'.format(str(BDcuts))+'\t' + '{:7s}'.format(str(STcuts)) + '\t' + '{:7s}'.format(str(gap*100.0)) +'\t' + '{:7s}'.format(nodes_GRB)+'\t'+'{:7s}'.format("~~"))				
 					fileOO.close()
 				else:
 					fileII.write('{:7s}'.format("-")+'\t'+'{:7s}'.format("-")+'\t'+'{:7s}'.format("-")+'\t'+'{:7s}'.format("-")+'\t'+'{:7s}'.format("-")+'\t'+'{:7s}'.format("-")+'\t' +'{:7s}'.format("~~"))
