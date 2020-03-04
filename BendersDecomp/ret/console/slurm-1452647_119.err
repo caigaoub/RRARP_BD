@@ -1,0 +1,2 @@
+srun: error: "1$" is not a valid node count
+/var/spool/slurmd/job1452977/slurm_script: line 39: 21858 Segmentation fault      ./bin/main 4 8 ./ret/configs/config_${SLURM_ARRAY_TASK_ID}

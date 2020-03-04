@@ -1,0 +1,104 @@
+NPROCS=0
+This instance is clustered!
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 36 rows, 325 columns and 648 nonzeros
+Model fingerprint: 0x97d8d176
+Variable types: 1 continuous, 324 integer (324 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 1e+00]
+  Objective range  [1e+00, 3e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 1e+00]
+Presolve removed 2 rows and 51 columns
+Presolve time: 0.00s
+Presolved: 34 rows, 274 columns, 546 nonzeros
+Variable types: 1 continuous, 273 integer (273 binary)
+
+Root relaxation: objective 3.282362e+02, 24 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  454.54816    0   18          -  454.54816      -     -    0s
+ done with super cut 0
+     0     0  559.47398    0   34          -  559.47398      -     -    0s
+ done with super cut 1
+     0     0  559.47398    0   34          -  559.47398      -     -    0s
+ done with super cut 2
+ done with super cut 3
+ done with super cut 4
+ done with super cut 5
+     0     2  559.85165    0   37          -  559.85165      -     -    5s
+ done with super cut 6
+ done with super cut 7
+ done with super cut 8
+ done with super cut 9
+ done with super cut 10
+   110   123  641.01476    9    6          -  582.16954      -   6.0   14s
+* 1730  1254              50     932.6711793  605.52579  35.1%   5.0   14s
+  2272  1512  744.74876   48   34  932.67118  612.06052  34.4%   5.1   15s
+H 2273  1437                     853.4751783  612.06052  28.3%   5.1   15s
+H 2274  1365                     839.4148456  612.06052  27.1%   5.1   15s
+ 17005  8384     cutoff   41       839.41485  682.34650  18.7%   5.6   20s
+ 35108 15969  834.54154   43    -  839.41485  704.24238  16.1%   5.9   26s
+ 45512 19797     cutoff   47       839.41485  713.69592  15.0%   6.1   30s
+ 56834 23346  757.61691   26   16  839.41485  721.82397  14.0%   6.3   35s
+ 68355 26257 infeasible   36       839.41485  728.92926  13.2%   6.4   40s
+ 76895 28144     cutoff   42       839.41485  733.74592  12.6%   6.5   45s
+ 85808 29906 infeasible   37       839.41485  738.11261  12.1%   6.6   50s
+ 94716 31095  798.73865   35    8  839.41485  742.28408  11.6%   6.7   56s
+ 100649 32190  817.93048   30   10  839.41485  744.94215  11.3%   6.8   60s
+ 108689 33205  836.43918   43   10  839.41485  748.41335  10.8%   6.8   65s
+ 115715 34125  805.34125   40   31  839.41485  751.07835  10.5%   6.9   70s
+ 123626 35066     cutoff   47       839.41485  754.12651  10.2%   6.9   75s
+ 130539 35490     cutoff   34       839.41485  756.89359  9.83%   7.0   80s
+H133994 35618                     839.4148410  758.33761  9.66%   7.0   84s
+ 134001 35700  785.32741   31    9  839.41484  758.34308  9.66%   7.0   85s
+H134580 35705                     839.4147028  758.39364  9.65%   7.0   85s
+ 138571 36034     cutoff   39       839.41470  759.84757  9.48%   7.0   90s
+ 145550 36263     cutoff   28       839.41470  762.34579  9.18%   7.1   95s
+ 151491 36427  809.24451   23   29  839.41470  764.34220  8.94%   7.1  100s
+ 157456 36600     cutoff   46       839.41470  766.38827  8.70%   7.2  105s
+ 164508 36642  808.01077   40   24  839.41470  768.69917  8.42%   7.2  110s
+ 169211 36666  808.01222   33    6  839.41470  770.27857  8.24%   7.2  116s
+ 172744 36597     cutoff   29       839.41470  771.45507  8.10%   7.2  120s
+ 178753 36389     cutoff   28       839.41470  773.33815  7.87%   7.3  125s
+ 185933 35977  805.67620   35   14  839.41470  775.81101  7.58%   7.3  130s
+ 191879 35527     cutoff   27       839.41470  777.73370  7.35%   7.3  135s
+ 197813 35057  783.22953   33   13  839.41470  779.66519  7.12%   7.4  140s
+ 203643 34281     cutoff   31       839.41470  781.68057  6.88%   7.4  145s
+ 209552 33579     cutoff   49       839.41470  783.69693  6.64%   7.4  150s
+ 215540 32688  819.86676   38    -  839.41470  785.78783  6.39%   7.4  155s
+ 221272 31673     cutoff   52       839.41470  787.76155  6.15%   7.5  160s
+ 227339 30596     cutoff   47       839.41470  789.81113  5.91%   7.5  165s
+ 233406 29301     cutoff   40       839.41470  791.92255  5.66%   7.5  170s
+ 239282 27856  830.51855   32   20  839.41470  794.10302  5.40%   7.6  175s
+ 244006 26862 infeasible   34       839.41470  795.75945  5.20%   7.6  180s
+ 248479 25449 infeasible   44       839.41470  797.47942  5.00%   7.6  185s
+ 254640 23571     cutoff   24       839.41470  799.85072  4.71%   7.6  190s
+ 260623 21437     cutoff   41       839.41470  802.59471  4.39%   7.7  196s
+ 265440 19552     cutoff   33       839.41470  804.80079  4.12%   7.7  200s
+ 271283 16924     cutoff   37       839.41470  807.89464  3.76%   7.7  205s
+ 275728 14617     cutoff   43       839.41470  810.62505  3.43%   7.8  210s
+ 281747 11203 infeasible   32       839.41470  814.71663  2.94%   7.8  215s
+ 287656  7334     cutoff   64       839.41470  819.74613  2.34%   7.8  220s
+ 293788  2425     cutoff   49       839.41470  828.53297  1.30%   7.9  225s
+
+Cutting planes:
+  Gomory: 5
+  MIR: 1
+  Zero half: 3
+  Lazy constraints: 2894
+
+Explored 297560 nodes (2333171 simplex iterations) in 227.24 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 3: 839.415 853.475 932.671 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 8.394147028191e+02, best bound 8.394147028191e+02, gap 0.0000%
+
+User-callback calls 636812, time in user-callback 14.91 sec
+/projects/academic/josewalt/caigao/RRARP_BD/BendersDecomp/ret/model_outs/n_16_h_3_algo_4.out
+ =====>>>>> Solution is written to file in <../ret/model_outs> !!!
+===>> All Done!

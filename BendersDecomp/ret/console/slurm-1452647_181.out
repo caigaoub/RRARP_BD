@@ -1,0 +1,85 @@
+NPROCS=0
+This instance is clustered!
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 28 rows, 197 columns and 392 nonzeros
+Model fingerprint: 0xc980e517
+Variable types: 1 continuous, 196 integer (196 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 1e+00]
+  Objective range  [1e+00, 1e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 1e+00]
+Presolve removed 2 rows and 39 columns
+Presolve time: 0.00s
+Presolved: 26 rows, 158 columns, 314 nonzeros
+Variable types: 1 continuous, 157 integer (157 binary)
+
+Root relaxation: objective 2.406004e+02, 23 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  289.41341    0   16          -  289.41341      -     -    0s
+ done with super cut 0
+ done with super cut 1
+H    0     0                     796.7430051  289.41341  63.7%     -    0s
+ done with super cut 2
+     0     0  331.17713    0   31  796.74301  331.17713  58.4%     -    0s
+ done with super cut 3
+ done with super cut 4
+H    0     0                     395.1457054  331.17713  16.2%     -    0s
+ done with super cut 5
+ done with super cut 6
+H    0     0                     381.1252355  331.17713  13.1%     -    1s
+     0     0  331.17713    0   31  381.12524  331.17713  13.1%     -    1s
+ done with super cut 7
+ done with super cut 8
+     0     0  335.01855    0   33  381.12524  335.01855  12.1%     -    2s
+     0     0  335.01855    0   32  381.12524  335.01855  12.1%     -    2s
+     0     0  337.80070    0   32  381.12524  337.80070  11.4%     -    2s
+     0     0  337.82765    0   35  381.12524  337.82765  11.4%     -    2s
+ done with super cut 9
+     0     0  338.08549    0   28  381.12524  338.08549  11.3%     -    2s
+     0     0  338.20982    0   28  381.12524  338.20982  11.3%     -    2s
+     0     0  339.48444    0   31  381.12524  339.48444  10.9%     -    2s
+ done with super cut 10
+     0     0  342.48578    0   34  381.12524  342.48578  10.1%     -    3s
+     0     0  342.57128    0   35  381.12524  342.57128  10.1%     -    3s
+     0     0  342.57632    0   33  381.12524  342.57632  10.1%     -    3s
+     0     0  342.63640    0   33  381.12524  342.63640  10.1%     -    3s
+     0     0  342.63640    0   33  381.12524  342.63640  10.1%     -    3s
+H    0     0                     370.8885443  347.48806  6.31%     -    3s
+     0     0  347.48806    0   32  370.88854  347.48806  6.31%     -    3s
+     0     0  347.48806    0   37  370.88854  347.48806  6.31%     -    3s
+     0     0  347.48806    0   38  370.88854  347.48806  6.31%     -    3s
+     0     0  347.48806    0   36  370.88854  347.48806  6.31%     -    3s
+     0     0  347.48806    0   36  370.88854  347.48806  6.31%     -    3s
+     0     0  347.48806    0   36  370.88854  347.48806  6.31%     -    3s
+     0     0  347.80493    0   37  370.88854  347.80493  6.22%     -    3s
+     0     0  347.91509    0   37  370.88854  347.91509  6.19%     -    3s
+     0     0  347.93188    0   38  370.88854  347.93188  6.19%     -    3s
+     0     0  348.04640    0   40  370.88854  348.04640  6.16%     -    3s
+     0     0  348.07726    0   41  370.88854  348.07726  6.15%     -    3s
+     0     0  348.07726    0   41  370.88854  348.07726  6.15%     -    3s
+     0     2  348.07726    0   41  370.88854  348.07726  6.15%     -    3s
+*   50     9               9     369.7080365  359.79257  2.68%  10.2    3s
+*   51     9               9     368.1004067  359.79257  2.26%  10.0    3s
+
+Cutting planes:
+  Gomory: 8
+  MIR: 1
+  Zero half: 8
+  Lazy constraints: 18
+
+Explored 107 nodes (1121 simplex iterations) in 3.36 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 6: 368.1 369.708 370.889 ... 796.743
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 3.681004066881e+02, best bound 3.681004066881e+02, gap 0.0000%
+
+User-callback calls 560, time in user-callback 3.17 sec
+/projects/academic/josewalt/caigao/RRARP_BD/BendersDecomp/ret/model_outs/n_12_e_1_algo_4.out
+ =====>>>>> Solution is written to file in <../ret/model_outs> !!!
+===>> All Done!

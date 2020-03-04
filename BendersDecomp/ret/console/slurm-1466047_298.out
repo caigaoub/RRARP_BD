@@ -1,0 +1,89 @@
+NPROCS=0
+This instance is clustered!
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 34 rows, 290 columns and 578 nonzeros
+Model fingerprint: 0x9a537ee7
+Variable types: 1 continuous, 289 integer (289 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 1e+00]
+  Objective range  [1e+00, 2e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 1e+00]
+Presolve removed 2 rows and 48 columns
+Presolve time: 0.00s
+Presolved: 32 rows, 242 columns, 482 nonzeros
+Variable types: 1 continuous, 241 integer (241 binary)
+
+Root relaxation: objective 2.891855e+02, 29 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  402.02932    0   12          -  402.02932      -     -    0s
+ done with super cut 0
+     0     0  454.36548    0   34          -  454.36548      -     -    0s
+ done with super cut 1
+ done with super cut 2
+ done with super cut 3
+H    0     0                     666.9538952  454.36548  31.9%     -    1s
+ done with super cut 4
+ done with super cut 5
+ done with super cut 6
+H    0     0                     665.6626319  454.36548  31.7%     -    2s
+     0     0  454.91092    0   36  665.66263  454.91092  31.7%     -    2s
+ done with super cut 7
+ done with super cut 8
+H    0     0                     658.2396918  454.91092  30.9%     -    3s
+ done with super cut 9
+ done with super cut 10
+H    0     0                     651.8317852  454.91092  30.2%     -    4s
+H    0     0                     620.9871214  454.91092  26.7%     -    4s
+H    0     0                     612.7324292  459.38076  25.0%     -    4s
+     0     2  459.38076    0   35  612.73243  459.38076  25.0%     -    4s
+  2065  1312  554.61793   16   36  612.73243  493.21668  19.5%   5.5    5s
+ 22379 10535  543.17680   26   20  612.73243  531.61206  13.2%   6.3   10s
+ 41257 18303  609.57985   45    6  612.73243  543.01225  11.4%   6.5   15s
+H46873 19806                     612.7323550  545.52674  11.0%   6.6   16s
+ 51533 21373  571.38988   21   16  612.73236  547.52118  10.6%   6.7   20s
+ 65276 24524     cutoff   39       612.73236  552.58936  9.82%   6.9   25s
+ 78487 27230     cutoff   41       612.73236  556.62378  9.16%   7.0   30s
+ 90637 29171  611.27578   27   13  612.73236  560.36499  8.55%   7.1   35s
+ 102040 30682     cutoff   36       612.73236  563.21380  8.08%   7.2   40s
+H109444 31058                     611.6683678  565.14364  7.61%   7.3   43s
+ 111946 31407  591.87513   32   19  611.66837  565.83083  7.49%   7.3   45s
+ 119754 31843  609.98873   43   15  611.66837  567.83364  7.17%   7.4   50s
+ 129019 32140     cutoff   39       611.66837  570.11594  6.79%   7.4   55s
+ 135025 32186 infeasible   25       611.66837  571.57486  6.55%   7.5   60s
+ 144445 31826  593.38287   39   25  611.66837  573.94307  6.17%   7.5   65s
+ 151485 31582     cutoff   47       611.66837  575.50524  5.91%   7.6   70s
+ 159552 30990 infeasible   56       611.66837  577.44986  5.59%   7.6   75s
+ 167878 30101 infeasible   32       611.66837  579.33315  5.29%   7.7   80s
+ 175014 29013  595.26543   66   36  611.66837  581.07835  5.00%   7.7   85s
+ 183015 27378  592.96612   40   17  611.66837  583.05074  4.68%   7.8   90s
+ 190337 25828 infeasible   30       611.66837  584.76875  4.40%   7.8   95s
+ 197518 23987     cutoff   52       611.66837  586.66719  4.09%   7.9  100s
+ 205825 21329     cutoff   29       611.66837  588.89035  3.72%   7.9  105s
+ 212895 18754  605.29549   42   22  611.66837  591.02950  3.37%   8.0  110s
+ 219806 15430  609.90012   37   15  611.66837  593.37921  2.99%   8.1  115s
+ 226888 12162     cutoff   59       611.66837  596.19512  2.53%   8.1  122s
+ 230574  9096     cutoff   36       611.66837  598.13732  2.21%   8.2  125s
+ 238946  2380 infeasible   34       611.66837  604.75972  1.13%   8.2  130s
+
+Cutting planes:
+  Gomory: 5
+  Zero half: 3
+  RLT: 2
+  Lazy constraints: 2123
+
+Explored 242593 nodes (1997205 simplex iterations) in 131.46 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 7: 611.668 612.732 620.987 ... 666.954
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 6.116683677687e+02, best bound 6.116683677687e+02, gap 0.0000%
+
+User-callback calls 513178, time in user-callback 5.00 sec
+/projects/academic/josewalt/caigao/RRARP_BD/BendersDecomp/ret/model_outs/n_15_h_8_algo_4.out
+ =====>>>>> Solution is written to file in <../ret/model_outs> !!!
+===>> All Done!

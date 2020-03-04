@@ -1,0 +1,60 @@
+NPROCS=0
+This instance is clustered!
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 32 rows, 257 columns and 512 nonzeros
+Model fingerprint: 0x68af9c1a
+Variable types: 1 continuous, 256 integer (256 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 1e+00]
+  Objective range  [1e+00, 2e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 1e+00]
+Presolve removed 2 rows and 45 columns
+Presolve time: 0.00s
+Presolved: 30 rows, 212 columns, 422 nonzeros
+Variable types: 1 continuous, 211 integer (211 binary)
+
+Root relaxation: objective 3.057774e+02, 24 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  462.29836    0   11          -  462.29836      -     -    0s
+H    0     0                     569.3358043  462.29836  18.8%     -    0s
+H    0     0                     566.9950349  462.29836  18.5%     -    0s
+     0     0  462.29949    0   15  566.99503  462.29949  18.5%     -    0s
+     0     0  462.47719    0   12  566.99503  462.47719  18.4%     -    0s
+     0     0  464.36734    0   20  566.99503  464.36734  18.1%     -    0s
+     0     0  467.35556    0   14  566.99503  467.35556  17.6%     -    0s
+     0     0  467.35556    0   14  566.99503  467.35556  17.6%     -    0s
+     0     2  467.35556    0   14  566.99503  467.35556  17.6%     -    0s
+  7079  2733  518.83684   15   15  566.99503  510.41916  10.0%   3.4    6s
+ 14436  3296  518.33740   25   11  566.99503  516.10385  8.98%   3.9   10s
+ 21021  4527  555.46085   26   14  566.99503  530.52163  6.43%   4.1   15s
+ 26163  5422     cutoff   33       566.99503  537.48532  5.20%   4.1   20s
+ 29847  5809     cutoff   37       566.99503  541.36632  4.52%   4.2   25s
+ 33073  5876     cutoff   32       566.99503  544.34623  3.99%   4.2   30s
+ 36854  5713  559.80652   30   15  566.99503  548.33841  3.29%   4.3   36s
+ 39342  5389     cutoff   32       566.99503  550.56595  2.90%   4.3   40s
+ 41853  4871     cutoff   41       566.99503  553.12113  2.45%   4.3   46s
+ 44405  4117     cutoff   30       566.99503  554.71698  2.17%   4.3   51s
+ 46139  3472     cutoff   26       566.99503  557.08430  1.75%   4.4   56s
+ 47810  2689     cutoff   35       566.99503  559.15532  1.38%   4.4   60s
+ 49496  1582     cutoff   32       566.99503  561.25516  1.01%   4.4   65s
+ 51181   235     cutoff   28       566.99503  563.76754  0.57%   4.4   70s
+
+Cutting planes:
+  Lazy constraints: 6157
+
+Explored 52279 nodes (232767 simplex iterations) in 71.36 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 2: 566.995 569.336 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 5.669950349495e+02, best bound 5.669950349495e+02, gap 0.0000%
+
+User-callback calls 122006, time in user-callback 0.54 sec
+/projects/academic/josewalt/caigao/RRARP_BD/BendersDecomp/ret/model_outs/n_14_m_10_algo_2.out
+ =====>>>>> Solution is written to file in <../ret/model_outs> !!!
+===>> All Done!

@@ -1,0 +1,53 @@
+NPROCS=0
+This instance is clustered!
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 42 rows, 442 columns and 882 nonzeros
+Model fingerprint: 0x5cc5578f
+Variable types: 1 continuous, 441 integer (441 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 1e+00]
+  Objective range  [1e+00, 4e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 1e+00]
+Presolve removed 2 rows and 60 columns
+Presolve time: 0.01s
+Presolved: 40 rows, 382 columns, 762 nonzeros
+Variable types: 1 continuous, 381 integer (381 binary)
+
+Root relaxation: objective 8.313929e+02, 29 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0 1164.94209    0   28          - 1164.94209      -     -    0s
+     0     0 1168.28535    0   10          - 1168.28535      -     -    0s
+     0     0 1173.10424    0   47          - 1173.10424      -     -    0s
+H    0     0                    1293.0421496 1173.10424  9.28%     -    0s
+     0     0 1173.10424    0   47 1293.04215 1173.10424  9.28%     -    0s
+     0     0 1173.10424    0   40 1293.04215 1173.10424  9.28%     -    0s
+     0     0 1180.24778    0   36 1293.04215 1180.24778  8.72%     -    0s
+     0     0 1181.43559    0   38 1293.04215 1181.43559  8.63%     -    0s
+     0     0 1181.43961    0   38 1293.04215 1181.43961  8.63%     -    0s
+     0     0 1181.45825    0   38 1293.04215 1181.45825  8.63%     -    0s
+     0     0 1181.45825    0   38 1293.04215 1181.45825  8.63%     -    0s
+     0     2 1181.82989    0   36 1293.04215 1181.82989  8.60%     -    0s
+
+Cutting planes:
+  Gomory: 4
+  Clique: 1
+  MIR: 3
+  RLT: 1
+  Lazy constraints: 661
+
+Explored 3247 nodes (13736 simplex iterations) in 0.70 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 1: 1293.04 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 1.293042149635e+03, best bound 1.293042149635e+03, gap 0.0000%
+
+User-callback calls 7523, time in user-callback 0.07 sec
+/projects/academic/josewalt/caigao/RRARP_BD/BendersDecomp/ret/model_outs/n_19_e_2_algo_2.out
+ =====>>>>> Solution is written to file in <../ret/model_outs> !!!
+===>> All Done!

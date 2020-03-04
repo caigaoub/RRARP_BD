@@ -1,0 +1,47 @@
+NPROCS=0
+This instance is clustered!
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 38 rows, 362 columns and 722 nonzeros
+Model fingerprint: 0x9e9a0e9c
+Variable types: 1 continuous, 361 integer (361 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 1e+00]
+  Objective range  [1e+00, 3e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 1e+00]
+Presolve removed 2 rows and 54 columns
+Presolve time: 0.00s
+Presolved: 36 rows, 308 columns, 614 nonzeros
+Variable types: 1 continuous, 307 integer (307 binary)
+
+Root relaxation: objective 8.222960e+02, 34 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  894.48258    0   24          -  894.48258      -     -    0s
+     0     0  967.55292    0   22          -  967.55292      -     -    0s
+H    0     0                    1103.7021261  967.55292  12.3%     -    0s
+     0     0  967.55292    0   22 1103.70213  967.55292  12.3%     -    0s
+     0     0  971.64499    0   32 1103.70213  971.64499  12.0%     -    0s
+     0     0  975.28451    0   33 1103.70213  975.28451  11.6%     -    0s
+     0     0  978.45881    0   35 1103.70213  978.45881  11.3%     -    0s
+     0     0  978.45881    0   35 1103.70213  978.45881  11.3%     -    0s
+     0     2  985.97330    0   35 1103.70213  985.97330  10.7%     -    0s
+
+Cutting planes:
+  Gomory: 2
+  Lazy constraints: 2115
+
+Explored 9495 nodes (36818 simplex iterations) in 4.75 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 1: 1103.7 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 1.103702126108e+03, best bound 1.103702126108e+03, gap 0.0000%
+
+User-callback calls 22625, time in user-callback 0.20 sec
+/projects/academic/josewalt/caigao/RRARP_BD/BendersDecomp/ret/model_outs/n_17_e_7_algo_2.out
+ =====>>>>> Solution is written to file in <../ret/model_outs> !!!
+===>> All Done!

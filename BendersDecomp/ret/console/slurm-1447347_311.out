@@ -1,0 +1,49 @@
+NPROCS=0
+This instance is clustered!
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 36 rows, 325 columns and 648 nonzeros
+Model fingerprint: 0x073d700e
+Variable types: 1 continuous, 324 integer (324 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 1e+00]
+  Objective range  [1e+00, 3e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 1e+00]
+Presolve removed 2 rows and 51 columns
+Presolve time: 0.00s
+Presolved: 34 rows, 274 columns, 546 nonzeros
+Variable types: 1 continuous, 273 integer (273 binary)
+
+Root relaxation: objective 4.528733e+02, 26 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  553.08558    0   16          -  553.08558      -     -    0s
+     0     0  604.94314    0   18          -  604.94314      -     -    0s
+H    0     0                    1053.6687472  604.94314  42.6%     -    0s
+     0     0  691.64522    0   34 1053.66875  691.64522  34.4%     -    0s
+H    0     0                     861.0584571  691.64522  19.7%     -    0s
+     0     0  695.41880    0   34  861.05846  695.41880  19.2%     -    0s
+     0     2  695.83546    0   41  861.05846  695.83546  19.2%     -    0s
+H 5974  1617                     861.0583875  784.29305  8.92%   6.9    2s
+
+Cutting planes:
+  Gomory: 5
+  Flow cover: 1
+  Zero half: 2
+  RLT: 1
+  Lazy constraints: 165
+
+Explored 11071 nodes (92450 simplex iterations) in 3.04 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 2: 861.058 1053.67 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 8.610583874883e+02, best bound 8.610583874883e+02, gap 0.0000%
+
+User-callback calls 24079, time in user-callback 0.04 sec
+/projects/academic/josewalt/caigao/RRARP_BD/BendersDecomp/ret/model_outs/n_16_m_1_algo_3.out
+ =====>>>>> Solution is written to file in <../ret/model_outs> !!!
+===>> All Done!

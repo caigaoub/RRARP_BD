@@ -1,0 +1,46 @@
+NPROCS=0
+This instance is clustered!
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 22 rows, 122 columns and 242 nonzeros
+Model fingerprint: 0x4e03ea27
+Variable types: 1 continuous, 121 integer (121 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 1e+00]
+  Objective range  [1e+00, 8e+01]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 1e+00]
+Presolve removed 2 rows and 30 columns
+Presolve time: 0.00s
+Presolved: 20 rows, 92 columns, 182 nonzeros
+Variable types: 1 continuous, 91 integer (91 binary)
+
+Root relaxation: objective 1.460956e+02, 18 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  189.79847    0   18          -  189.79847      -     -    0s
+     0     0  191.04525    0   18          -  191.04525      -     -    0s
+     0     0  191.04525    0   18          -  191.04525      -     -    0s
+H    0     0                     239.8576589  191.04525  20.4%     -    0s
+H    0     0                     233.3789643  192.55390  17.5%     -    0s
+H    0     2                     229.6999031  192.55390  16.2%     -    0s
+     0     2  192.55390    0   18  229.69990  192.55390  16.2%     -    0s
+*    5     3               2     207.9700210  198.09365  4.75%   5.0    0s
+
+Cutting planes:
+  Gomory: 2
+  Lazy constraints: 25
+
+Explored 29 nodes (127 simplex iterations) in 0.04 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 4: 207.97 229.7 233.379 239.858 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 2.079700209681e+02, best bound 2.079700209681e+02, gap 0.0000%
+
+User-callback calls 158, time in user-callback 0.00 sec
+/projects/academic/josewalt/caigao/RRARP_BD/BendersDecomp/ret/model_outs/n_9_e_2_algo_3.out
+ =====>>>>> Solution is written to file in <../ret/model_outs> !!!
+===>> All Done!

@@ -1,0 +1,11 @@
+---> instance_name: n_25_h_7.dat
+---> algo_index: 2
+---> obj_value: 2251.89
+---> total_time: 7202.55
+---> total_time_gurobi: 7200.2
+---> total_nb_benders_cuts: 39908
+---> total_nb_subtour_cuts: 2945
+---> total_nb_user_cuts: 0
+---> GRB_IntAttr_Status: 9
+---> optimality_gap: 0.30242
+---> node_count: 436984

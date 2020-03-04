@@ -1,0 +1,59 @@
+NPROCS=0
+This instance is clustered!
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 40 rows, 401 columns and 800 nonzeros
+Model fingerprint: 0x6831cd03
+Variable types: 1 continuous, 400 integer (400 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 1e+00]
+  Objective range  [1e+00, 4e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 1e+00]
+Presolve removed 2 rows and 57 columns
+Presolve time: 0.00s
+Presolved: 38 rows, 344 columns, 686 nonzeros
+Variable types: 1 continuous, 343 integer (343 binary)
+
+Root relaxation: objective 5.513409e+02, 32 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  630.64179    0   10          -  630.64179      -     -    0s
+     0     0  748.09145    0   32          -  748.09145      -     -    0s
+     0     0  758.37028    0   26          -  758.37028      -     -    0s
+H    0     0                    1547.5576025  758.37028  51.0%     -    0s
+     0     0  764.45030    0   26 1547.55760  764.45030  50.6%     -    0s
+H    0     0                    1357.8481174  764.45030  43.7%     -    0s
+H    0     0                    1058.6131176  764.45030  27.8%     -    0s
+H    0     0                    1056.2276099  764.45030  27.6%     -    0s
+     0     2  775.65371    0   43 1056.22761  775.65371  26.6%     -    0s
+H11131  4887                    1056.2276063  910.31770  13.8%   7.2    3s
+ 20807  9171 1024.84435   41   26 1056.22761  932.32379  11.7%   7.4    5s
+ 38453 14728 1042.44346   41   14 1056.22761  955.77606  9.51%   8.0   10s
+ 54215 18351     cutoff   35      1056.22761  970.66825  8.10%   8.4   15s
+ 70392 20031 1053.68381   48   30 1056.22761  984.70152  6.77%   8.8   20s
+H81708 20417                    1056.2275273  993.21044  5.97%   9.0   23s
+ 83821 20332 1048.16257   45   26 1056.22753  994.89474  5.81%   9.1   25s
+ 97274 19222     cutoff   24      1056.22753 1004.54692  4.89%   9.4   30s
+ 109703 16899     cutoff   61      1056.22753 1013.17810  4.08%   9.6   35s
+ 122353 12475     cutoff   37      1056.22753 1023.14497  3.13%   9.9   40s
+ 133824  6407     cutoff   44      1056.22753 1035.53872  1.96%  10.2   45s
+
+Cutting planes:
+  Gomory: 4
+  Zero half: 6
+  Lazy constraints: 1143
+
+Explored 141905 nodes (1461835 simplex iterations) in 48.51 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 4: 1056.23 1058.61 1357.85 1547.56 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 1.056227527306e+03, best bound 1.056227527306e+03, gap 0.0000%
+
+User-callback calls 295860, time in user-callback 0.17 sec
+/projects/academic/josewalt/caigao/RRARP_BD/BendersDecomp/ret/model_outs/n_18_h_1_algo_3.out
+ =====>>>>> Solution is written to file in <../ret/model_outs> !!!
+===>> All Done!

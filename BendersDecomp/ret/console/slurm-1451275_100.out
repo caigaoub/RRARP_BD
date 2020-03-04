@@ -1,0 +1,47 @@
+NPROCS=0
+This instance is clustered!
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 22 rows, 122 columns and 242 nonzeros
+Model fingerprint: 0x08fa62f0
+Variable types: 1 continuous, 121 integer (121 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 1e+00]
+  Objective range  [1e+00, 9e+01]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 1e+00]
+Presolve removed 2 rows and 30 columns
+Presolve time: 0.00s
+Presolved: 20 rows, 92 columns, 182 nonzeros
+Variable types: 1 continuous, 91 integer (91 binary)
+
+Root relaxation: objective 1.369302e+02, 18 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  158.95258    0   12          -  158.95258      -     -    0s
+H    0     0                     224.4450051  158.95258  29.2%     -    0s
+H    0     0                     173.7230626  158.95258  8.50%     -    0s
+     0     0  160.54727    0   12  173.72306  160.54727  7.58%     -    0s
+     0     0  160.54727    0    7  173.72306  160.54727  7.58%     -    0s
+     0     0  160.54727    0   11  173.72306  160.54727  7.58%     -    0s
+     0     0  161.72464    0   13  173.72306  161.72464  6.91%     -    0s
+     0     0  161.72464    0   13  173.72306  161.72464  6.91%     -    0s
+     0     2  161.72464    0   13  173.72306  161.72464  6.91%     -    0s
+
+Cutting planes:
+  Gomory: 2
+  Lazy constraints: 22
+
+Explored 71 nodes (206 simplex iterations) in 0.04 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 2: 173.723 224.445 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 1.737230626384e+02, best bound 1.737230626384e+02, gap 0.0000%
+
+User-callback calls 265, time in user-callback 0.00 sec
+/projects/academic/josewalt/caigao/RRARP_BD/BendersDecomp/ret/model_outs/n_9_e_10_algo_2.out
+ =====>>>>> Solution is written to file in <../ret/model_outs> !!!
+===>> All Done!

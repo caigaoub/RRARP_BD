@@ -1,0 +1,55 @@
+NPROCS=0
+This instance is clustered!
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 22 rows, 122 columns and 242 nonzeros
+Model fingerprint: 0x46305b77
+Variable types: 1 continuous, 121 integer (121 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 1e+00]
+  Objective range  [1e+00, 6e+01]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 1e+00]
+Presolve removed 2 rows and 30 columns
+Presolve time: 0.00s
+Presolved: 20 rows, 92 columns, 182 nonzeros
+Variable types: 1 continuous, 91 integer (91 binary)
+
+Root relaxation: objective 1.260205e+02, 20 iterations, 0.00 seconds
+ done with super cut 0
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  129.13015    0   16          -  129.13015      -     -    0s
+ done with super cut 1
+ done with super cut 2
+ done with super cut 3
+H    0     0                     215.5168621  129.13015  40.1%     -    0s
+ done with super cut 4
+     0     0  134.80247    0   20  215.51686  134.80247  37.5%     -    0s
+ done with super cut 5
+ done with super cut 6
+H    0     0                     182.7033272  134.80247  26.2%     -    0s
+     0     0  137.29857    0   24  182.70333  137.29857  24.9%     -    0s
+     0     2  139.87935    0   25  182.70333  139.87935  23.4%     -    0s
+ done with super cut 7
+ done with super cut 8
+ done with super cut 9
+ done with super cut 10
+
+Cutting planes:
+  Gomory: 1
+  Lazy constraints: 203
+
+Explored 2005 nodes (9112 simplex iterations) in 0.85 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 2: 182.703 215.517 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 1.827033272481e+02, best bound 1.827033272481e+02, gap 0.0000%
+
+User-callback calls 4364, time in user-callback 0.70 sec
+/projects/academic/josewalt/caigao/RRARP_BD/BendersDecomp/ret/model_outs/n_9_h_10_algo_4.out
+ =====>>>>> Solution is written to file in <../ret/model_outs> !!!
+===>> All Done!

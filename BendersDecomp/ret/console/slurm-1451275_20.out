@@ -1,0 +1,51 @@
+NPROCS=0
+This instance is clustered!
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 16 rows, 65 columns and 128 nonzeros
+Model fingerprint: 0xdd14c09a
+Variable types: 1 continuous, 64 integer (64 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 1e+00]
+  Objective range  [9e-01, 3e+01]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 1e+00]
+Presolve removed 2 rows and 21 columns
+Presolve time: 0.00s
+Presolved: 14 rows, 44 columns, 86 nonzeros
+Variable types: 1 continuous, 43 integer (43 binary)
+
+Root relaxation: objective 6.294765e+01, 11 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0   69.02473    0    6          -   69.02473      -     -    0s
+H    0     0                      78.8256203   69.02473  12.4%     -    0s
+H    0     0                      78.1947796   69.02473  11.7%     -    0s
+     0     0   70.39592    0   12   78.19478   70.39592  10.0%     -    0s
+     0     0   70.39592    0   12   78.19478   70.39592  10.0%     -    0s
+     0     0   70.39592    0   12   78.19478   70.39592  10.0%     -    0s
+     0     0   72.54671    0    6   78.19478   72.54671  7.22%     -    0s
+     0     0   72.63147    0   15   78.19478   72.63147  7.11%     -    0s
+     0     0   72.70616    0   15   78.19478   72.70616  7.02%     -    0s
+     0     0   72.70616    0   15   78.19478   72.70616  7.02%     -    0s
+     0     2   72.70616    0   15   78.19478   72.70616  7.02%     -    0s
+
+Cutting planes:
+  Gomory: 2
+  MIR: 2
+  Zero half: 1
+  Lazy constraints: 6
+
+Explored 12 nodes (94 simplex iterations) in 0.06 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 2: 78.1948 78.8256 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 7.819477956292e+01, best bound 7.819477956292e+01, gap 0.0000%
+
+User-callback calls 138, time in user-callback 0.00 sec
+/projects/academic/josewalt/caigao/RRARP_BD/BendersDecomp/ret/model_outs/n_6_m_10_algo_2.out
+ =====>>>>> Solution is written to file in <../ret/model_outs> !!!
+===>> All Done!

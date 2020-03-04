@@ -1,0 +1,51 @@
+NPROCS=0
+This instance is clustered!
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 52 rows, 677 columns and 1352 nonzeros
+Model fingerprint: 0x6c1f3313
+Variable types: 1 continuous, 676 integer (676 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 1e+00]
+  Objective range  [1e+00, 7e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 1e+00]
+Presolve removed 2 rows and 75 columns
+Presolve time: 0.01s
+Presolved: 50 rows, 602 columns, 1202 nonzeros
+Variable types: 1 continuous, 601 integer (601 binary)
+
+Root relaxation: objective 1.415692e+03, 40 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0 1982.70537    0   44          - 1982.70537      -     -    0s
+H    0     0                    2677.9551897 1982.70537  26.0%     -    0s
+H    0     0                    2206.0592877 1982.70537  10.1%     -    0s
+     0     0 2005.10213    0   45 2206.05929 2005.10213  9.11%     -    0s
+     0     0 2015.61904    0   54 2206.05929 2015.61904  8.63%     -    0s
+     0     0 2053.00524    0   47 2206.05929 2053.00524  6.94%     -    0s
+     0     0 2056.25695    0   54 2206.05929 2056.25695  6.79%     -    0s
+     0     0 2057.06073    0   54 2206.05929 2057.06073  6.75%     -    0s
+     0     0 2057.13181    0   52 2206.05929 2057.13181  6.75%     -    0s
+     0     0 2057.17075    0   55 2206.05929 2057.17075  6.75%     -    0s
+     0     0 2057.17075    0   55 2206.05929 2057.17075  6.75%     -    0s
+     0     2 2058.45501    0   49 2206.05929 2058.45501  6.69%     -    0s
+
+Cutting planes:
+  Gomory: 3
+  Zero half: 4
+  Lazy constraints: 44
+
+Explored 411 nodes (4120 simplex iterations) in 0.29 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 2: 2206.06 2677.96 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 2.206059287707e+03, best bound 2.206059287707e+03, gap 0.0000%
+
+User-callback calls 1132, time in user-callback 0.01 sec
+/projects/academic/josewalt/caigao/RRARP_BD/BendersDecomp/ret/model_outs/n_24_e_4_algo_3.out
+ =====>>>>> Solution is written to file in <../ret/model_outs> !!!
+===>> All Done!

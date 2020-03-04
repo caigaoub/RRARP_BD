@@ -1,0 +1,50 @@
+NPROCS=0
+This instance is clustered!
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 32 rows, 257 columns and 512 nonzeros
+Model fingerprint: 0xf565a01d
+Variable types: 1 continuous, 256 integer (256 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 1e+00]
+  Objective range  [1e+00, 2e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 1e+00]
+Presolve removed 2 rows and 45 columns
+Presolve time: 0.00s
+Presolved: 30 rows, 212 columns, 422 nonzeros
+Variable types: 1 continuous, 211 integer (211 binary)
+
+Root relaxation: objective 3.636583e+02, 25 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  421.62913    0   16          -  421.62913      -     -    0s
+     0     0  435.36532    0   16          -  435.36532      -     -    0s
+     0     0  439.66638    0    8          -  439.66638      -     -    0s
+H    0     0                     575.8068535  439.66638  23.6%     -    0s
+     0     2  447.15612    0    8  575.80685  447.15612  22.3%     -    0s
+ 16613  5341     cutoff   40       575.80685  523.63860  9.06%   6.0    5s
+ 33246  8597  557.45945   29   13  575.80685  538.82978  6.42%   6.6   10s
+ 43284  8787 infeasible   39       575.80685  546.02679  5.17%   6.8   15s
+ 54446  7236  568.27921   35   10  575.80685  553.90352  3.80%   7.1   20s
+ 65041  2938 infeasible   37       575.80685  563.66683  2.11%   7.4   25s
+
+Cutting planes:
+  Gomory: 5
+  MIR: 2
+  Zero half: 6
+  Lazy constraints: 1536
+
+Explored 69808 nodes (518698 simplex iterations) in 26.56 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 1: 575.807 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 5.758068535347e+02, best bound 5.758068535347e+02, gap 0.0000%
+
+User-callback calls 147628, time in user-callback 0.16 sec
+/projects/academic/josewalt/caigao/RRARP_BD/BendersDecomp/ret/model_outs/n_14_m_5_algo_3.out
+ =====>>>>> Solution is written to file in <../ret/model_outs> !!!
+===>> All Done!

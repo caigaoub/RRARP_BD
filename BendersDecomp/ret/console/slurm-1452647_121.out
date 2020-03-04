@@ -1,0 +1,84 @@
+NPROCS=0
+This instance is clustered!
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 24 rows, 145 columns and 288 nonzeros
+Model fingerprint: 0xb8a25813
+Variable types: 1 continuous, 144 integer (144 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 1e+00]
+  Objective range  [1e+00, 1e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 1e+00]
+Presolve removed 2 rows and 33 columns
+Presolve time: 0.00s
+Presolved: 22 rows, 112 columns, 222 nonzeros
+Variable types: 1 continuous, 111 integer (111 binary)
+
+Root relaxation: objective 2.097813e+02, 16 iterations, 0.00 seconds
+ done with super cut 0
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  264.21533    0   17          -  264.21533      -     -    0s
+ done with super cut 1
+ done with super cut 2
+H    0     0                     369.7011484  264.21533  28.5%     -    0s
+     0     0  270.89738    0   22  369.70115  270.89738  26.7%     -    0s
+     0     0  275.51999    0   24  369.70115  275.51999  25.5%     -    0s
+ done with super cut 3
+ done with super cut 4
+H    0     0                     299.9519668  275.51999  8.15%     -    0s
+ done with super cut 5
+     0     0  276.18140    0   23  299.95197  276.18140  7.92%     -    0s
+ done with super cut 6
+H    0     0                     294.1178270  276.18140  6.10%     -    1s
+ done with super cut 7
+ done with super cut 8
+     0     0  276.18140    0   18  294.11783  276.18140  6.10%     -    1s
+     0     0  280.98284    0   16  294.11783  280.98284  4.47%     -    1s
+ done with super cut 9
+     0     0  281.93381    0   22  294.11783  281.93381  4.14%     -    2s
+     0     0  282.18672    0   24  294.11783  282.18672  4.06%     -    2s
+     0     0  282.25923    0   27  294.11783  282.25923  4.03%     -    2s
+     0     0  282.26340    0   27  294.11783  282.26340  4.03%     -    2s
+     0     0  282.34726    0   27  294.11783  282.34726  4.00%     -    2s
+     0     0  282.34974    0   27  294.11783  282.34974  4.00%     -    2s
+     0     0  282.37718    0   27  294.11783  282.37718  3.99%     -    2s
+     0     0  283.05388    0   24  294.11783  283.05388  3.76%     -    2s
+     0     0  283.88356    0   20  294.11783  283.88356  3.48%     -    2s
+     0     0  283.91104    0   15  294.11783  283.91104  3.47%     -    2s
+     0     0  283.91104    0   15  294.11783  283.91104  3.47%     -    2s
+     0     0  287.85493    0   12  294.11783  287.85493  2.13%     -    2s
+     0     0  287.85493    0   16  294.11783  287.85493  2.13%     -    2s
+     0     0  287.85493    0   16  294.11783  287.85493  2.13%     -    2s
+     0     0  287.85493    0   16  294.11783  287.85493  2.13%     -    2s
+     0     0  287.85493    0   16  294.11783  287.85493  2.13%     -    2s
+     0     0  287.85493    0   17  294.11783  287.85493  2.13%     -    2s
+     0     0  287.85493    0   19  294.11783  287.85493  2.13%     -    2s
+     0     0  287.85493    0   18  294.11783  287.85493  2.13%     -    2s
+     0     0  287.85493    0   16  294.11783  287.85493  2.13%     -    2s
+     0     0  287.85493    0   16  294.11783  287.85493  2.13%     -    2s
+     0     0  287.85493    0   16  294.11783  287.85493  2.13%     -    2s
+     0     0  287.85493    0   16  294.11783  287.85493  2.13%     -    2s
+     0     0  287.85493    0   17  294.11783  287.85493  2.13%     -    2s
+     0     0  287.85493    0   17  294.11783  287.85493  2.13%     -    2s
+     0     0  287.85493    0   20  294.11783  287.85493  2.13%     -    2s
+     0     0  287.85493    0   20  294.11783  287.85493  2.13%     -    2s
+     0     0  290.37072    0   11  294.11783  290.37072  1.27%     -    2s
+     0     0  291.49433    0    8  294.11783  291.49433  0.89%     -    2s
+     0     0  291.49433    0    8  294.11783  291.49433  0.89%     -    2s
+     0     0     cutoff    0       294.11783  294.11783  0.00%     -    2s
+
+Explored 1 nodes (212 simplex iterations) in 2.30 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 3: 294.118 299.952 369.701 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 2.941178269530e+02, best bound 2.941178269530e+02, gap 0.0000%
+
+User-callback calls 250, time in user-callback 2.24 sec
+/projects/academic/josewalt/caigao/RRARP_BD/BendersDecomp/ret/model_outs/n_10_e_1_algo_4.out
+ =====>>>>> Solution is written to file in <../ret/model_outs> !!!
+===>> All Done!

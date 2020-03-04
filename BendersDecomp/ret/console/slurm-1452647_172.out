@@ -1,0 +1,57 @@
+NPROCS=0
+This instance is clustered!
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 26 rows, 170 columns and 338 nonzeros
+Model fingerprint: 0x2e091f2f
+Variable types: 1 continuous, 169 integer (169 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 1e+00]
+  Objective range  [1e+00, 1e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 1e+00]
+ done with super cut 0
+Presolve removed 2 rows and 36 columns
+Presolve time: 0.00s
+Presolved: 24 rows, 134 columns, 266 nonzeros
+Variable types: 1 continuous, 133 integer (133 binary)
+
+Root relaxation: objective 2.343582e+02, 22 iterations, 0.00 seconds
+ done with super cut 1
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  288.09770    0   23          -  288.09770      -     -    0s
+ done with super cut 2
+ done with super cut 3
+H    0     0                     374.5214159  288.09770  23.1%     -    0s
+     0     0  291.18289    0   24  374.52142  291.18289  22.3%     -    0s
+ done with super cut 4
+     0     0  293.76276    0   26  374.52142  293.76276  21.6%     -    0s
+ done with super cut 5
+     0     2  299.74277    0   26  374.52142  299.74277  20.0%     -    0s
+ done with super cut 6
+ done with super cut 7
+ done with super cut 8
+ done with super cut 9
+ done with super cut 10
+*  469   227              11     368.7540307  312.97964  15.1%   5.1    1s
+* 1519   470              10     363.7544219  327.45625  10.0%   5.1    1s
+* 3131   112               7     363.6600957  350.07450  3.74%   5.8    1s
+
+Cutting planes:
+  Gomory: 2
+  Lazy constraints: 221
+
+Explored 3511 nodes (20114 simplex iterations) in 1.97 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 4: 363.66 363.754 368.754 374.521 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 3.636600957166e+02, best bound 3.636600957166e+02, gap 0.0000%
+
+User-callback calls 7405, time in user-callback 1.76 sec
+/projects/academic/josewalt/caigao/RRARP_BD/BendersDecomp/ret/model_outs/n_11_h_2_algo_4.out
+ =====>>>>> Solution is written to file in <../ret/model_outs> !!!
+===>> All Done!

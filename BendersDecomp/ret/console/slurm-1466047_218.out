@@ -1,0 +1,48 @@
+NPROCS=0
+This instance is clustered!
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 30 rows, 226 columns and 450 nonzeros
+Model fingerprint: 0xec00e7a9
+Variable types: 1 continuous, 225 integer (225 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 1e+00]
+  Objective range  [1e+00, 2e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 1e+00]
+ done with super cut 0
+Presolve removed 2 rows and 42 columns
+Presolve time: 0.00s
+Presolved: 28 rows, 184 columns, 366 nonzeros
+Variable types: 1 continuous, 183 integer (183 binary)
+
+Root relaxation: objective 3.922045e+02, 25 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  511.16940    0    8          -  511.16940      -     -    0s
+ done with super cut 1
+ done with super cut 2
+H    0     0                     561.0865202  511.16940  8.90%     -    0s
+ done with super cut 3
+ done with super cut 4
+     0     0  512.76312    0   31  561.08652  512.76312  8.61%     -    0s
+     0     0  512.76312    0   31  561.08652  512.76312  8.61%     -    0s
+ done with super cut 5
+     0     0  514.69002    0   32  561.08652  514.69002  8.27%     -    0s
+     0     0  523.88460    0   34  561.08652  523.88460  6.63%     -    0s
+     0     0  527.33430    0   33  561.08652  527.33430  6.02%     -    0s
+     0     0  527.43660    0   31  561.08652  527.43660  6.00%     -    0s
+     0     0  527.44646    0   31  561.08652  527.44646  6.00%     -    0s
+     0     0  527.44854    0   33  561.08652  527.44854  6.00%     -    0s
+     0     0  529.65734    0   39  561.08652  529.65734  5.60%     -    0s
+ done with super cut 6
+ done with super cut 7
+     0     0  530.33835    0   39  561.08652  530.33835  5.48%     -    0s
+     0     0  533.45907    0   38  561.08652  533.45907  4.92%     -    0s
+     0     0  533.75923    0   39  561.08652  533.75923  4.87%     -    0s
+     0     0  533.76927    0   37  561.08652  533.76927  4.87%     -    0s
+     0     0  534.04939    0   38  561.08652  534.04939  4.82%     -    0s
+     0     0  534.07051    0   40  561.08652  534.07051  4.81%     -    0s
+     0     0  534.07051    0   40  561.08652  534.07051  4.81%     -    0s
+===>> All Done!

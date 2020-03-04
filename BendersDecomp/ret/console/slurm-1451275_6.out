@@ -1,0 +1,48 @@
+NPROCS=0
+This instance is clustered!
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 16 rows, 65 columns and 128 nonzeros
+Model fingerprint: 0x2e661076
+Variable types: 1 continuous, 64 integer (64 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 1e+00]
+  Objective range  [1e+00, 3e+01]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 1e+00]
+Presolve removed 2 rows and 21 columns
+Presolve time: 0.00s
+Presolved: 14 rows, 44 columns, 86 nonzeros
+Variable types: 1 continuous, 43 integer (43 binary)
+
+Root relaxation: objective 4.142928e+01, 9 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0   90.69009    0   11          -   90.69009      -     -    0s
+H    0     0                     124.2425585   90.69009  27.0%     -    0s
+H    0     0                      94.9919896   90.69009  4.53%     -    0s
+     0     0   91.98572    0   11   94.99199   91.98572  3.16%     -    0s
+     0     0   91.98572    0   11   94.99199   91.98572  3.16%     -    0s
+     0     0   92.03684    0    4   94.99199   92.03684  3.11%     -    0s
+     0     0   93.39722    0    4   94.99199   93.39722  1.68%     -    0s
+     0     0   94.46738    0    4   94.99199   94.46738  0.55%     -    0s
+     0     0   94.50331    0    4   94.99199   94.50331  0.51%     -    0s
+     0     0     cutoff    0        94.99199   94.99199  0.00%     -    0s
+
+Cutting planes:
+  Gomory: 2
+  Lazy constraints: 3
+
+Explored 1 nodes (37 simplex iterations) in 0.02 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 2: 94.992 124.243 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 9.499198962674e+01, best bound 9.499198962674e+01, gap 0.0000%
+
+User-callback calls 96, time in user-callback 0.00 sec
+/projects/academic/josewalt/caigao/RRARP_BD/BendersDecomp/ret/model_outs/n_6_e_6_algo_2.out
+ =====>>>>> Solution is written to file in <../ret/model_outs> !!!
+===>> All Done!

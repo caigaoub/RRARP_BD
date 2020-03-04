@@ -1,0 +1,48 @@
+NPROCS=0
+This instance is clustered!
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 48 rows, 577 columns and 1152 nonzeros
+Model fingerprint: 0x208b69f0
+Variable types: 1 continuous, 576 integer (576 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 1e+00]
+  Objective range  [1e+00, 7e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 1e+00]
+Presolve removed 2 rows and 69 columns
+Presolve time: 0.01s
+Presolved: 46 rows, 508 columns, 1014 nonzeros
+Variable types: 1 continuous, 507 integer (507 binary)
+
+Root relaxation: objective 1.206136e+03, 41 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0 1347.97528    0   12          - 1347.97528      -     -    0s
+     0     0 1462.54065    0   28          - 1462.54065      -     -    0s
+     0     2 1478.74240    0   33          - 1478.74240      -     -    0s
+*  285   259              11    1732.2954165 1497.92721  13.5%   8.4    0s
+*  457   332              26    1729.3192511 1517.53526  12.2%   8.1    0s
+H 3720  1852                    1722.9686180 1585.87856  7.96%   7.0    0s
+H 3727  1763                    1696.9623088 1585.87856  6.55%   7.0    1s
+* 7159  1385              52    1647.5236411 1588.47801  3.58%   7.2    2s
+
+Cutting planes:
+  Gomory: 5
+  MIR: 2
+  Zero half: 8
+  Lazy constraints: 52
+
+Explored 9213 nodes (78524 simplex iterations) in 2.92 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 5: 1647.52 1696.96 1722.97 ... 1732.3
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 1.647523641053e+03, best bound 1.647523641053e+03, gap 0.0000%
+
+User-callback calls 20055, time in user-callback 0.04 sec
+/projects/academic/josewalt/caigao/RRARP_BD/BendersDecomp/ret/model_outs/n_22_e_3_algo_3.out
+ =====>>>>> Solution is written to file in <../ret/model_outs> !!!
+===>> All Done!

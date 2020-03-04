@@ -1,0 +1,48 @@
+NPROCS=0
+This instance is clustered!
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 32 rows, 257 columns and 512 nonzeros
+Model fingerprint: 0x1fbbb2f2
+Variable types: 1 continuous, 256 integer (256 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 1e+00]
+  Objective range  [1e+00, 2e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 1e+00]
+Presolve removed 2 rows and 45 columns
+Presolve time: 0.00s
+Presolved: 30 rows, 212 columns, 422 nonzeros
+Variable types: 1 continuous, 211 integer (211 binary)
+
+Root relaxation: objective 3.991785e+02, 29 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  468.34387    0   22          -  468.34387      -     -    0s
+H    0     0                     543.0370956  468.34387  13.8%     -    0s
+     0     0  476.53835    0   14  543.03710  476.53835  12.2%     -    0s
+     0     0  476.53835    0   16  543.03710  476.53835  12.2%     -    0s
+     0     0  476.53835    0   12  543.03710  476.53835  12.2%     -    0s
+H    0     0                     539.5361294  476.53835  11.7%     -    0s
+     0     0  479.75877    0   22  539.53613  479.75877  11.1%     -    0s
+     0     0  479.75877    0   22  539.53613  479.75877  11.1%     -    0s
+     0     2  480.87330    0   21  539.53613  480.87330  10.9%     -    0s
+
+Cutting planes:
+  Gomory: 2
+  Zero half: 1
+  Lazy constraints: 435
+
+Explored 2906 nodes (11126 simplex iterations) in 0.29 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 2: 539.536 543.037 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 5.395361294006e+02, best bound 5.395361294006e+02, gap 0.0000%
+
+User-callback calls 6468, time in user-callback 0.03 sec
+/projects/academic/josewalt/caigao/RRARP_BD/BendersDecomp/ret/model_outs/n_14_e_4_algo_2.out
+ =====>>>>> Solution is written to file in <../ret/model_outs> !!!
+===>> All Done!

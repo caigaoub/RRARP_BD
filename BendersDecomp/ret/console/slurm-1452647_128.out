@@ -1,0 +1,78 @@
+NPROCS=0
+This instance is clustered!
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 24 rows, 145 columns and 288 nonzeros
+Model fingerprint: 0xe959025a
+Variable types: 1 continuous, 144 integer (144 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 1e+00]
+  Objective range  [1e+00, 1e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 1e+00]
+Presolve removed 2 rows and 33 columns
+Presolve time: 0.00s
+Presolved: 22 rows, 112 columns, 222 nonzeros
+Variable types: 1 continuous, 111 integer (111 binary)
+
+Root relaxation: objective 1.763399e+02, 20 iterations, 0.00 seconds
+ done with super cut 0
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  202.09216    0   10          -  202.09216      -     -    0s
+ done with super cut 1
+     0     0  207.00116    0   25          -  207.00116      -     -    0s
+ done with super cut 2
+ done with super cut 3
+H    0     0                     438.2584179  207.00116  52.8%     -    0s
+     0     0  207.00116    0   25  438.25842  207.00116  52.8%     -    0s
+ done with super cut 4
+ done with super cut 5
+ done with super cut 6
+ done with super cut 7
+ done with super cut 8
+H    0     0                     269.4386338  207.00116  23.2%     -    1s
+ done with super cut 9
+H    0     0                     230.6619645  212.51484  7.87%     -    1s
+     0     0  212.51484    0   25  230.66196  212.51484  7.87%     -    1s
+ done with super cut 10
+     0     0  212.51484    0   27  230.66196  212.51484  7.87%     -    2s
+H    0     0                     228.6378808  212.51484  7.05%     -    2s
+     0     0  212.51484    0   28  228.63788  212.51484  7.05%     -    2s
+     0     0  212.51484    0   28  228.63788  212.51484  7.05%     -    2s
+     0     0  212.51484    0   21  228.63788  212.51484  7.05%     -    2s
+H    0     0                     227.0310620  212.51484  6.39%     -    2s
+     0     0  212.73395    0   20  227.03106  212.73395  6.30%     -    2s
+     0     0  212.80316    0   21  227.03106  212.80316  6.27%     -    2s
+     0     0  212.88738    0   22  227.03106  212.88738  6.23%     -    2s
+     0     0  212.90458    0   28  227.03106  212.90458  6.22%     -    2s
+     0     0  213.14179    0   20  227.03106  213.14179  6.12%     -    2s
+     0     0  214.13056    0   17  227.03106  214.13056  5.68%     -    2s
+     0     0  214.13056    0   17  227.03106  214.13056  5.68%     -    2s
+H    0     0                     225.4570973  214.13056  5.02%     -    2s
+     0     0  216.59738    0   18  225.45710  216.59738  3.93%     -    2s
+     0     0  218.01439    0   19  225.45710  218.01439  3.30%     -    2s
+     0     0  218.19380    0   19  225.45710  218.19380  3.22%     -    2s
+     0     0  219.13321    0   20  225.45710  219.13321  2.80%     -    2s
+     0     0  219.18197    0   19  225.45710  219.18197  2.78%     -    2s
+     0     0  220.24141    0   14  225.45710  220.24141  2.31%     -    2s
+     0     0  220.33643    0   14  225.45710  220.33643  2.27%     -    2s
+     0     0  220.39424    0   14  225.45710  220.39424  2.25%     -    2s
+     0     0  220.41337    0   22  225.45710  220.41337  2.24%     -    2s
+     0     0  222.85182    0    6  225.45710  222.85182  1.16%     -    2s
+     0     0  222.85182    0    6  225.45710  222.85182  1.16%     -    2s
+     0     0     cutoff    0       225.45710  225.45710  0.00%     -    2s
+
+Explored 1 nodes (196 simplex iterations) in 2.25 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 6: 225.457 227.031 228.638 ... 438.258
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 2.254570973072e+02, best bound 2.254570973072e+02, gap 0.0000%
+
+User-callback calls 239, time in user-callback 2.16 sec
+/projects/academic/josewalt/caigao/RRARP_BD/BendersDecomp/ret/model_outs/n_10_e_8_algo_4.out
+ =====>>>>> Solution is written to file in <../ret/model_outs> !!!
+===>> All Done!

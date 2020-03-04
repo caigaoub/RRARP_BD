@@ -1,0 +1,46 @@
+NPROCS=0
+This instance is clustered!
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 26 rows, 170 columns and 338 nonzeros
+Model fingerprint: 0x8d13a0c5
+Variable types: 1 continuous, 169 integer (169 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 1e+00]
+  Objective range  [1e+00, 1e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 1e+00]
+Presolve removed 2 rows and 36 columns
+Presolve time: 0.00s
+Presolved: 24 rows, 134 columns, 266 nonzeros
+Variable types: 1 continuous, 133 integer (133 binary)
+
+Root relaxation: objective 1.481962e+02, 23 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  182.33502    0   16          -  182.33502      -     -    0s
+     0     0  185.33249    0   12          -  185.33249      -     -    0s
+H    0     0                     372.3507967  185.33249  50.2%     -    0s
+H    0     0                     305.9848736  185.33249  39.4%     -    0s
+     0     0  204.15073    0   18  305.98487  204.15073  33.3%     -    0s
+H    0     0                     303.8594828  204.15073  32.8%     -    0s
+     0     0  204.67563    0   18  303.85948  204.67563  32.6%     -    0s
+     0     2  204.67563    0   18  303.85948  204.67563  32.6%     -    0s
+H 5548  2083                     301.8847352  250.89188  16.9%   4.5    1s
+
+Cutting planes:
+  Lazy constraints: 350
+
+Explored 24471 nodes (128641 simplex iterations) in 4.50 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 4: 301.885 303.859 305.985 372.351 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 3.018847352270e+02, best bound 3.018847352270e+02, gap 0.0000%
+
+User-callback calls 51444, time in user-callback 0.05 sec
+/projects/academic/josewalt/caigao/RRARP_BD/BendersDecomp/ret/model_outs/n_11_h_6_algo_3.out
+ =====>>>>> Solution is written to file in <../ret/model_outs> !!!
+===>> All Done!

@@ -1,0 +1,54 @@
+NPROCS=0
+This instance is clustered!
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 16 rows, 65 columns and 128 nonzeros
+Model fingerprint: 0xf89f3244
+Variable types: 1 continuous, 64 integer (64 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 1e+00]
+  Objective range  [1e+00, 3e+01]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 1e+00]
+ done with super cut 0
+Presolve removed 2 rows and 21 columns
+Presolve time: 0.00s
+Presolved: 14 rows, 44 columns, 86 nonzeros
+Variable types: 1 continuous, 43 integer (43 binary)
+
+Root relaxation: objective 4.820582e+01, 10 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0   59.72826    0   12          -   59.72826      -     -    0s
+ done with super cut 1
+ done with super cut 2
+H    0     0                     108.3195924   59.72826  44.9%     -    0s
+ done with super cut 3
+ done with super cut 4
+H    0     0                      76.6986225   59.72826  22.1%     -    0s
+ done with super cut 5
+ done with super cut 6
+     0     0   63.24145    0   17   76.69862   63.24145  17.5%     -    0s
+ done with super cut 7
+H    0     0                      70.0185958   63.24145  9.68%     -    0s
+     0     0   63.65387    0   10   70.01860   63.65387  9.09%     -    0s
+     0     0   63.65387    0   10   70.01860   63.65387  9.09%     -    0s
+ done with super cut 8
+     0     0     cutoff    0        70.01860   70.01860  0.00%     -    0s
+
+Cutting planes:
+  Lazy constraints: 1
+
+Explored 1 nodes (42 simplex iterations) in 0.19 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 4: 70.0186 71.1844 76.6986 108.32 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 7.001859577084e+01, best bound 7.001859577084e+01, gap 0.0000%
+
+User-callback calls 88, time in user-callback 0.17 sec
+/projects/academic/josewalt/caigao/RRARP_BD/BendersDecomp/ret/model_outs/n_6_e_5_algo_4.out
+ =====>>>>> Solution is written to file in <../ret/model_outs> !!!
+===>> All Done!
