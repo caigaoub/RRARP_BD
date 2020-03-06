@@ -7,7 +7,7 @@
 #SBATCH  --nodes=1
 #SBATCH  --ntasks-per-node=12
 ##SBATCH --mem=120000
-#SBATCH  --array=501-600
+#SBATCH  --array=701-800
 #SBATCH  --job-name="RRARP"
 #SBATCH  --output="./ret/console/slurm-%A_%a.out"
 #SBATCH  --error="./ret/console/slurm-%A_%a.err"
@@ -32,11 +32,11 @@ module load gurobi/9.0.0
 
 #make
 
-#./bin/main 2  8  ./ret/configs/config_${SLURM_ARRAY_TASK_ID}
+#./bin/main 2 1 8  ./ret/configs/config_${SLURM_ARRAY_TASK_ID}
 
-# ./bin/main 3  8  ./ret/configs/config_${SLURM_ARRAY_TASK_ID}
+# ./bin/main 3 1 8  ./ret/configs/config_${SLURM_ARRAY_TASK_ID}
 
- ./bin/main 4  8  ./ret/configs/config_${SLURM_ARRAY_TASK_ID}
+ ./bin/main 3 1 8  ./ret/configs/config_${SLURM_ARRAY_TASK_ID}
 
 
 echo "===>> All Done!"

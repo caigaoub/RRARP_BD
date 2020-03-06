@@ -7,6 +7,7 @@
 #include "BendersCuts.h"
 #include <ctime>
 #include <chrono>
+#include <boost/lexical_cast.hpp>
 
 using namespace std;
 pair<int,int> Fischetti_method(int , STEFormulation & );
@@ -16,8 +17,11 @@ pair<int,int> improve_root(int N, STEFormulation & formul_master);
 int main(int argc, const char* argv[]) {
 	argc = argc; // just for avoid warning: unused argc
 	int which_BDCut = atoi(argv[1]);
-	const int nb_dstzn = atoi(argv[2]);
-	string configfile = argv[3];
+	// bool fischetti_on = boost::lexical_cast<bool>(argv[2]);
+	const int fischetti_on = atoi(argv[2]);
+	const int nb_dstzn = atoi(argv[3]);
+	string configfile = argv[4];
+
 	fstream file(configfile);
 	if (!file) {
 		cerr << "ERROR: could not open config '" << configfile << "' for reading'" << endl;
@@ -31,6 +35,12 @@ int main(int argc, const char* argv[]) {
 	//	auto pos = cur_dir.find_last_of("/");
     	//      cur_dir = cur_dir.substr(0, pos);
 		string cur_dir = "/projects/academic/josewalt/caigao/RRARP_BD/BendersDecomp/dat/";
+		// string cur_dir = "/home/caigao/Dropbox/Box_Research/Github/RRARP_BD/BendersDecomp/dat/";
+		// string cur_dir = "/home/cai/Dropbox/Box_Research/Github/RRARP_BD/BendersDecomp/dat/";
+		struct stat buffer;
+	  	if(stat (cur_dir.c_str(), &buffer) != 0){
+	  		cerr << "path (in main.cpp) does not exist!! " << endl;
+	  	}
 		string instance_wPath = cur_dir + instance_name_only;
 		DataHandler dataset_;
 		dataset_.parse(instance_wPath);
@@ -42,6 +52,8 @@ int main(int argc, const char* argv[]) {
 		GRBEnv * evn_MP_ = new GRBEnv();
 		GRBModel model_MP_ = GRBModel(*evn_MP_);
 		STEFormulation formul_master;
+		// model_MP_.getEnv().set(GRB_IntParam_OutputFlag, 0);
+
 		formul_master.build_formul(&model_MP_, &network_);
 
 		/*Gurobi model for dual formulation */ 
@@ -58,32 +70,31 @@ int main(int argc, const char* argv[]) {
 		model_supercut_.getEnv().set(GRB_IntParam_OutputFlag, 0);
 		SuperCutFormulation formul_supercut_;
 		formul_supercut_.add_model(&model_supercut_, dataset_._nb_targets+2);
-	
-
 
 		formul_master.add_dualformul(&formul_dual_);
 		formul_master.add_SuperCutformul(&formul_supercut_);
-		// int which_BDCut = 1;
+
+		if(fischetti_on == 1){
+			auto start_fischetti= chrono::system_clock::now();
+			Fischetti_method(dataset_._nb_targets + 2, formul_master);
+			auto endt_fischetti = chrono::system_clock::now();
+			chrono::duration<double> elapsed_seconds_fischetti = endt_fischetti-start_fischetti;
+			cout << "====>>> Total time of Fischetti_method: " << std::chrono::duration<double>(elapsed_seconds_fischetti).count()  << endl;		
+		}
+		if(fischetti_on == 2){
+			auto start_no_fischetti= chrono::system_clock::now();
+			improve_root(dataset_._nb_targets + 2, formul_master);
+			auto endt_no_fischetti = chrono::system_clock::now();
+			chrono::duration<double> elapsed_seconds_no_fischetti = endt_no_fischetti-start_no_fischetti;
+			cout << "====>>> Total time of NO Fischetti_method: " << std::chrono::duration<double>(elapsed_seconds_no_fischetti).count()  << endl;		
+		}
+
 		if(true){
 			formul_master.solve_formul_wCB(which_BDCut);
 			// formul_master.print_solution();
 			formul_master.write_solution(dataset_._name, which_BDCut);
 		}
 		
-		if(false){
-			// auto start_fischetti= chrono::system_clock::now();
-			Fischetti_method(dataset_._nb_targets + 2, formul_master);
-			// auto endt_fischetti = chrono::system_clock::now();
-			// chrono::duration<double> elapsed_seconds_fischetti = endt_fischetti-start_fischetti;
-			// cout << "====>>> Total time of Fischetti_method: " << std::chrono::duration<double>(elapsed_seconds_fischetti).count()  << endl;		
-		}else{
-			// auto start_no_fischetti= chrono::system_clock::now();
-			// improve_root(dataset_._nb_targets + 2, formul_master);
-			// auto endt_no_fischetti = chrono::system_clock::now();
-			// chrono::duration<double> elapsed_seconds_no_fischetti = endt_no_fischetti-start_no_fischetti;
-			// cout << "====>>> Total time of NO Fischetti_method: " << std::chrono::duration<double>(elapsed_seconds_no_fischetti).count()  << endl;		
-		}
-
 
 		delete evn_MP_;
 		delete evn_dual_;
@@ -107,8 +118,8 @@ pair<int,int> Fischetti_method(int N, STEFormulation & formul_master) {
 	int nb_Subtour_Cuts = 0;
 	int nb_USER_Cuts = 0;
 	auto s_= chrono::system_clock::now();
-	auto e_= chrono::system_clock::now();
-	chrono::duration<double> total_time_SP = e_ - s_;
+	// auto e_= chrono::system_clock::now();
+	chrono::duration<double> total_time_SP = s_ - s_;
 	/* create variables */
 	double** y_tilde = new double*[N]; // stablizer point
 	double** y_star = new double*[N]; // optimal solution of current TSP_LP
@@ -136,24 +147,26 @@ pair<int,int> Fischetti_method(int N, STEFormulation & formul_master) {
 	formul_master.get_optimal_sol(y_star);
 
 	double alpha = 0.2;
-	double UB = INFINITY;
+	// double UB = INFINITY;
 	double LB = -INFINITY;
 
-	double dual_obj;
+	double dual_obj = 0;
 	double old_LB = -1;
 	int iteration = 0;
-	pair<bool,int> is_disconnected = make_pair(true,0);
+	pair<bool,int> ret_SEC;
+	pair<double, double> result_tsp = make_pair(INFINITY, INFINITY);
 
-
-	while (is_disconnected.first || UB - LB > 0.0000001) {
+	while (true ) {//is_disconnected.first || UB - LB > 0.0000001
 		// cout << "*UB: " << UB << "   " << "LB: " << LB << '\n';
 
-		is_disconnected = formul_master.add_SECs(y_star); // add subtour elimi constraint
-		nb_Subtour_Cuts += is_disconnected.second;
-		if (!is_disconnected.first) {
+		ret_SEC = formul_master.add_SECs(y_star); // add subtour elimi constraint
+		nb_Subtour_Cuts += ret_SEC.second;
+		if (ret_SEC.first) {
 			for (int i = 0; i < N; i++) { // update the stablizer
 				for (int j = 0; j < N; j++) {
-					y_tilde[i][j] = 0.5 * (y_star[i][j] + y_tilde[i][j]);
+					y_tilde[i][j] = 0.5 *(y_star[i][j] + y_tilde[i][j]);
+					// y_tilde[i][j] = y_star[i][j];
+				
 				}
 			}
 			for (int i = 0; i < N; i++) { // new solution for the dual model
@@ -169,13 +182,13 @@ pair<int,int> Fischetti_method(int N, STEFormulation & formul_master) {
 		}
 
 		auto start_= chrono::system_clock::now();
-		pair<double, double> result_tsp =formul_master.solve_formul_woCB();
+		result_tsp =formul_master.solve_formul_woCB();
 		auto end_= chrono::system_clock::now();
 		total_time_SP += end_ - start_;
 
 		formul_master.get_optimal_sol(y_star);
 
-		if (!is_disconnected.first) {
+		if (ret_SEC.first) {
 			LB = result_tsp.first;
 			if (old_LB == LB) {
 				iteration++;
@@ -184,8 +197,9 @@ pair<int,int> Fischetti_method(int N, STEFormulation & formul_master) {
 				}
 			}
 			old_LB = LB;
-			UB = min(UB, result_tsp.first - result_tsp.second + dual_obj);
-
+			if(abs(result_tsp.second - dual_obj) < 0.001){
+				break;
+			}
 		}
 	}
 	// cout << "UB: " << UB << "   " << "LB: " << LB << '\n';
@@ -194,7 +208,8 @@ pair<int,int> Fischetti_method(int N, STEFormulation & formul_master) {
 	cout << "====>>> nb of subtour cuts added: " << nb_Subtour_Cuts  << endl;		
 	cout << "====>>> nb of user cuts added: " << nb_USER_Cuts << endl;
 	cout << "====>>> optimal: " << LB << endl;
-	// formul_master.set_vars_integer(); // solve IP-TSP
+	// cout << "====>>> Time: " << formul_master._model->get(GRB_DoubleAttr_Runtime) << endl;
+	formul_master.set_vars_integer(); // solve IP-TSP
 	// formul_master.solve_formul_woCB(); // add Benders cuts
 	return make_pair(nb_Subtour_Cuts, nb_USER_Cuts);
 }
@@ -205,85 +220,57 @@ pair<int,int> improve_root(int N, STEFormulation & formul_master) {
 	int nb_Subtour_Cuts = 0;
 	int nb_USER_Cuts = 0;
 	auto s_= chrono::system_clock::now();
-	auto e_= chrono::system_clock::now();
-	chrono::duration<double> total_time_SP = e_ - s_;
-	/* create variables */
-	double** y_tilde = new double*[N]; // stablizer point
-	double** y_star = new double*[N]; // optimal solution of current TSP_LP
-	// double** y_bar = new double*[N];
+	// auto e_= chrono::system_clock::now();
+	chrono::duration<double> total_time_SP = s_ - s_;
+	
+	double** y_star = new double*[N]; 
 	for (int i = 0; i < N; i++) {
-		y_tilde[i] = new double[N];
 		y_star[i] = new double[N];
-		// y_bar[i] = new double[N];
 	}
-
-	/*initialize y_tilde to represent the feasible sequence (0 -> 1 -> 2 ->...->N-1) */
-	for (int i = 0; i < N; i++) {
-		for (int j = 0; j < N; j++) {
-			y_tilde[i][j] = 0;
-		}
-	}
-	for (int i = 0; i < N - 1; i++) {
-		y_tilde[i][i + 1] = 1;
-	}
-	y_tilde[N - 1][0] = 1;
-
 
 	formul_master.set_vars_continuous(); // solve linear relaxation 
 	formul_master.solve_formul_woCB();
 	formul_master.get_optimal_sol(y_star);
 
-	// double alpha = 0.2;
-	double UB = INFINITY;
-	double LB = -INFINITY;
+	// double LB = -INFINITY;
+	double dual_obj = INFINITY;
+	pair<bool,int> ret_SEC;
+	pair<double, double> result_tsp;
+	while (true) { 
+		// cout << "LB: " << LB << '\n';
+		// for (int i = 0; i < N; i++) {
+		// 	for(int j = 0; j < N; j++){
+		// 		cout << y_star[i][j] << " ";
+		// 	}
+		// 	cout << endl;
+		// }
 
-	double dual_obj;
-	double old_LB = -1;
-	int iteration = 0;
-	pair<bool,int> is_disconnected = make_pair(true,0);
-
-
-	while (is_disconnected.first || UB - LB > 0.0000001) {
-		// cout << "*UB: " << UB << "   " << "LB: " << LB << '\n';
-
-		is_disconnected = formul_master.add_SECs(y_star); // add subtour elimi constraint
-		nb_Subtour_Cuts += is_disconnected.second;
-		if (!is_disconnected.first) {
-			// for (int i = 0; i < N; i++) { // update the stablizer
-			// 	for (int j = 0; j < N; j++) {
-			// 		y_tilde[i][j] = 0.5 * (y_star[i][j] + y_tilde[i][j]);
-			// 	}
-			// }
-			// for (int i = 0; i < N; i++) { // new solution for the dual model
-			// 	for (int j = 0; j < N; j++) {
-			// 		y_bar[i][j] = alpha * y_star[i][j] + (1 - alpha) * y_tilde[i][j];
-			// 	}
-			// }
+		ret_SEC = formul_master.add_SECs(y_star); // add subtour elimi constraint
+		// cout << "connected: " <<  ret_SEC.first << endl;
+		nb_Subtour_Cuts += ret_SEC.second;
+		if (ret_SEC.first) {
 			auto start_= chrono::system_clock::now();
 			dual_obj = formul_master.add_USER_cuts(y_star);
+			// exit(0);
 			auto end_= chrono::system_clock::now();
 			total_time_SP += end_ - start_;
 			nb_USER_Cuts++;
+			// cout << "adding user cuts !!!!" << endl;
 		}
 
 		auto start_= chrono::system_clock::now();
-		pair<double, double> result_tsp =formul_master.solve_formul_woCB();
+		result_tsp =formul_master.solve_formul_woCB();
 		auto end_= chrono::system_clock::now();
 		total_time_SP += end_ - start_;
 
 		formul_master.get_optimal_sol(y_star);
 
-		if (!is_disconnected.first) {
-			LB = result_tsp.first;
-			// if (old_LB == LB) {
-			// 	iteration++;
-			// 	if (iteration >= 5) {
-			// 		// alpha = 1;
-			// 	}
-			// }
-			old_LB = LB;
-			UB = min(UB, result_tsp.first - result_tsp.second + dual_obj);
-
+		// LB = result_tsp.first;
+			// old_LB = LB;
+		// cout << "LB: " << result_tsp.first << " ";
+		// cout << result_tsp.second << " " << dual_obj << endl;
+		if(abs(result_tsp.second - dual_obj) < 0.001){
+			break;
 		}
 	}
 	// cout << "UB: " << UB << "   " << "LB: " << LB << '\n';
@@ -291,8 +278,10 @@ pair<int,int> improve_root(int N, STEFormulation & formul_master) {
 	cout << "====>>> total time of solving dual problem: " << chrono::duration<double>(total_time_SP).count()  << endl;		
 	cout << "====>>> nb of subtour cuts added: " << nb_Subtour_Cuts  << endl;		
 	cout << "====>>> nb of user cuts added: " << nb_USER_Cuts << endl;
-	cout << "====>>> optimal: " << LB << endl;
-	// formul_master.set_vars_integer(); // solve IP-TSP
+	cout << "====>>> optimal: " << result_tsp.first << endl;
+	// cout << "====>>> Time: " << formul_master._model->get(GRB_DoubleAttr_Runtime) << endl;
+
+	formul_master.set_vars_integer(); // solve IP-TSP
 	// formul_master.solve_formul_woCB(); // add Benders cuts
 	return make_pair(nb_Subtour_Cuts, nb_USER_Cuts);
 }

@@ -161,13 +161,14 @@ double STEFormulation::add_USER_cuts(double** y_sol) {
 
 /* add subtour elimination constraints (SEC) at the root */
 pair<bool,int> STEFormulation::add_SECs(double** y_sol) {
-	bool is_disconnected = false; // one whole graph in default
+	bool connected = true; // one whole graph in default
 	int new_subtour_cuts = 0;
 	vector<int> tour;
 	int num_compts;
 	vector<int> size_subcompts;
 	check_subcomponents(y_sol, tour, num_compts, size_subcompts);
-	if (num_compts > 1) { // i) if multiple subtours exist in the solution
+	// cout << "num_compts: " << num_compts << endl;
+	if (num_compts > 1) { 
 		GRBLinExpr expr = 0;
 		int size;
 		int num_subtourelim_constraints = ((num_compts == 2) ? 1 : num_compts);
@@ -178,6 +179,7 @@ pair<bool,int> STEFormulation::add_SECs(double** y_sol) {
 			for (int j = 0; j < size; j++) {
 				for (int k = j + 1; k < size; k++) {
 					expr += _var_y[tour[start + j]][tour[start + k]] + _var_y[tour[start + k]][tour[start + j]];
+
 				}
 			}
 			start += size;
@@ -186,35 +188,88 @@ pair<bool,int> STEFormulation::add_SECs(double** y_sol) {
 			_model->update();
 			_total_nb_subtour_cuts++;
 		}
-		is_disconnected = true;
+		connected = false;
+		// cout << "SEC1_Cut" << endl;
 	}
 	else {
-		for (int node = 0; node < _size_var_y; node++) { // ii) if cutting points exist in the solution
-			vector<int> tour2;
-			int num_subcompts2;
-			vector<int> size_subcompts2;
-			check_cutting_point(node, y_sol, tour2, num_subcompts2, size_subcompts2);
-			if (num_subcompts2 > 1) {
-				int start = 0;
-				int size;
-				int num_subtour_constrs = (num_subcompts2 == 2 ? 1 : num_subcompts2);
-				for (int i = 0; i < num_subtour_constrs; i++) {
-					GRBLinExpr expr = 0;
-					size = size_subcompts2[i];
-					for (int j = 0; j < size; j++) {
-						for (int k = j + 1; k < size; k++) {
-							expr += _var_y[tour2[start + j]][tour2[start + k]] + _var_y[tour2[start + k]][tour[start + j]];
-						}
-					}
-					start += size;
-					_model->addConstr(expr <= size - 1, "SEC2_Cut");
-					new_subtour_cuts++;
-					_model->update();
-					_total_nb_subtour_cuts++;
-				}
-			}
-			else { // iii)  check global min cut
-				 /* y_sym is same solution as y, serving as input for finding the global min-cut */
+		// for (int node = 0; node < _size_var_y; node++) { // ii) if cutting points exist in the solution
+		// 	vector<int> tour2;
+		// 	int num_subcompts2;
+		// 	vector<int> size_subcompts2;
+		// 	check_cutting_point(node, y_sol, tour2, num_subcompts2, size_subcompts2);
+		// 	if (num_subcompts2 > 1) {
+		// 		int start = 0;
+		// 		int size;
+		// 		int num_subtour_constrs = (num_subcompts2 == 2 ? 1 : num_subcompts2);
+		// 		for (int i = 0; i < num_subtour_constrs; i++) {
+		// 			GRBLinExpr expr = 0;
+		// 			size = size_subcompts2[i];
+		// 			for (int j = 0; j < size; j++) {
+		// 				for (int k = j + 1; k < size; k++) {
+		// 					expr += _var_y[tour2[start + j]][tour2[start + k]] + _var_y[tour2[start + k]][tour[start + j]];
+		// 				}
+		// 			}
+		// 			start += size;
+		// 			_model->addConstr(expr <= size - 1, "SEC2_Cut");
+		// 			new_subtour_cuts++;
+		// 			_model->update();
+		// 			_total_nb_subtour_cuts++;
+		// 		}
+		// // 		is_disconnected = true;
+		// 		cout << "SEC2_Cut" << endl;
+		// 	}
+		// 	else { // iii)  check global min cut
+		// 		 /* y_sym is same solution as y, serving as input for finding the global min-cut */
+		// 		int m = 0; // number of weighted edges in the solution
+		// 		double ** y_sym = new double*[_size_var_y];
+		// 		for (int i = 0; i < _size_var_y; i++) {
+		// 			y_sym[i] = new double[_size_var_y];
+		// 		}
+		// 		for (int i = 0; i < _size_var_y; i++) {
+		// 			for (int j = 0; j < _size_var_y; j++) {
+		// 				if (y_sol[i][j] <= 0 && y_sol[j][i] <= 0) {
+		// 					y_sym[i][j] = -1;
+		// 					y_sym[j][i] = -1;
+		// 					m += 1;
+		// 				}
+		// 				else {
+		// 					if (y_sol[i][j] > 0) {
+		// 						y_sym[j][i] = y_sol[i][j];
+		// 						y_sym[i][j] = y_sol[i][j];
+		// 					}
+		// 					if (y_sol[j][i] > 0) {
+		// 						y_sym[j][i] = y_sol[j][i];
+		// 						y_sym[i][j] = y_sol[j][i];
+		// 					}
+		// 				}
+		// 			}
+		// 		}
+		// 		m = _size_var_y * _size_var_y - m;
+		// 		GlobalMC gmc(_size_var_y, m, y_sym);
+		// 		tuple<double, unordered_set<Edge*>, vector<int>> res = gmc.GlobalMinCut();
+		// 		if (get<0>(res) < 2.0) {
+		// 			vector<int> S = get<2>(res);
+		// 			int lens = S.size();
+		// 			GRBLinExpr expr = 0;
+		// 			for (int j = 0; j < lens; j++) {
+		// 				for (int k = j + 1; k < lens; k++) {
+		// 					expr += _var_y[tour[j]][tour[k]] + _var_y[tour[k]][tour[j]];
+		// 				}
+		// 			}
+		// 			_model->addConstr(expr <= lens - 1, "SEC3_Cut");
+		// 			cout << "SEC3_Cut" << endl;
+		// 			new_subtour_cuts++;
+		// 			_model->update();
+		// 			_total_nb_subtour_cuts++;
+		// 			// is_disconnected = true;
+		// 		}
+
+		// 		for (int i = 0; i < _size_var_y; i++)
+		// 			delete[] y_sym[i];
+		// 		delete[] y_sym;
+		// 	}
+		// }
+		/* y_sym is same solution as y, serving as input for finding the global min-cut */
 				int m = 0; // number of weighted edges in the solution
 				double ** y_sym = new double*[_size_var_y];
 				for (int i = 0; i < _size_var_y; i++) {
@@ -252,18 +307,18 @@ pair<bool,int> STEFormulation::add_SECs(double** y_sol) {
 						}
 					}
 					_model->addConstr(expr <= lens - 1, "SEC3_Cut");
+					// cout << "SEC3_Cut" << endl;
 					new_subtour_cuts++;
 					_model->update();
 					_total_nb_subtour_cuts++;
+					connected = true;
 				}
 
 				for (int i = 0; i < _size_var_y; i++)
 					delete[] y_sym[i];
 				delete[] y_sym;
-			}
-		}
 	}
-	return make_pair(is_disconnected,new_subtour_cuts);
+	return make_pair(connected,new_subtour_cuts);
 }
 
 
@@ -443,11 +498,17 @@ void STEFormulation::print_solution() {
 
 void STEFormulation::write_solution(string instance, int algo_idx) {
 	auto pos = instance.find_last_of(".");
-        string name_only = instance.substr(0, pos);
+    string name_only = instance.substr(0, pos);
 	string cur_dir = "/projects/academic/josewalt/caigao/RRARP_BD/BendersDecomp/ret/model_outs/";
+	// string cur_dir = "/home/caigao/Dropbox/Box_Research/Github/RRARP_BD/BendersDecomp/ret/model_outs/";
+	// string cur_dir = "/home/cai/Dropbox/Box_Research/Github/RRARP_BD/BendersDecomp/ret/model_outs/";
+	struct stat buffer;
+  	if(stat (cur_dir.c_str(), &buffer) != 0){
+  		cerr << "path of model_outs (in STEFormulation::write_solution) does not exist!! " << endl;
+  	}
 	ofstream file;
 	file.open(cur_dir + name_only + "_algo_" + to_string(algo_idx) + ".out");
-	cout << cur_dir + name_only + "_algo_" + to_string(algo_idx) + ".out" << endl;
+	// cout << cur_dir + name_only + "_algo_" + to_string(algo_idx) + ".out" << endl;
 	file << "---> instance_name: " << instance << '\n';
 	file << "---> algo_index: " << algo_idx << '\n';
 	file << "---> obj_value: " << _model->get(GRB_DoubleAttr_ObjVal) << '\n';
@@ -460,7 +521,21 @@ void STEFormulation::write_solution(string instance, int algo_idx) {
 	file << "---> optimality_gap: " << _model->get(GRB_DoubleAttr_MIPGap) << '\n';
 	file << "---> node_count: " << _model->get(GRB_DoubleAttr_NodeCount) << '\n';
 
+
+	cout << "---> instance_name: " << instance << '\n';
+	cout << "---> algo_index: " << algo_idx << '\n';
+	cout << "---> obj_value: " << _model->get(GRB_DoubleAttr_ObjVal) << '\n';
+	cout << "---> total_time: " << _time->_elapsed_secs << '\n';
+	cout << "---> total_time_gurobi: " << _model->get(GRB_DoubleAttr_Runtime) << '\n';
+	cout << "---> total_nb_benders_cuts: " << _total_nb_Benders_cuts << '\n';
+	cout << "---> total_nb_subtour_cuts: " << _total_nb_subtour_cuts << '\n'; 
+	cout << "---> total_nb_user_cuts: " << _total_nb_user_cuts << '\n';
+	cout << "---> GRB_IntAttr_Status: " << _optimstatus << '\n';
+	cout << "---> optimality_gap: " << _model->get(GRB_DoubleAttr_MIPGap) << '\n';
+	cout << "---> node_count: " << _model->get(GRB_DoubleAttr_NodeCount) << '\n';
+
 	cout << " =====>>>>> Solution is written to file in <../ret/model_outs> !!!" << endl;
+	// cout << " =====>>>>> Solution is written to file in <../ret/model_outs> !!!" << endl;
 	file.close();
 }
 
