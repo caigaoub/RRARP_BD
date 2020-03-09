@@ -1,0 +1,1645 @@
+NPROCS=0
+This instance is clustered!
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 62 rows, 962 columns and 1922 nonzeros
+Model fingerprint: 0x2cb173ed
+Coefficient statistics:
+  Matrix range     [1e+00, 1e+00]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 1e+00]
+Presolve removed 2 rows and 90 columns
+Presolve time: 0.00s
+Presolved: 60 rows, 872 columns, 1742 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    1.5218370e+03   2.200000e+01   0.000000e+00      0s
+      23    2.0380231e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 23 iterations and 0.00 seconds
+Optimal objective  2.038023088e+03
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 73 rows, 962 columns and 2006 nonzeros
+Coefficient statistics:
+  Matrix range     [1e+00, 1e+00]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 6e+00]
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.0380231e+03   1.100000e+01   0.000000e+00      0s
+      31    2.3742008e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 31 iterations and 0.00 seconds
+Optimal objective  2.374200820e+03
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 83 rows, 962 columns and 2104 nonzeros
+Coefficient statistics:
+  Matrix range     [1e+00, 1e+00]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 7e+00]
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.3742008e+03   1.000000e+01   0.000000e+00      0s
+      23    2.5122802e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 23 iterations and 0.00 seconds
+Optimal objective  2.512280173e+03
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 86 rows, 962 columns and 2564 nonzeros
+Coefficient statistics:
+  Matrix range     [1e+00, 1e+00]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+01]
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.5122802e+03   3.000000e+00   0.000000e+00      0s
+       8    2.5302436e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 8 iterations and 0.00 seconds
+Optimal objective  2.530243610e+03
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 88 rows, 962 columns and 3033 nonzeros
+Coefficient statistics:
+  Matrix range     [5e-02, 2e+03]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 1e+02]
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.5302436e+03   2.811898e+00   0.000000e+00      0s
+       7    2.5302436e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 7 iterations and 0.00 seconds
+Optimal objective  2.530243610e+03
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 90 rows, 962 columns and 3467 nonzeros
+Coefficient statistics:
+  Matrix range     [6e-04, 2e+03]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 1e+02]
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.5302436e+03   3.410729e+00   0.000000e+00      0s
+       9    2.5310918e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 9 iterations and 0.00 seconds
+Optimal objective  2.531091826e+03
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 92 rows, 962 columns and 3873 nonzeros
+Coefficient statistics:
+  Matrix range     [6e-04, 2e+03]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 1e+02]
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.5310918e+03   3.659993e+00   0.000000e+00      0s
+      10    2.5359174e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 10 iterations and 0.00 seconds
+Optimal objective  2.535917393e+03
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 94 rows, 962 columns and 4276 nonzeros
+Coefficient statistics:
+  Matrix range     [6e-04, 3e+03]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 1e+02]
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.5359174e+03   1.068680e+00   0.000000e+00      0s
+       3    2.5365484e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 3 iterations and 0.00 seconds
+Optimal objective  2.536548397e+03
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 96 rows, 962 columns and 4669 nonzeros
+Coefficient statistics:
+  Matrix range     [6e-04, 4e+03]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+02]
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.5365484e+03   1.209102e+00   0.000000e+00      0s
+      15    2.5413304e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 15 iterations and 0.00 seconds
+Optimal objective  2.541330384e+03
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 98 rows, 962 columns and 5049 nonzeros
+Coefficient statistics:
+  Matrix range     [6e-04, 5e+03]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+02]
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.5413304e+03   1.383024e+00   0.000000e+00      0s
+      15    2.5461945e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 15 iterations and 0.00 seconds
+Optimal objective  2.546194469e+03
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 100 rows, 962 columns and 5444 nonzeros
+Coefficient statistics:
+  Matrix range     [6e-04, 6e+03]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+02]
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.5461945e+03   1.443939e+00   0.000000e+00      0s
+       5    2.5475320e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 5 iterations and 0.00 seconds
+Optimal objective  2.547532016e+03
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 102 rows, 962 columns and 5828 nonzeros
+Coefficient statistics:
+  Matrix range     [6e-04, 6e+03]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+02]
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.5475320e+03   1.107336e+00   0.000000e+00      0s
+      15    2.5491595e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 15 iterations and 0.00 seconds
+Optimal objective  2.549159457e+03
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 104 rows, 962 columns and 6233 nonzeros
+Coefficient statistics:
+  Matrix range     [6e-04, 6e+03]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+02]
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.5491595e+03   5.352318e-01   0.000000e+00      0s
+      16    2.5542578e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 16 iterations and 0.00 seconds
+Optimal objective  2.554257788e+03
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 106 rows, 962 columns and 6642 nonzeros
+Coefficient statistics:
+  Matrix range     [6e-04, 6e+03]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+02]
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.5542578e+03   5.846870e-01   0.000000e+00      0s
+      20    2.5574302e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 20 iterations and 0.00 seconds
+Optimal objective  2.557430180e+03
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 108 rows, 962 columns and 7024 nonzeros
+Coefficient statistics:
+  Matrix range     [6e-04, 6e+03]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+02]
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.5574302e+03   6.172977e-01   0.000000e+00      0s
+      23    2.5637912e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 23 iterations and 0.00 seconds
+Optimal objective  2.563791180e+03
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 110 rows, 962 columns and 7404 nonzeros
+Coefficient statistics:
+  Matrix range     [6e-04, 6e+03]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+02]
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.5637912e+03   7.896591e-01   0.000000e+00      0s
+      19    2.5666282e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 19 iterations and 0.00 seconds
+Optimal objective  2.566628198e+03
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 112 rows, 962 columns and 7766 nonzeros
+Coefficient statistics:
+  Matrix range     [6e-04, 6e+03]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+02]
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.5666282e+03   6.904547e-01   0.000000e+00      0s
+      20    2.5711045e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 20 iterations and 0.00 seconds
+Optimal objective  2.571104528e+03
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 114 rows, 962 columns and 8116 nonzeros
+Coefficient statistics:
+  Matrix range     [6e-04, 6e+03]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+02]
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.5711045e+03   7.011639e-01   0.000000e+00      0s
+      10    2.5732084e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 10 iterations and 0.00 seconds
+Optimal objective  2.573208405e+03
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 116 rows, 962 columns and 8516 nonzeros
+Coefficient statistics:
+  Matrix range     [6e-04, 6e+03]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+02]
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.5732084e+03   6.297937e-01   0.000000e+00      0s
+      13    2.5743367e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 13 iterations and 0.00 seconds
+Optimal objective  2.574336661e+03
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 118 rows, 962 columns and 8885 nonzeros
+Coefficient statistics:
+  Matrix range     [6e-04, 6e+03]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+02]
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.5743367e+03   4.230164e-01   0.000000e+00      0s
+      25    2.5807915e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 25 iterations and 0.00 seconds
+Optimal objective  2.580791544e+03
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 120 rows, 962 columns and 9260 nonzeros
+Coefficient statistics:
+  Matrix range     [6e-04, 6e+03]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+02]
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.5807915e+03   5.721117e-01   0.000000e+00      0s
+       7    2.5850666e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 7 iterations and 0.00 seconds
+Optimal objective  2.585066646e+03
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 122 rows, 962 columns and 9650 nonzeros
+Coefficient statistics:
+  Matrix range     [6e-04, 6e+03]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+02]
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.5850666e+03   6.063728e-01   0.000000e+00      0s
+      14    2.5922615e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 14 iterations and 0.00 seconds
+Optimal objective  2.592261507e+03
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 124 rows, 962 columns and 10067 nonzeros
+Coefficient statistics:
+  Matrix range     [6e-04, 6e+03]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+02]
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.5922615e+03   5.267556e-01   0.000000e+00      0s
+      31    2.6003129e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 31 iterations and 0.00 seconds
+Optimal objective  2.600312907e+03
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 126 rows, 962 columns and 10480 nonzeros
+Coefficient statistics:
+  Matrix range     [6e-04, 6e+03]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+02]
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.6003129e+03   5.923175e-01   0.000000e+00      0s
+      18    2.6055972e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 18 iterations and 0.00 seconds
+Optimal objective  2.605597218e+03
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 128 rows, 962 columns and 10894 nonzeros
+Coefficient statistics:
+  Matrix range     [6e-04, 6e+03]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+02]
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.6055972e+03   4.051120e-01   0.000000e+00      0s
+      18    2.6096104e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 18 iterations and 0.00 seconds
+Optimal objective  2.609610360e+03
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 130 rows, 962 columns and 11301 nonzeros
+Coefficient statistics:
+  Matrix range     [6e-04, 6e+03]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+02]
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.6096104e+03   7.787649e-01   0.000000e+00      0s
+      18    2.6125408e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 18 iterations and 0.00 seconds
+Optimal objective  2.612540847e+03
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 132 rows, 962 columns and 11685 nonzeros
+Coefficient statistics:
+  Matrix range     [6e-04, 6e+03]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+02]
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.6125408e+03   3.393022e-01   0.000000e+00      0s
+      17    2.6131379e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 17 iterations and 0.00 seconds
+Optimal objective  2.613137903e+03
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 134 rows, 962 columns and 12057 nonzeros
+Coefficient statistics:
+  Matrix range     [6e-04, 6e+03]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+02]
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.6131379e+03   1.305728e-01   0.000000e+00      0s
+      11    2.6138854e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 11 iterations and 0.00 seconds
+Optimal objective  2.613885432e+03
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 136 rows, 962 columns and 12434 nonzeros
+Coefficient statistics:
+  Matrix range     [6e-04, 6e+03]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+02]
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.6138854e+03   7.053692e-02   0.000000e+00      0s
+       7    2.6140848e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 7 iterations and 0.00 seconds
+Optimal objective  2.614084818e+03
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 138 rows, 962 columns and 12828 nonzeros
+Coefficient statistics:
+  Matrix range     [6e-04, 6e+03]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+02]
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.6140848e+03   3.367299e-02   0.000000e+00      0s
+       3    2.6141098e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 3 iterations and 0.00 seconds
+Optimal objective  2.614109803e+03
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 140 rows, 962 columns and 13233 nonzeros
+Coefficient statistics:
+  Matrix range     [6e-04, 6e+03]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+02]
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.6141098e+03   3.429965e-02   0.000000e+00      0s
+      10    2.6144256e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 10 iterations and 0.00 seconds
+Optimal objective  2.614425576e+03
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 142 rows, 962 columns and 13661 nonzeros
+Coefficient statistics:
+  Matrix range     [6e-04, 6e+03]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+02]
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.6144256e+03   2.429372e-02   0.000000e+00      0s
+      18    2.6147415e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 18 iterations and 0.00 seconds
+Optimal objective  2.614741453e+03
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 144 rows, 962 columns and 14103 nonzeros
+Coefficient statistics:
+  Matrix range     [6e-04, 6e+03]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+02]
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.6147415e+03   2.478810e-02   0.000000e+00      0s
+       4    2.6148067e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  2.614806689e+03
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 146 rows, 962 columns and 14555 nonzeros
+Coefficient statistics:
+  Matrix range     [6e-04, 6e+03]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+02]
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.6148067e+03   1.502530e-02   0.000000e+00      0s
+       6    2.6148510e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 6 iterations and 0.00 seconds
+Optimal objective  2.614850974e+03
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 148 rows, 962 columns and 14999 nonzeros
+Coefficient statistics:
+  Matrix range     [6e-04, 6e+03]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+02]
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.6148510e+03   2.171116e-02   0.000000e+00      0s
+       8    2.6149118e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 8 iterations and 0.00 seconds
+Optimal objective  2.614911756e+03
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 150 rows, 962 columns and 15432 nonzeros
+Coefficient statistics:
+  Matrix range     [6e-04, 6e+03]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+02]
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.6149118e+03   9.952238e-03   0.000000e+00      0s
+      10    2.6150698e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 10 iterations and 0.00 seconds
+Optimal objective  2.615069837e+03
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 152 rows, 962 columns and 15825 nonzeros
+Coefficient statistics:
+  Matrix range     [1e-04, 6e+03]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+02]
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.6150698e+03   2.059413e-02   0.000000e+00      0s
+      11    2.6151985e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 11 iterations and 0.00 seconds
+Optimal objective  2.615198483e+03
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 154 rows, 962 columns and 16330 nonzeros
+Coefficient statistics:
+  Matrix range     [1e-04, 6e+03]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+02]
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.6151985e+03   1.233301e-02   0.000000e+00      0s
+       3    2.6152027e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 3 iterations and 0.00 seconds
+Optimal objective  2.615202726e+03
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 156 rows, 962 columns and 16843 nonzeros
+Coefficient statistics:
+  Matrix range     [1e-04, 6e+03]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+02]
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.6152027e+03   1.231289e-02   0.000000e+00      0s
+       3    2.6152212e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 3 iterations and 0.00 seconds
+Optimal objective  2.615221165e+03
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 158 rows, 962 columns and 17326 nonzeros
+Coefficient statistics:
+  Matrix range     [1e-04, 6e+03]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+02]
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.6152212e+03   1.321491e-02   0.000000e+00      0s
+      16    2.6152906e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 16 iterations and 0.00 seconds
+Optimal objective  2.615290621e+03
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 160 rows, 962 columns and 17797 nonzeros
+Coefficient statistics:
+  Matrix range     [1e-04, 6e+03]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+02]
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.6152906e+03   1.830337e-02   0.000000e+00      0s
+      18    2.6153852e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 18 iterations and 0.00 seconds
+Optimal objective  2.615385203e+03
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 162 rows, 962 columns and 18263 nonzeros
+Coefficient statistics:
+  Matrix range     [1e-04, 6e+03]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+02]
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.6153852e+03   1.441493e-02   0.000000e+00      0s
+      31    2.6155986e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 31 iterations and 0.00 seconds
+Optimal objective  2.615598638e+03
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 164 rows, 962 columns and 18739 nonzeros
+Coefficient statistics:
+  Matrix range     [1e-04, 6e+03]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+02]
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.6155986e+03   8.474392e-03   0.000000e+00      0s
+      10    2.6156203e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 10 iterations and 0.00 seconds
+Optimal objective  2.615620285e+03
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 166 rows, 962 columns and 19159 nonzeros
+Coefficient statistics:
+  Matrix range     [1e-04, 6e+03]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+02]
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.6156203e+03   8.820464e-03   0.000000e+00      0s
+      16    2.6156884e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 16 iterations and 0.00 seconds
+Optimal objective  2.615688440e+03
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 168 rows, 962 columns and 19600 nonzeros
+Coefficient statistics:
+  Matrix range     [1e-04, 6e+03]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+02]
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.6156884e+03   9.231140e-03   0.000000e+00      0s
+       4    2.6156979e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  2.615697924e+03
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 170 rows, 962 columns and 20029 nonzeros
+Coefficient statistics:
+  Matrix range     [1e-04, 6e+03]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+02]
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.6156979e+03   8.065029e-03   0.000000e+00      0s
+       8    2.6157116e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 8 iterations and 0.00 seconds
+Optimal objective  2.615711610e+03
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 172 rows, 962 columns and 20457 nonzeros
+Coefficient statistics:
+  Matrix range     [1e-04, 6e+03]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+02]
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.6157116e+03   1.118937e-02   0.000000e+00      0s
+      15    2.6157231e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 15 iterations and 0.00 seconds
+Optimal objective  2.615723105e+03
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 174 rows, 962 columns and 20864 nonzeros
+Coefficient statistics:
+  Matrix range     [1e-04, 6e+03]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+02]
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.6157231e+03   8.569917e-04   0.000000e+00      0s
+       7    2.6157327e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 7 iterations and 0.00 seconds
+Optimal objective  2.615732684e+03
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 176 rows, 962 columns and 21266 nonzeros
+Coefficient statistics:
+  Matrix range     [1e-04, 6e+03]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+02]
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.6157327e+03   1.331522e-03   0.000000e+00      0s
+       9    2.6157372e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 9 iterations and 0.00 seconds
+Optimal objective  2.615737191e+03
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 178 rows, 962 columns and 21687 nonzeros
+Coefficient statistics:
+  Matrix range     [1e-04, 6e+03]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+02]
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.6157372e+03   9.104673e-04   0.000000e+00      0s
+       8    2.6157426e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 8 iterations and 0.00 seconds
+Optimal objective  2.615742599e+03
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 180 rows, 962 columns and 22204 nonzeros
+Coefficient statistics:
+  Matrix range     [1e-04, 6e+03]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+02]
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.6157426e+03   9.781606e-04   0.000000e+00      0s
+       1    2.6157426e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 1 iterations and 0.00 seconds
+Optimal objective  2.615742599e+03
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 182 rows, 962 columns and 22719 nonzeros
+Coefficient statistics:
+  Matrix range     [1e-04, 6e+03]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+02]
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.6157426e+03   1.009408e-03   0.000000e+00      0s
+       2    2.6157426e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 2 iterations and 0.00 seconds
+Optimal objective  2.615742599e+03
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 184 rows, 962 columns and 23234 nonzeros
+Coefficient statistics:
+  Matrix range     [1e-04, 6e+03]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+02]
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.6157426e+03   1.022585e-03   0.000000e+00      0s
+       7    2.6157431e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 7 iterations and 0.00 seconds
+Optimal objective  2.615743112e+03
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 186 rows, 962 columns and 23718 nonzeros
+Coefficient statistics:
+  Matrix range     [1e-04, 6e+03]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+02]
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.6157431e+03   4.985139e-04   0.000000e+00      0s
+       9    2.6157442e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 9 iterations and 0.00 seconds
+Optimal objective  2.615744243e+03
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 188 rows, 962 columns and 24191 nonzeros
+Coefficient statistics:
+  Matrix range     [1e-04, 6e+03]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+02]
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.6157442e+03   8.111828e-05   0.000000e+00      0s
+       6    2.6157443e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 6 iterations and 0.00 seconds
+Optimal objective  2.615744347e+03
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 190 rows, 962 columns and 24654 nonzeros
+Coefficient statistics:
+  Matrix range     [1e-04, 6e+03]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+02]
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.6157443e+03   2.815915e-04   0.000000e+00      0s
+       1    2.6157443e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 1 iterations and 0.00 seconds
+Optimal objective  2.615744347e+03
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 192 rows, 962 columns and 25116 nonzeros
+Coefficient statistics:
+  Matrix range     [1e-04, 6e+03]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+02]
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.6157443e+03   2.816064e-04   0.000000e+00      0s
+       5    2.6157446e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 5 iterations and 0.00 seconds
+Optimal objective  2.615744589e+03
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 194 rows, 962 columns and 25641 nonzeros
+Coefficient statistics:
+  Matrix range     [1e-04, 6e+03]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+02]
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.6157446e+03   1.347738e-04   0.000000e+00      0s
+       8    2.6157450e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 8 iterations and 0.00 seconds
+Optimal objective  2.615744960e+03
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 196 rows, 962 columns and 26137 nonzeros
+Coefficient statistics:
+  Matrix range     [1e-04, 6e+03]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+02]
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.6157450e+03   1.168603e-04   0.000000e+00      0s
+       7    2.6157453e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 7 iterations and 0.00 seconds
+Optimal objective  2.615745280e+03
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 198 rows, 962 columns and 26654 nonzeros
+Coefficient statistics:
+  Matrix range     [1e-04, 6e+03]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+02]
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.6157453e+03   2.207653e-04   0.000000e+00      0s
+       3    2.6157454e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 3 iterations and 0.00 seconds
+Optimal objective  2.615745354e+03
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 200 rows, 962 columns and 27156 nonzeros
+Coefficient statistics:
+  Matrix range     [1e-04, 6e+03]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+02]
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.6157454e+03   1.275213e-04   0.000000e+00      0s
+      10    2.6157456e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 10 iterations and 0.00 seconds
+Optimal objective  2.615745603e+03
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 202 rows, 962 columns and 27655 nonzeros
+Coefficient statistics:
+  Matrix range     [1e-04, 6e+03]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+02]
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.6157456e+03   6.148926e-05   0.000000e+00      0s
+      10    2.6157459e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 10 iterations and 0.00 seconds
+Optimal objective  2.615745942e+03
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 204 rows, 962 columns and 28137 nonzeros
+Coefficient statistics:
+  Matrix range     [1e-04, 6e+03]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+02]
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.6157459e+03   1.078517e-04   0.000000e+00      0s
+      10    2.6157464e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 10 iterations and 0.00 seconds
+Optimal objective  2.615746393e+03
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 206 rows, 962 columns and 28609 nonzeros
+Coefficient statistics:
+  Matrix range     [1e-04, 6e+03]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+02]
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.6157464e+03   1.606087e-04   0.000000e+00      0s
+      14    2.6157467e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 14 iterations and 0.00 seconds
+Optimal objective  2.615746724e+03
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 208 rows, 962 columns and 29074 nonzeros
+Coefficient statistics:
+  Matrix range     [1e-04, 6e+03]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+02]
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.6157467e+03   8.942918e-05   0.000000e+00      0s
+       5    2.6157468e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 5 iterations and 0.00 seconds
+Optimal objective  2.615746810e+03
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 210 rows, 962 columns and 29549 nonzeros
+Coefficient statistics:
+  Matrix range     [1e-04, 6e+03]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+02]
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.6157468e+03   2.680565e-04   0.000000e+00      0s
+       1    2.6157468e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 1 iterations and 0.00 seconds
+Optimal objective  2.615746810e+03
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 212 rows, 962 columns and 30021 nonzeros
+Coefficient statistics:
+  Matrix range     [1e-04, 6e+03]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+02]
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.6157468e+03   2.688517e-04   0.000000e+00      0s
+       1    2.6157468e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 1 iterations and 0.00 seconds
+Optimal objective  2.615746810e+03
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 214 rows, 962 columns and 30460 nonzeros
+Coefficient statistics:
+  Matrix range     [1e-04, 6e+03]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+02]
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.6157468e+03   2.679996e-04   0.000000e+00      0s
+      19    2.6157475e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 19 iterations and 0.00 seconds
+Optimal objective  2.615747469e+03
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 216 rows, 962 columns and 30894 nonzeros
+Coefficient statistics:
+  Matrix range     [1e-04, 6e+03]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+02]
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.6157475e+03   1.794405e-04   0.000000e+00      0s
+      20    2.6157480e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 20 iterations and 0.00 seconds
+Optimal objective  2.615748006e+03
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 218 rows, 962 columns and 31333 nonzeros
+Coefficient statistics:
+  Matrix range     [1e-04, 6e+03]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+02]
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.6157480e+03   1.097946e-04   0.000000e+00      0s
+      25    2.6157489e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 25 iterations and 0.00 seconds
+Optimal objective  2.615748932e+03
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 220 rows, 962 columns and 31856 nonzeros
+Coefficient statistics:
+  Matrix range     [1e-04, 6e+03]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+02]
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.6157489e+03   1.678864e-04   0.000000e+00      0s
+       1    2.6157489e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 1 iterations and 0.00 seconds
+Optimal objective  2.615748932e+03
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 222 rows, 962 columns and 32385 nonzeros
+Coefficient statistics:
+  Matrix range     [1e-04, 6e+03]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+02]
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    2.6157489e+03   9.841718e-05   0.000000e+00      0s
+       1    2.6157489e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 1 iterations and 0.00 seconds
+Optimal objective  2.615748932e+03
+====>>> FISCHETTI GIVES: 
+====>>> total time of solving dual problem: 187.102
+====>>> nb of subtour cuts added: 92
+====>>> nb of user cuts added: 68
+====>>> optimal: 2615.75
+====>>> Total time of Fischetti_method: 187.166
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 222 rows, 962 columns and 32385 nonzeros
+Model fingerprint: 0x9681c649
+Variable types: 1 continuous, 961 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [1e-04, 6e+03]
+  Objective range  [1e+00, 9e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+02]
+Presolve removed 69 rows and 91 columns
+Presolve time: 0.03s
+Presolved: 153 rows, 871 columns, 31664 nonzeros
+Variable types: 1 continuous, 870 integer (870 binary)
+
+Root relaxation: objective 2.653965e+03, 207 iterations, 0.01 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0 2653.96486    0   73          - 2653.96486      -     -    0s
+H    0     0                    10256.374088 2653.96486  74.1%     -    0s
+     0     0 2663.68586    0   69 10256.3741 2663.68586  74.0%     -    0s
+     0     0 2667.12970    0   75 10256.3741 2667.12970  74.0%     -    0s
+     0     0 2668.85824    0   83 10256.3741 2668.85824  74.0%     -    0s
+     0     0 2669.61073    0   84 10256.3741 2669.61073  74.0%     -    0s
+     0     0 2669.78807    0   85 10256.3741 2669.78807  74.0%     -    0s
+     0     0 2673.41302    0   86 10256.3741 2673.41302  73.9%     -    0s
+     0     0 2673.99053    0   83 10256.3741 2673.99053  73.9%     -    0s
+     0     0 2674.21308    0   87 10256.3741 2674.21308  73.9%     -    0s
+     0     0 2674.22924    0   88 10256.3741 2674.22924  73.9%     -    0s
+     0     0 2676.16982    0   79 10256.3741 2676.16982  73.9%     -    0s
+     0     0 2676.57707    0   82 10256.3741 2676.57707  73.9%     -    0s
+     0     0 2676.98026    0   84 10256.3741 2676.98026  73.9%     -    0s
+     0     0 2677.18705    0   84 10256.3741 2677.18705  73.9%     -    0s
+     0     0 2677.18980    0   86 10256.3741 2677.18980  73.9%     -    0s
+     0     0 2677.37771    0   84 10256.3741 2677.37771  73.9%     -    0s
+     0     0 2677.47710    0   86 10256.3741 2677.47710  73.9%     -    0s
+     0     0 2677.98082    0   82 10256.3741 2677.98082  73.9%     -    0s
+     0     0 2678.00101    0   84 10256.3741 2678.00101  73.9%     -    0s
+     0     0 2678.01294    0   85 10256.3741 2678.01294  73.9%     -    0s
+     0     0 2678.03568    0   86 10256.3741 2678.03568  73.9%     -    0s
+     0     0 2678.19647    0   85 10256.3741 2678.19647  73.9%     -    0s
+     0     0 2678.19903    0   84 10256.3741 2678.19903  73.9%     -    0s
+     0     0 2678.19903    0   84 10256.3741 2678.19903  73.9%     -    0s
+     0     2 2681.65191    0   86 10256.3741 2681.65191  73.9%     -    0s
+* 1203  1026              44    5432.5609015 2694.19945  50.4%  11.7    1s
+* 1978  1563             107    5332.1861690 2714.21692  49.1%  10.2    1s
+  2398  1813 3519.87866   50   69 5332.18617 2743.81159  48.5%  10.2    7s
+* 3498  2321              58    4234.9874015 2743.81159  35.2%  11.0    8s
+* 4301  2486             110    4057.4980004 2743.81159  32.4%  10.5    9s
+* 5380  2688              71    3851.2635301 2743.81159  28.8%  10.2    9s
+  6557  3208 2819.21080   22   58 3851.26353 2743.81159  28.8%  10.0   10s
+* 7031  3262             111    3801.1943920 2743.81159  27.8%   9.9   10s
+ 14293  9222 2993.86099   44   35 3801.19439 2807.30139  26.1%   9.4   15s
+ 22161 15777 infeasible   91      3801.19439 2821.78472  25.8%   9.2   20s
+ 29425 21897 3375.28187   97   31 3801.19439 2828.91931  25.6%   9.1   25s
+*32968 22782             100    3679.6623485 2831.76236  23.0%   9.1   27s
+ 33372 23555 3058.06943   32   35 3679.66235 2832.75383  23.0%   9.1   30s
+ 39137 28244 3266.07359   39   21 3679.66235 2838.82123  22.9%   9.1   35s
+ 44123 32268 3482.20843  133   15 3679.66235 2842.07846  22.8%   9.1   41s
+ 47693 35215 infeasible   68      3679.66235 2844.24043  22.7%   9.2   45s
+ 52090 38901 3518.52295   83   29 3679.66235 2847.21158  22.6%   9.2   50s
+ 56201 42218 3509.15527   80   14 3679.66235 2849.36420  22.6%   9.2   55s
+ 59170 44477 3178.76199   66   50 3679.66235 2850.71879  22.5%   9.2   60s
+ 61925 46496 2937.18211   19   62 3679.66235 2852.45591  22.5%   9.3   65s
+ 64643 48797 3620.58934   84   13 3679.66235 2853.37242  22.5%   9.3   71s
+ 68283 51820 3318.02133  141   47 3679.66235 2855.11334  22.4%   9.3   75s
+ 71385 53861     cutoff   43      3679.66235 2856.53081  22.4%   9.3   82s
+ 72965 55454 3307.08431   85    - 3679.66235 2857.34688  22.3%   9.4   86s
+ 75399 57560     cutoff  123      3679.66235 2858.88542  22.3%   9.3   90s
+ 78355 59221     cutoff   98      3679.66235 2860.57069  22.3%   9.4   96s
+ 79854 60701 3273.01478   68   16 3679.66235 2861.53351  22.2%   9.4  101s
+ 82305 62795 3504.47489  141   31 3679.66235 2862.21485  22.2%   9.4  105s
+ 84728 64683     cutoff   86      3679.66235 2863.06747  22.2%   9.4  110s
+*86074 64991              64    3671.3489109 2863.93986  22.0%   9.4  112s
+*86873 64618              66    3644.0554698 2864.38510  21.4%   9.4  114s
+ 87126 65647 3270.02238   37    - 3644.05547 2864.49478  21.4%   9.4  116s
+*88338 64175              84    3608.1417073 2864.95306  20.6%   9.4  116s
+ 89528 66019     cutoff   77      3608.14171 2865.58207  20.6%   9.4  120s
+ 92925 68581     cutoff   91      3608.14171 2867.03541  20.5%   9.4  126s
+ 95045 70513     cutoff   71      3608.14171 2868.05271  20.5%   9.4  131s
+ 97436 72413     cutoff   79      3608.14171 2868.90435  20.5%   9.4  136s
+ 99519 74133     cutoff   92      3608.14171 2869.87717  20.5%   9.5  141s
+*101251 74692             117    3607.1106405 2870.68222  20.4%   9.5  144s
+ 101726 74769 3458.90269   74   32 3607.11064 2870.83363  20.4%   9.5  149s
+ 101773 74771     cutoff  101      3607.11064 2870.83363  20.4%   9.5  150s
+ 103872 77240 3390.99679   53    6 3607.11064 2871.75873  20.4%   9.5  157s
+ 106381 79251 3450.45748   57   15 3607.11064 2872.88502  20.4%   9.5  161s
+ 108796 81058     cutoff   63      3607.11064 2873.66207  20.3%   9.5  166s
+ 109994 81818 3197.21141   45   35 3607.11064 2874.08537  20.3%   9.5  170s
+ 112236 83910 2973.61479   23    9 3607.11064 2874.62616  20.3%   9.5  175s
+ 114131 85552     cutoff   77      3607.11064 2875.30288  20.3%   9.5  181s
+ 115395 85610 3509.87277   78   23 3607.11064 2875.56471  20.3%   9.5  185s
+ 116603 87587     cutoff   93      3607.11064 2875.94839  20.3%   9.5  190s
+ 119066 89656     cutoff   91      3607.11064 2876.70316  20.2%   9.5  195s
+ 121373 90981     cutoff   89      3607.11064 2877.32512  20.2%   9.5  201s
+ 123234 92461 3571.74438   35   12 3607.11064 2878.14821  20.2%   9.6  207s
+ 124315 93204 3419.89938   57   27 3607.11064 2878.44358  20.2%   9.6  210s
+ 126661 94970 3593.31933   92   10 3607.11064 2879.06053  20.2%   9.6  216s
+*126662 94758              93    3603.7224264 2879.06053  20.1%   9.6  216s
+ 128587 96447 3466.38424  122    - 3603.72243 2879.74388  20.1%   9.6  223s
+ 129694 97430     cutoff  122      3603.72243 2879.96895  20.1%   9.6  226s
+ 130876 98408     cutoff  125      3603.72243 2880.41869  20.1%   9.6  230s
+ 133510 100406 3348.44291   65   11 3603.72243 2881.00434  20.1%   9.6  236s
+ 135833 102060     cutoff   69      3603.72243 2881.52199  20.0%   9.6  243s
+ 136716 103059     cutoff   46      3603.72243 2881.81355  20.0%   9.6  246s
+ 139207 104621     cutoff   92      3603.72243 2882.52310  20.0%   9.6  253s
+ 139839 105311 3152.80605   42   15 3603.72243 2882.61007  20.0%   9.6  256s
+ 142035 107357     cutoff  128      3603.72243 2883.09023  20.0%   9.6  263s
+ 143252 108336 3589.64855   91    6 3603.72243 2883.48206  20.0%   9.6  266s
+ 145779 110449     cutoff  129      3603.72243 2884.01908  20.0%   9.6  273s
+ 147069 111443 3462.22229  116   40 3603.72243 2884.41848  20.0%   9.6  277s
+ 148321 111932 3554.20259  147   28 3603.72243 2884.68067  20.0%   9.6  280s
+ 150058 113734     cutoff   72      3603.72243 2885.05593  19.9%   9.6  288s
+ 151214 114238     cutoff   83      3603.72243 2885.41673  19.9%   9.6  293s
+ 151860 114273 3138.45032   55   84 3603.72243 2885.69926  19.9%   9.6  739s
+H151861 108560                    3600.5486166 2885.69926  19.9%   9.6  747s
+ 151864 108562 3050.45972   42   69 3600.54862 2885.69926  19.9%   9.6  993s
+ 151865 108565 2885.69926   21   75 3600.54862 2885.69926  19.9%   9.6 1001s
+ 151867 108569 2885.69926   22   74 3600.54862 2885.69926  19.9%   9.6 1006s
+ 151871 108575 2885.69926   23   55 3600.54862 2885.69926  19.9%   9.6 1010s
+ 151891 108593 2885.69926   25   78 3600.54862 2885.69926  19.9%   9.7 1020s
+ 151944 108635 2885.69926   27   64 3600.54862 2885.69926  19.9%   9.7 1025s
+ 152091 108720 2885.69926   34   39 3600.54862 2885.69926  19.9%   9.7 1030s
+ 152311 108849 2899.72159   42   47 3600.54862 2885.69926  19.9%   9.7 1035s
+ 152506 108934 2917.29697   47   26 3600.54862 2885.69926  19.9%   9.7 1040s
+ 152785 109075 3128.46909   57   16 3600.54862 2885.69926  19.9%   9.7 1046s
+ 153083 109256 3436.92285   75   12 3600.54862 2885.69926  19.9%   9.7 1050s
+ 153568 109501 2936.96519   43   51 3600.54862 2885.69926  19.9%   9.7 1056s
+ 153982 109672 3550.58288   97   24 3600.54862 2885.69926  19.9%   9.7 1060s
+ 154582 109992 3224.63766   79   43 3600.54862 2885.69926  19.9%   9.7 1065s
+ 155358 110389 3525.87732  147   15 3600.54862 2885.69926  19.9%   9.7 1070s
+ 156248 110824 3035.49067   78   53 3600.54862 2885.69926  19.9%   9.7 1076s
+ 156879 111138 3318.78256  114   47 3600.54862 2885.69926  19.9%   9.7 1080s
+ 157640 111556 2971.35898   37   54 3600.54862 2885.69926  19.9%   9.7 1085s
+ 158867 112214 infeasible   80      3600.54862 2885.69926  19.9%   9.8 1091s
+ 159939 112780     cutoff   93      3600.54862 2885.69926  19.9%   9.8 1097s
+ 160947 113284     cutoff   83      3600.54862 2885.69926  19.9%   9.8 1101s
+ 161829 113626 3501.69163   98   29 3600.54862 2885.69926  19.9%   9.8 1108s
+ 162304 113929 infeasible  112      3600.54862 2885.69926  19.9%   9.8 1111s
+ 163620 114629     cutoff  131      3600.54862 2885.69926  19.9%   9.8 1117s
+ 164299 114960 3588.90199  106    6 3600.54862 2885.69926  19.9%   9.8 1121s
+ 165046 114767 3545.32264  108   47 3600.54862 2885.69926  19.9%   9.8 1130s
+ 165823 115769     cutoff   96      3600.54862 2885.69926  19.9%   9.8 1138s
+ 166638 116240 3385.77552   91   26 3600.54862 2885.69926  19.9%   9.8 1142s
+ 167490 116549     cutoff  128      3600.54862 2885.69926  19.9%   9.8 1145s
+ 168285 116959 3316.73574   86    8 3600.54862 2885.69926  19.9%   9.8 1150s
+ 169891 117783 3329.73796   69   21 3600.54862 2885.69926  19.9%   9.8 1159s
+ 170796 118380 3071.78283   93    - 3600.54862 2885.69926  19.9%   9.8 1164s
+ 171874 118803 3446.40909  126   44 3600.54862 2885.69926  19.9%   9.8 1169s
+ 172834 118959 infeasible  134      3600.54862 2885.69926  19.9%   9.8 1174s
+ 173608 119744 3098.19143   79   39 3600.54862 2885.69926  19.9%   9.8 1178s
+ 174730 120033 3278.46740   68   33 3600.54862 2885.69926  19.9%   9.8 1183s
+ 175619 120545 3030.58250   40   41 3600.54862 2885.69926  19.9%   9.8 1188s
+ 176647 121164     cutoff   68      3600.54862 2885.69926  19.9%   9.8 1194s
+ 177818 121835 3453.71515   80   28 3600.54862 2885.69926  19.9%   9.8 1199s
+ 179065 122117     cutoff  100      3600.54862 2885.69926  19.9%   9.8 1204s
+ 179965 122704     cutoff   82      3600.54862 2885.69926  19.9%   9.8 1211s
+ 181075 123584 3537.54448   64   12 3600.54862 2885.69926  19.9%   9.8 1216s
+ 182511 124190     cutoff   62      3600.54862 2885.69926  19.9%   9.8 1222s
+ 183717 124961 3237.51827   89   44 3600.54862 2885.69926  19.9%   9.8 1228s
+ 185069 125668 3428.30328  118   57 3600.54862 2885.69926  19.9%   9.8 1234s
+ 186439 126273     cutoff  144      3600.54862 2885.69926  19.9%   9.8 1240s
+ 187729 126890 3574.74858  128    6 3600.54862 2885.69926  19.9%   9.8 1245s
+ 189023 127053     cutoff  130      3600.54862 2885.69926  19.9%   9.8 1252s
+ 189775 127417 3018.65162   62   49 3600.54862 2885.69926  19.9%   9.8 1259s
+ 190572 128125 3217.64825   84   37 3600.54862 2885.69926  19.9%   9.8 1266s
+ 191734 128879 3556.20837  114   12 3600.54862 2885.69926  19.9%   9.8 1271s
+ 193092 129256     cutoff  118      3600.54862 2885.69926  19.9%   9.8 1277s
+ 194246 129828     cutoff   58      3600.54862 2885.69926  19.9%   9.8 1284s
+ 195422 130402 3020.27695   60   40 3600.54862 2885.69926  19.9%   9.8 1290s
+ 196686 131042     cutoff  109      3600.54862 2885.69926  19.9%   9.8 1295s
+ 197844 131587 3271.14126  124   27 3600.54862 2885.69926  19.9%   9.8 1301s
+ 199121 132382 3445.53026  185   28 3600.54862 2885.69926  19.9%   9.8 1307s
+ 200567 132783 infeasible  194      3600.54862 2885.69926  19.9%   9.8 1313s
+ 201757 133389     cutoff   89      3600.54862 2885.69926  19.9%   9.8 1319s
+ 202924 133845 3292.83143   88   16 3600.54862 2885.69926  19.9%   9.8 1325s
+ 203914 134501 3074.47170   69   26 3600.54862 2885.69926  19.9%   9.8 1331s
+ 205143 134750 2999.30154   63   38 3600.54862 2885.69926  19.9%   9.8 1338s
+ 206179 135525     cutoff  153      3600.54862 2885.69926  19.9%   9.8 1345s
+ 207463 135715     cutoff  110      3600.54862 2885.69926  19.9%   9.8 1351s
+ 208378 136443 3050.63006   58   53 3600.54862 2885.69926  19.9%   9.9 1359s
+ 209592 136924 3502.04097  130   44 3600.54862 2885.69926  19.9%   9.9 1367s
+ 210660 137593 3302.00453   69   45 3600.54862 2885.69926  19.9%   9.9 1374s
+ 211942 138183     cutoff  114      3600.54862 2885.69926  19.9%   9.9 1381s
+ 213207 138530     cutoff  143      3600.54862 2885.69926  19.9%   9.9 1389s
+ 214318 139106     cutoff   70      3600.54862 2885.69926  19.9%   9.9 1397s
+ 215422 139745     cutoff   88      3600.54862 2885.69926  19.9%   9.9 1405s
+ 216641 140258     cutoff  121      3600.54862 2885.69926  19.9%   9.9 1413s
+ 217689 140942 3551.79529  120   34 3600.54862 2885.69926  19.9%   9.9 1420s
+ 218922 141248 3558.85878  110   20 3600.54862 2885.69926  19.9%   9.9 1429s
+ 219898 142001     cutoff  114      3600.54862 2885.69926  19.9%   9.9 1435s
+ 221184 142649 3358.64793   69   37 3600.54862 2885.69926  19.9%   9.9 1441s
+ 222519 143396     cutoff  101      3600.54862 2885.69926  19.9%   9.9 1448s
+ 223906 143713 2977.52694   42   22 3600.54862 2885.69926  19.9%   9.9 1455s
+ 224784 144519 3195.56815   43    8 3600.54862 2885.69926  19.9%   9.9 1462s
+ 226082 145199 infeasible  107      3600.54862 2885.69926  19.9%   9.9 1469s
+ 227330 145531     cutoff   93      3600.54862 2885.69926  19.9%   9.9 1475s
+ 228336 146121 3309.78844   69   27 3600.54862 2885.69926  19.9%   9.9 1482s
+ 229496 146826     cutoff   88      3600.54862 2885.69926  19.9%   9.9 1489s
+ 230718 147456 3157.16738  112   26 3600.54862 2885.69926  19.9%   9.9 1496s
+ 231910 147966 3593.81320  215    4 3600.54862 2885.69926  19.9%   9.9 1504s
+ 233061 148557     cutoff  216      3600.54862 2885.69926  19.9%   9.9 1511s
+ 234269 149203 3363.91120   76   30 3600.54862 2885.69926  19.9%   9.9 1516s
+ 235492 149858     cutoff   95      3600.54862 2885.69926  19.9%   9.9 1522s
+ 236758 150569 3339.99149   59   35 3600.54862 2885.69926  19.9%   9.9 1528s
+H237058 135929                    3445.0400841 2885.69926  16.2%   9.9 1528s
+ 238036 135441     cutoff  127      3445.04008 2885.69926  16.2%   9.9 1538s
+ 238131 136334 2937.32146   38   54 3445.04008 2885.69926  16.2%   9.9 1545s
+ 239309 136873 3067.73061   67   28 3445.04008 2885.69926  16.2%   9.9 1551s
+ 240502 137080     cutoff   74      3445.04008 2885.69926  16.2%   9.9 1558s
+ 241445 137328     cutoff   79      3445.04008 2885.69926  16.2%   9.9 1565s
+ 242331 137585     cutoff   69      3445.04008 2885.69926  16.2%   9.9 1573s
+ 243159 138020 2941.67271   61   43 3445.04008 2885.69926  16.2%   9.9 1580s
+ 244168 138749 3156.53465   85   36 3445.04008 2885.69926  16.2%   9.9 1588s
+ 245392 139387 3394.16366  117   12 3445.04008 2885.69926  16.2%   9.9 1594s
+ 246740 139935     cutoff  119      3445.04008 2886.65667  16.2%   9.9 1601s
+ 248008 140599 3169.25384   51   10 3445.04008 2887.23580  16.2%   9.9 1607s
+ 249305 141200 3257.46325   69   56 3445.04008 2887.77007  16.2%   9.9 1613s
+ 250507 141749 3288.64229   83   48 3445.04008 2888.13679  16.2%   9.9 1619s
+ 251741 142350     cutoff  102      3445.04008 2888.77624  16.1%   9.9 1625s
+ 252967 142728 3224.38390   86   50 3445.04008 2889.23390  16.1%   9.9 1633s
+ 254107 143300 3316.53688   44   28 3445.04008 2889.78544  16.1%   9.9 1640s
+ 255276 143728 2967.43923   35   37 3445.04008 2890.33665  16.1%   9.9 1648s
+ 256404 144305     cutoff   92      3445.04008 2890.54530  16.1%   9.9 1656s
+ 257677 144948     cutoff   67      3445.04008 2891.02614  16.1%   9.9 1666s
+ 258947 145464     cutoff  117      3445.04008 2891.62263  16.1%   9.9 1674s
+ 260105 145966     cutoff   75      3445.04008 2892.02255  16.1%   9.9 1682s
+ 261203 146585 3141.34221   52   28 3445.04008 2892.33438  16.0%   9.9 1688s
+ 262425 146740 3250.80411   79   13 3445.04008 2892.57409  16.0%   9.9 1695s
+ 263328 147363 3369.64899   58   14 3445.04008 2892.85054  16.0%  10.0 1702s
+ 264422 147349     cutoff   68      3445.04008 2893.24722  16.0%  10.0 1710s
+ 264867 148391 3051.70764   69   46 3445.04008 2893.34024  16.0%  10.0 1718s
+ 266291 148964     cutoff  175      3445.04008 2893.82686  16.0%   9.9 1727s
+ 267530 149503 3301.53028  106   45 3445.04008 2894.11512  16.0%  10.0 1735s
+ 268666 150141     cutoff  121      3445.04008 2894.44102  16.0%   9.9 1743s
+ 269954 150732     cutoff   71      3445.04008 2894.74778  16.0%  10.0 1751s
+ 271268 151369 3325.54983  129   22 3445.04008 2895.09650  16.0%   9.9 1759s
+ 272581 151948     cutoff  131      3445.04008 2895.38971  16.0%   9.9 1767s
+ 273833 152395 infeasible  111      3445.04008 2895.76633  15.9%   9.9 1775s
+ 274895 152972     cutoff  117      3445.04008 2896.14788  15.9%  10.0 1784s
+ 276032 153519 3095.08339   86   42 3445.04008 2896.38680  15.9%  10.0 1791s
+ 277141 153917     cutoff  143      3445.04008 2896.72513  15.9%  10.0 1800s
+ 278151 154539     cutoff   78      3445.04008 2897.13806  15.9%  10.0 1807s
+ 279322 155199 3250.32855   47   40 3445.04008 2897.22799  15.9%  10.0 1814s
+ 280670 155623 3020.66030   52   29 3445.04008 2897.87155  15.9%  10.0 1822s
+ 281760 155883 3442.78567   97    - 3445.04008 2898.09882  15.9%  10.0 1832s
+ 282824 156328 infeasible   97      3445.04008 2898.20032  15.9%  10.0 1839s
+ 283882 156816     cutoff   77      3445.04008 2898.39197  15.9%  10.0 1847s
+ 285012 157074 3202.11524   44   42 3445.04008 2898.77094  15.9%  10.0 1855s
+ 286052 157648     cutoff   67      3445.04008 2898.99497  15.9%  10.0 1865s
+ 287212 158167 3261.39939  103   25 3445.04008 2899.26680  15.8%  10.0 1873s
+ 288334 158909     cutoff  123      3445.04008 2899.64711  15.8%  10.0 1880s
+ 289708 159300 3252.29466   60   25 3445.04008 2899.91874  15.8%  10.0 1887s
+ 290910 159953 3263.75034   82   35 3445.04008 2900.18334  15.8%  10.0 1893s
+ 292199 160000     cutoff  103      3445.04008 2900.47964  15.8%  10.0 1902s
+ 292956 160103 3087.83867   51   35 3445.04008 2900.61878  15.8%  10.0 1909s
+ 293522 160995 3233.38851   80   26 3445.04008 2900.66907  15.8%  10.0 1917s
+ 294924 161627     cutoff  102      3445.04008 2900.98589  15.8%  10.0 1925s
+ 296265 162000 3443.14604   75   36 3445.04008 2901.37310  15.8%  10.0 1933s
+ 297260 162729 3145.38603   73   49 3445.04008 2901.60956  15.8%  10.0 1940s
+ 298608 163340 3434.59420  147   43 3445.04008 2901.97588  15.8%  10.0 1946s
+ 299962 163593     cutoff   66      3445.04008 2902.27436  15.8%  10.0 1956s
+ 301036 164178 infeasible   59      3445.04008 2902.70796  15.7%  10.0 1962s
+ 302204 164494     cutoff   95      3445.04008 2902.92995  15.7%  10.0 1971s
+ 303281 165135 3265.98671   86   50 3445.04008 2903.14582  15.7%  10.0 1977s
+ 304648 165785     cutoff  129      3445.04008 2903.39490  15.7%  10.0 1985s
+ 305908 166065 3207.30496   94   45 3445.04008 2903.57143  15.7%  10.0 1993s
+ 307027 166638 3190.25018   49   24 3445.04008 2903.85841  15.7%  10.0 2000s
+ 308316 167088 3401.12144   54   14 3445.04008 2904.17012  15.7%  10.0 2009s
+ 309429 167437 3110.47254   46   44 3445.04008 2904.46799  15.7%  10.0 2020s
+ 310525 167747 3376.98089   61   43 3445.04008 2904.69815  15.7%  10.0 2029s
+ 311467 168451     cutoff   67      3445.04008 2905.02929  15.7%  10.1 2038s
+ 312743 169100 infeasible   96      3445.04008 2905.45990  15.7%  10.1 2046s
+ 314138 169200     cutoff  101      3445.04008 2905.71716  15.7%  10.1 2057s
+ 314936 169612 3191.08680   86   46 3445.04008 2905.97023  15.6%  10.1 2065s
+ 315905 170232     cutoff  104      3445.04008 2906.17178  15.6%  10.1 2074s
+ 317165 169902 3210.98327   78   44 3445.04008 2906.28698  15.6%  10.1 2089s
+ 317295 170765 3227.00525   81   30 3445.04008 2906.40898  15.6%  10.1 2101s
+ 318592 171489 3316.66235   78   36 3445.04008 2906.70561  15.6%  10.1 2109s
+ 320031 172062 infeasible  129      3445.04008 2906.99888  15.6%  10.1 2117s
+ 321354 172525 3077.16323   58   59 3445.04008 2907.33521  15.6%  10.1 2126s
+ 322525 173037 3372.70750   85   31 3445.04008 2907.49297  15.6%  10.1 2135s
+ 323644 173537 infeasible   98      3445.04008 2907.74179  15.6%  10.1 2145s
+ 324759 174100 3403.32663   73   22 3445.04008 2907.85956  15.6%  10.1 2155s
+ 326088 174836     cutoff   67      3445.04008 2908.31430  15.6%  10.1 2162s
+ 327559 175118 3248.07912   77   66 3445.04008 2908.59279  15.6%  10.1 2171s
+ 328487 175824 3305.40526   88   52 3445.04008 2908.74734  15.6%  10.1 2180s
+ 329853 176408     cutoff  115      3445.04008 2908.93660  15.6%  10.1 2188s
+ 331071 177109 3307.43038   48    8 3445.04008 2909.29662  15.6%  10.1 2196s
+ 332442 177573     cutoff   88      3445.04008 2909.50233  15.5%  10.1 2204s
+ 333713 177832     cutoff   68      3445.04008 2909.72496  15.5%  10.1 2213s
+ 334675 178551     cutoff   49      3445.04008 2909.97982  15.5%  10.1 2224s
+ 335992 178942 3318.18849  100   49 3445.04008 2910.21340  15.5%  10.1 2232s
+ 337106 179098     cutoff  121      3445.04008 2910.44367  15.5%  10.1 2243s
+ 337948 179714     cutoff   75      3445.04008 2910.71942  15.5%  10.1 2253s
+ 339187 180275     cutoff   62      3445.04008 2910.98518  15.5%  10.1 2261s
+ 340532 180674     cutoff   81      3445.04008 2911.33944  15.5%  10.1 2271s
+ 341590 181296 3120.52149   65   37 3445.04008 2911.52807  15.5%  10.1 2278s
+ 342820 181994 3302.82302   83    6 3445.04008 2911.73846  15.5%  10.1 2286s
+ 344191 182566     cutoff  107      3445.04008 2912.02653  15.5%  10.1 2294s
+ 345526 183192     cutoff  105      3445.04008 2912.36260  15.5%  10.1 2301s
+ 346852 183684     cutoff   81      3445.04008 2912.79289  15.4%  10.1 2308s
+ 348043 184210 2984.49435   40   64 3445.04008 2913.13365  15.4%  10.1 2316s
+ 349254 184926 3277.79959   66   26 3445.04008 2913.44599  15.4%  10.1 2322s
+ 350645 185414 3388.75258   91   36 3445.04008 2913.70771  15.4%  10.1 2330s
+ 351874 185997     cutoff  100      3445.04008 2913.97666  15.4%  10.1 2339s
+ 353043 186335     cutoff  135      3445.04008 2914.28106  15.4%  10.1 2347s
+ 354026 187010     cutoff   99      3445.04008 2914.42314  15.4%  10.1 2356s
+ 355302 187527     cutoff   64      3445.04008 2914.70946  15.4%  10.1 2363s
+ 356500 188030     cutoff   84      3445.04008 2914.99135  15.4%  10.1 2372s
+ 357617 188069     cutoff   78      3445.04008 2915.22350  15.4%  10.1 2380s
+ 358126 188863 3343.70511   52    - 3445.04008 2915.28161  15.4%  10.1 2388s
+ 359410 189390 3301.26842  134   39 3445.04008 2915.56509  15.4%  10.1 2398s
+ 360512 189918 2984.46938   36   22 3445.04008 2915.79181  15.4%  10.1 2409s
+ 361632 190646     cutoff   90      3445.04008 2915.88305  15.4%  10.1 2418s
+ 362957 191187 3090.99364   42   49 3445.04008 2916.07909  15.4%  10.1 2426s
+ 364244 191720     cutoff   56      3445.04008 2916.33959  15.3%  10.1 2437s
+ 365424 192340     cutoff   87      3445.04008 2916.58889  15.3%  10.1 2447s
+ 366665 192928 3116.80276   55   58 3445.04008 2916.78325  15.3%  10.1 2456s
+ 367925 193622 3444.05275   64    - 3445.04008 2916.98806  15.3%  10.1 2465s
+ 369301 194190 infeasible   64      3445.04008 2917.17651  15.3%  10.1 2474s
+ 370602 194467 3385.98543   43   36 3445.04008 2917.33096  15.3%  10.1 2485s
+ 371639 194944 infeasible   63      3445.04008 2917.55854  15.3%  10.1 2494s
+ 372688 195715 3388.15318  107   35 3445.04008 2917.75489  15.3%  10.1 2503s
+ 374098 196126 3378.38554  120   41 3445.04008 2917.94121  15.3%  10.1 2512s
+ 375349 196801 3205.43452   98   49 3445.04008 2918.15783  15.3%  10.1 2521s
+ 376661 197323 3430.26249   92   36 3445.04008 2918.37664  15.3%  10.1 2529s
+ 377917 197512 2953.08597   57   44 3445.04008 2918.49001  15.3%  10.1 2539s
+ 378760 198173 3158.00018   97   25 3445.04008 2918.62785  15.3%  10.1 2548s
+ 379896 198360     cutoff  172      3445.04008 2918.93406  15.3%  10.2 2558s
+ 380846 199017     cutoff   58      3445.04008 2919.12714  15.3%  10.2 2568s
+ 382121 199646     cutoff   67      3445.04008 2919.46855  15.3%  10.2 2577s
+ 383430 200353     cutoff  114      3445.04008 2919.65639  15.3%  10.2 2586s
+ 384798 200560 3184.32833   75   50 3445.04008 2919.86319  15.2%  10.2 2597s
+ 385684 201077 3434.45426   99   25 3445.04008 2920.00905  15.2%  10.2 2607s
+ 386821 201616     cutoff   90      3445.04008 2920.17561  15.2%  10.2 2617s
+ 388022 202132 3437.88766  103    - 3445.04008 2920.46738  15.2%  10.2 2627s
+ 389226 202781 3320.70619   81   25 3445.04008 2920.62144  15.2%  10.2 2638s
+ 390547 203351 3353.31691  136   22 3445.04008 2920.84176  15.2%  10.2 2649s
+ 391746 203992     cutoff  153      3445.04008 2921.03160  15.2%  10.2 2658s
+ 393061 204598     cutoff   63      3445.04008 2921.30413  15.2%  10.2 2670s
+ 394326 205319 infeasible   76      3445.04008 2921.46341  15.2%  10.2 2679s
+ 395663 205862 3333.14119   82   25 3445.04008 2921.55275  15.2%  10.2 2688s
+ 396909 206182 3134.96763   55   36 3445.04008 2921.89393  15.2%  10.2 2697s
+ 397808 206956     cutoff   90      3445.04008 2922.05373  15.2%  10.2 2707s
+ 399133 207424     cutoff   72      3445.04008 2922.31763  15.2%  10.2 2716s
+ 400331 207985     cutoff   93      3445.04008 2922.48016  15.2%  10.2 2726s
+ 401533 208589 2949.28295   37   44 3445.04008 2922.69105  15.2%  10.2 2737s
+ 402802 208953     cutoff  109      3445.04008 2922.76823  15.2%  10.2 2747s
+ 403774 209663 infeasible   71      3445.04008 2922.98011  15.2%  10.2 2759s
+ 405062 210306 infeasible   57      3445.04008 2923.25031  15.1%  10.2 2769s
+ 406363 210957 3053.24125   54   30 3445.04008 2923.44767  15.1%  10.2 2780s
+ 407731 211468 infeasible   87      3445.04008 2923.55705  15.1%  10.2 2790s
+ 408930 211924 3208.13562   52   42 3445.04008 2923.76079  15.1%  10.2 2799s
+ 409956 212630 3375.83784  150   28 3445.04008 2923.90438  15.1%  10.2 2811s
+ 411316 213089     cutoff  153      3445.04008 2924.10908  15.1%  10.2 2823s
+ 412543 213443     cutoff   87      3445.04008 2924.28384  15.1%  10.2 2835s
+ 413629 213993 3383.58229   78   27 3445.04008 2924.36459  15.1%  10.2 2847s
+ 414748 214230 3204.97612   54   18 3445.04008 2924.65836  15.1%  10.2 2857s
+ 415596 214703     cutoff   73      3445.04008 2924.79802  15.1%  10.2 2867s
+ 416473 215234 3103.12200   61   44 3445.04008 2924.88482  15.1%  10.2 2879s
+ 417617 215592     cutoff   77      3445.04008 2925.00425  15.1%  10.2 2891s
+ 418691 216202     cutoff   86      3445.04008 2925.28027  15.1%  10.2 2900s
+ 419923 216771 3364.53329  118   26 3445.04008 2925.46285  15.1%  10.2 2910s
+ 421217 217462     cutoff  126      3445.04008 2925.57729  15.1%  10.2 2918s
+ 422649 217553 3428.88230   94    8 3445.04008 2925.84200  15.1%  10.2 2928s
+ 423641 218246     cutoff   96      3445.04008 2926.06684  15.1%  10.2 2939s
+ 424887 218536 3437.41900  135   30 3445.04008 2926.27174  15.1%  10.2 2950s
+ 425911 219203     cutoff   67      3445.04008 2926.34020  15.1%  10.2 2961s
+ 427243 219807 3183.59622  104   38 3445.04008 2926.53418  15.1%  10.2 2970s
+ 428535 220305 infeasible   92      3445.04008 2926.71610  15.0%  10.2 2980s
+ 429729 220611 3414.89819  110   46 3445.04008 2926.91526  15.0%  10.2 2992s
+ 430618 221165 3394.99024   48   25 3445.04008 2927.05889  15.0%  10.2 3004s
+ 431716 221608     cutoff   82      3445.04008 2927.19606  15.0%  10.2 3016s
+ 432727 222387 3361.93135   67   19 3445.04008 2927.39989  15.0%  10.2 3027s
+ 434140 223032 3173.43594   99   36 3445.04008 2927.54422  15.0%  10.2 3039s
+ 435550 223553 3298.62244   87   46 3445.04008 2927.75178  15.0%  10.2 3051s
+ 436757 224001 3387.93246   35   36 3445.04008 2927.88284  15.0%  10.2 3063s
+ 437872 224485 3062.44819   55   31 3445.04008 2927.97275  15.0%  10.2 3076s
+ 438968 224876     cutoff   84      3445.04008 2928.13315  15.0%  10.2 3087s
+ 440180 225513     cutoff  111      3445.04008 2928.20846  15.0%  10.2 3098s
+ 441490 226040     cutoff   80      3445.04008 2928.44671  15.0%  10.2 3107s
+ 442650 226437     cutoff  100      3445.04008 2928.66227  15.0%  10.2 3118s
+ 443580 226924     cutoff   68      3445.04008 2928.80447  15.0%  10.3 3131s
+ 444766 227607     cutoff  103      3445.04008 2928.88682  15.0%  10.3 3143s
+ 446210 228077     cutoff   69      3445.04008 2929.14539  15.0%  10.2 3155s
+ 447423 228284     cutoff   65      3445.04008 2929.30140  15.0%  10.3 3172s
+ 448315 228857 3407.67526   73   14 3445.04008 2929.49198  15.0%  10.3 3188s
+ 449470 229174     cutoff  100      3445.04008 2929.63223  15.0%  10.3 3200s
+ 450450 229824     cutoff   52      3445.04008 2929.78670  15.0%  10.3 3210s
+ 451780 230405     cutoff   70      3445.04008 2929.97289  15.0%  10.3 3221s
+ 453136 230794 3003.24545   45   23 3445.04008 2930.14306  14.9%  10.3 3233s
+ 454391 231391     cutoff   83      3445.04008 2930.25887  14.9%  10.3 3243s
+ 455722 231510     cutoff   69      3445.04008 2930.52572  14.9%  10.3 3256s
+ 456591 231562 3298.27198   45    4 3445.04008 2930.60701  14.9%  10.3 3267s
+ 457474 231663 infeasible   64      3445.04008 2930.67946  14.9%  10.3 3279s
+ 458208 231922     cutoff   63      3445.04008 2930.77687  14.9%  10.3 3290s
+ 458930 232123 3383.93953   79   40 3445.04008 2930.90307  14.9%  10.3 3304s
+ 459545 232269     cutoff   58      3445.04008 2931.07628  14.9%  10.3 3318s
+ 460129 232935 2952.57276   55   55 3445.04008 2931.10378  14.9%  10.3 3334s
+ 461515 233601     cutoff   47      3445.04008 2931.21420  14.9%  10.3 3350s
+ 462851 234862     cutoff   78      3445.04008 2931.49459  14.9%  10.3 3363s
+ 464474 236056 infeasible   63      3445.04008 2931.69456  14.9%  10.3 3376s
+ 466021 237302 3439.06652   65    - 3445.04008 2931.86956  14.9%  10.3 3389s
+ 467625 238086     cutoff   72      3445.04008 2932.07813  14.9%  10.3 3402s
+ 468852 238940 3028.90625   49   39 3445.04008 2932.29352  14.9%  10.3 3417s
+ 469927 239987 3347.76862  106   34 3445.04008 2932.40021  14.9%  10.3 3431s
+ 471204 240988     cutoff  112      3445.04008 2932.56023  14.9%  10.3 3447s
+ 472530 242083     cutoff   64      3445.04008 2932.60865  14.9%  10.3 3458s
+ 473993 243072 3298.24555   57   10 3445.04008 2932.92264  14.9%  10.3 3473s
+ 475271 243857     cutoff   63      3445.04008 2933.01887  14.9%  10.3 3484s
+ 476433 244807     cutoff   77      3445.04008 2933.12792  14.9%  10.3 3495s
+ 477712 245615 3380.20585   85   36 3445.04008 2933.40571  14.9%  10.3 3508s
+ 478881 246660     cutoff   87      3445.04008 2933.53429  14.8%  10.3 3519s
+ 480247 247691 3233.68744   52    6 3445.04008 2933.71625  14.8%  10.3 3531s
+ 481537 248641 3415.85180   78   36 3445.04008 2933.88686  14.8%  10.3 3541s
+ 482771 249830 2962.36686   46   43 3445.04008 2934.05419  14.8%  10.3 3550s
+ 484237 250682     cutoff  101      3445.04008 2934.20120  14.8%  10.3 3560s
+ 485337 251546     cutoff  100      3445.04008 2934.36021  14.8%  10.3 3572s
+ 486530 252521 3332.69503   55   11 3445.04008 2934.52037  14.8%  10.3 3585s
+ 487858 253373     cutoff  115      3445.04008 2934.59927  14.8%  10.3 3596s
+ 488971 254260 3182.34544   94   24 3445.04008 2934.79290  14.8%  10.3 3608s
+ 490133 254928     cutoff   77      3445.04008 2934.98086  14.8%  10.3 3619s
+ 491173 255877 3345.66426   65   46 3445.04008 2935.03175  14.8%  10.4 3631s
+ 492455 256896 3293.48647   69    8 3445.04008 2935.16560  14.8%  10.4 3646s
+ 493780 257815     cutoff  125      3445.04008 2935.31887  14.8%  10.4 3659s
+ 494981 257855     cutoff   46      3445.04008 2935.47453  14.8%  10.4 3685s
+ 495027 258454 3410.30197   53   25 3445.04008 2935.50525  14.8%  10.4 3700s
+ 496149 259436 3418.27569   92   28 3445.04008 2935.55602  14.8%  10.4 3711s
+ 497467 259926 3415.45805   93   26 3445.04008 2935.65097  14.8%  10.4 3727s
+ 498249 260855     cutoff   75      3445.04008 2935.75388  14.8%  10.4 3738s
+ 499498 261916     cutoff   76      3445.04008 2935.89078  14.8%  10.4 3751s
+ 500822 262451 3414.22445   77    6 3445.04008 2936.03618  14.8%  10.4 3767s
+ 501799 263532     cutoff   80      3445.04008 2936.20682  14.8%  10.4 3778s
+ 503164 264193 infeasible   60      3445.04008 2936.29506  14.8%  10.4 3791s
+ 504279 265266 infeasible   66      3445.04008 2936.48413  14.8%  10.4 3802s
+ 505723 266249     cutoff   70      3445.04008 2936.75492  14.8%  10.4 3816s
+ 506956 267199 2982.19845   34   62 3445.04008 2936.87018  14.8%  10.4 3829s
+ 508219 268225     cutoff   82      3445.04008 2936.95783  14.7%  10.4 3841s
+ 509643 268289 2977.10232   56   50 3445.04008 2937.16159  14.7%  10.4 3859s
+ 509722 269282 3256.16961   69   38 3445.04008 2937.21503  14.7%  10.4 3870s
+ 511020 270353 3381.34903   66   18 3445.04008 2937.34837  14.7%  10.4 3883s
+ 512317 271005     cutoff  105      3445.04008 2937.44872  14.7%  10.4 3898s
+ 513281 271800     cutoff   74      3445.04008 2937.61371  14.7%  10.4 3914s
+ 514393 272665 3405.56242   83   40 3445.04008 2937.69175  14.7%  10.4 3930s
+ 515577 273650     cutoff   89      3445.04008 2937.78690  14.7%  10.4 3944s
+ 516939 274326 3400.79583   76   23 3445.04008 2938.00473  14.7%  10.4 3962s
+ 517914 275351 3405.37870   65   21 3445.04008 2938.09168  14.7%  10.4 3979s
+ 519204 276463 3206.10192   53   34 3445.04008 2938.26555  14.7%  10.4 3995s
+ 520629 277308 3431.75219   79   26 3445.04008 2938.36850  14.7%  10.4 4009s
+ 521911 278018 3428.63118   77   13 3445.04008 2938.60331  14.7%  10.4 4024s
+ 523037 279073     cutoff   79      3445.04008 2938.84756  14.7%  10.4 4037s
+ 524323 280158     cutoff  120      3445.04008 2938.96767  14.7%  10.4 4051s
+ 525661 281150 3432.33267   75   12 3445.04008 2939.09593  14.7%  10.4 4064s
+ 526998 282282     cutoff   90      3445.04008 2939.21915  14.7%  10.4 4075s
+ 528382 283087 3381.67508  103   46 3445.04008 2939.36888  14.7%  10.4 4088s
+ 529425 284055     cutoff   85      3445.04008 2939.49964  14.7%  10.4 4101s
+ 530622 284803 3351.98918   55   25 3445.04008 2939.69986  14.7%  10.5 4114s
+ 531646 285448 2988.77877   41   47 3445.04008 2939.76998  14.7%  10.5 4129s
+ 532758 286126 3300.62580   52   20 3445.04008 2939.94917  14.7%  10.5 4147s
+ 533713 286857     cutoff   72      3445.04008 2940.03396  14.7%  10.5 4161s
+ 534669 287957     cutoff   94      3445.04008 2940.16185  14.7%  10.5 4177s
+ 536139 289112     cutoff   71      3445.04008 2940.30643  14.7%  10.5 4192s
+ 537597 290287 3184.01084   67   50 3445.04008 2940.42485  14.6%  10.5 4205s
+ 539069 291417 3425.48645  115   23 3445.04008 2940.58504  14.6%  10.5 4217s
+ 540512 292224 3340.56956   71   22 3445.04008 2940.74125  14.6%  10.5 4230s
+H540920 292234                    3445.0399254 2940.75459  14.6%  10.5 4230s
+ 541636 293303     cutoff   83      3445.03993 2940.88849  14.6%  10.5 4243s
+ 542993 294303 3107.17661   59   34 3445.03993 2941.04334  14.6%  10.5 4258s
+ 544296 295371 3111.35520   40   39 3445.03993 2941.19662  14.6%  10.5 4271s
+ 545729 296024 3436.66100  114   24 3445.03993 2941.34352  14.6%  10.5 4288s
+ 546675 297082 3247.29058  109   48 3445.03993 2941.45232  14.6%  10.5 4302s
+ 548014 297933 3416.22042  116   38 3445.03993 2941.53396  14.6%  10.5 4313s
+ 549174 298386 3126.07787   39   46 3445.03993 2941.68561  14.6%  10.5 4324s
+ 549741 299406 3248.39578   66   52 3445.03993 2941.68765  14.6%  10.5 4335s
+ 551082 300623     cutoff   92      3445.03993 2941.88443  14.6%  10.5 4346s
+ 552653 301460 3304.07598   84   17 3445.03993 2942.01841  14.6%  10.5 4362s
+ 553730 302316 3416.03646   49   22 3445.03993 2942.15419  14.6%  10.5 4374s
+ 554898 303226 3248.11236   70   33 3445.03993 2942.24982  14.6%  10.5 4387s
+ 556193 304239 3083.23185   48   51 3445.03993 2942.37611  14.6%  10.5 4399s
+ 557569 305237 3281.66747   91   45 3445.03993 2942.53385  14.6%  10.5 4412s
+ 558841 306315 3168.42283   47   38 3445.03993 2942.69802  14.6%  10.5 4426s
+ 560234 307061 3041.24088   48   33 3445.03993 2942.82292  14.6%  10.5 4440s
+ 561064 308097 3330.27462  133   29 3445.03993 2942.90336  14.6%  10.5 4453s
+ 562437 309026     cutoff  138      3445.03993 2942.99831  14.6%  10.5 4465s
+ 563712 309869 3398.54780   74   16 3445.03993 2943.16050  14.6%  10.5 4479s
+ 564947 310816     cutoff   73      3445.03993 2943.28669  14.6%  10.5 4490s
+ 566188 311368     cutoff   78      3445.03993 2943.42509  14.6%  10.5 4503s
+ 567172 312509 infeasible   54      3445.03993 2943.59789  14.6%  10.5 4515s
+ 568563 313668 3244.17520   96   50 3445.03993 2943.72839  14.6%  10.5 4528s
+ 569996 314585 3091.13518   50   52 3445.03993 2943.86447  14.5%  10.5 4539s
+ 571100 315077     cutoff  104      3445.03993 2943.92064  14.5%  10.5 4555s
+ 571843 316125 3052.20933   88   47 3445.03993 2944.04036  14.5%  10.5 4567s
+ 573165 316962     cutoff  108      3445.03993 2944.14279  14.5%  10.5 4581s
+ 574279 317924     cutoff   51      3445.03993 2944.28956  14.5%  10.5 4597s
+ 575566 318978 3398.23089   48   18 3445.03993 2944.43803  14.5%  10.5 4611s
+ 576907 319774 3071.60189   62   52 3445.03993 2944.61693  14.5%  10.5 4628s
+ 577997 320777 3328.66287   68   35 3445.03993 2944.67726  14.5%  10.5 4643s
+ 579303 321703     cutoff   74      3445.03993 2944.78727  14.5%  10.5 4654s
+ 580472 322523 3436.23553   63   19 3445.03993 2944.95281  14.5%  10.5 4666s
+ 581783 323624     cutoff  109      3445.03993 2945.10577  14.5%  10.5 4677s
+ 583151 324520 3430.27727   87   30 3445.03993 2945.22753  14.5%  10.5 4689s
+ 584289 325667     cutoff   91      3445.03993 2945.33003  14.5%  10.5 4700s
+ 585769 326571 3075.01794   43   34 3445.03993 2945.47460  14.5%  10.5 4713s
+ 586902 327596 3438.61097   58   37 3445.03993 2945.62220  14.5%  10.5 4723s
+ 588212 328395     cutoff   90      3445.03993 2945.78696  14.5%  10.5 4736s
+ 589334 329293     cutoff   42      3445.03993 2945.95106  14.5%  10.5 4749s
+ 590570 330312 3247.74517   66   35 3445.03993 2946.02372  14.5%  10.5 4760s
+ 591877 331144     cutoff   86      3445.03993 2946.17501  14.5%  10.5 4774s
+ 592937 332112 3407.26703  145   37 3445.03993 2946.28224  14.5%  10.5 4785s
+ 594281 333013 3248.80864   73   27 3445.03993 2946.44784  14.5%  10.5 4798s
+ 595498 333864     cutoff   89      3445.03993 2946.58627  14.5%  10.5 4809s
+ 596754 334765     cutoff   87      3445.03993 2946.74582  14.5%  10.5 4819s
+ 598078 335649     cutoff   77      3445.03993 2946.90037  14.5%  10.5 4830s
+ 599198 336577 3255.14250   94   49 3445.03993 2947.01073  14.5%  10.5 4843s
+ 600438 337694     cutoff  104      3445.03993 2947.10010  14.5%  10.5 4856s
+ 601807 338719     cutoff  103      3445.03993 2947.26575  14.4%  10.5 4870s
+ 603167 339621 3248.66330   65   27 3445.03993 2947.39121  14.4%  10.5 4883s
+ 604390 340589     cutoff   78      3445.03993 2947.50589  14.4%  10.5 4895s
+ 605527 341566 3395.90147   96   31 3445.03993 2947.59426  14.4%  10.5 4909s
+ 606822 342468     cutoff  102      3445.03993 2947.71751  14.4%  10.5 4921s
+ 608048 343621 3134.88918   48   36 3445.03993 2947.86379  14.4%  10.5 4933s
+ 609438 344313     cutoff  106      3445.03993 2947.98805  14.4%  10.5 4945s
+ 610627 345250 3230.21147   52   29 3445.03993 2948.09390  14.4%  10.5 4958s
+ 611734 346294 3122.69591   59   24 3445.03993 2948.22058  14.4%  10.5 4971s
+ 613066 347256 3267.06870   77   30 3445.03993 2948.29531  14.4%  10.5 4982s
+ 614236 348241 3366.85578   64   38 3445.03993 2948.42342  14.4%  10.5 4996s
+ 615468 348988     cutoff   92      3445.03993 2948.49910  14.4%  10.5 5011s
+ 616565 349635     cutoff   88      3445.03993 2948.55564  14.4%  10.5 5025s
+ 617642 350560     cutoff   82      3445.03993 2948.64676  14.4%  10.5 5039s
+ 618768 351579 3138.11998   50   40 3445.03993 2948.78426  14.4%  10.5 5054s
+ 620126 352544     cutoff   78      3445.03993 2948.86056  14.4%  10.5 5071s
+ 621335 353515 infeasible   90      3445.03993 2948.95242  14.4%  10.5 5086s
+ 622628 354527 3237.81864   55   18 3445.03993 2949.11498  14.4%  10.5 5106s
+ 623915 355518     cutoff   78      3445.03993 2949.19752  14.4%  10.5 5119s
+ 625184 356603 3444.85498  111    - 3445.03993 2949.32533  14.4%  10.5 5132s
+ 626607 357462     cutoff  111      3445.03993 2949.48147  14.4%  10.5 5146s
+ 627736 358225     cutoff   88      3445.03993 2949.56175  14.4%  10.5 5161s
+ 628854 359120     cutoff   79      3445.03993 2949.60521  14.4%  10.5 5176s
+ 630087 359681     cutoff   77      3445.03993 2949.73189  14.4%  10.5 5196s
+ 630953 360797 3384.70867   58   21 3445.03993 2949.84590  14.4%  10.5 5210s
+ 632357 361714     cutoff   57      3445.03993 2949.95701  14.4%  10.5 5222s
+ 633723 362746     cutoff   76      3445.03993 2950.07131  14.4%  10.5 5237s
+ 635082 363489 3221.37399   59   25 3445.03993 2950.18286  14.4%  10.5 5252s
+ 636072 364557 3337.57463   74    8 3445.03993 2950.34830  14.4%  10.5 5267s
+ 637415 365422     cutoff   98      3445.03993 2950.43674  14.4%  10.5 5280s
+ 638701 366463 3436.27765   93   54 3445.03993 2950.57361  14.4%  10.5 5296s
+ 640046 367500     cutoff   75      3445.03993 2950.64664  14.4%  10.5 5308s
+ 641468 368521     cutoff   82      3445.03993 2950.78412  14.3%  10.5 5323s
+ 642782 369083     cutoff  116      3445.03993 2950.91717  14.3%  10.5 5338s
+ 643603 369630 3412.63466   65   21 3445.03993 2950.97255  14.3%  10.5 5351s
+ 644304 370772 3025.78870   53   40 3445.03993 2951.02277  14.3%  10.5 5364s
+ 645746 371833     cutoff   94      3445.03993 2951.16357  14.3%  10.5 5377s
+ 647108 372981     cutoff   94      3445.03993 2951.24849  14.3%  10.5 5391s
+ 648585 373540 3387.35607   69   45 3445.03993 2951.40311  14.3%  10.5 5411s
+ 649442 374054 3336.98176   76   32 3445.03993 2951.47819  14.3%  10.5 5429s
+ 650340 375091     cutoff   80      3445.03993 2951.53694  14.3%  10.6 5441s
+ 651704 376119     cutoff   70      3445.03993 2951.72415  14.3%  10.6 5458s
+ 652997 377167 3349.53066   84    8 3445.03993 2951.79717  14.3%  10.6 5473s
+ 654451 378002     cutoff   74      3445.03993 2951.94468  14.3%  10.6 5485s
+ 655550 379119     cutoff   96      3445.03993 2952.01438  14.3%  10.6 5499s
+ 656973 380029 3341.67564   66   21 3445.03993 2952.12836  14.3%  10.6 5515s
+ 658249 380845     cutoff   78      3445.03993 2952.23759  14.3%  10.6 5532s
+ 659388 381830 3104.19401   59   38 3445.03993 2952.28060  14.3%  10.6 5548s
+ 660684 382639 3444.52306   86   14 3445.03993 2952.42347  14.3%  10.6 5563s
+ 661771 383750     cutoff   47      3445.03993 2952.48718  14.3%  10.6 5575s
+ 663233 384722     cutoff  109      3445.03993 2952.62441  14.3%  10.6 5589s
+ 664500 385680 infeasible   75      3445.03993 2952.72452  14.3%  10.6 5603s
+ 665861 386550 3419.58249   87   20 3445.03993 2952.80515  14.3%  10.6 5619s
+ 667102 387351 3349.83384   71   29 3445.03993 2952.85645  14.3%  10.6 5634s
+ 668178 388309 3370.90200   88   40 3445.03993 2952.95797  14.3%  10.6 5649s
+ 669573 389331 3000.19850   52   48 3445.03993 2953.03669  14.3%  10.6 5663s
+ 670906 390390     cutoff  102      3445.03993 2953.12859  14.3%  10.6 5679s
+ 672278 391313     cutoff   81      3445.03993 2953.19813  14.3%  10.6 5694s
+ 673512 392172 3112.84831   43   44 3445.03993 2953.32631  14.3%  10.6 5710s
+ 674651 393228 3335.29393   77   29 3445.03993 2953.44510  14.3%  10.6 5726s
+ 675990 394427 3191.05692   75   24 3445.03993 2953.55570  14.3%  10.6 5740s
+ 677449 395198     cutoff  103      3445.03993 2953.66217  14.3%  10.6 5754s
+ 678584 396084 3260.62460   46   17 3445.03993 2953.75885  14.3%  10.6 5768s
+ 679896 396775 3322.69535   73   39 3445.03993 2953.86964  14.3%  10.6 5783s
+ 680765 397686     cutoff   86      3445.03993 2953.95577  14.3%  10.6 5796s
+ 682068 398666     cutoff   60      3445.03993 2954.05204  14.3%  10.6 5811s
+ 683306 399779 3365.63646   68   35 3445.03993 2954.15622  14.2%  10.6 5826s
+ 684733 400776     cutoff   75      3445.03993 2954.29146  14.2%  10.6 5842s
+ 686040 401701 3373.31396   89   36 3445.03993 2954.37806  14.2%  10.6 5856s
+ 687212 402351     cutoff   92      3445.03993 2954.44355  14.2%  10.6 5875s
+ 688139 402845 3239.80548   65   30 3445.03993 2954.49949  14.2%  10.6 5890s
+ 689131 403945     cutoff   91      3445.03993 2954.54772  14.2%  10.6 5904s
+ 690474 405013 3397.80295   78   37 3445.03993 2954.71630  14.2%  10.6 5918s
+ 691844 405964     cutoff   58      3445.03993 2954.85883  14.2%  10.6 5932s
+ 693309 406751 3295.55399   91   36 3445.03993 2955.01224  14.2%  10.6 5949s
+ 694292 407847 3382.69893   88   25 3445.03993 2955.06156  14.2%  10.6 5964s
+ 695760 408883 3147.01329   46   38 3445.03993 2955.21627  14.2%  10.6 5979s
+ 697168 409963     cutoff   87      3445.03993 2955.32673  14.2%  10.6 5992s
+ 698561 410884 3053.41577   56   24 3445.03993 2955.47282  14.2%  10.6 6006s
+ 699891 411824 3220.21494   51   26 3445.03993 2955.57777  14.2%  10.6 6022s
+ 701088 412833 3062.08258   75   56 3445.03993 2955.68487  14.2%  10.6 6037s
+ 702355 413711     cutoff  126      3445.03993 2955.72408  14.2%  10.6 6052s
+ 703499 414769     cutoff   86      3445.03993 2955.87078  14.2%  10.6 6065s
+ 704887 415748 3342.62615  106   46 3445.03993 2955.98278  14.2%  10.6 6080s
+ 706193 416414 3319.33328   57    6 3445.03993 2956.07346  14.2%  10.6 6094s
+ 707108 417500     cutoff   74      3445.03993 2956.15859  14.2%  10.6 6110s
+ 708498 418325 3439.74260   72   13 3445.03993 2956.25453  14.2%  10.6 6128s
+ 709688 419050 infeasible   86      3445.03993 2956.30896  14.2%  10.6 6146s
+ 710712 420002     cutoff   81      3445.03993 2956.41567  14.2%  10.6 6163s
+ 712003 421100     cutoff  118      3445.03993 2956.51395  14.2%  10.6 6179s
+ 713376 422252     cutoff   73      3445.03993 2956.61746  14.2%  10.6 6193s
+ 714806 423211 3208.92231   69   23 3445.03993 2956.75912  14.2%  10.6 6211s
+ 716063 424330     cutoff   68      3445.03993 2956.83412  14.2%  10.6 6224s
+ 717481 425504 3391.27234   60   32 3445.03993 2956.91856  14.2%  10.6 6236s
+ 718946 426286     cutoff   79      3445.03993 2957.04117  14.2%  10.6 6249s
+ 719874 426884 3327.48437   50   29 3445.03993 2957.12033  14.2%  10.6 6263s
+ 720700 428019     cutoff   63      3445.03993 2957.17888  14.2%  10.6 6276s
+ 722134 429005 infeasible   65      3445.03993 2957.28523  14.2%  10.6 6291s
+ 723446 430145 3425.00845   70   16 3445.03993 2957.38415  14.2%  10.6 6303s
+ 724849 431220 3198.21570   52   38 3445.03993 2957.47083  14.2%  10.6 6317s
+ 726124 432025     cutoff   70      3445.03993 2957.55556  14.2%  10.6 6333s
+ 727271 432927     cutoff   80      3445.03993 2957.60282  14.1%  10.6 6350s
+ 728423 432985 3330.70104  112   47 3445.03993 2957.66006  14.1%  10.6 6369s
+ 728486 434047 3330.91132  113   51 3445.03993 2957.69050  14.1%  10.6 6382s
+ 729851 434944 3425.90290  112   51 3445.03993 2957.78356  14.1%  10.6 6397s
+ 731020 435871 2994.88008   46   48 3445.03993 2957.84986  14.1%  10.6 6414s
+ 732198 436770 3439.98261   75   14 3445.03993 2957.97011  14.1%  10.6 6431s
+ 733400 437526 3232.53039   46   32 3445.03993 2958.01566  14.1%  10.6 6446s
+ 734520 438596 3361.18821   86   46 3445.03993 2958.13608  14.1%  10.6 6460s
+ 735938 439443 3222.74548   66   45 3445.03993 2958.30462  14.1%  10.6 6478s
+ 737071 440513 3021.03228   36   50 3445.03993 2958.38939  14.1%  10.6 6493s
+ 738395 441406     cutoff   72      3445.03993 2958.48481  14.1%  10.6 6509s
+ 739578 442424 3403.10442   54   41 3445.03993 2958.54951  14.1%  10.6 6528s
+ 740861 443630 3428.91092   61   13 3445.03993 2958.59743  14.1%  10.6 6544s
+ 742335 444288     cutoff  107      3445.03993 2958.71108  14.1%  10.6 6560s
+ 743449 445277     cutoff   96      3445.03993 2958.77839  14.1%  10.6 6574s
+ 744855 446172 3389.56857   79   48 3445.03993 2958.85634  14.1%  10.6 6593s
+ 745979 447113 3115.21529   60   46 3445.03993 2958.90454  14.1%  10.6 6614s
+ 747186 447819 3327.63017   83   38 3445.03993 2958.98277  14.1%  10.6 6631s
+ 748289 448748 3232.55094   79   26 3445.03993 2959.05407  14.1%  10.6 6649s
+ 749623 449663     cutoff   70      3445.03993 2959.12740  14.1%  10.6 6668s
+ 750832 450755     cutoff  107      3445.03993 2959.19877  14.1%  10.6 6682s
+ 752245 451478 3127.40499   47   31 3445.03993 2959.32748  14.1%  10.6 6699s
+ 753353 452693 3005.03117   44   14 3445.03993 2959.38627  14.1%  10.6 6715s
+ 754861 453735     cutoff   79      3445.03993 2959.46476  14.1%  10.6 6735s
+ 756169 454753 infeasible  109      3445.03993 2959.56773  14.1%  10.6 6753s
+ 757432 455881     cutoff  110      3445.03993 2959.62335  14.1%  10.6 6769s
+ 758885 456582 3340.71100  111   26 3445.03993 2959.66236  14.1%  10.6 6785s
+ 759859 457164 3432.80843   78   21 3445.03993 2959.75020  14.1%  10.6 6806s
+ 760757 457812 3280.06124   56   37 3445.03993 2959.78042  14.1%  10.7 6825s
+ 761794 458671 3222.04126   61   21 3445.03993 2959.87624  14.1%  10.7 6843s
+ 763067 459846     cutoff   78      3445.03993 2959.91762  14.1%  10.7 6858s
+ 764502 461020     cutoff  122      3445.03993 2959.98493  14.1%  10.7 6873s
+ 766007 461947     cutoff   83      3445.03993 2960.05927  14.1%  10.7 6889s
+ 767128 463167 3383.74850   79   22 3445.03993 2960.15008  14.1%  10.7 6906s
+ 768669 463906     cutoff   91      3445.03993 2960.20410  14.1%  10.7 6923s
+ 769752 464959     cutoff   77      3445.03993 2960.32380  14.1%  10.7 6937s
+ 771187 466005     cutoff  100      3445.03993 2960.41858  14.1%  10.7 6954s
+ 772549 466979 3164.08085   48   32 3445.03993 2960.53996  14.1%  10.7 6974s
+ 773879 467865 infeasible   72      3445.03993 2960.55813  14.1%  10.7 6994s
+ 775141 468904 infeasible   98      3445.03993 2960.67954  14.1%  10.7 7009s
+ 776564 469936     cutoff   70      3445.03993 2960.77134  14.1%  10.7 7023s
+ 777940 470827 3391.00392   86   29 3445.03993 2960.88820  14.1%  10.7 7036s
+ 779179 471630 3367.59966  111   46 3445.03993 2961.00219  14.1%  10.7 7050s
+ 780325 472462     cutoff   83      3445.03993 2961.08112  14.0%  10.7 7066s
+ 781581 473301     cutoff   87      3445.03993 2961.18850  14.0%  10.7 7082s
+ 782669 473885     cutoff   50      3445.03993 2961.27225  14.0%  10.7 7107s
+ 783733 474937 infeasible   70      3445.03993 2961.33667  14.0%  10.7 7124s
+ 785107 476138     cutoff   83      3445.03993 2961.42895  14.0%  10.7 7140s
+ 786633 476848 infeasible   87      3445.03993 2961.58272  14.0%  10.7 7158s
+ 787764 477927 3260.43327   44   19 3445.03993 2961.69785  14.0%  10.7 7176s
+ 789074 478672 3137.02693   53   27 3445.03993 2961.79353  14.0%  10.7 7198s
+ 790204 478722 infeasible   52      3445.03993 2961.85018  14.0%  10.7 7200s
+
+Cutting planes:
+  Lazy constraints: 10043
+
+Explored 790248 nodes (8438302 simplex iterations) in 7200.42 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 10: 3445.04 3600.55 3603.72 ... 3851.26
+
+Time limit reached
+Best objective 3.445039925372e+03, best bound 2.961850183392e+03, gap 14.0257%
+
+User-callback calls 2740902, time in user-callback 4.45 sec
+---> instance_name: n_29_m_4.dat
+---> algo_index: 3
+---> obj_value: 3445.04
+---> total_time: 7391.8
+---> total_time_gurobi: 7200.42
+---> total_nb_benders_cuts: 11498
+---> total_nb_subtour_cuts: 3702
+---> total_nb_user_cuts: 68
+---> GRB_IntAttr_Status: 9
+---> optimality_gap: 0.140257
+---> node_count: 790248
+ =====>>>>> Solution is written to file in <../ret/model_outs> !!!
+===>> All Done!
