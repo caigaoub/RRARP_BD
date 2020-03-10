@@ -26,9 +26,12 @@ public:
 	vector<vector<Vertex>>						_points; // all turning points after boundary partitioning
 	int											_size_G;
 	vector<vector<pair<bool, double>>>			_G; // network constructed after partitioning pair<travelable edge, risk value>
+	int 										_nb_adm_OutT = 0;
+	int 										_nb_adm_InT = 0;
 	vector<vector<double>>						_min_risk_tars;// minimum risk between targets
 	vector<double>								_MAX_REWARD_LIN;
 	vector<double> 								_MAX_REWARD_ROT;
+	double 										_weight_onInnRisk = 5.0;
 	vector<double>								_par_c;  // params in risk & reward functions
 	double										_par_h;
 	vector<double>								_par_optOBdist; // mean of optimal obervation distance
@@ -44,7 +47,7 @@ public:
 	void get_risk_reward_linearInnerTrajc();
 	double get_risk_linearInnerTrajc(Vertex, Vertex, int);
 	double get_reward_linearInnerTrajc(Vertex, Vertex, int);
-	void get_risk_reward_outerTrajc();
+	void get_risk_outerTrajc();
 	double get_risk_outerTrajc(Vertex, Vertex);
 	tuple<bool,double,double> is_intersected(Vertex v, Vertex u, int i);
 	// risk&reward-related functions
