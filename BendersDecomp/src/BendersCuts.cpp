@@ -435,17 +435,19 @@ GRBLinExpr BendersCuts::generate_SuperCut(vector<int> * fseq, vector<vector<doub
 			// cout << endl;
 			s = Coefs[i].first.first;
 			t = Coefs[i].first.second;		
-			_formul_supercut->_model->reset(0);
+			// _formul_supercut->_model->reset(0);
 //			cout << "size : " << Coefs.size() << endl;
+
 			gain = _formul_supercut->get_gain(sd, &Coefs, s, t);	
 			if(gain < 0){
 				Coefs[i].second = max(0.0,  Coefs[i].second + gain);
 			}else{
+				// cout << "reduce coef " << i << "-th" << endl;
 				break;
 			}	
 		}
 		_idx_supercut++;
-		cout << " done with super cut " << _idx_supercut - 1 << endl;			
+		// cout << " done with super cut " << _idx_supercut - 1 << endl;			
 	}
 	
 	GRBLinExpr expr2 = 0;

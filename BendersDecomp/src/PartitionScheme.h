@@ -27,9 +27,10 @@ public:
 	int											_size_G;
 	vector<vector<pair<bool, double>>>			_G; // network constructed after partitioning pair<travelable edge, risk value>
 	vector<vector<double>>						_min_risk_tars;// minimum risk between targets
-					 
-	vector<double>								_par_c1;  // params in risk & reward functions
-	double										_par_c_hat;
+	vector<double>								_MAX_REWARD_LIN;
+	vector<double> 								_MAX_REWARD_ROT;
+	vector<double>								_par_c;  // params in risk & reward functions
+	double										_par_h;
 	vector<double>								_par_optOBdist; // mean of optimal obervation distance
 	vector<double>								_par_varOBdist; // variance of optimal obs. distance
 
@@ -38,6 +39,7 @@ public:
 
 	void build(DataHandler& instance, int nb_dstzn);
 	void build_nodes_crds();
+	void calc_MAX_REWARD();
 
 	void get_risk_reward_linearInnerTrajc();
 	double get_risk_linearInnerTrajc(Vertex, Vertex, int);

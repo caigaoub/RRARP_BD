@@ -10,6 +10,7 @@ void SuperCutFormulation::add_model(GRBModel * model_supercut, int N) {
 double SuperCutFormulation::get_gain(double alpha_arrival, vector<pair<pair<int, int>, double>> * Coefs, int s, int t) {
 //	cout << (*Coefs).size() << endl;
 	this->_model->getEnv().set(GRB_IntParam_LazyConstraints, 1);
+	this->_model->reset(0);
 	
 	GRBVar** _var_x = new GRBVar*[_size_var_x];
 	for (int i = 0; i < _size_var_x; i++) {

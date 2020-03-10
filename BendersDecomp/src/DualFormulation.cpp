@@ -198,8 +198,6 @@ void DualFormulation::set_constraints( ) {
 double DualFormulation::solve() {
 	try {
 		// _model_dual->write("./ret/dual.lp");
-		// _model_dual->getEnv().set(GRB_IntParam_OutputFlag, 0);
-
 		_model_dual->optimize();
 		if (_model_dual->get(GRB_IntAttr_Status) == GRB_OPTIMAL){
 			_status = 0;

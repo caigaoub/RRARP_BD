@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/bin/main",
-            "args": [2, 2, 8, "/home/caigao/Dropbox/Box_Research/Github/RRARP_BD/BendersDecomp/ret/configs/config_2"],
+            "args": [3, 0, 8, "/home/caigao/Dropbox/Box_Research/Github/RRARP_BD/BendersDecomp/ret/configs/config_2"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/bin/",
             "environment": [],
@@ -22,7 +22,8 @@
                     "text": "-enable-pretty-printing",
                     "ignoreFailures": true
                 }
-            ]
+            ],
+            // "log": true
         }
     ]
 }

@@ -8,9 +8,6 @@ import numpy as np
 # algo_idx = 4
 # nb_dstzn = 8
 
-
-
-
 instsize_min = 6
 instsize_max = 35
 idx_config = 1
