@@ -29,6 +29,8 @@ public:
 	int 										_nb_adm_OutT = 0;
 	int 										_nb_adm_InT = 0;
 	vector<vector<double>>						_min_risk_tars;// minimum risk between targets
+
+	double										_AVG_RISK = 0.0;
 	vector<double>								_MAX_REWARD_LIN;
 	vector<double> 								_MAX_REWARD_ROT;
 	double 										_weight_onInnRisk = 5.0;
@@ -43,7 +45,7 @@ public:
 	void build(DataHandler& instance, int nb_dstzn);
 	void build_nodes_crds();
 	void calc_MAX_REWARD();
-
+	void calc_avg_innerrisk();
 	void get_risk_reward_linearInnerTrajc();
 	double get_risk_linearInnerTrajc(Vertex, Vertex, int);
 	double get_reward_linearInnerTrajc(Vertex, Vertex, int);

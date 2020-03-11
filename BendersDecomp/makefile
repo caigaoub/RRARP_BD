@@ -19,6 +19,7 @@ all:
 	$(SRCPATH)GlobalMC.cpp \
 	$(SRCPATH)SuperCutFormulation.cpp \
 	$(SRCPATH)SubtourCuts.cpp \
+	$(SRCPATH)TSPModels.cpp \
 	-o $(BINPATH)main $(SRCPATH)main.cpp $(INCGRB) $(INCBOOST) $(CPPLIBGRB) $(CPPLIBBOOST)
 
 clean:

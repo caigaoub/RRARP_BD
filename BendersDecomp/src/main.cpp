@@ -3,6 +3,7 @@
 #include "DataHandler.h"
 #include "PartitionScheme.h"
 #include "STEFormulation.h"
+#include "TSPModels.h"
 #include "SuperCutFormulation.h"
 #include "BendersCuts.h"
 #include <ctime>
@@ -31,12 +32,12 @@ int main(int argc, const char* argv[]) {
 	file >> instance_name_only;
 	file.close();
 	try {
-	//	string cur_dir  = boost::filesystem::current_path().string();
-	//	auto pos = cur_dir.find_last_of("/");
+		//	string cur_dir  = boost::filesystem::current_path().string();
+		//	auto pos = cur_dir.find_last_of("/");
     	//      cur_dir = cur_dir.substr(0, pos);
 		// string cur_dir = "/projects/academic/josewalt/caigao/RRARP_BD/BendersDecomp/dat/";
-		string cur_dir = "/home/caigao/Dropbox/Box_Research/Github/RRARP_BD/BendersDecomp/dat/";
-		// string cur_dir = "/home/cai/Dropbox/Box_Research/Github/RRARP_BD/BendersDecomp/dat/";
+		// string cur_dir = "/home/caigao/Dropbox/Box_Research/Github/RRARP_BD/BendersDecomp/dat/";
+		string cur_dir = "/home/cai/Dropbox/Box_Research/Github/RRARP_BD/BendersDecomp/dat/";
 		struct stat buffer;
 	  	if(stat (cur_dir.c_str(), &buffer) != 0){
 	  		cerr << " Path of instances does not exist!! (in main.cpp:line 42) " << endl;
@@ -48,6 +49,13 @@ int main(int argc, const char* argv[]) {
 		PartitionScheme network_;
 		network_.build(dataset_, nb_dstzn);
 
+		if(true){
+			TSPModel_STE tspsol;
+			tspsol.init_edge_weights(network_._dataset->_nb_targets+2, network_._min_risk_tars);
+			tspsol.create_formula();
+			tspsol.solve();
+		}
+		exit(0);
 		/*Gurobi model for master problem */
 		GRBEnv * evn_MP_ = new GRBEnv();
 		GRBModel model_MP_ = GRBModel(*evn_MP_);

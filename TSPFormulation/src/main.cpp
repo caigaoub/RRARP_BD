@@ -13,7 +13,7 @@ int main(int argc, char * argv[]){
 	int k = stoi(argv[2]);
 //	const char* filename = "RRARP_instance_n_7_E_1.txt";
 	DataHandler instance(filename);
-  CostInfo cost(&instance);
+  	CostInfo cost(&instance);
 
 	/* build the env&model in gurobi */
 	GRBEnv* env = new GRBEnv();
