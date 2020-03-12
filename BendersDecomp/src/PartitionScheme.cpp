@@ -31,8 +31,8 @@ void PartitionScheme::build(DataHandler& dataset, int nb_dstzn) {
 	for (int i = 0; i < _dataset->_nb_targets; i++)
 		_par_varOBdist.push_back(1.0);
 
-	_par_h = 1.0; //?????
-	// _par_h = 1.0/((double)pow(_dataset->_nb_targets,2) * sqrt(2));
+	// _par_h = 1.0; //?????
+	_par_h = 1.0/((double)pow(_dataset->_nb_targets,2) * sqrt(2));
 	
 	for (int i = 0; i < _dataset->_nb_targets; i++){
 		_MAX_REWARD_LIN.push_back(0.0);
@@ -365,7 +365,7 @@ void PartitionScheme::get_risk_outerTrajc() {
 			cout << '\n';
 		}
 	}
-	if(false){
+	if(true){
 		for (int s = 0; s < _dataset->_nb_targets+2; s++) {
 			for (int t = 0; t < _dataset->_nb_targets+2; t++) {
 				cout << _min_risk_tars[s][t] << ' ';
@@ -424,6 +424,8 @@ double PartitionScheme::inner_risk_function(double l1, double l2, int tar) {
 	double T = -2.0/3.0*pow(l1,3) + 2.0*(_par_c[tar] - pow(l2,2))*l1; // for function f_i = -(x-xoi)^2 - (y - yoi)^2 + c
 	// T /= pow(_par_c[tar],2); // normalize to [0, 1]
 	// T *= 100.0;
+	T /= pow(_dataset->_radii[tar],2);
+	cout << T << endl;
 	return T;
 }
 
@@ -658,4 +660,38 @@ double PartitionScheme::calc_sequence_distance(vector<int> & fseq_){
 	}
 	val += _min_risk_tars[fseq_[fseq_.size()-1]][_dataset->_nb_targets+1];
 	return val;
+}
+
+
+void PartitionScheme::calc_risk_C2C(){
+	_risk_C2C.resize(_dataset->_nb_targets+2);
+	for(int i = 0; i < _dataset->_nb_targets+2; i++)
+		_risk_C2C[i].resize(_dataset->_nb_targets+2);
+	/* risk evaluated on radii*/
+	vector<double> risk_onRadii(_dataset->_nb_targets, 0);
+	for(int i = 0; i < _dataset->_nb_targets; i++)
+		risk_onRadii[i] = _par_c[i]*_dataset->_radii[i] - pow(_dataset->_radii[i],3)/3.0;
+	/*departure depot and arrival depot*/
+	for(int i = 0; i < _dataset->_nb_targets; i++){
+		_risk_C2C[0][i+1] = _min_risk_tars[0][i+1] + risk_onRadii[i];
+		_risk_C2C[i+1][0] = _risk_C2C[0][i+1];
+
+		_risk_C2C[0][_dataset->_nb_targets+1] = _min_risk_tars[0][_dataset->_nb_targets+1] + risk_onRadii[i];
+		_risk_C2C[_dataset->_nb_targets+1][0] = _risk_C2C[0][_dataset->_nb_targets+1];
+	}
+	for(int i = 0; i < _dataset->_nb_targets; i++){
+		for(int j = i+1 ; j < _dataset->_nb_targets; j++){
+			_risk_C2C[i+1][j+1] = _min_risk_tars[i+1][j+1] + risk_onRadii[i] + risk_onRadii[j];
+			_risk_C2C[j+1][i+1] = _risk_C2C[i+1][j+1];
+		}
+	}
+
+	if(true){
+		for (int s = 0; s < _dataset->_nb_targets+2; s++) {
+			for (int t = 0; t < _dataset->_nb_targets+2; t++) {
+				cout << _risk_C2C[s][t] << ' ';
+			}
+			cout << '\n';
+		}
+	}
 }

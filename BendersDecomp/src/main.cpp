@@ -49,13 +49,15 @@ int main(int argc, const char* argv[]) {
 		PartitionScheme network_;
 		network_.build(dataset_, nb_dstzn);
 
-		if(true){
+		if(true){ 
+			/* solve the TSP sequence */
+			network_.calc_risk_C2C();
 			TSPModel_STE tspsol;
 			tspsol.init_edge_weights(network_._dataset->_nb_targets+2, network_._min_risk_tars);
 			tspsol.create_formula();
 			tspsol.solve();
 		}
-		exit(0);
+		// exit(0);
 		/*Gurobi model for master problem */
 		GRBEnv * evn_MP_ = new GRBEnv();
 		GRBModel model_MP_ = GRBModel(*evn_MP_);
