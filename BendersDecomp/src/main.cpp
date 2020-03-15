@@ -21,7 +21,8 @@ int main(int argc, const char* argv[]) {
 	// bool fischetti_on = boost::lexical_cast<bool>(argv[2]);
 	const int fischetti_on = atoi(argv[2]);
 	const int nb_dstzn = atoi(argv[3]);
-	string configfile = argv[4];
+	const int type_trajc = atoi(argv[4]);
+	string configfile = argv[5];
 
 	fstream file(configfile);
 	if (!file) {
@@ -36,8 +37,8 @@ int main(int argc, const char* argv[]) {
 		//	auto pos = cur_dir.find_last_of("/");
     	//      cur_dir = cur_dir.substr(0, pos);
 		// string cur_dir = "/projects/academic/josewalt/caigao/RRARP_BD/BendersDecomp/dat/";
-		// string cur_dir = "/home/caigao/Dropbox/Box_Research/Github/RRARP_BD/BendersDecomp/dat/";
-		string cur_dir = "/home/cai/Dropbox/Box_Research/Github/RRARP_BD/BendersDecomp/dat/";
+		string cur_dir = "/home/caigao/Dropbox/Box_Research/Github/RRARP_BD/BendersDecomp/dat/";
+		// string cur_dir = "/home/cai/Dropbox/Box_Research/Github/RRARP_BD/BendersDecomp/dat/";
 		struct stat buffer;
 	  	if(stat (cur_dir.c_str(), &buffer) != 0){
 	  		cerr << " Path of instances does not exist!! (in main.cpp:line 42) " << endl;
@@ -47,9 +48,8 @@ int main(int argc, const char* argv[]) {
 		dataset_.parse(instance_wPath);
 		// dataset_.print();
 		PartitionScheme network_;
-		network_.build(dataset_, nb_dstzn);
-
-		if(true){ 
+		network_.build(dataset_, nb_dstzn, type_trajc);
+		if(false){ 
 			/* solve the TSP sequence */
 			network_.calc_risk_C2C();
 			TSPModel_STE tspsol;
@@ -105,11 +105,9 @@ int main(int argc, const char* argv[]) {
 			formul_master.write_solution(dataset_._name, which_BDCut);
 		}
 		
-
 		delete evn_MP_;
 		delete evn_dual_;
 		delete evn_supercut_;
-		
 	}
 	catch (const GRBException& ex) {
 		cout << "Error number: " << ex.getErrorCode() << endl;

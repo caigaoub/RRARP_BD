@@ -9,9 +9,11 @@ void exit_error(int line_num) {
     exit(1);
 }
 
-void PartitionScheme::build(DataHandler& dataset, int nb_dstzn) {
+void PartitionScheme::build(DataHandler& dataset, int nb_dstzn, int type_trajc) {
 	this->_dataset = &dataset;
 	this->_nb_dstzn = nb_dstzn;
+	this->_type_trajc = type_trajc;
+
 	_size_G = 2 * _dataset->_nb_targets * _nb_dstzn + 2;
 	_G.resize(_size_G);
 	for (int i = 0; i < _size_G; i++) {
@@ -25,7 +27,6 @@ void PartitionScheme::build(DataHandler& dataset, int nb_dstzn) {
 	// parameters initialization for risk & reward functions
 	for (int i = 0; i < _dataset->_nb_targets; i++){
 		_par_c.push_back(_dataset->_radii[i]*_dataset->_radii[i]);
-		// _par_c.push_back(2.0);
 	}
 	
 	for (int i = 0; i < _dataset->_nb_targets; i++) //let the best observation distance be half radius
@@ -67,13 +68,24 @@ void PartitionScheme::build(DataHandler& dataset, int nb_dstzn) {
 	calc_MAX_REWARD();
 	calc_avg_innerrisk();
 	_par_h = 0.05 * _AVG_RISK;
-
 	build_nodes_crds();
-	get_risk_reward_linearInnerTrajc();
-	// add rotatory case
+	if(_type_trajc == 1){ // linear case
+		get_risk_reward_linearInnerTrajc();
+	}
+	if(_type_trajc == 2){ // rotatory case
+		get_risk_reward_rotatoryInnerTrajc();
+	}
+	if(_type_trajc != 1 && _type_trajc != 2){
+		cerr << "ERROR: No such trajectory type(PartitionScheme.cpp::line 80)" << endl;
+		exit(0);
+	}
 	get_risk_outerTrajc(); // **Important**:'_min_risk_tars' is generated in this function.
 }
 
+/**
+ * discretize boundaries into sets of points
+ * Out: _points(type: vector<vector<Vertex>>, rows: _nb_targets+2, cols: points on it)	
+*/
 void PartitionScheme::build_nodes_crds() {
 	_points.resize(_dataset->_nb_targets + 2);
 	_points[0].resize(1); //departure point
@@ -92,42 +104,59 @@ void PartitionScheme::build_nodes_crds() {
 	// _points[_dataset->_nb_targets + 1][0].print();
 }
 
+/**
+ * function: calculate the max reward on linear or rotatory trajectories that can be collected from each target
+ * out: _MAX_REWARD_LIN (vector<double>, max reward on linear trajectory for target i)
+ * out:	_MAX_REWARD_ROT (vector<double>, max reward on rotatory trajectory)
+*/
 void PartitionScheme::calc_MAX_REWARD(){
-	/* calculate max reward on linear trajectories*/
-	double nb_chords = 100.0;
-	double len_cur_chord = 0.0;
-	double nb_SLSs = 200.0;//nb of small line segments
-	double len_SLS = 0.0;
-	double total_reward = 0.0, point_reward = 0.0;
-	for(int i = 0; i< _dataset->_nb_targets; i++){
-		double len_chord_interval = 2.0*_dataset->_radii[i]/nb_chords;
-		for(int k = 1; k < nb_chords; k++){
-			len_cur_chord = len_chord_interval * k; 
-			total_reward = 0.0;
-			len_SLS = 0.5*len_cur_chord/nb_SLSs;
-			double y_yoi_square = pow(_dataset->_radii[i],2) - pow(len_cur_chord/2.0, 2);
-			for(int j = 0; j < nb_SLSs; j++){
-				point_reward = len_SLS*exp(-pow(sqrt(pow(j*len_SLS,2) + y_yoi_square)- _par_optOBdist[i],2)/(2.0*_par_varOBdist[i]));
-				// cout << point_reward << ", ";
-				total_reward += point_reward;
-			}
-			// cout << endl;
-			// cout << 2.0 * total_reward << '\t';
-			_MAX_REWARD_LIN[i] = max(_MAX_REWARD_LIN[i], 2.0 * total_reward);
+	if(_test_mod){
+		for(int i = 0; i< _dataset->_nb_targets; i++){
+			_MAX_REWARD_LIN[i] = 2.0*_dataset->_radii[i];
 		}
-		// cout << "target " << i << " (LINEAR): " << _MAX_REWARD_LIN[i] << endl;
+		for(int i = 0; i< _dataset->_nb_targets; i++){
+			_MAX_REWARD_ROT[i] = 2.0 * M_PI *_dataset->_radii[i];
+		}
+	}else{
+		/* calculate max reward on linear trajectories*/
+		double nb_chords = 100.0;
+		double len_cur_chord = 0.0;
+		double nb_SLSs = 200.0;//nb of small line segments
+		double len_SLS = 0.0;
+		double total_reward = 0.0, point_reward = 0.0;
+		for(int i = 0; i< _dataset->_nb_targets; i++){
+			double len_chord_interval = 2.0*_dataset->_radii[i]/nb_chords;
+			for(int k = 1; k < nb_chords; k++){
+				len_cur_chord = len_chord_interval * k; 
+				total_reward = 0.0;
+				len_SLS = 0.5*len_cur_chord/nb_SLSs;
+				double y_yoi_square = pow(_dataset->_radii[i],2) - pow(len_cur_chord/2.0, 2);
+				for(int j = 0; j < nb_SLSs; j++){
+					point_reward = len_SLS*exp(-pow(sqrt(pow(j*len_SLS,2) + y_yoi_square)- _par_optOBdist[i],2)/(2.0*_par_varOBdist[i]));
+					// cout << point_reward << ", ";
+					total_reward += point_reward;
+				}
+				// cout << endl;
+				// cout << 2.0 * total_reward << '\t';
+				_MAX_REWARD_LIN[i] = max(_MAX_REWARD_LIN[i], 2.0 * total_reward);
+			}
+			// cout << "target " << i << " (LINEAR): " << _MAX_REWARD_LIN[i] << endl;
+		}
+		double opt_z = 0.0;
+		/* calculate max reward on rotation trajectories */
+		for(int i = 0; i< _dataset->_nb_targets; i++){
+			opt_z = 0.5 * (_par_optOBdist[i] + sqrt(_par_optOBdist[i]*_par_optOBdist[i] + 4.0 * _par_varOBdist[i] * _par_varOBdist[i]));
+			opt_z = min(opt_z, _dataset->_radii[i]);
+			_MAX_REWARD_ROT[i] = 2*M_PI*opt_z* exp(-pow(opt_z-_par_optOBdist[i],2)/(2.0*_par_varOBdist[i]*_par_varOBdist[i]));
+			// cout << "target " << i << " (ROTATORY): " << _MAX_REWARD_ROT[i] << endl;
+		}
 	}
-	double opt_z = 0.0;
-	/* calculate max reward on rotation trajectories */
-	for(int i = 0; i< _dataset->_nb_targets; i++){
-		opt_z = 0.5 * (_par_optOBdist[i] + sqrt(_par_optOBdist[i]*_par_optOBdist[i] + 4.0 * _par_varOBdist[i] * _par_varOBdist[i]));
-		opt_z = min(opt_z, _dataset->_radii[i]);
-		_MAX_REWARD_ROT[i] = 2*M_PI*opt_z* exp(-pow(opt_z-_par_optOBdist[i],2)/(2.0*_par_varOBdist[i]*_par_varOBdist[i]));
-		// cout << "target " << i << " (ROTATORY): " << _MAX_REWARD_ROT[i] << endl;
-	}
-
 }
 
+/**
+ * function: calculate the averger inner, _AVG_RISK = \sum(average risk in target i)
+ * out: _AVG_RISK (double)
+*/
 void PartitionScheme::calc_avg_innerrisk(){
 	_AVG_RISK = 0.0;
 	for(int i = 0; i < _dataset->_nb_targets; i++){
@@ -161,7 +190,7 @@ void PartitionScheme::get_risk_reward_linearInnerTrajc() {
 					risk_innerpath[i] = get_lineSeg_len(_points[s+1][0], _points[s+1][i]);
 					reward_innerpath[i] = get_lineSeg_len(_points[s+1][0], _points[s+1][i]);
 				}else{
-				/*  REAL: real risk evaluation over linear inner trajectory*/
+					/*  REAL: real risk evaluation over linear inner trajectory*/
 					risk_innerpath[i] =   get_risk_linearInnerTrajc(_points[s+1][0], _points[s+1][i], s);
 					reward_innerpath[i] = get_reward_linearInnerTrajc(_points[s+1][0], _points[s+1][i], s);
 				}
@@ -202,6 +231,8 @@ void PartitionScheme::get_risk_reward_linearInnerTrajc() {
 	// exit(0);
 }
 
+
+
 double PartitionScheme::get_reward_linearInnerTrajc(Vertex entry, Vertex exit, int tar) { 
 	double l1 = get_lineSeg_len(entry, exit) / 2.0;
 	// cout << l1 << "   ";
@@ -223,6 +254,129 @@ double PartitionScheme::get_risk_linearInnerTrajc(Vertex entry, Vertex exit, int
 	double l1 = get_lineSeg_len(entry, exit) / 2.0;
 	double l2 = sqrt(_dataset->_radii[tar] * _dataset->_radii[tar] - l1* l1 + 0.00000000001);
 	return inner_risk_function(l1, l2, tar);
+}
+
+/**
+ * get the risk & reward on inner rotatory trajectories
+*/
+void PartitionScheme::get_risk_reward_rotatoryInnerTrajc() {
+	int idx_row, idx_col, flag;
+	vector<tuple<bool,double,double>> admissible_path(_nb_dstzn);
+	// tuple<double,double> tmpRR;
+	for (int s = 0; s < _dataset->_nb_targets; s++) { 
+		for (int i = 0; i < _nb_dstzn; i++) {	
+			if(_test_mod){
+				admissible_path[i] = get_optEucl_rotatoryInnerTrajc(i*_subarc_angle, s);
+			}else{
+				/* search both ccw and cw  */
+				admissible_path[i] = get_optimal_rotatoryInnerTrajc(i*_subarc_angle, s);
+			}
+		}
+		/* write admissible trajectories (meet minimum reward requirement) to matrix G */ 
+		idx_row = s * 2 * _nb_dstzn + 1; 
+		idx_col = s * 2 * _nb_dstzn + _nb_dstzn + 1;
+		for (int i = 0; i < _nb_dstzn; i++) {
+			for (int j = 0; j < _nb_dstzn; j++) {
+				flag = (_nb_dstzn - i + j) % _nb_dstzn;
+				if (get<0>(admissible_path[i])){
+					_G[idx_row + i][idx_col + j] = make_pair(true, get<1>(admissible_path[flag]));
+					_nb_adm_InT++;
+				}
+			}
+		}
+	}
+	// exit(0);
+
+	/*print for debugging: */
+	if(false){
+		for (int i = 0; i < _size_G; i++) {
+			for (int j = 0; j < _size_G; j++) {
+				cout << _G[i][j].second << ' ';
+			}
+			cout << '\n';
+		}
+	}
+	// exit(0);
+}
+tuple<bool, double,double> PartitionScheme::get_optimal_rotatoryInnerTrajc(double phi, int tar){
+	double nbp_onRadius = 100.0;
+	double unit_rad = _dataset->_radii[tar]/nbp_onRadius;
+	double tmpRad = 0.0, tmpReward = 0.0, tmpRisk = 0.0;
+	double optRad = 0.0, optReward = 0.0, optRisk = INF;
+	bool admissible = false;
+	for(int i = 1; i <= nbp_onRadius; i++){
+		tmpRad = i * unit_rad;
+		/*rotate clockwise*/
+		tmpReward = phi * tmpRad * (exp(-pow(tmpRad-_par_optOBdist[tar],2)/(2.0*pow(_par_varOBdist[tar],2))));
+		if(tmpReward > _MAX_REWARD_ROT[tar]*_dataset->_bdg_rewards_ratio[tar]){
+			tmpRisk = 0.0;
+			tmpRisk += 2.0*(_par_c[tar]*(_dataset->_radii[tar]-tmpRad) - 1.0/3.0 *(pow(_dataset->_radii[tar],3)-pow(tmpRad,3)));
+			tmpRisk += phi * tmpRad * (_par_c[tar] - pow(tmpRad,2));
+			if(tmpRisk < optRisk){
+				admissible = true;
+				optRisk = tmpRisk;
+				optRad = tmpRad;
+				optReward = tmpReward;
+			}
+		}
+		/*rotate counterclockwise*/
+		tmpReward = (2.0*M_PI- phi) * tmpRad * (exp(-pow(tmpRad-_par_optOBdist[tar],2)/(2.0*pow(_par_varOBdist[tar],2))));
+		if(tmpReward > _MAX_REWARD_ROT[tar]*_dataset->_bdg_rewards_ratio[tar]){
+			tmpRisk = 0.0;
+			tmpRisk += 2.0*(_par_c[tar]*(_dataset->_radii[tar]-tmpRad) - 1.0/3.0 *(pow(_dataset->_radii[tar],3)-pow(tmpRad,3)));
+			tmpRisk += (2.0*M_PI- phi) * tmpRad * (_par_c[tar] - pow(tmpRad,2));
+			if(tmpRisk < optRisk){
+				admissible = true;
+				optRisk = tmpRisk;
+				optRad = tmpRad;
+				optReward = tmpReward;
+			}
+		}
+	}
+	// cout << "Radius: " << _dataset->_radii[tar] << " opt depth: " << optRad << endl; 
+	return make_tuple(admissible, optRisk, optReward);
+}
+
+
+tuple<bool, double,double> PartitionScheme::get_optEucl_rotatoryInnerTrajc(double phi, int tar){
+	double nbp_onRadius = 100.0;
+	double unit_rad = _dataset->_radii[tar]/nbp_onRadius;
+	double tmpRad = 0.0, tmpReward = 0.0, tmpRisk = 0.0;
+	double optReward = 0.0, optRisk = INF;
+	double optRad = 0.0;
+	bool admissible = false;
+	for(int i = 1; i <= nbp_onRadius; i++){
+		tmpRad = i * unit_rad;
+		/*rotate clockwise*/
+		tmpReward = phi * tmpRad;
+		if(tmpReward > _MAX_REWARD_ROT[tar]*_dataset->_bdg_rewards_ratio[tar]){
+			tmpRisk = 2.0*(_dataset->_radii[tar]-tmpRad) + phi * tmpRad;
+			// cout << tmpRisk << endl;
+			if(tmpRisk < optRisk){
+				admissible = true;
+				optRisk = tmpRisk;
+				optRad = tmpRad;
+				optReward = tmpReward;
+			}
+		}
+		// cout << tmpRad << ", " << optRisk << ", " << optReward << endl;
+		/*rotate counterclockwise*/
+		tmpReward = (2.0*M_PI- phi) * tmpRad;
+		if(tmpReward > _MAX_REWARD_ROT[tar]*_dataset->_bdg_rewards_ratio[tar]){
+			tmpRisk = 2.0*(_dataset->_radii[tar]-tmpRad) + (2.0*M_PI- phi) * tmpRad;
+			// cout << tmpRisk << endl;
+			if(tmpRisk < optRisk){
+				admissible = true;
+				optRisk = tmpRisk;
+				optRad = tmpRad;
+				optReward = tmpReward;
+			}
+		}
+		// cout << tmpRad << ", " << optRisk << ", " << optReward << endl;
+	}
+	// exit(0);
+	// cout << "Radius: " << _dataset->_radii[tar] << " opt depth: " << optRad << " opt risk: " << optRisk << " opt reward: " << optReward << endl; 
+	return make_tuple(admissible, optRisk, optReward);
 }
 
 void PartitionScheme::get_risk_outerTrajc() {
