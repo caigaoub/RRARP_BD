@@ -53,7 +53,7 @@ int main(int argc, const char* argv[]) {
 			/* solve the TSP sequence */
 			network_.calc_risk_C2C();
 			TSPModel_STE tspsol;
-			tspsol.init_edge_weights(network_._dataset->_nb_targets+2, network_._min_risk_tars);
+			tspsol.init_edge_weights(network_._dataset->_nb_targets+2, network_._risk_C2C);
 			tspsol.create_formula();
 			tspsol.solve();
 		}

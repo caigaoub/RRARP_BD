@@ -33,11 +33,15 @@ public:
 	double										_AVG_RISK = 0.0;
 	vector<double>								_MAX_REWARD_LIN;
 	vector<double> 								_MAX_REWARD_ROT;
-	double 										_weight_onInnRisk = 5.0;
+	// double 										_weight_onInnRisk = 1.0;
+	// double 										_weight_onOutRisk = 1.0;
 	vector<double>								_par_c;  // params in risk & reward functions
 	double										_par_h;
 	vector<double>								_par_optOBdist; // mean of optimal obervation distance
 	vector<double>								_par_varOBdist; // variance of optimal obs. distance
+
+	
+	bool 										_test_mod = false;
 
 	PartitionScheme() {};
 	~PartitionScheme() {};
