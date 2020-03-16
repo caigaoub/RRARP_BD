@@ -31,7 +31,7 @@ public:
 	
 
 	int 								_optimstatus;
-
+	vector<int>							_opt_seq;
 	ProgTime * 							_time;
 
 
@@ -43,6 +43,7 @@ public:
 	void add_SuperCutformul(SuperCutFormulation*);
 	pair<double, double> solve_formul_wCB(int);// with callback
 	pair<double, double> solve_formul_woCB(); // without callback
+
 	void get_optimal_sol(double **);
 	double add_USER_cuts(double**);
 	pair<bool,int> add_SECs(double **);

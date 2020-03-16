@@ -81,7 +81,7 @@ pair<double, double> STEFormulation::solve_formul_wCB(int which_cut) {
 		_time->end_prog();
 		// cout << _time->_elapsed_secs << endl;
 		_optimstatus = _model->get(GRB_IntAttr_Status);
-		if (_model->get(GRB_IntAttr_Status) == GRB_OPTIMAL|| _model->get(GRB_IntAttr_Status) == GRB_TIME_LIMIT) {	
+		if (_model->get(GRB_IntAttr_Status) == GRB_OPTIMAL || _model->get(GRB_IntAttr_Status) == GRB_TIME_LIMIT) {	
 			double obj_val = _model->get(GRB_DoubleAttr_ObjVal);
 			double v_val = (*_var_v).get(GRB_DoubleAttr_X);
 			_total_nb_Benders_cuts = cb->get_nb_Benders_cuts();
@@ -93,7 +93,42 @@ pair<double, double> STEFormulation::solve_formul_wCB(int which_cut) {
 			// cout << "====>> v value: " << v_val  << endl;
 			// cout << "====>> nb of Benders cuts(not including user cut): " << _total_nb_Benders_cuts << endl;
 			// cout << "====>> nb of Benders cuts(user cuts): " <<  _total_nb_user_cuts << endl;
-			// cout << "====>> nb of subtour cuts: " << _total_nb_subtour_cuts << endl;
+			// cout << "====>> nb of subtour cuts: " << _total_nb_subtour_cuts << endl;			
+			double **sol = new double*[_size_var_y];
+			for (int i = 0; i < _size_var_y; i++) 
+				sol[i] = new double[_size_var_y];
+			
+			for (int i = 0; i < _size_var_y; i++) {
+				for (int j = 0; j < _size_var_y; j++) {
+					sol[i][j] = _var_y[i][j].get(GRB_DoubleAttr_X);
+				}
+			}
+			// double obj_val = _model->get(GRB_DoubleAttr_ObjVal);
+			// cout << " ====>> objective of TSP solution: " << obj_val << endl;
+			// cout << " ====>> optimal TSP Solution matrix: " << '\n';
+			// for (int i = 0; i < _size_var_x; i++) {
+			// 	for (int j = 0; j < _size_var_x; j++) {
+			// 		if(abs(sol[i][j]) < 1e-6){
+			// 				cout << 0 << "  ";
+			// 		}
+			// 		if(abs(sol[i][j]-1) < 1e-6){
+			// 			cout << 1 << "  ";
+			// 		}
+			// 		// cout << sol[i][j] << "   ";	
+			// 	}
+			// 	cout << endl;
+			// }
+			int len;
+			int *tour = new int[_size_var_y];
+			BendersCuts::findsubtour(_size_var_y, sol, &len, tour);
+			_opt_seq.clear();
+			_opt_seq.resize(_size_var_y);
+			for (int i = 0; i < len; i++) {
+				_opt_seq.at(i) = tour[i];
+				// cout << tour[i] << ' ';
+			}
+			// cout << '\n';
+
 			delete cb;
 			return make_pair(obj_val, v_val);
 		}

@@ -32,11 +32,11 @@ module load gurobi/9.0.0
 
 #make
 
-#./bin/main 2 1 8  ./ret/configs/config_${SLURM_ARRAY_TASK_ID}
+#./bin/main 2 1 8 1 ./ret/configs/config_${SLURM_ARRAY_TASK_ID}
 
-# ./bin/main 3 1 8  ./ret/configs/config_${SLURM_ARRAY_TASK_ID}
+# ./bin/main 3 1 8 1 ./ret/configs/config_${SLURM_ARRAY_TASK_ID}
 
- ./bin/main 3 1 8  ./ret/configs/config_${SLURM_ARRAY_TASK_ID}
+ ./bin/main 3 1 8 1 ./ret/configs/config_${SLURM_ARRAY_TASK_ID}
 
 
 echo "===>> All Done!"

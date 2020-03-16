@@ -7,6 +7,7 @@
 #include <vector>
 #include <cstdlib>
 #include <cmath>
+#include "BendersCuts.h"
 using namespace std;
 
 class TSPModel_STE // subtour elimination formulation
@@ -19,7 +20,7 @@ public:
 	int                         _size_var_x;
 	GRBVar**                    _var_x;
 	int                         _nb_subtour_cuts = 0;
-
+	vector<int>					_opt_seq;
 
 	TSPModel_STE(){};
 	~TSPModel_STE();

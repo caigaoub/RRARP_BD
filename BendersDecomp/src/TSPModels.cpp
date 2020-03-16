@@ -77,8 +77,7 @@ void TSPModel_STE::solve()
 		SubtourElimCuts cb = SubtourElimCuts(_var_x, _size_var_x);
 		_model->setCallback(&cb);
 		_model->optimize();
-		if (_model->get(GRB_IntAttr_Status) == GRB_OPTIMAL){
-			
+		if (_model->get(GRB_IntAttr_Status) == GRB_OPTIMAL){			
 			double **sol = new double*[_size_var_x];
 			for (int i = 0; i < _size_var_x; i++) 
 				sol[i] = new double[_size_var_x];
@@ -90,20 +89,31 @@ void TSPModel_STE::solve()
 			}
 			double	obj_val = _model->get(GRB_DoubleAttr_ObjVal);
 
-			cout << " ====> objective of TSP solution: " << obj_val << endl;
-			cout << " ====>> optimal TSP Solution matrix: " << '\n';
-			for (int i = 0; i < _size_var_x; i++) {
-				for (int j = 0; j < _size_var_x; j++) {
-					if(abs(sol[i][j]) < 1e-6){
-							cout << 0 << "  ";
-					}
-					if(abs(sol[i][j]-1) < 1e-6){
-						cout << 1 << "  ";
-					}
-					// cout << sol[i][j] << "   ";	
-				}
-				cout << endl;
+			// cout << " ====>> objective of TSP solution: " << obj_val << endl;
+			// cout << " ====>> optimal TSP Solution matrix: " << '\n';
+			// for (int i = 0; i < _size_var_x; i++) {
+			// 	for (int j = 0; j < _size_var_x; j++) {
+			// 		if(abs(sol[i][j]) < 1e-6){
+			// 				cout << 0 << "  ";
+			// 		}
+			// 		if(abs(sol[i][j]-1) < 1e-6){
+			// 			cout << 1 << "  ";
+			// 		}
+			// 		// cout << sol[i][j] << "   ";	
+			// 	}
+			// 	cout << endl;
+			// }
+			int len;
+			int *tour = new int[_size_var_x];
+			BendersCuts::findsubtour(_size_var_x, sol, &len, tour);
+			// cout << "====>> current best visiting sequence: ";
+			_opt_seq.clear();
+			_opt_seq.resize(_size_var_x);
+			for (int i = 0; i < len; i++) {
+				_opt_seq.at(i) = tour[i];
+				// cout << tour[i] << ' ';
 			}
+			// cout << '\n';
 
 			for (int i = 0; i < _size_var_x; i++)
 				delete[] sol[i];

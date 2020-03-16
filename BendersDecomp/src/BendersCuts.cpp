@@ -30,7 +30,7 @@ BendersCuts::BendersCuts(GRBVar** y_, GRBVar* v_, PartitionScheme* partition_, D
 	this->_formul_supercut = supercut_formul_;
 	this->_which_Bcut = which_cut;
 
-	for (int i = 0; i <= _nb_targets; i++)
+	for (int i = 0; i <= _nb_targets + 1; i++)
 		_fseq.push_back(-1);
 
 }
@@ -59,7 +59,7 @@ void BendersCuts::callback() {
 			}
 			else {
 				// find a feasible sequence. Add Benders optimality cuts by solving shortest path problem
-				for (int i = 0; i < _nb_targets + 1; i++) {
+				for (int i = 0; i <= _nb_targets + 1; i++) {
 					_fseq.at(i) = tour[i];
 				}
 				// print_sequence(_fseq);

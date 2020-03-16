@@ -43,7 +43,7 @@ public:
 	vector<double>								_par_varOBdist; // variance of optimal obs. distance in reward function
 
 	
-	bool 										_test_mod = false; //when the test mode is on, euclidean distance will be used. 
+	bool 										_test_mod = true; //when the test mode is on, euclidean distance will be used. 
 
 	PartitionScheme() {};
 	~PartitionScheme() {};
@@ -73,7 +73,7 @@ public:
 	double get_lineSeg_len(Vertex, Vertex);
 	void solve_shortestpath(vector<int> &, vector<vector<double>> &);
 	void solve_shortestpath_v2(vector<int> &, vector<vector<double>> &);
-	double calc_sequence_distance(vector<int> &);
+	double calc_withdrawal_risk(vector<int> &);
 };
 
 
