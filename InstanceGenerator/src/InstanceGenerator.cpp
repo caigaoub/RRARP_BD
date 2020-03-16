@@ -34,7 +34,7 @@ void InstanceGenerator::produce(const char* difflevel){
 //  print_instance();
   /* strategy: choose the nearest target and take half length as its maximum radius */
 
-  set_panel({0, 0}, num_targets*num_targets*scale, num_targets*num_targets*scale);
+  set_panel({0, 0}, 100.0, 100.0);
   set_locations();
   get_max_radii_strategyII();
   set_radii_strategyII(difflevel);
@@ -43,15 +43,15 @@ void InstanceGenerator::produce(const char* difflevel){
 }
 
 
-void InstanceGenerator::produce_clusters(const char* difflevel, int nb_cls){
-  this->nb_cls = nb_cls;
-  set_panel({0, 0}, num_targets* scale, num_targets * scale);
-  set_locations(nb_cls);
-  get_max_radii();
-  set_radii(difflevel);
-  set_RR_threshold();
-//  print_instance();
-}
+// void InstanceGenerator::produce_clusters(const char* difflevel, int nb_cls){
+//   this->nb_cls = nb_cls;
+//   set_panel({0, 0}, num_targets* scale, num_targets * scale);
+//   set_locations(nb_cls);
+//   get_max_radii();
+//   set_radii(difflevel);
+//   set_RR_threshold();
+// //  print_instance();
+// }
 
 
 void InstanceGenerator::set_panel(Vertex llc, double width, double height){
@@ -216,15 +216,15 @@ void InstanceGenerator::set_radii_strategyII(const char* difflevel){
 
 
 void InstanceGenerator::set_RR_threshold(){
-  // _eng = mt19937(_rd());// seed the random generator
+  _eng = mt19937(_rd());// seed the random generator
   // double ratio = 0.0;
   for(int i = 0; i < num_targets; i++){
-    // auto rand_real_reward = uniform_real_distribution<>(0.3, 0.5);
-    // ratio = rand_real_reward(_eng);
-    min_reward_pct[i] = 0.000001;
+    auto rand_real_reward = uniform_real_distribution<>(0.3, 0.5);
+    ratio = rand_real_reward(_eng);
+    min_reward_pct[i] = 0.ratio;
     // auto rand_real_risk = uniform_real_distribution<>(0.4, 0.6);
     // ratio = rand_real_risk(_eng);
-    max_risk_pct[i] = 100000;
+    // max_risk_pct[i] = 100000;
   }
 }
 

@@ -33,7 +33,7 @@ public:
 	Vertex*			_target_locs;
 	double*			_radii;
 	double*			_bdg_rewards_ratio; // budgetary rewards ratio
-	double*			_risk_thold_ratio; // maximum risk taken at that inner trajectory	
+	// double*			_risk_thold_ratio; // maximum risk taken at that inner trajectory	
 
 	DataHandler() {};
 	~DataHandler();

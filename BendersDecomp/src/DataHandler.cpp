@@ -28,20 +28,20 @@ void DataHandler::parse(string filename) {
 	}
 
 	_bdg_rewards_ratio = new double[_nb_targets];
-	_risk_thold_ratio = new double[_nb_targets];
+	// _risk_thold_ratio = new double[_nb_targets];
 	for (int i = 0; i < _nb_targets; i++) {
 		file >> _bdg_rewards_ratio[i];
 	}
-	for (int i = 0; i < _nb_targets; i++) {
-		file >> _risk_thold_ratio[i];
-	}
+	// for (int i = 0; i < _nb_targets; i++) {
+	// 	file >> _risk_thold_ratio[i];
+	// }
 }
 
 
 DataHandler::~DataHandler() {
 	delete[] _radii;
 	delete[] _bdg_rewards_ratio;
-	delete[] _risk_thold_ratio;
+	// delete[] _risk_thold_ratio;
 	delete[] _target_locs;
 }
 
@@ -64,10 +64,9 @@ void DataHandler::print() {
 	cout << "6. lower bounds of rewards:  ";
 	for (int i = 0; i < _nb_targets; i++)
 		cout << _bdg_rewards_ratio[i] << "  ";
-
 	cout << "\n";
-	cout << "7. upper bounds of risks:  ";
-	for (int i = 0; i < _nb_targets; i++)
-		cout << _risk_thold_ratio[i] << "  ";
-	cout << "\n";
+	// cout << "7. upper bounds of risks:  ";
+	// for (int i = 0; i < _nb_targets; i++)
+	// 	cout << _risk_thold_ratio[i] << "  ";
+	// cout << "\n";
 }

@@ -176,7 +176,7 @@ pair<int,int> improve_root(int N, STEFormulation & formul_master) {
 
 
 void compare_tspSol_vs_optSol(PartitionScheme & network_){
-/* solve the TSP sequence */
+   /* find TSP solution*/
 	network_.calc_risk_C2C();
 	TSPModel_STE tsp_formul;
 	tsp_formul.init_edge_weights(network_._dataset->_nb_targets+2, network_._risk_C2C);
@@ -187,7 +187,7 @@ void compare_tspSol_vs_optSol(PartitionScheme & network_){
     network_.solve_shortestpath(tspSeq, SDS);
     double risk_tspSol = network_.calc_withdrawal_risk(tspSeq) + SDS[network_._dataset->_nb_targets+1][0]; 
 
-	/**R2ARP */
+	/**find R2ARP solution */
 	GRBEnv * evn_MP_ = new GRBEnv();
 	GRBModel model_MP_ = GRBModel(*evn_MP_);
 	STEFormulation formul_master;
