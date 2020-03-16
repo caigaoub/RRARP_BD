@@ -187,8 +187,7 @@ void compare_tspSol_vs_optSol(PartitionScheme & network_){
     network_.solve_shortestpath(tspSeq, SDS);
     double risk_tspSol = network_.calc_withdrawal_risk(tspSeq) + SDS[network_._dataset->_nb_targets+1][0]; 
 
-
-    /*Gurobi model for master problem */
+	/**R2ARP */
 	GRBEnv * evn_MP_ = new GRBEnv();
 	GRBModel model_MP_ = GRBModel(*evn_MP_);
 	STEFormulation formul_master;

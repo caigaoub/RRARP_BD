@@ -76,7 +76,7 @@ void PartitionScheme::build(DataHandler& dataset, int nb_dstzn, int type_trajc) 
 		get_risk_reward_rotatoryInnerTrajc();
 	}
 	if(_type_trajc != 1 && _type_trajc != 2){
-		cerr << "ERROR: No such trajectory type(PartitionScheme.cpp::line 80)" << endl;
+		cerr << "ERROR: No such trajectory type(PartitionScheme.cpp::line 79)" << endl;
 		exit(0);
 	}
 	get_risk_outerTrajc(); // **Important**:'_min_risk_tars' is generated in this function.
@@ -191,7 +191,7 @@ void PartitionScheme::get_risk_reward_linearInnerTrajc() {
 					reward_innerpath[i] = get_lineSeg_len(_points[s+1][0], _points[s+1][i]);
 				}else{
 					/*  REAL: real risk evaluation over linear inner trajectory*/
-					risk_innerpath[i] =   get_risk_linearInnerTrajc(_points[s+1][0], _points[s+1][i], s);
+					risk_innerpath[i] = get_risk_linearInnerTrajc(_points[s+1][0], _points[s+1][i], s);
 					reward_innerpath[i] = get_reward_linearInnerTrajc(_points[s+1][0], _points[s+1][i], s);
 				}
 				// cout << "target: " << s+1 << ": " <<risk_innerpath[i] << " " << reward_innerpath[i] << endl; 
@@ -425,8 +425,9 @@ void PartitionScheme::get_risk_outerTrajc() {
 							val_risk = get_risk_outerTrajc(_points[s][i], _points[t][j]);
 						}
 						_G[idxmat_1 + i][idxmat_2 + j] = make_pair(true, val_risk);
+						_nb_adm_OutT += 1;
 						_G[idxmat_4 + j][idxmat_3 + i] = make_pair(true, val_risk);
-						_nb_adm_OutT += 2;
+						_nb_adm_OutT += 1;
 						// cout<< s << " " << t << ": " << idxmat_1+i << "-->" << idxmat_2+j << " dist: "<< _G[idxmat_1 + i][idxmat_2 + j].second << endl;
 						// cout << idxmat_1+i << "-->" << idxmat_2+j << " : " << _G[idxmat_1 + i][idxmat_2 + j].second << '\n';
 						if (val_risk < val_min_risk)
@@ -848,12 +849,12 @@ void PartitionScheme::calc_risk_C2C(){
 			_risk_C2C[i].resize(_dataset->_nb_targets+2, 0.0);
 		/*departure depot and arrival depot*/
 		for(int i = 0; i < _dataset->_nb_targets; i++){
-			_risk_C2C[0][i+1] = _min_risk_tars[0][i+1] + _dataset->_radii[i];
-			_risk_C2C[i+1][_dataset->_nb_targets+1] = _min_risk_tars[i+1][_dataset->_nb_targets+1] + _dataset->_radii[i];
+			_risk_C2C[0][i+1] = get_lineSeg_len(_dataset->_depot1_loc, _dataset->_target_locs[i]);
+			_risk_C2C[i+1][_dataset->_nb_targets+1] = get_lineSeg_len(_dataset->_depot2_loc, _dataset->_target_locs[i]);
 		}
 		for(int i = 0; i < _dataset->_nb_targets; i++){
 			for(int j = i+1 ; j < _dataset->_nb_targets; j++){
-				_risk_C2C[i+1][j+1] = _min_risk_tars[i+1][j+1] + _dataset->_radii[i] + _dataset->_radii[j];
+				_risk_C2C[i+1][j+1] = get_lineSeg_len(_dataset->_target_locs[i], _dataset->_target_locs[j]);
 				_risk_C2C[j+1][i+1] = _risk_C2C[i+1][j+1];
 			}
 		}

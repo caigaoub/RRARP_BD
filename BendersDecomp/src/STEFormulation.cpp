@@ -535,8 +535,8 @@ void STEFormulation::write_solution(string instance, int algo_idx) {
 	auto pos = instance.find_last_of(".");
     string name_only = instance.substr(0, pos);
 	// string cur_dir = "/projects/academic/josewalt/caigao/RRARP_BD/BendersDecomp/ret/model_outs/";
-	string cur_dir = "/home/caigao/Dropbox/Box_Research/Github/RRARP_BD/BendersDecomp/ret/model_outs/";
-	// string cur_dir = "/home/cai/Dropbox/Box_Research/Github/RRARP_BD/BendersDecomp/ret/model_outs/";
+	// string cur_dir = "/home/caigao/Dropbox/Box_Research/Github/RRARP_BD/BendersDecomp/ret/model_outs/";
+	string cur_dir = "/home/cai/Dropbox/Box_Research/Github/RRARP_BD/BendersDecomp/ret/model_outs/";
 	struct stat buffer;
   	if(stat (cur_dir.c_str(), &buffer) != 0){
   		cerr << "path of model_outs (in STEFormulation::write_solution) does not exist!! " << endl;
