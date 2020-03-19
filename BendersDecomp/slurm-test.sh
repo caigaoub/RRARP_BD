@@ -36,9 +36,7 @@ module load gurobi/9.0.0
 
 # ./bin/main 3 1 8 1 ./ret/configs/config_${SLURM_ARRAY_TASK_ID}
 
- ./bin/main 1 0 8 1 ./ret/configs/config_${SLURM_ARRAY_TASK_ID}
-
-# ./bin/main 2 0 8 1 ./ret/configs/config_${SLURM_ARRAY_TASK_ID}
+ ./bin/main 2 0 8 1 ./ret/configs/config_${SLURM_ARRAY_TASK_ID}
 
 echo "===>> All Done!"
 

@@ -39,3 +39,54 @@ H    0     0                      25.8545733   12.12550  53.1%     -    0s
   3445   802   21.74349    6    6   25.01337   19.23972  23.1%   2.1  185s
   3640   814   21.21029   15    -   25.01337   19.66021  21.4%   2.1  196s
   3828   850   24.09904   10   11   25.01337   19.86103  20.6%   2.1  207s
+  3982   854   22.07654   13    6   25.01337   20.07103  19.8%   2.1  214s
+  4130   862 infeasible   14        25.01337   20.15590  19.4%   2.1  223s
+  4284   909 infeasible   13        25.01337   20.43884  18.3%   2.1  231s
+  4465   875   24.98997   11    6   25.01337   20.57857  17.7%   2.1  244s
+  4605   854 infeasible   13        25.01337   20.70531  17.2%   2.0  250s
+  4756   869 infeasible   15        25.01337   20.82889  16.7%   2.0  259s
+  4898   861   23.91863   20    -   25.01337   20.94116  16.3%   2.0  266s
+  5039   841 infeasible   20        25.01337   21.01713  16.0%   2.0  272s
+  5171   831 infeasible   19        25.01337   21.17463  15.3%   2.0  281s
+  5297   823 infeasible   16        25.01337   21.25905  15.0%   2.0  289s
+  5427   791 infeasible   11        25.01337   21.46653  14.2%   2.0  294s
+  5551   778   22.43281   14   11   25.01337   21.58827  13.7%   2.0  301s
+  5679   747     cutoff   16        25.01337   21.83040  12.7%   2.0  307s
+  5808   725 infeasible   19        25.01337   21.86231  12.6%   2.0  314s
+  5925   686     cutoff   15        25.01337   21.99751  12.1%   2.0  319s
+  6050   653 infeasible   18        25.01337   22.29498  10.9%   2.0  326s
+  6166   617   24.00420   15    6   25.01337   22.44084  10.3%   2.0  332s
+  6283   577     cutoff   16        25.01337   22.64707  9.46%   2.0  337s
+  6396   530 infeasible   15        25.01337   22.74586  9.07%   2.0  341s
+  6510   474 infeasible   17        25.01337   22.86016  8.61%   2.0  346s
+  6632   415 infeasible   15        25.01337   23.17823  7.34%   2.0  350s
+  6759   335 infeasible   10        25.01337   23.32624  6.74%   1.9  355s
+  6890   252   23.97228   16    8   25.01337   23.64403  5.47%   1.9  360s
+  7166    10 infeasible   15        25.01337   24.10192  3.64%   1.9  366s
+
+Cutting planes:
+  Gomory: 1
+  Lazy constraints: 2320
+
+Explored 7336 nodes (13868 simplex iterations) in 368.69 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 2: 25.0134 25.8546 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 2.501336550109e+01, best bound 2.501336550109e+01, gap 0.0000%
+
+User-callback calls 17582, time in user-callback 367.08 sec
+---> instance_name: n_7_h_2.dat
+---> algo_index: 1
+---> obj_value: 25.0134
+---> total_time: 368.764
+---> total_time_gurobi: 368.689
+---> total_nb_benders_cuts: 2211
+---> total_nb_subtour_cuts: 112
+---> total_nb_user_cuts: 0
+---> GRB_IntAttr_Status: 2
+---> optimality_gap: 0
+---> node_count: 7336
+ =====>>>>> Solution is written to file in <../ret/model_outs> !!!
+===>> All Done!

@@ -74,3 +74,37 @@ H    0     0                      32.6971633   17.04309  47.9%     -    0s
   7647   724 infeasible   13        32.69716   29.54320  9.65%   2.0  421s
   7794   664     cutoff   14        32.69716   29.58390  9.52%   1.9  428s
   7936   680   31.73831   12    6   32.69716   29.80025  8.86%   1.9  435s
+  8101   537   30.85328   16    8   32.69716   30.08221  8.00%   1.9  442s
+  8259   460 infeasible   21        32.69716   30.18083  7.70%   1.9  448s
+  8412   364 infeasible   16        32.69716   30.69411  6.13%   1.9  454s
+  8578   235 infeasible   16        32.69716   31.10196  4.88%   1.9  458s
+  8754    88 infeasible   13        32.69716   31.49036  3.69%   1.9  463s
+  8941     0   32.57472   17    6   32.69716   31.81851  2.69%   1.9  468s
+  9059     0 infeasible   16        32.69716   32.25130  1.36%   1.9  470s
+
+Cutting planes:
+  Gomory: 1
+  Lazy constraints: 2944
+
+Explored 9067 nodes (16940 simplex iterations) in 470.09 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 3: 32.6972 32.9042 34.9223 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 3.269716330756e+01, best bound 3.269716330756e+01, gap 0.0000%
+
+User-callback calls 21999, time in user-callback 467.50 sec
+---> instance_name: n_7_m_3.dat
+---> algo_index: 1
+---> obj_value: 32.6972
+---> total_time: 470.166
+---> total_time_gurobi: 470.093
+---> total_nb_benders_cuts: 2827
+---> total_nb_subtour_cuts: 120
+---> total_nb_user_cuts: 0
+---> GRB_IntAttr_Status: 2
+---> optimality_gap: 0
+---> node_count: 9067
+ =====>>>>> Solution is written to file in <../ret/model_outs> !!!
+===>> All Done!
