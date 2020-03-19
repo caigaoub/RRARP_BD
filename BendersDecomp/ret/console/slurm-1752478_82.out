@@ -1,0 +1,39 @@
+NPROCS=0
+This instance is clustered!
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 20 rows, 101 columns and 200 nonzeros
+Model fingerprint: 0xac3a92d7
+Variable types: 1 continuous, 100 integer (100 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 1e+00]
+  Objective range  [6e-01, 7e+00]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 1e+00]
+Presolve removed 2 rows and 27 columns
+Presolve time: 0.00s
+Presolved: 18 rows, 74 columns, 146 nonzeros
+Variable types: 1 continuous, 73 integer (73 binary)
+
+Root relaxation: objective 1.167065e+01, 13 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0   12.02557    0   10          -   12.02557      -     -    0s
+H    0     0                      28.8301356   12.02557  58.3%     -    0s
+     0     0   12.32073    0   10   28.83014   12.32073  57.3%     -    0s
+     0     0   12.43379    0   12   28.83014   12.43379  56.9%     -    0s
+     0     0   12.43379    0    8   28.83014   12.43379  56.9%     -    0s
+     0     2   12.92654    0   11   28.83014   12.92654  55.2%     -    1s
+   252   150   16.47335   18   11   28.83014   13.51597  53.1%   2.3   27s
+   684   369   22.19112    8    6   28.83014   15.18201  47.3%   2.3   68s
+   996   477   26.20406   20    -   28.83014   15.79226  45.2%   2.3  100s
+  1242   611   18.12565   11    6   28.83014   15.93543  44.7%   2.3  126s
+  1452   711   25.15561   29    -   28.83014   16.22425  43.7%   2.2  143s
+  1752   872   24.73130   33    -   28.83014   16.66649  42.2%   2.2  170s
+  2098  1005   22.92588   31    -   28.83014   17.42127  39.6%   2.2  194s
+  2369  1099 infeasible   31        28.83014   17.55774  39.1%   2.3  218s
+  2491  1168   20.69354   12    -   28.83014   17.71019  38.6%   2.3  230s
+  2744  1250     cutoff   21        28.83014   17.87000  38.0%   2.3  251s
+  2956  1322   25.76913   20    6   28.83014   17.99985  37.6%   2.3  271s
+  3157  1407   19.18237   22    8   28.83014   18.18019  36.9%   2.3  291s

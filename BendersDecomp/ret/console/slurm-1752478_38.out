@@ -1,0 +1,55 @@
+NPROCS=0
+This instance is clustered!
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 18 rows, 82 columns and 162 nonzeros
+Model fingerprint: 0x540d4785
+Variable types: 1 continuous, 81 integer (81 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 1e+00]
+  Objective range  [6e-01, 2e+01]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 1e+00]
+Presolve removed 2 rows and 24 columns
+Presolve time: 0.00s
+Presolved: 16 rows, 58 columns, 114 nonzeros
+Variable types: 1 continuous, 57 integer (57 binary)
+
+Root relaxation: objective 2.955562e+01, 10 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0   36.28045    0    6          -   36.28045      -     -    0s
+H    0     0                      53.8559227   36.28045  32.6%     -    0s
+H    0     0                      52.4478431   36.28045  30.8%     -    0s
+H    0     0                      48.5554674   36.28045  25.3%     -    0s
+     0     0   37.08786    0   10   48.55547   37.08786  23.6%     -    0s
+     0     0   37.08786    0   10   48.55547   37.08786  23.6%     -    0s
+     0     2   38.74109    0   10   48.55547   38.74109  20.2%     -    1s
+
+Cutting planes:
+  Gomory: 1
+  Lazy constraints: 40
+
+Explored 93 nodes (261 simplex iterations) in 5.05 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 3: 48.5555 52.4478 53.8559 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 4.855546739502e+01, best bound 4.855546739502e+01, gap 0.0000%
+
+User-callback calls 304, time in user-callback 5.02 sec
+---> instance_name: n_7_e_8.dat
+---> algo_index: 1
+---> obj_value: 48.5555
+---> total_time: 5.12188
+---> total_time_gurobi: 5.04734
+---> total_nb_benders_cuts: 30
+---> total_nb_subtour_cuts: 13
+---> total_nb_user_cuts: 0
+---> GRB_IntAttr_Status: 2
+---> optimality_gap: 0
+---> node_count: 93
+ =====>>>>> Solution is written to file in <../ret/model_outs> !!!
+===>> All Done!

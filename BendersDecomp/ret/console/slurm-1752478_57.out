@@ -1,0 +1,98 @@
+NPROCS=0
+This instance is clustered!
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 18 rows, 82 columns and 162 nonzeros
+Model fingerprint: 0x8cc2fc1c
+Variable types: 1 continuous, 81 integer (81 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 1e+00]
+  Objective range  [5e-01, 6e+00]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 1e+00]
+Presolve removed 2 rows and 24 columns
+Presolve time: 0.00s
+Presolved: 16 rows, 58 columns, 114 nonzeros
+Variable types: 1 continuous, 57 integer (57 binary)
+
+Root relaxation: objective 9.864258e+00, 16 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0    9.86426    0    6          -    9.86426      -     -    0s
+H    0     0                      26.7317614    9.86426  63.1%     -    0s
+H    0     0                      25.3843503    9.86426  61.1%     -    0s
+H    0     0                      22.4809491    9.86426  56.1%     -    0s
+     0     0    9.94574    0   16   22.48095    9.94574  55.8%     -    0s
+     0     0   10.01096    0   12   22.48095   10.01096  55.5%     -    0s
+     0     0   10.01096    0   12   22.48095   10.01096  55.5%     -    0s
+     0     2   10.11045    0   11   22.48095   10.11045  55.0%     -    0s
+   345   159 infeasible   14        22.48095   11.56826  48.5%   2.3   20s
+   577   225 infeasible   12        22.48095   12.82897  42.9%   2.2   30s
+   684   257 infeasible   22        22.48095   13.42283  40.3%   2.2   36s
+   996   361   20.47801   17    8   22.48095   14.45797  35.7%   2.2   52s
+  1263   436 infeasible   14        22.48095   15.08157  32.9%   2.2   64s
+  1452   467   16.82796   10    8   22.48095   15.51726  31.0%   2.2   75s
+  1752   543   19.09435   13    8   22.48095   15.72280  30.1%   2.2   92s
+  2096   620   19.85548   16   10   22.48095   16.04605  28.6%   2.2  109s
+  2371   677   20.86994   20    8   22.48095   16.52332  26.5%   2.2  124s
+  2649   742 infeasible   20        22.48095   16.82408  25.2%   2.1  138s
+  2754   719 infeasible   19        22.48095   17.08925  24.0%   2.1  144s
+  2974   750 infeasible   20        22.48095   17.16248  23.7%   2.1  157s
+  3192   792 infeasible   20        22.48095   17.38274  22.7%   2.1  168s
+  3389   807 infeasible   16        22.48095   17.66017  21.4%   2.1  177s
+  3566   816   19.09220   22    -   22.48095   17.79974  20.8%   2.1  186s
+  3753   821   19.35175   22    8   22.48095   17.98973  20.0%   2.1  194s
+  3918   836 infeasible   23        22.48095   18.05951  19.7%   2.1  202s
+  4078   840   20.39967   17    8   22.48095   18.17079  19.2%   2.1  210s
+  4234   845   20.72569    7    8   22.48095   18.26795  18.7%   2.1  218s
+  4390   892 infeasible   14        22.48095   18.37687  18.3%   2.1  226s
+  4558   867   21.73342   12   10   22.48095   18.54952  17.5%   2.1  236s
+  4685   854   20.32287   12    9   22.48095   18.66932  17.0%   2.1  242s
+  4828   835   19.88830   13    6   22.48095   18.77764  16.5%   2.1  249s
+  4970   829   22.13902   21    6   22.48095   18.95386  15.7%   2.1  256s
+  5100   819 infeasible   11        22.48095   19.05122  15.3%   2.1  264s
+  5233   809 infeasible   13        22.48095   19.22637  14.5%   2.1  270s
+  5365   791   20.82134   26    -   22.48095   19.35669  13.9%   2.1  276s
+  5500   783   21.30793   26    8   22.48095   19.47834  13.4%   2.0  283s
+  5634   754 infeasible   18        22.48095   19.50815  13.2%   2.0  288s
+  5751   731   22.14752   13    6   22.48095   19.70481  12.3%   2.0  296s
+  5873   702 infeasible   11        22.48095   19.77116  12.1%   2.0  302s
+  6001   677   21.60101   15    6   22.48095   19.99767  11.0%   2.0  310s
+  6124   648 infeasible   16        22.48095   20.04009  10.9%   2.0  315s
+  6245   607 infeasible   14        22.48095   20.23796  10.0%   2.0  321s
+  6363   561   21.95351   17    -   22.48095   20.30549  9.68%   2.0  326s
+  6484   508 infeasible   17        22.48095   20.59237  8.40%   2.0  331s
+  6613   458   20.72758   24    8   22.48095   20.67411  8.04%   2.0  337s
+  6741   388 infeasible   25        22.48095   20.86292  7.20%   2.0  341s
+  6877   309 infeasible   18        22.48095   21.11426  6.08%   2.0  346s
+  7011   222   22.03682   15    6   22.48095   21.23389  5.55%   2.0  351s
+  7306     0     cutoff   19        22.48095   21.70100  3.47%   1.9  358s
+  7445     0 infeasible   10        22.48095   21.90931  2.54%   1.9  360s
+
+Cutting planes:
+  Gomory: 2
+  Lazy constraints: 2332
+
+Explored 7454 nodes (14260 simplex iterations) in 360.18 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 3: 22.4809 25.3844 26.7318 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 2.248094907171e+01, best bound 2.248094907171e+01, gap 0.0000%
+
+User-callback calls 17822, time in user-callback 358.60 sec
+---> instance_name: n_7_h_7.dat
+---> algo_index: 1
+---> obj_value: 22.4809
+---> total_time: 360.249
+---> total_time_gurobi: 360.179
+---> total_nb_benders_cuts: 2215
+---> total_nb_subtour_cuts: 120
+---> total_nb_user_cuts: 0
+---> GRB_IntAttr_Status: 2
+---> optimality_gap: 0
+---> node_count: 7454
+ =====>>>>> Solution is written to file in <../ret/model_outs> !!!
+===>> All Done!

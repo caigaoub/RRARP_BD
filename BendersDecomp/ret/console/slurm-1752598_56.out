@@ -1,0 +1,30 @@
+NPROCS=0
+This instance is clustered!
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 18 rows, 82 columns and 162 nonzeros
+Model fingerprint: 0x964f085a
+Variable types: 1 continuous, 81 integer (81 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 1e+00]
+  Objective range  [7e-01, 7e+00]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 1e+00]
+Presolve removed 2 rows and 24 columns
+Presolve time: 0.00s
+Presolved: 16 rows, 58 columns, 114 nonzeros
+Variable types: 1 continuous, 57 integer (57 binary)
+
+Root relaxation: objective 1.018915e+01, 15 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0   11.20912    0   16          -   11.20912      -     -    0s
+H    0     0                      26.2875623   11.20912  57.4%     -    0s
+H    0     0                      25.6071692   11.20912  56.2%     -    0s
+     0     0   11.46054    0   13   25.60717   11.46054  55.2%     -    0s
+     0     0   11.46054    0   13   25.60717   11.46054  55.2%     -    0s
+     0     2   11.46054    0   13   25.60717   11.46054  55.2%     -    0s
+   395   169   20.75141   20    9   25.60717   13.20147  48.4%   2.3   24s
+   503   200   21.72180    8    -   25.60717   14.11184  44.9%   2.2   30s
+   839   301   21.52001   14    -   25.60717   15.32902  40.1%   2.2   48s

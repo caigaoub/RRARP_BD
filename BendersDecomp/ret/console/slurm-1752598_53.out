@@ -1,0 +1,40 @@
+NPROCS=0
+This instance is clustered!
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 18 rows, 82 columns and 162 nonzeros
+Model fingerprint: 0x34d549c5
+Variable types: 1 continuous, 81 integer (81 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 1e+00]
+  Objective range  [8e-01, 8e+00]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 1e+00]
+Presolve removed 2 rows and 24 columns
+Presolve time: 0.00s
+Presolved: 16 rows, 58 columns, 114 nonzeros
+Variable types: 1 continuous, 57 integer (57 binary)
+
+Root relaxation: objective 1.231183e+01, 16 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0   12.51885    0   14          -   12.51885      -     -    0s
+H    0     0                      34.3243092   12.51885  63.5%     -    0s
+H    0     0                      28.9231656   12.51885  56.7%     -    0s
+     0     0   12.74125    0   10   28.92317   12.74125  55.9%     -    0s
+     0     0   12.74125    0   10   28.92317   12.74125  55.9%     -    0s
+H    0     0                      27.1713831   12.74125  53.1%     -    1s
+     0     2   12.74125    0   10   27.17138   12.74125  53.1%     -    1s
+   375   172 infeasible   16        27.17138   14.12595  48.0%   2.2   23s
+   617   268   21.26269   19    -   27.17138   15.22634  44.0%   2.1   35s
+   999   388   24.34526   13    8   27.17138   16.00636  41.1%   2.2   57s
+  1203   418 infeasible   16        27.17138   16.64863  38.7%   2.2   68s
+  1455   514 infeasible   16        27.17138   16.82799  38.1%   2.2   84s
+  1643   548 infeasible   16        27.17138   17.35337  36.1%   2.2   94s
+  1975   636   21.06589   18    6   27.17138   18.11445  33.3%   2.2  112s
+  2253   710 infeasible   19        27.17138   18.48401  32.0%   2.2  127s
+  2538   777   25.62398   19    6   27.17138   19.06058  29.9%   2.1  141s
+  2780   828 infeasible   20        27.17138   19.62950  27.8%   2.1  155s
+  3008   876 infeasible   18        27.17138   19.80963  27.1%   2.1  168s
+  3196   898 infeasible   19        27.17138   20.12559  25.9%   2.1  178s

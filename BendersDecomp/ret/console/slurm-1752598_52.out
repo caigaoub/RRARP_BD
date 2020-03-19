@@ -1,0 +1,41 @@
+NPROCS=0
+This instance is clustered!
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 18 rows, 82 columns and 162 nonzeros
+Model fingerprint: 0x38ab3827
+Variable types: 1 continuous, 81 integer (81 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 1e+00]
+  Objective range  [6e-01, 8e+00]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 1e+00]
+Presolve removed 2 rows and 24 columns
+Presolve time: 0.00s
+Presolved: 16 rows, 58 columns, 114 nonzeros
+Variable types: 1 continuous, 57 integer (57 binary)
+
+Root relaxation: objective 8.532622e+00, 15 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0   11.83897    0   16          -   11.83897      -     -    0s
+     0     0   12.12550    0   20          -   12.12550      -     -    0s
+H    0     0                      25.8545733   12.12550  53.1%     -    0s
+     0     0   12.12550    0   20   25.85457   12.12550  53.1%     -    0s
+     0     2   12.68897    0   20   25.85457   12.68897  50.9%     -    0s
+*  213   118              14      25.0133655   13.54908  45.8%   2.3    9s
+   565   219   19.15170   13    6   25.01337   14.07945  43.7%   2.2   31s
+   997   327 infeasible   15        25.01337   15.58017  37.7%   2.2   51s
+  1348   442   24.78985   20    6   25.01337   15.96111  36.2%   2.2   70s
+  1453   452   21.38821   18    6   25.01337   16.03333  35.9%   2.2   75s
+  1753   535 infeasible   21        25.01337   17.54073  29.9%   2.2   92s
+  1896   586   23.51329   17    6   25.01337   17.56385  29.8%   2.1  101s
+  2238   636 infeasible   13        25.01337   17.88519  28.5%   2.1  119s
+  2530   686 infeasible   14        25.01337   18.41761  26.4%   2.1  134s
+  2794   746 infeasible   22        25.01337   18.70480  25.2%   2.1  149s
+  3022   769 infeasible   24        25.01337   18.91192  24.4%   2.1  162s
+  3241   783 infeasible   24        25.01337   19.15610  23.4%   2.1  173s
+  3445   802   21.74349    6    6   25.01337   19.23972  23.1%   2.1  185s
+  3640   814   21.21029   15    -   25.01337   19.66021  21.4%   2.1  196s
+  3828   850   24.09904   10   11   25.01337   19.86103  20.6%   2.1  207s

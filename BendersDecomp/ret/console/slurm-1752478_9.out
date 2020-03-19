@@ -1,0 +1,53 @@
+NPROCS=0
+This instance is clustered!
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 16 rows, 65 columns and 128 nonzeros
+Model fingerprint: 0x580efb5a
+Variable types: 1 continuous, 64 integer (64 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 1e+00]
+  Objective range  [1e+00, 2e+01]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 1e+00]
+Presolve removed 2 rows and 21 columns
+Presolve time: 0.00s
+Presolved: 14 rows, 44 columns, 86 nonzeros
+Variable types: 1 continuous, 43 integer (43 binary)
+
+Root relaxation: objective 2.827719e+01, 12 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0   31.53360    0   11          -   31.53360      -     -    0s
+H    0     0                      43.4389833   31.53360  27.4%     -    0s
+     0     0   33.33643    0    9   43.43898   33.33643  23.3%     -    0s
+     0     0   33.33643    0    9   43.43898   33.33643  23.3%     -    0s
+     0     2   34.64946    0    9   43.43898   34.64946  20.2%     -    0s
+
+Cutting planes:
+  Gomory: 1
+  Lazy constraints: 53
+
+Explored 141 nodes (343 simplex iterations) in 3.46 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 1: 43.439 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 4.343898326313e+01, best bound 4.343898326313e+01, gap 0.0000%
+
+User-callback calls 413, time in user-callback 3.37 sec
+---> instance_name: n_6_e_9.dat
+---> algo_index: 1
+---> obj_value: 43.439
+---> total_time: 3.55591
+---> total_time_gurobi: 3.46062
+---> total_nb_benders_cuts: 44
+---> total_nb_subtour_cuts: 11
+---> total_nb_user_cuts: 0
+---> GRB_IntAttr_Status: 2
+---> optimality_gap: 0
+---> node_count: 141
+ =====>>>>> Solution is written to file in <../ret/model_outs> !!!
+===>> All Done!

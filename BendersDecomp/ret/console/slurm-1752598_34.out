@@ -1,0 +1,57 @@
+NPROCS=0
+This instance is clustered!
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 18 rows, 82 columns and 162 nonzeros
+Model fingerprint: 0x90590774
+Variable types: 1 continuous, 81 integer (81 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 1e+00]
+  Objective range  [8e-01, 2e+01]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 1e+00]
+Presolve removed 2 rows and 24 columns
+Presolve time: 0.00s
+Presolved: 16 rows, 58 columns, 114 nonzeros
+Variable types: 1 continuous, 57 integer (57 binary)
+
+Root relaxation: objective 1.875805e+01, 10 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0   37.77833    0   18          -   37.77833      -     -    0s
+H    0     0                      52.0350197   37.77833  27.4%     -    0s
+H    0     0                      50.8611038   37.77833  25.7%     -    0s
+     0     0   38.17374    0    9   50.86110   38.17374  24.9%     -    0s
+     0     0   38.17374    0    9   50.86110   38.17374  24.9%     -    0s
+     0     2   38.35073    0    9   50.86110   38.35073  24.6%     -    0s
+   339    53   46.03571    7    9   50.86110   40.90451  19.6%   2.7   12s
+   632     1   49.81869   14    6   50.86110   44.81686  11.9%   2.6   21s
+H  646     6                      50.8610972   45.35593  10.8%   2.6   21s
+
+Cutting planes:
+  Gomory: 1
+  Lazy constraints: 196
+
+Explored 674 nodes (1778 simplex iterations) in 22.58 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 2: 50.8611 52.035 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 5.086109719739e+01, best bound 5.086109719739e+01, gap 0.0000%
+
+User-callback calls 1664, time in user-callback 22.50 sec
+---> instance_name: n_7_e_4.dat
+---> algo_index: 1
+---> obj_value: 50.8611
+---> total_time: 22.665
+---> total_time_gurobi: 22.5832
+---> total_nb_benders_cuts: 181
+---> total_nb_subtour_cuts: 17
+---> total_nb_user_cuts: 0
+---> GRB_IntAttr_Status: 2
+---> optimality_gap: 0
+---> node_count: 674
+ =====>>>>> Solution is written to file in <../ret/model_outs> !!!
+===>> All Done!

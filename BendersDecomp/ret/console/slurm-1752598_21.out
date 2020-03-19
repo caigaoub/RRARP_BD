@@ -1,0 +1,60 @@
+NPROCS=0
+This instance is clustered!
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 16 rows, 65 columns and 128 nonzeros
+Model fingerprint: 0xd791522a
+Variable types: 1 continuous, 64 integer (64 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 1e+00]
+  Objective range  [7e-01, 6e+00]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 1e+00]
+Presolve removed 2 rows and 21 columns
+Presolve time: 0.00s
+Presolved: 14 rows, 44 columns, 86 nonzeros
+Variable types: 1 continuous, 43 integer (43 binary)
+
+Root relaxation: objective 9.190510e+00, 12 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0   10.12777    0   15          -   10.12777      -     -    0s
+H    0     0                      24.1739048   10.12777  58.1%     -    0s
+H    0     0                      23.0758899   10.12777  56.1%     -    0s
+     0     0   10.69473    0   16   23.07589   10.69473  53.7%     -    0s
+     0     0   10.80722    0   10   23.07589   10.80722  53.2%     -    0s
+     0     0   10.80722    0   10   23.07589   10.80722  53.2%     -    0s
+     0     2   10.80722    0   10   23.07589   10.80722  53.2%     -    0s
+   483   129   19.28347   16    -   23.07589   12.71437  44.9%   2.1   14s
+   835   117 infeasible   14        23.07589   14.87420  35.5%   2.0   24s
+  1003   133   21.93517   16   11   23.07589   16.41740  28.9%   2.0   28s
+H 1090   153                      23.0758683   17.30429  25.0%   1.9   31s
+  1435     0 infeasible   13        23.07587   19.73636  14.5%   1.8   38s
+
+Cutting planes:
+  Gomory: 2
+  Lazy constraints: 517
+
+Explored 1456 nodes (2639 simplex iterations) in 38.62 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 2: 23.0759 24.1739 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 2.307586831229e+01, best bound 2.307586831229e+01, gap 0.0000%
+
+User-callback calls 3583, time in user-callback 38.47 sec
+---> instance_name: n_6_h_1.dat
+---> algo_index: 1
+---> obj_value: 23.0759
+---> total_time: 38.6449
+---> total_time_gurobi: 38.6157
+---> total_nb_benders_cuts: 463
+---> total_nb_subtour_cuts: 57
+---> total_nb_user_cuts: 0
+---> GRB_IntAttr_Status: 2
+---> optimality_gap: 0
+---> node_count: 1456
+ =====>>>>> Solution is written to file in <../ret/model_outs> !!!
+===>> All Done!

@@ -1,0 +1,65 @@
+NPROCS=0
+This instance is clustered!
+Gurobi Optimizer version 9.0.0 build v9.0.0rc2 (linux64)
+Optimize a model with 18 rows, 82 columns and 162 nonzeros
+Model fingerprint: 0xaed83074
+Variable types: 1 continuous, 81 integer (81 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 1e+00]
+  Objective range  [7e-01, 1e+01]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 1e+00]
+Presolve removed 2 rows and 24 columns
+Presolve time: 0.00s
+Presolved: 16 rows, 58 columns, 114 nonzeros
+Variable types: 1 continuous, 57 integer (57 binary)
+
+Root relaxation: objective 1.414571e+01, 12 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0   15.71654    0    6          -   15.71654      -     -    0s
+H    0     0                      31.1613545   15.71654  49.6%     -    0s
+H    0     0                      30.8578098   15.71654  49.1%     -    0s
+     0     0   16.10869    0   16   30.85781   16.10869  47.8%     -    0s
+     0     0   16.44053    0   15   30.85781   16.44053  46.7%     -    0s
+     0     0   16.44053    0   15   30.85781   16.44053  46.7%     -    0s
+     0     2   16.44053    0   15   30.85781   16.44053  46.7%     -    0s
+   321   108   27.71365   13    9   30.85781   19.86752  35.6%   2.0   21s
+   573   156 infeasible   14        30.85781   19.98098  35.2%   2.0   34s
+  1005   239 infeasible   20        30.85781   21.81224  29.3%   2.0   56s
+  1461   306   25.76246   11    6   30.85781   22.56615  26.9%   2.1   79s
+  1695   291 infeasible   18        30.85781   24.36906  21.0%   2.1   88s
+  2043   266 infeasible   19        30.85781   25.40311  17.7%   2.1  105s
+  2374   233   29.66571   19    8   30.85781   25.97749  15.8%   2.0  121s
+  2686   155 infeasible   20        30.85781   27.94573  9.44%   2.0  137s
+  2964    33 infeasible   18        30.85781   28.42310  7.89%   2.0  149s
+  3210     0     cutoff   13        30.85781   29.14295  5.56%   1.9  156s
+
+Cutting planes:
+  Gomory: 2
+  Lazy constraints: 1017
+
+Explored 3294 nodes (6372 simplex iterations) in 157.22 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 2: 30.8578 31.1614 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 3.085780984345e+01, best bound 3.085780984345e+01, gap 0.0000%
+
+User-callback calls 7769, time in user-callback 156.93 sec
+---> instance_name: n_7_m_5.dat
+---> algo_index: 1
+---> obj_value: 30.8578
+---> total_time: 157.298
+---> total_time_gurobi: 157.224
+---> total_nb_benders_cuts: 908
+---> total_nb_subtour_cuts: 112
+---> total_nb_user_cuts: 0
+---> GRB_IntAttr_Status: 2
+---> optimality_gap: 0
+---> node_count: 3294
+ =====>>>>> Solution is written to file in <../ret/model_outs> !!!
+===>> All Done!
