@@ -43,7 +43,7 @@ public:
 	vector<double>								_par_varOBdist; // variance of optimal obs. distance in reward function
 
 	
-	bool 										_test_mod = true; //when the test mode is on, euclidean distance will be used. 
+	bool 										_test_mod = false; //when the test mode is on, euclidean distance will be used. 
 
 	PartitionScheme() {};
 	~PartitionScheme() {};
