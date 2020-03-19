@@ -13,7 +13,7 @@
 #SBATCH  --error="./ret/console/slurm-%A_%a.err"
 #SBATCH --mail-user=caigao@buffalo.edu
 #SBATCH --mail-type=ALL
-#SBATCH --exclude=cpn-p26-[07-10]
+##SBATCH --exclude=cpn-p26-[07-10]
 ##SBATCH --requeue
 
 ##echo "SLURM_JOB_ID="$SLURM_JOB_ID

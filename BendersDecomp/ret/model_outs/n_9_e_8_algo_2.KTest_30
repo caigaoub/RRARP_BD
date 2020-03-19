@@ -1,0 +1,11 @@
+---> instance_name: n_9_e_8.dat
+---> algo_index: 2
+---> obj_value: 28.6146
+---> total_time: 3.87342
+---> total_time_gurobi: 0.832963
+---> total_nb_benders_cuts: 1391
+---> total_nb_subtour_cuts: 78
+---> total_nb_user_cuts: 0
+---> GRB_IntAttr_Status: 2
+---> optimality_gap: 0
+---> node_count: 5365
