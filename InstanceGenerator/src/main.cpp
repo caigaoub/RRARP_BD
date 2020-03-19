@@ -23,21 +23,22 @@ int main() {
 
 
 void createInstance(){
-    boost::filesystem::path cur_dir  = boost::filesystem::current_path();
+    // boost::filesystem::path cur_dir  = boost::filesystem::current_path();
     cout << "Instance Generator: " << endl;
     GRBEnv* evn = new GRBEnv();
     GRBModel model = GRBModel(*evn);
+    string cur_dir = "/home/cai/Dropbox/Box_Research/Github/RRARP_BD/BendersDecomp/dat";
     for(int nb_t = 6; nb_t <= 35; nb_t++){
         cout << " ====>>> start creating instances with " << nb_t << " targets ~_~ " << endl;
-        boost::filesystem::path dir = cur_dir.string() + "/dat/";
-        if(!boost::filesystem::exists(dir)){
-            boost::filesystem::create_directories(dir);
-        }
+        // boost::filesystem::path dir = cur_dir.string + "/dat/";
+        // if(!boost::filesystem::exists(dir)){
+        //     boost::filesystem::create_directories(dir);
+        // }
         for(int j = 1; j <= 10; j++){
           cout << " ====>>> easy instance: " << j << endl;
           InstanceGenerator sample(nb_t, &model);
           sample.produce("e");
-          string file = dir.string() + "/n_"+to_string(nb_t)+"_e_"+to_string(j)+".dat";
+          string file = cur_dir + "/n_"+to_string(nb_t)+"_e_"+to_string(j)+".dat";
           sample.write_RRARP_instance(file);
           model.reset();
         }
@@ -46,7 +47,7 @@ void createInstance(){
           cout << " ====>>> easy instance: " << j << endl;
           InstanceGenerator sample(nb_t, &model);
           sample.produce("m");
-          string file = dir.string() + "/n_"+to_string(nb_t)+"_m_"+to_string(j)+".dat";
+          string file = cur_dir + "/n_"+to_string(nb_t)+"_m_"+to_string(j)+".dat";
           sample.write_RRARP_instance(file);
           model.reset();
         }
@@ -55,7 +56,7 @@ void createInstance(){
           cout << " ====>>> hard instance: " << j << endl;
           InstanceGenerator sample(nb_t, &model);
           sample.produce("h");
-          string file = dir.string() + "/n_"+to_string(nb_t)+"_h_"+to_string(j)+".dat";
+          string file = cur_dir + "/n_"+to_string(nb_t)+"_h_"+to_string(j)+".dat";
           sample.write_RRARP_instance(file);
           model.reset();
         }

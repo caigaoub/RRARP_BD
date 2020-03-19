@@ -13,8 +13,8 @@
 #include "gurobi_c++.h"
 using namespace std;
 struct Vertex{
-  int x;
-  int y;
+  double x;
+  double y;
 };
 
 class InstanceGenerator{
@@ -27,9 +27,9 @@ private:
     mt19937           _eng;
 
     Vertex bot_left_corner;
-    int scale;
-    int panel_width;
-    int panel_height;
+    double scale;
+    double panel_width;
+    double panel_height;
     int nb_cls;
 
 

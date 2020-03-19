@@ -175,7 +175,7 @@ pair<int,int> improve_root(int N, STEFormulation & formul_master) {
 }
 
 
-void compare_tspSol_vs_optSol(PartitionScheme & network_){
+void compare_tspSol_vs_optSol(PartitionScheme & network_, int fischetti_on){
    /* find TSP solution*/
 	network_.calc_risk_C2C();
 	TSPModel_STE tsp_formul;
@@ -184,7 +184,7 @@ void compare_tspSol_vs_optSol(PartitionScheme & network_){
 	tsp_formul.solve();
     vector<int>& tspSeq = tsp_formul._opt_seq;
     vector<vector<double>>  SDS(network_._dataset->_nb_targets + 2);
-    network_.solve_shortestpath(tspSeq, SDS);
+    network_.solve_shortestpath_v2(tspSeq, SDS);
     double risk_tspSol = network_.calc_withdrawal_risk(tspSeq) + SDS[network_._dataset->_nb_targets+1][0]; 
 
 	/**find R2ARP solution */
@@ -193,11 +193,42 @@ void compare_tspSol_vs_optSol(PartitionScheme & network_){
 	STEFormulation formul_master;
 	// model_MP_.getEnv().set(GRB_IntParam_OutputFlag, 0);
 	formul_master.build_formul(&model_MP_, &network_);
+	/*Gurobi model for dual formulation */ 
+	GRBEnv * evn_dual_ = new GRBEnv();
+	GRBModel model_dual_ = GRBModel(*evn_dual_);
+	model_dual_.getEnv().set(GRB_IntParam_OutputFlag, 0);
+	DualFormulation formul_dual_;
+	formul_dual_.create_variables(&model_dual_, &network_);
+	formul_dual_.set_constraints();
+
+	/*Gurobi model for SuperCut formulation */
+	GRBEnv * evn_supercut_ = new GRBEnv();
+	GRBModel model_supercut_ = GRBModel(*evn_supercut_);
+	model_supercut_.getEnv().set(GRB_IntParam_OutputFlag, 0);
+	SuperCutFormulation formul_supercut_;
+	formul_supercut_.add_model(&model_supercut_, network_._dataset->_nb_targets+2);
+
+	formul_master.add_dualformul(&formul_dual_);
+	formul_master.add_SuperCutformul(&formul_supercut_);
+
+
     int which_BDCut = 3; // using strong cut
+	if(fischetti_on == 1){
+		Fischetti_method(network_._dataset->_nb_targets+2, formul_master);
+	}
 	auto ret = formul_master.solve_formul_wCB(which_BDCut);
     vector<int>& optSeq = formul_master._opt_seq;
+
+
+    vector<vector<double>>  SDS2(network_._dataset->_nb_targets + 2);
+    network_.solve_shortestpath_v3(optSeq, SDS2);
+
     double risk_optSol = ret.first;
+
+
 	delete evn_MP_;
+	delete evn_dual_;
+	delete evn_supercut_;
     cout << "Instance name: " << network_._dataset->_name << endl;
     cout << "TSP: " << risk_tspSol << endl;
     cout << "Seq: " << endl;
@@ -211,4 +242,18 @@ void compare_tspSol_vs_optSol(PartitionScheme & network_){
         cout << optSeq.at(i) << ' ';
     }
     cout << '\n';
+    cout << "Gap: " << (risk_tspSol - risk_optSol)/risk_optSol << '\n';
+}
+
+void test_K(PartitionScheme & network_){
+	for(int i = 4; i < 16; i++){
+		;
+	}
+}
+
+void compare_dualcut_vs_shortestpathcut(PartitionScheme & network_){
+
+	// vector<int> size_testInst = {6, 8, 10}
+
+
 }

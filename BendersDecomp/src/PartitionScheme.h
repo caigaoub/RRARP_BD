@@ -73,6 +73,8 @@ public:
 	double get_lineSeg_len(Vertex, Vertex);
 	void solve_shortestpath(vector<int> &, vector<vector<double>> &);
 	void solve_shortestpath_v2(vector<int> &, vector<vector<double>> &);
+	void solve_shortestpath_v3(vector<int> &, vector<vector<double>> &);
+
 	double calc_withdrawal_risk(vector<int> &);
 };
 

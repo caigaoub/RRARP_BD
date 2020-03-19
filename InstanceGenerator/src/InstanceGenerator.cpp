@@ -34,7 +34,7 @@ void InstanceGenerator::produce(const char* difflevel){
 //  print_instance();
   /* strategy: choose the nearest target and take half length as its maximum radius */
 
-  set_panel({0, 0}, 100.0, 100.0);
+  set_panel({0, 0}, 10.0, 10.0);
   set_locations();
   get_max_radii_strategyII();
   set_radii_strategyII(difflevel);
@@ -43,15 +43,15 @@ void InstanceGenerator::produce(const char* difflevel){
 }
 
 
-// void InstanceGenerator::produce_clusters(const char* difflevel, int nb_cls){
-//   this->nb_cls = nb_cls;
-//   set_panel({0, 0}, num_targets* scale, num_targets * scale);
-//   set_locations(nb_cls);
-//   get_max_radii();
-//   set_radii(difflevel);
-//   set_RR_threshold();
-// //  print_instance();
-// }
+void InstanceGenerator::produce_clusters(const char* difflevel, int nb_cls){
+  this->nb_cls = nb_cls;
+  set_panel({0, 0}, num_targets* scale, num_targets * scale);
+  set_locations(nb_cls);
+  get_max_radii();
+  set_radii(difflevel);
+  set_RR_threshold();
+//  print_instance();
+}
 
 
 void InstanceGenerator::set_panel(Vertex llc, double width, double height){
@@ -67,13 +67,13 @@ void InstanceGenerator::set_panel(Vertex llc, double width, double height){
 }
 
 void InstanceGenerator::set_locations(){
-  int crd_x, crd_y;
+  double crd_x, crd_y;
   while(true){ // centers are required to be within the panel.
   //  unsigned int time_ui = static_cast<unsigned int>( time(NULL)%1000 );
   //    srand( time_ui );
     _eng = mt19937(_rd());// seed the random generator
-    auto randx = uniform_int_distribution<>(bot_left_corner.x, bot_left_corner.x + panel_width);
-    auto randy = uniform_int_distribution<>(bot_left_corner.y, bot_left_corner.y + panel_height);
+    auto randx = uniform_real_distribution<>(bot_left_corner.x, bot_left_corner.x + panel_width);
+    auto randy = uniform_real_distribution<>(bot_left_corner.y, bot_left_corner.y + panel_height);
     for(int i = 0; i < num_targets + 2; i++){
       if (i == 0) {
         crd_x = randx(_eng);
@@ -159,21 +159,21 @@ void InstanceGenerator::set_radii(const char* difflevel){
   char strH[] = "h";
   if (strcmp(difflevel, strE)==0){ // easy
     for(int i = 0;i < num_targets; i++){
-      auto rand_real = uniform_real_distribution<>(0.1, 0.3);
+      auto rand_real = uniform_real_distribution<>(0.3, 0.5);
       ratio = rand_real(_eng);
       radii[i] = max_radii[i] * ratio;
     }
 
   }else if (strcmp(difflevel, strM)==0){ // medium
     for(int i = 0;i < num_targets; i++){
-      auto rand_real = uniform_real_distribution<>(0.3, 0.5);
+      auto rand_real = uniform_real_distribution<>(0.5, 0.7);
       ratio = rand_real(_eng);
       radii[i] = max_radii[i] * ratio;
     }
 
   }else if (strcmp(difflevel, strH)==0){ // hard
     for(int i = 0;i < num_targets; i++){
-      auto rand_real = uniform_real_distribution<>(0.5, 0.7);
+      auto rand_real = uniform_real_distribution<>(0.7, 0.9);
       ratio = rand_real(_eng);
       radii[i] = max_radii[i] * ratio;
     }
@@ -191,7 +191,7 @@ void InstanceGenerator::set_radii_strategyII(const char* difflevel){
   char strH[] = "h";
   if (strcmp(difflevel, strE)==0){ // easy
     for(int i = 0;i < num_targets; i++){
-      auto rand_real = uniform_real_distribution<>(0.2, 0.4);
+      auto rand_real = uniform_real_distribution<>(0.30, 0.4);
       ratio = rand_real(_eng);
       radii[i] = max_radii[i] * ratio;
     }
@@ -205,7 +205,7 @@ void InstanceGenerator::set_radii_strategyII(const char* difflevel){
 
   }else if (strcmp(difflevel, strH)==0){ // hard
     for(int i = 0;i < num_targets; i++){
-      auto rand_real = uniform_real_distribution<>(0.6, 0.8);
+      auto rand_real = uniform_real_distribution<>(0.80, 0.95);
       ratio = rand_real(_eng);
       radii[i] = max_radii[i] * ratio;
     }
@@ -217,11 +217,11 @@ void InstanceGenerator::set_radii_strategyII(const char* difflevel){
 
 void InstanceGenerator::set_RR_threshold(){
   _eng = mt19937(_rd());// seed the random generator
-  // double ratio = 0.0;
+  double ratio = 0.0;
   for(int i = 0; i < num_targets; i++){
-    auto rand_real_reward = uniform_real_distribution<>(0.3, 0.5);
+    auto rand_real_reward = uniform_real_distribution<>(0.60, 0.80);
     ratio = rand_real_reward(_eng);
-    min_reward_pct[i] = 0.ratio;
+    min_reward_pct[i] = ratio;
     // auto rand_real_risk = uniform_real_distribution<>(0.4, 0.6);
     // ratio = rand_real_risk(_eng);
     // max_risk_pct[i] = 100000;
@@ -408,13 +408,13 @@ void InstanceGenerator::write_RRARP_instance(string path){
       myfile << min_reward_pct[i] << '\n';
     }
   }
-  for(int i = 0;i<num_targets;i++){
-    if(i != num_targets-1){
-      myfile << max_risk_pct[i] << '\t';
-    }else{
-      myfile << max_risk_pct[i] << '\n';
-    }
-  }
+  // for(int i = 0;i<num_targets;i++){
+  //   if(i != num_targets-1){
+  //     myfile << max_risk_pct[i] << '\t';
+  //   }else{
+  //     myfile << max_risk_pct[i] << '\n';
+  //   }
+  // }
   myfile.close();
 }
 

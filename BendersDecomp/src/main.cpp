@@ -46,8 +46,8 @@ int main(int argc, const char* argv[]) {
 		// dataset_.print();
 		PartitionScheme network_;
 		network_.build(dataset_, nb_dstzn, type_trajc);
-		compare_tspSol_vs_optSol(network_);
-		exit(0);
+		// compare_tspSol_vs_optSol(network_, fischetti_on);
+		// exit(0);
 
 		/*Gurobi model for master problem */
 		GRBEnv * evn_MP_ = new GRBEnv();

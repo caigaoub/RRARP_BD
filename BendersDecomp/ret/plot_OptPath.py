@@ -4,6 +4,7 @@ import matplotlib.patches as pch
 import re
 import math
 import time
+from sys import argv
 
 def set_plot_attributes(plt, ax):
     plt.grid(alpha=.5)
@@ -34,7 +35,7 @@ def plot_instance(instancefile):
     maxx = max(maxx, departure[0]+3)
     miny = min(miny, departure[1]-3)
     maxy = max(maxy, departure[1]+3)
-    circle = pch.Circle((departure[0], departure[1]), radius=0.2, edgecolor='r', facecolor='r', alpha=1)
+    circle = pch.Circle((departure[0], departure[1]), radius=0.01, edgecolor='r', facecolor='r', alpha=1)
     ax.add_artist(circle)
     ax.annotate("("+str(0)+": " + str(departure[0])+","+str(departure[1])+")", xy=(departure[0], departure[1]), xytext=(departure[0]+0.3, departure[1]+0.3))
 
@@ -47,7 +48,7 @@ def plot_instance(instancefile):
     maxx = max(maxx, arrival[0]+3)
     miny = min(miny, arrival[1]-3)
     maxy = max(maxy, arrival[1]+3)
-    circle = pch.Circle((arrival[0], arrival[1]), radius=0.2, edgecolor='r', facecolor='r', alpha=1)
+    circle = pch.Circle((arrival[0], arrival[1]), radius=0.01, edgecolor='r', facecolor='r', alpha=1)
     ax.add_artist(circle)
     ax.annotate("("+str(nb_tars_+1)+": "+str(arrival[0])+","+str(arrival[1])+")", xy=(arrival[0], arrival[1]), xytext=(arrival[0]+0.3, arrival[1]+0.3))
 
@@ -66,7 +67,7 @@ def plot_instance(instancefile):
         maxy = max(maxy, tar_loc_y+tar_rad)
         circle = plt.Circle((tar_loc_x, tar_loc_y), radius=tar_rad, edgecolor='k',facecolor='k',alpha=0.2)
         ax.add_artist(circle)
-        circle = plt.Circle((tar_loc_x, tar_loc_y), radius=0.2, edgecolor='r',facecolor='r',alpha=0.8)
+        circle = plt.Circle((tar_loc_x, tar_loc_y), radius=0.01, edgecolor='r',facecolor='r',alpha=0.8)
         ax.add_artist(circle)
         ax.annotate("("+str(itr)+": "+str(tar_loc_x)+","+str(tar_loc_y)+")", xy=(tar_loc_x, tar_loc_y), xytext=(tar_loc_x+0.3, tar_loc_y+0.3))
         itr += 1   
@@ -78,11 +79,11 @@ def plot_instance(instancefile):
     plt.yticks(np.arange(miny,maxy,1))
     plt.grid(alpha=.5)
     
-    if False:
+    if True:
         print("print the claimed optimal path: ")
         path_X = []
         path_Y = []
-        optimalpathfile = 'OptimalPath.txt'
+        optimalpathfile = '/home/cai/Dropbox/Box_Research/Github/RRARP_BD/BendersDecomp/ret/OptimalPath.txt'
         file_ = open(optimalpathfile, 'r')
         line_ = file_.readline()
         itr = 1
@@ -96,7 +97,34 @@ def plot_instance(instancefile):
             line_ = file_.readline()
             itr += 1
         file_.close()
-        plt.plot(path_X, path_Y)
+        plt.plot(path_X, path_Y,'b',linewidth=3)
+        # print(path)
+        dist = 0.0
+        for i in range(1, len(path_X)):
+            lenx = path_X[i] - path_X[i-1]
+            leny = path_Y[i] - path_Y[i-1]
+            dist += math.sqrt(lenx*lenx+leny*leny)
+
+        print("the total distance is ", dist)
+    if True:
+        print("print the claimed optimal path: ")
+        path_X = []
+        path_Y = []
+        optimalpathfile = '/home/cai/Dropbox/Box_Research/Github/RRARP_BD/BendersDecomp/ret/OptimalPath2.txt'
+        file_ = open(optimalpathfile, 'r')
+        line_ = file_.readline()
+        itr = 1
+        while itr <= 2*nb_tars_+2:
+            list_ = re.split("\t|\n", line_)
+            if list_ == '':
+                break
+            # print(list_)
+            path_X.append(float(list_[1])) 
+            path_Y.append(float(list_[2])) 
+            line_ = file_.readline()
+            itr += 1
+        file_.close()
+        plt.plot(path_X, path_Y, 'r',linewidth=3,linestyle='-.')
         # print(path)
         dist = 0.0
         for i in range(1, len(path_X)):
@@ -113,6 +141,7 @@ def plot_instance(instancefile):
 # instancefile = '../ret/inst_n_10/n_10_e_1.txt'
 # instancefile = '../ret/cluster_n_30/n_30_c_5_1.txt'
 # instancefile = '/home/cai/Dropbox/Box_Research/Github/RRARP_BD/BendersDecomp/RRARP-BD/dat/test_n_6.txt'
-instancefile = '/home/caigao/Dropbox/Box_Research/Github/RRARP_BD/BendersDecomp/RRARP-BD/dat/test_n_6.txt'
+# instancefile = '/home/cai/Dropbox/Box_Research/Github/RRARP_BD/BendersDecomp/dat/n_6_e_1.dat'
+instancefile = argv[1]
 
 plot_instance(instancefile)

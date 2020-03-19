@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/bin/main",
-            "args": [3, 0, 16, 1, "/home/cai/Dropbox/Box_Research/Github/RRARP_BD/BendersDecomp/ret/configs/config_23"],
+            "args": [3, 0, 4, 1, "/home/cai/Dropbox/Box_Research/Github/RRARP_BD/BendersDecomp/ret/configs/config_23"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/bin/",
             "environment": [],
