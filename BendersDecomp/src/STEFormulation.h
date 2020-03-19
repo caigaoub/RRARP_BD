@@ -54,7 +54,7 @@ public:
 	void set_vars_continuous();
 	void print_solution();
 	void write_solution(string, int);
-	void write_solution_DualCut_vs_SPC(string, int);
+	void write_solution_KTest(string, int, int);
 };
 
 

@@ -13,7 +13,7 @@
 
 using namespace std;
 
-int main(int argc, const char* argv[]) {
+int main2(int argc, const char* argv[]) {
 	argc = argc; // get rid of warning: unused argc
 	int which_BDCut = atoi(argv[1]);
 	const int fischetti_on = atoi(argv[2]);
@@ -33,9 +33,9 @@ int main(int argc, const char* argv[]) {
 		//	string cur_dir  = boost::filesystem::current_path().string();
 		//	auto pos = cur_dir.find_last_of("/");
     	//      cur_dir = cur_dir.substr(0, pos);
-		 string cur_dir = "/projects/academic/josewalt/caigao/RRARP_BD/BendersDecomp/dat/";
+		//  string cur_dir = "/projects/academic/josewalt/caigao/RRARP_BD/BendersDecomp/dat/";
 		// string cur_dir = "/home/caigao/Dropbox/Box_Research/Github/RRARP_BD/BendersDecomp/dat/";
-	        // string cur_dir = "/home/cai/Dropbox/Box_Research/Github/RRARP_BD/BendersDecomp/dat/";
+	    string cur_dir = "/home/cai/Dropbox/Box_Research/Github/RRARP_BD/BendersDecomp/dat/";
 		struct stat buffer;
 	  	if(stat (cur_dir.c_str(), &buffer) != 0){
 	  		cerr << " Path of instances does not exist!! (in main.cpp:line 42) " << endl;
@@ -106,6 +106,92 @@ int main(int argc, const char* argv[]) {
 	}
 	catch (...) {
 		cerr << "Error" << endl;
+	}
+//	system("pause");
+	return 0;
+}
+
+
+int main(int argc, const char* argv[]) {
+	argc = argc; // get rid of warning: unused argc
+	int which_BDCut = atoi(argv[1]);
+	const int fischetti_on = atoi(argv[2]);
+	const int type_trajc = atoi(argv[3]);
+	string configfile = argv[4];
+
+	fstream file(configfile);
+	if (!file) {
+		cerr << "ERROR: could not open config '" << configfile << "' for reading'" << endl;
+		throw(-1);
+	}
+	string instance_name_only;
+	file >> instance_name_only;
+	file.close();
+	
+	// string cur_dir = "/projects/academic/josewalt/caigao/RRARP_BD/BendersDecomp/dat/";
+	// string cur_dir = "/home/caigao/Dropbox/Box_Research/Github/RRARP_BD/BendersDecomp/dat/";
+	string cur_dir = "/home/cai/Dropbox/Box_Research/Github/RRARP_BD/BendersDecomp/dat/";
+	struct stat buffer;
+	if(stat (cur_dir.c_str(), &buffer) != 0){
+		cerr << " Path of instances does not exist!! (in main.cpp) " << endl;
+	}
+
+	string instance_wPath = cur_dir + instance_name_only;
+	DataHandler dataset_;
+	dataset_.parse(instance_wPath);
+	// dataset_.print();
+				
+	for(int k = 8; k <= 30; k+=1){
+		PartitionScheme network_;
+		network_.build(dataset_, k, type_trajc);
+		
+		/*Gurobi model for master problem */
+		GRBEnv * evn_MP_ = new GRBEnv();
+		GRBModel model_MP_ = GRBModel(*evn_MP_);
+		STEFormulation formul_master;
+		model_MP_.getEnv().set(GRB_IntParam_OutputFlag, 0);
+
+		formul_master.build_formul(&model_MP_, &network_);
+
+		/*Gurobi model for dual formulation */ 
+		GRBEnv * evn_dual_ = new GRBEnv();
+		GRBModel model_dual_ = GRBModel(*evn_dual_);
+		model_dual_.getEnv().set(GRB_IntParam_OutputFlag, 0);
+		DualFormulation formul_dual_;
+		formul_dual_.create_variables(&model_dual_, &network_);
+		formul_dual_.set_constraints();
+
+		/*Gurobi model for SuperCut formulation */
+		GRBEnv * evn_supercut_ = new GRBEnv();
+		GRBModel model_supercut_ = GRBModel(*evn_supercut_);
+		model_supercut_.getEnv().set(GRB_IntParam_OutputFlag, 0);
+		SuperCutFormulation formul_supercut_;
+		formul_supercut_.add_model(&model_supercut_, dataset_._nb_targets+2);
+
+		formul_master.add_dualformul(&formul_dual_);
+		formul_master.add_SuperCutformul(&formul_supercut_);
+
+		if(fischetti_on == 1){
+			auto start_fischetti= chrono::system_clock::now();
+			Fischetti_method(dataset_._nb_targets + 2, formul_master);
+			auto endt_fischetti = chrono::system_clock::now();
+			chrono::duration<double> elapsed_seconds_fischetti = endt_fischetti-start_fischetti;
+			cout << "====>>> Total time of Fischetti_method: " << std::chrono::duration<double>(elapsed_seconds_fischetti).count()  << endl;		
+		}
+		if(fischetti_on == 2){
+			auto start_no_fischetti= chrono::system_clock::now();
+			improve_root(dataset_._nb_targets + 2, formul_master);
+			auto endt_no_fischetti = chrono::system_clock::now();
+			chrono::duration<double> elapsed_seconds_no_fischetti = endt_no_fischetti-start_no_fischetti;
+			cout << "====>>> Total time of NO Fischetti_method: " << std::chrono::duration<double>(elapsed_seconds_no_fischetti).count()  << endl;		
+		}
+
+		formul_master.solve_formul_wCB(which_BDCut);
+		formul_master.write_solution_KTest(dataset_._name, k, which_BDCut);
+		
+		delete evn_MP_;
+		delete evn_dual_;
+		delete evn_supercut_;
 	}
 //	system("pause");
 	return 0;

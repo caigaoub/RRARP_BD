@@ -246,7 +246,7 @@ void compare_tspSol_vs_optSol(PartitionScheme & network_, int fischetti_on){
 }
 
 void test_K(PartitionScheme & network_){
-	for(int i = 4; i < 16; i++){
+	for(int i = 8; i <= 16; i++){
 		;
 	}
 }
