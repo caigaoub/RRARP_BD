@@ -97,14 +97,14 @@ if __name__ == "__main__":
     # plot_instance(tar_locs, width, height)
     # write_instance(tar_locs, rewards_ratio, '../n_16_m_1.dat')
     for nb_targets in range(size_range[0], size_range[1]+1):
-        densitycoef = 0.15
+        densitycoef = 0.05
         print("currently generate instance with size ", nb_targets)
         for i in range(1,11):
             print('e',i)
             tar_locs, rewards_ratio, width, height = generate_instance(nb_targets, radius, densitycoef)
             write_instance(tar_locs, rewards_ratio, '../n_'+ str(nb_targets) +'_' + 'e_' + str(i) + '.dat')
 
-        densitycoef = 0.35
+        densitycoef = 0.2
         for i in range(1,11):
             print('m',i)
 
