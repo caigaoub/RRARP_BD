@@ -32,7 +32,7 @@ int main2(int argc, const char* argv[]) {
 	try {
 		//	string cur_dir  = boost::filesystem::current_path().string();
 		//	auto pos = cur_dir.find_last_of("/");
-    	//      cur_dir = cur_dir.substr(0, pos);
+        	//      cur_dir = cur_dir.substr(0, pos);
 		  string cur_dir = "/projects/academic/josewalt/caigao/RRARP_BD/BendersDecomp/dat/";
 		// string cur_dir = "/home/caigao/Dropbox/Box_Research/Github/RRARP_BD/BendersDecomp/dat/";
 	   // string cur_dir = "/home/cai/Dropbox/Box_Research/Github/RRARP_BD/BendersDecomp/dat/";

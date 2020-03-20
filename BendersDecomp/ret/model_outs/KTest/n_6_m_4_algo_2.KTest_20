@@ -1,8 +1,8 @@
 ---> instance_name: n_6_m_4.dat
 ---> algo_index: 2
 ---> obj_value: 11.9276
----> total_time: 0.432602
----> total_time_gurobi: 0.157554
+---> total_time: 0.479387
+---> total_time_gurobi: 0.19552
 ---> total_nb_benders_cuts: 620
 ---> total_nb_subtour_cuts: 40
 ---> total_nb_user_cuts: 0
