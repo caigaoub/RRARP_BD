@@ -141,7 +141,8 @@ int main(int argc, const char* argv[]) {
 	dataset_.parse(instance_wPath);
 	// dataset_.print();
 				
-	for(int k = 8; k <= 30; k+=1){
+	for(int k = 8; k <= 20; k+=1){
+		// cout << "k = " << k << endl;
 		PartitionScheme network_;
 		network_.build(dataset_, k, type_trajc);
 		
