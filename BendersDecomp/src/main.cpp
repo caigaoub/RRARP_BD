@@ -13,7 +13,7 @@
 
 using namespace std;
 
-int main2(int argc, const char* argv[]) {
+int main(int argc, const char* argv[]) {
 	argc = argc; // get rid of warning: unused argc
 	int which_BDCut = atoi(argv[1]);
 	const int fischetti_on = atoi(argv[2]);
