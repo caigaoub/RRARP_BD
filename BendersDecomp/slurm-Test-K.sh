@@ -7,10 +7,10 @@
 #SBATCH  --nodes=1
 #SBATCH  --ntasks-per-node=12
 #SBATCH  --mem=120000
-#SBATCH  --array=1-120
+#SBATCH  --array=1-30
 #SBATCH  --job-name="TestK"
-#SBATCH  --output="./ret/console/slurm-%A_%a.out"
-#SBATCH  --error="./ret/console/slurm-%A_%a.err"
+#SBATCH  --output="./ret/console/KTest-%A_%a.out"
+#SBATCH  --error="./ret/console/KTest-%A_%a.err"
 #SBATCH  --mail-user=caigao@buffalo.edu
 #SBATCH  --mail-type=ALL
 ##SBATCH --exclude=cpn-p26-[07-10]
