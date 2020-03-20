@@ -3,11 +3,11 @@
 #SBATCH  --clusters=faculty
 #SBATCH  --partition=isecc
 #SBATCH  --qos=isecc
-#SBATCH --time=02:00:00
+#SBATCH --time=24:00:00
 #SBATCH  --nodes=1
 #SBATCH  --ntasks-per-node=12
 #SBATCH --mem=120000
-#SBATCH  --array=1-240
+#SBATCH  --array=1-150
 #SBATCH  --job-name="RRARP"
 #SBATCH  --output="./ret/console/slurm-%A_%a.out"
 #SBATCH  --error="./ret/console/slurm-%A_%a.err"
