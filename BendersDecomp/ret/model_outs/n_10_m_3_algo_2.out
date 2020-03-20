@@ -1,0 +1,11 @@
+---> instance_name: n_10_m_3.dat
+---> algo_index: 2
+---> obj_value: 19.2532
+---> total_time: 7200.89
+---> total_time_gurobi: 7200.75
+---> total_nb_benders_cuts: 138228
+---> total_nb_subtour_cuts: 1001
+---> total_nb_user_cuts: 0
+---> GRB_IntAttr_Status: 9
+---> optimality_gap: 0.27352
+---> node_count: 389137
