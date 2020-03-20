@@ -64,13 +64,13 @@ for n in nb_targets:
             MTC[str(n)+l+str(i)] = x
             # print(str(n)+l+str(i), MTC[str(n)+l+str(i)]._OBJs)
 
-for n in nb_targets:
-    for l in levels:
-        for i in range(1,11):
-            print(str(n)+l+str(i), MTC[str(n)+l+str(i)]._OBJs)
+# for n in nb_targets:
+#     for l in levels:
+#         for i in range(1,11):
+#             print(str(n)+l+str(i), MTC[str(n)+l+str(i)]._OBJs)
 
 
-print('--------------------------------------------------------------')
+# print('--------------------------------------------------------------')
 
 ''' take average '''
 AVG_MTC = {}
@@ -87,7 +87,7 @@ for n in nb_targets:
             avg_nodes = 0.0
             for i in range(1,11):
                 instname = str(n)+l+str(i)
-                print(instname, MTC[instname]._OBJs)
+                # print(instname, MTC[instname]._OBJs)
                 avg_obj += MTC[instname]._OBJs[k]/10.0
                 avg_time += MTC[instname]._TIMEs[k]/10.0
                 avg_BDcuts += float(MTC[instname]._BDCUTs[k])/10.0
@@ -110,25 +110,24 @@ fileWWW = open('k-test.txt', "w")
 for n in nb_targets:
     for l in levels:
         # print('n-'+str(n)+'-'+l, '&', (e for e in list(AVG_MTC[str(n)+l]._OBJs.values())[::4]))
-        fileWWW.write('n-'+str(n)+'-'+l + ' & ')
+        fileWWW.write('n-'+str(n)+'-'+l)
         for k in subsetK:
-            fileWWW.write(str(AVG_MTC[str(n)+l]._OBJs[k])+ ' & ')
-        fileWWW.write(' & ')
+            fileWWW.write(' & ' + str(AVG_MTC[str(n)+l]._OBJs[k]))
+        # fileWWW.write(' & ')
         for k in subsetK:
-            fileWWW.write(str(AVG_MTC[str(n)+l]._TIMEs[k])+ ' & ')
-        fileWWW.write(' & ')
+            fileWWW.write(' & ' + str(AVG_MTC[str(n)+l]._TIMEs[k]))
+        # fileWWW.write(' & ')
         for k in subsetK:
-            fileWWW.write(str(AVG_MTC[str(n)+l]._BDCUTs[k])+ ' & ')
-        fileWWW.write(' & ')
+            fileWWW.write(' & ' + str(AVG_MTC[str(n)+l]._BDCUTs[k]))
+        # fileWWW.write(' & ')
 
         for k in subsetK:
-            fileWWW.write(str(AVG_MTC[str(n)+l]._STCUTs[k])+ ' & ')
-        fileWWW.write(' & ')
+            fileWWW.write(' & ' + str(AVG_MTC[str(n)+l]._STCUTs[k]))
+        # fileWWW.write(' & ')
 
         for k in subsetK:
-            fileWWW.write(str(AVG_MTC[str(n)+l]._NODEs[k])+ ' & ')
-        fileWWW.write(' & ')
-        fileWWW.write('\n')
+            fileWWW.write(' & ' + str(AVG_MTC[str(n)+l]._NODEs[k]))
+        fileWWW.write('\\\\'+'\n')
 fileWWW.close()
 
 
