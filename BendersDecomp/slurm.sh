@@ -7,10 +7,10 @@
 #SBATCH  --nodes=1
 #SBATCH  --ntasks-per-node=12
 #SBATCH --mem=120000
-#SBATCH  --array=1-150
-#SBATCH  --job-name="RRARP"
-#SBATCH  --output="./ret/console/slurm-%A_%a.out"
-#SBATCH  --error="./ret/console/slurm-%A_%a.err"
+#SBATCH  --array=1-120
+#SBATCH  --job-name="Al1_Alg2"
+#SBATCH  --output="./ret/console/Al1-2-%A_%a.out"
+#SBATCH  --error="./ret/console/Al1-2-%A_%a.err"
 #SBATCH --mail-user=caigao@buffalo.edu
 #SBATCH --mail-type=ALL
 ##SBATCH --exclude=cpn-p26-[07-10]
@@ -30,7 +30,7 @@ echo "NPROCS="$NPROCS
 
 module load gurobi/9.0.0
 
-make
+# make
 
 #./bin/main 2 1 8 1 ./ret/configs/config_${SLURM_ARRAY_TASK_ID}
 
