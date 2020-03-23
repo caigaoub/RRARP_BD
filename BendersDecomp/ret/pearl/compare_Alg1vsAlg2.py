@@ -68,6 +68,34 @@ for n in nb_targets:
                 print(str(n)+l+str(i)+str(al), MTC[str(n)+l+str(i)+str(al)]._OBJs)
 
 
+
+
+fileWWW = open('/home/cai/Dropbox/Box_Research/Github/RRARP_BD/BendersDecomp/ret/pearl/alg1_alg2_instance_8.txt', "w")
+for n in [8]:
+    for l in levels:
+        for i in range(1,11):
+            fileWWW.write('n-'+str(n)+'-'+l+'-'+str(i))
+            instname = str(n)+l+str(i)+str(1)
+            fileWWW.write(' & ' + str(MTC[instname]._OBJs))
+            fileWWW.write(' & ' + str(MTC[instname]._TIMEs))
+            fileWWW.write(' & ' + str(MTC[instname]._BDCUTs))
+            fileWWW.write(' & ' + str(MTC[instname]._STCUTs))
+            fileWWW.write(' & ' + str(MTC[instname]._GAPs))
+            fileWWW.write(' & ' + str(MTC[instname]._NODEs))
+            instname = str(n)+l+str(i)+str(2)
+            fileWWW.write(' & ')
+            fileWWW.write(' & ' + str(MTC[instname]._OBJs))
+            fileWWW.write(' & ' + str(MTC[instname]._TIMEs))
+            fileWWW.write(' & ' + str(MTC[instname]._BDCUTs))
+            fileWWW.write(' & ' + str(MTC[instname]._STCUTs))
+            fileWWW.write(' & ' + str(MTC[instname]._GAPs))
+            fileWWW.write(' & ' + str(MTC[instname]._NODEs))
+            fileWWW.write('\\\\'+'\n')
+        fileWWW.write('\\midrule'+'\n')
+fileWWW.close()
+
+
+
 # print('--------------------------------------------------------------')
 
 ''' take average '''
@@ -101,29 +129,26 @@ for n in nb_targets:
 
 
 
-fileWWW = open('/home/cai/Dropbox/Box_Research/Github/RRARP_BD/BendersDecomp/ret/pearl/alg1_alg2.txt', "w")
-for n in nb_targets:
-    for l in levels:
-        fileWWW.write('n-'+str(n)+'-'+l)
-        instname = str(n)+l+str(1)
-        fileWWW.write(' & ' + str(AVG_MTC[instname]._OBJs))
-        fileWWW.write(' & ' + str(AVG_MTC[instname]._TIMEs))
-        fileWWW.write(' & ' + str(AVG_MTC[instname]._BDCUTs))
-        fileWWW.write(' & ' + str(AVG_MTC[instname]._STCUTs))
-        fileWWW.write(' & ' + str(AVG_MTC[instname]._GAPs))
-        fileWWW.write(' & ' + str(AVG_MTC[instname]._NODEs))
-        instname = str(n)+l+str(2)
-        fileWWW.write(' & ')
-        fileWWW.write(' & ' + str(AVG_MTC[instname]._OBJs))
-        fileWWW.write(' & ' + str(AVG_MTC[instname]._TIMEs))
-        fileWWW.write(' & ' + str(AVG_MTC[instname]._BDCUTs))
-        fileWWW.write(' & ' + str(AVG_MTC[instname]._STCUTs))
-        fileWWW.write(' & ' + str(AVG_MTC[instname]._GAPs))
-        fileWWW.write(' & ' + str(AVG_MTC[instname]._NODEs))
-        fileWWW.write('\\\\'+'\n')
-    fileWWW.write('\\midrule'+'\n')
-
-fileWWW.close()
-
-
+# fileWWW = open('/home/cai/Dropbox/Box_Research/Github/RRARP_BD/BendersDecomp/ret/pearl/alg1_alg2.txt', "w")
+# for n in nb_targets:
+#     for l in levels:
+#         fileWWW.write('n-'+str(n)+'-'+l)
+#         instname = str(n)+l+str(1)
+#         fileWWW.write(' & ' + str(AVG_MTC[instname]._OBJs))
+#         fileWWW.write(' & ' + str(AVG_MTC[instname]._TIMEs))
+#         fileWWW.write(' & ' + str(AVG_MTC[instname]._BDCUTs))
+#         fileWWW.write(' & ' + str(AVG_MTC[instname]._STCUTs))
+#         fileWWW.write(' & ' + str(AVG_MTC[instname]._GAPs))
+#         fileWWW.write(' & ' + str(AVG_MTC[instname]._NODEs))
+#         instname = str(n)+l+str(2)
+#         fileWWW.write(' & ')
+#         fileWWW.write(' & ' + str(AVG_MTC[instname]._OBJs))
+#         fileWWW.write(' & ' + str(AVG_MTC[instname]._TIMEs))
+#         fileWWW.write(' & ' + str(AVG_MTC[instname]._BDCUTs))
+#         fileWWW.write(' & ' + str(AVG_MTC[instname]._STCUTs))
+#         fileWWW.write(' & ' + str(AVG_MTC[instname]._GAPs))
+#         fileWWW.write(' & ' + str(AVG_MTC[instname]._NODEs))
+#         fileWWW.write('\\\\'+'\n')
+#     fileWWW.write('\\midrule'+'\n')
+# fileWWW.close()
 
