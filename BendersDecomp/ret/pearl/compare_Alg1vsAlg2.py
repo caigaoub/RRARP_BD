@@ -50,7 +50,7 @@ for n in nb_targets:
                     STcuts = int(fileOO.readline().split(":")[1])
                     Uscuts = int(fileOO.readline().split(":")[1])
                     status_GRB = int(fileOO.readline().split(":")[1])
-                    gap = float(fileOO.readline().split(":")[1])
+                    gap = float(fileOO.readline().split(":")[1]) * 100.0
                     gap = float("{0:.3f}".format(gap))
                     nodes_GRB = int(fileOO.readline().split(":")[1])
                     x._OBJs = objval
