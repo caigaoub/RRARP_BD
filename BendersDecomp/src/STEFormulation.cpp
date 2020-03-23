@@ -617,6 +617,46 @@ void STEFormulation::write_solution_KTest(string instance, int k, int algo_idx) 
 	file.close();
 }
 
+void STEFormulation::write_solution_FischettiTest(string instance, int algo_idx, int fischetti_on) {
+        auto pos = instance.find_last_of(".");
+	string name_only = instance.substr(0, pos);
+        string cur_dir = "/projects/academic/josewalt/caigao/RRARP_BD/BendersDecomp/ret/model_outs/FischettiTest/";
+        struct stat buffer;
+        if(stat (cur_dir.c_str(), &buffer) != 0){
+                cerr << "path of model_outs (in STEFormulation::write_solution) does not exist!! " << endl;
+        }
+        ofstream file;
+        file.open(cur_dir + name_only + "_algo_" + to_string(algo_idx) + ".FisTest_" + to_string(fischetti_on));
+        file << "---> instance_name: " << instance << '\n';
+        file << "---> algo_index: " << algo_idx << '\n';
+        file << "---> obj_value: " << _model->get(GRB_DoubleAttr_ObjVal) << '\n';
+        file << "---> total_time: " << _time->_elapsed_secs << '\n';
+        file << "---> total_time_gurobi: " << _model->get(GRB_DoubleAttr_Runtime) << '\n';
+        file << "---> total_nb_benders_cuts: " << _total_nb_Benders_cuts << '\n';
+        file << "---> total_nb_subtour_cuts: " << _total_nb_subtour_cuts << '\n';
+        file << "---> total_nb_user_cuts: " << _total_nb_user_cuts << '\n';
+        file << "---> GRB_IntAttr_Status: " << _optimstatus << '\n';
+        file << "---> optimality_gap: " << _model->get(GRB_DoubleAttr_MIPGap) << '\n';
+        file << "---> node_count: " << _model->get(GRB_DoubleAttr_NodeCount) << '\n';
+
+
+        cout << "---> instance_name: " << instance << '\n';
+        cout << "---> algo_index: " << algo_idx << '\n';
+        cout << "---> obj_value: " << _model->get(GRB_DoubleAttr_ObjVal) << '\n';
+        cout << "---> total_time: " << _time->_elapsed_secs << '\n';
+        cout << "---> total_time_gurobi: " << _model->get(GRB_DoubleAttr_Runtime) << '\n';
+        cout << "---> total_nb_benders_cuts: " << _total_nb_Benders_cuts << '\n';
+        cout << "---> total_nb_subtour_cuts: " << _total_nb_subtour_cuts << '\n';
+        cout << "---> total_nb_user_cuts: " << _total_nb_user_cuts << '\n';
+        cout << "---> GRB_IntAttr_Status: " << _optimstatus << '\n';
+        cout << "---> optimality_gap: " << _model->get(GRB_DoubleAttr_MIPGap) << '\n';
+        cout << "---> node_count: " << _model->get(GRB_DoubleAttr_NodeCount) << '\n';
+
+        cout << " =====>>>>> Solution is written to file in <../ret/model_outs> !!!" << endl;
+        // cout << " =====>>>>> Solution is written to file in <../ret/model_outs> !!!" << endl;
+        file.close();
+}
+
 
 
 STEFormulation::~STEFormulation(){

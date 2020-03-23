@@ -55,6 +55,7 @@ public:
 	void print_solution();
 	void write_solution(string, int);
 	void write_solution_KTest(string, int, int);
+	void write_solution_FischettiTest(string, int, int); 
 };
 
 

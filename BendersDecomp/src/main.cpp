@@ -93,7 +93,8 @@ int main(int argc, const char* argv[]) {
 		if(true){
 			formul_master.solve_formul_wCB(which_BDCut);
 			// formul_master.print_solution();
-			formul_master.write_solution(dataset_._name, which_BDCut);
+			// formul_master.write_solution(dataset_._name, which_BDCut);
+			formul_master.write_solution_FischettiTest(dataset_._name, which_BDCut, fischetti_on);
 		}
 		
 		delete evn_MP_;
