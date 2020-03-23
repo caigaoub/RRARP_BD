@@ -8,9 +8,9 @@
 #SBATCH  --ntasks-per-node=12
 #SBATCH  --mem=120000
 #SBATCH  --array=91-120
-#SBATCH  --job-name="TestK"
-#SBATCH  --output="./ret/console/KTest-%A_%a.out"
-#SBATCH  --error="./ret/console/KTest-%A_%a.err"
+#SBATCH  --job-name="Ftest2"
+#SBATCH  --output="./ret/console/Ftest2-%A_%a.out"
+#SBATCH  --error="./ret/console/Ftest2-%A_%a.err"
 #SBATCH  --mail-user=caigao@buffalo.edu
 #SBATCH  --mail-type=ALL
 ##SBATCH --exclude=cpn-p26-[07-10]
@@ -32,7 +32,7 @@ module load gurobi/9.0.0
 
 make
 
-./bin/main 3 0 8 1 ./ret/configs/config_${SLURM_ARRAY_TASK_ID}
+./bin/main 3 2 8 1 ./ret/configs/config_${SLURM_ARRAY_TASK_ID}
 
 echo "===>> All Done!"
 
