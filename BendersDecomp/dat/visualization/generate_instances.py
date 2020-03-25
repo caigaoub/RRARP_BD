@@ -104,14 +104,14 @@ if __name__ == "__main__":
             tar_locs, rewards_ratio, width, height = generate_instance(nb_targets, radius, densitycoef)
             write_instance(tar_locs, rewards_ratio, '../n_'+ str(nb_targets) +'_' + 'e_' + str(i) + '.dat')
 
-        densitycoef = 0.2
+        densitycoef = 0.10
         for i in range(1,11):
             print('m',i)
 
             tar_locs, rewards_ratio, width, height = generate_instance(nb_targets, radius, densitycoef)
             write_instance(tar_locs, rewards_ratio, '../n_'+ str(nb_targets) +'_' + 'm_' + str(i) + '.dat')
 
-        densitycoef = 0.35
+        densitycoef = 0.15
         for i in range(1,11):
             print('h',i)
             tar_locs, rewards_ratio, width, height = generate_instance(nb_targets, radius, densitycoef)

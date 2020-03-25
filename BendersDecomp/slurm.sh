@@ -7,13 +7,13 @@
 #SBATCH  --nodes=1
 #SBATCH  --ntasks-per-node=12
 #SBATCH --mem=120000
-#SBATCH  --array=1-120
-#SBATCH  --job-name="Al1_Alg2"
-#SBATCH  --output="./ret/console/Al1-2-%A_%a.out"
-#SBATCH  --error="./ret/console/Al1-2-%A_%a.err"
+#SBATCH  --array=211-240
+#SBATCH  --job-name="In10"
+#SBATCH  --output="./ret/console/In10-%a.out"
+#SBATCH  --error="./ret/console/In10-_%a.err"
 #SBATCH --mail-user=caigao@buffalo.edu
 #SBATCH --mail-type=ALL
-##SBATCH --exclude=cpn-p26-[07-10]
+#SBATCH --exclude=cpn-p26-[13-18]
 ##SBATCH --requeue
 
 ##echo "SLURM_JOB_ID="$SLURM_JOB_ID
@@ -30,13 +30,13 @@ echo "NPROCS="$NPROCS
 
 module load gurobi/9.0.0
 
-# make
+make
 
 #./bin/main 2 1 8 1 ./ret/configs/config_${SLURM_ARRAY_TASK_ID}
 
 # ./bin/main 3 1 8 1 ./ret/configs/config_${SLURM_ARRAY_TASK_ID}
 
- ./bin/main 2 0 8 1 ./ret/configs/config_${SLURM_ARRAY_TASK_ID}
+ ./bin/main 3 0 8 1 ./ret/configs/config_${SLURM_ARRAY_TASK_ID}
 
 echo "===>> All Done!"
 
