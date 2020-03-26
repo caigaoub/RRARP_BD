@@ -8,7 +8,7 @@ from decimal import *
 
 def generate_instance(nb_targets, radius, densitycoef):
     precision = 1000.0
-    area = nb_targets * radius**2 * math.pi * (1.0/densitycoef)
+    area = nb_targets * radius**2 * math.pi * (1.0/densitycoef**2)
     width = math.sqrt(area)
     height = width
     tar_locs = []
@@ -97,21 +97,21 @@ if __name__ == "__main__":
     # plot_instance(tar_locs, width, height)
     # write_instance(tar_locs, rewards_ratio, '../n_16_m_1.dat')
     for nb_targets in range(size_range[0], size_range[1]+1):
-        densitycoef = 0.05
+        densitycoef = 0.15
         print("currently generate instance with size ", nb_targets)
         for i in range(1,11):
             print('e',i)
             tar_locs, rewards_ratio, width, height = generate_instance(nb_targets, radius, densitycoef)
             write_instance(tar_locs, rewards_ratio, '../n_'+ str(nb_targets) +'_' + 'e_' + str(i) + '.dat')
 
-        densitycoef = 0.10
+        densitycoef = 0.25
         for i in range(1,11):
             print('m',i)
 
             tar_locs, rewards_ratio, width, height = generate_instance(nb_targets, radius, densitycoef)
             write_instance(tar_locs, rewards_ratio, '../n_'+ str(nb_targets) +'_' + 'm_' + str(i) + '.dat')
 
-        densitycoef = 0.15
+        densitycoef = 0.35
         for i in range(1,11):
             print('h',i)
             tar_locs, rewards_ratio, width, height = generate_instance(nb_targets, radius, densitycoef)

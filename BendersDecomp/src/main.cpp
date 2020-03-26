@@ -114,6 +114,7 @@ int main(int argc, const char* argv[]) {
 
 
 int main2(int argc, const char* argv[]) {
+	
 	argc = argc; // get rid of warning: unused argc
 	int which_BDCut = atoi(argv[1]);
 	const int fischetti_on = atoi(argv[2]);
@@ -121,6 +122,7 @@ int main2(int argc, const char* argv[]) {
 	string configfile = argv[4];
 
 	fstream file(configfile);
+
 	if (!file) {
 		cerr << "ERROR: could not open config '" << configfile << "' for reading'" << endl;
 		throw(-1);
