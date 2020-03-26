@@ -1,0 +1,11 @@
+---> instance_name: n_14_e_6.dat
+---> algo_index: 4
+---> obj_value: 156.131
+---> total_time: 17.4581
+---> total_time_gurobi: 9.36244
+---> total_nb_benders_cuts: 46
+---> total_nb_subtour_cuts: 29
+---> total_nb_user_cuts: 40
+---> GRB_IntAttr_Status: 2
+---> optimality_gap: 6.04622e-05
+---> node_count: 848

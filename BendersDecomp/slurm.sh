@@ -7,10 +7,10 @@
 #SBATCH  --nodes=1
 #SBATCH  --ntasks-per-node=12
 #SBATCH --mem=120000
-#SBATCH  --array=211-240
-#SBATCH  --job-name="In10"
-#SBATCH  --output="./ret/console/In10-%a.out"
-#SBATCH  --error="./ret/console/In10-_%a.err"
+#SBATCH  --array=421-450
+#SBATCH  --job-name="test"
+#SBATCH  --output="./ret/console/Test-%a.out"
+#SBATCH  --error="./ret/console/Test-%a.err"
 #SBATCH --mail-user=caigao@buffalo.edu
 #SBATCH --mail-type=ALL
 #SBATCH --exclude=cpn-p26-[13-18]
@@ -36,7 +36,7 @@ make
 
 # ./bin/main 3 1 8 1 ./ret/configs/config_${SLURM_ARRAY_TASK_ID}
 
- ./bin/main 3 0 8 1 ./ret/configs/config_${SLURM_ARRAY_TASK_ID}
+ ./bin/main 4 1 8 1 ./ret/configs/config_${SLURM_ARRAY_TASK_ID}
 
 echo "===>> All Done!"
 

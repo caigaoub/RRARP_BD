@@ -1,0 +1,11 @@
+---> instance_name: n_20_e_9.dat
+---> algo_index: 3
+---> obj_value: 221.287
+---> total_time: 6.23122
+---> total_time_gurobi: 0.453192
+---> total_nb_benders_cuts: 85
+---> total_nb_subtour_cuts: 34
+---> total_nb_user_cuts: 16
+---> GRB_IntAttr_Status: 2
+---> optimality_gap: 0
+---> node_count: 2977
