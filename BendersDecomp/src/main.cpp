@@ -33,9 +33,9 @@ int main(int argc, const char* argv[]) {
 		//	string cur_dir  = boost::filesystem::current_path().string();
 		//	auto pos = cur_dir.find_last_of("/");
         	//      cur_dir = cur_dir.substr(0, pos);
-		  string cur_dir = "/projects/academic/josewalt/caigao/RRARP_BD/BendersDecomp/dat/";
+		  // string cur_dir = "/projects/academic/josewalt/caigao/RRARP_BD/BendersDecomp/dat/";
 		// string cur_dir = "/home/caigao/Dropbox/Box_Research/Github/RRARP_BD/BendersDecomp/dat/";
-	   // string cur_dir = "/home/cai/Dropbox/Box_Research/Github/RRARP_BD/BendersDecomp/dat/";
+	    string cur_dir = "/home/cai/Dropbox/Box_Research/Github/RRARP_BD/BendersDecomp/dat/";
 		struct stat buffer;
 	  	if(stat (cur_dir.c_str(), &buffer) != 0){
 	  		cerr << " Path of instances does not exist!! (in main.cpp:line 42) " << endl;
@@ -93,8 +93,8 @@ int main(int argc, const char* argv[]) {
 		if(true){
 			formul_master.solve_formul_wCB(which_BDCut);
 			// formul_master.print_solution();
-			// formul_master.write_solution(dataset_._name, which_BDCut);
-			formul_master.write_solution_FischettiTest(dataset_._name, which_BDCut, fischetti_on);
+			formul_master.write_solution(dataset_._name, which_BDCut);
+			// formul_master.write_solution_FischettiTest(dataset_._name, which_BDCut, fischetti_on);
 		}
 		
 		delete evn_MP_;
