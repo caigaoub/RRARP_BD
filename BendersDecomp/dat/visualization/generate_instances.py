@@ -8,7 +8,8 @@ from decimal import *
 
 def generate_instance(nb_targets, radius, densitycoef):
     precision = 1000.0
-    area = 4.0 * nb_targets * radius**2 * math.pi * (1.0/densitycoef**2)
+    # densitycoef = 0.5
+    area = (densitycoef+1.0) * nb_targets * radius**2 * math.pi
     width = math.sqrt(area)
     height = width
     tar_locs = []
@@ -99,21 +100,21 @@ if __name__ == "__main__":
     # path = '/home/cai/Dropbox/Box_Research/Github/RRARP_BD/BendersDecomp/dat/'
     path = '/projects/academic/josewalt/caigao/RRARP_BD/BendersDecomp/dat/'
     for nb_targets in range(size_range[0], size_range[1]+1):
-        densitycoef = 0.35
+        densitycoef = 4
         print("currently generate instance with size ", nb_targets)
         for i in range(1,11):
             print('e',i)
             tar_locs, rewards_ratio, width, height = generate_instance(nb_targets, radius, densitycoef)
             write_instance(tar_locs, rewards_ratio, path +'n_'+ str(nb_targets) +'_' + 'e_' + str(i) + '.dat')
 
-        densitycoef = 0.45
+        densitycoef = 2
         for i in range(1,11):
             print('m',i)
 
             tar_locs, rewards_ratio, width, height = generate_instance(nb_targets, radius, densitycoef)
             write_instance(tar_locs, rewards_ratio,  path +'n_' + str(nb_targets) +'_' + 'm_' + str(i) + '.dat')
 
-        densitycoef = 0.55
+        densitycoef = 1
         for i in range(1,11):
             print('h',i)
             tar_locs, rewards_ratio, width, height = generate_instance(nb_targets, radius, densitycoef)
