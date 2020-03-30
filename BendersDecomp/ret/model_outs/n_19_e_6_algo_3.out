@@ -1,0 +1,11 @@
+---> instance_name: n_19_e_6.dat
+---> algo_index: 3
+---> obj_value: 121.28
+---> total_time: 33.3377
+---> total_time_gurobi: 5.94605
+---> total_nb_benders_cuts: 472
+---> total_nb_subtour_cuts: 52
+---> total_nb_user_cuts: 21
+---> GRB_IntAttr_Status: 2
+---> optimality_gap: 0
+---> node_count: 18531
