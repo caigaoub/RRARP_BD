@@ -7,7 +7,7 @@
 #SBATCH  --nodes=1
 #SBATCH  --ntasks-per-node=12
 #SBATCH --mem=120000
-#SBATCH  --array=421-450
+#SBATCH  --array=301-450
 #SBATCH  --job-name="TEST"
 #SBATCH  --output="./ret/console/Test-%a.out"
 #SBATCH  --error="./ret/console/Test-%a.err"
@@ -30,13 +30,13 @@ echo "NPROCS="$NPROCS
 
 module load gurobi/9.0.0
 
-make
+# make
 
 #./bin/main 2 1 8 1 ./ret/configs/config_${SLURM_ARRAY_TASK_ID}
 
 # ./bin/main 3 1 8 1 ./ret/configs/config_${SLURM_ARRAY_TASK_ID}
 
- ./bin/main 3 1 8 1 ./ret/configs/config_${SLURM_ARRAY_TASK_ID}
+ ./bin/main 3 1 12 1 ./ret/configs/config_${SLURM_ARRAY_TASK_ID}
 
 echo "===>> All Done!"
 
