@@ -1,0 +1,11 @@
+---> instance_name: n_18_e_5.dat
+---> algo_index: 2
+---> obj_value: 157.479
+---> total_time: 235.618
+---> total_time_gurobi: 206.054
+---> total_nb_benders_cuts: 9287
+---> total_nb_subtour_cuts: 189
+---> total_nb_user_cuts: 20
+---> GRB_IntAttr_Status: 2
+---> optimality_gap: 0
+---> node_count: 70637

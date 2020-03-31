@@ -1,0 +1,11 @@
+---> instance_name: n_19_h_1.dat
+---> algo_index: 4
+---> obj_value: 92.681
+---> total_time: 6432.54
+---> total_time_gurobi: 6394.82
+---> total_nb_benders_cuts: 10532
+---> total_nb_subtour_cuts: 512
+---> total_nb_user_cuts: 38
+---> GRB_IntAttr_Status: 2
+---> optimality_gap: 0
+---> node_count: 1.24397e+06

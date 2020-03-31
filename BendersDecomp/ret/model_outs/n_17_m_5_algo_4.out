@@ -1,0 +1,11 @@
+---> instance_name: n_17_m_5.dat
+---> algo_index: 4
+---> obj_value: 97.5974
+---> total_time: 100.666
+---> total_time_gurobi: 21.0464
+---> total_nb_benders_cuts: 158
+---> total_nb_subtour_cuts: 60
+---> total_nb_user_cuts: 73
+---> GRB_IntAttr_Status: 2
+---> optimality_gap: 0
+---> node_count: 7056
