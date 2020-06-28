@@ -1,8 +1,8 @@
 #include "TSPModels.h"
 
 void TSPModel_STE::init_edge_weights(int size_node_arg, const vector<vector<double>> & costs_arg){
-	if((int)costs_arg.size() != size_node_arg){
-		cerr << "ERROR: size does not fit (TSPModels.cpp::line 4)" << endl;
+	if(((int)costs_arg.size() - size_node_arg) > 0.01){
+		cerr << "ERROR: size does not fit (TSPModels.cpp::line 4)" << costs_arg.size() << ", " << size_node_arg << endl;
 	}
 	this->_size_var_x = size_node_arg;
 	this->_cost = new double*[_size_var_x];
@@ -23,7 +23,7 @@ void TSPModel_STE::init_edge_weights(int size_node_arg, const vector<vector<doub
 
 void TSPModel_STE::create_formula(){
 	if(_edge_cost_status == false){
-		cerr << "ERROR: edge costs have been assigned yet!! " << endl;
+		cerr << "ERROR: edge costs haven't been assigned yet!! " << endl;
 	}
 	// set up the model
 	GRBEnv env = GRBEnv();

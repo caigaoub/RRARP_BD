@@ -17,6 +17,13 @@ public:
 	inline double get_vecLen() {return sqrt(_x*_x + _y*_y); };
 };
 
+struct BdyPoint{
+	int 				_tarID; // 0,...,n, n+1
+	int 				_subID; // 0,...,15
+	// int 				_matID; //
+};
+typedef vector<pair<BdyPoint,BdyPoint>> TOUR;
+
 
 class PartitionScheme {
 public:
@@ -28,6 +35,8 @@ public:
 	vector<vector<Vertex>>						_points; // all turning points after boundary partitioning
 	int											_size_G; //
 	vector<vector<pair<bool, double>>>			_G; // network constructed after partitioning pair<travelable edge, risk value>
+	vector<vector<pair<bool, double>>>			_real_G; 
+
 	int 										_nb_adm_OutT = 0; // nb of admissible outer edges on _G
 	int 										_nb_adm_InT = 0; // nb of admissible inner edges on _G
 	vector<vector<double>>						_min_risk_tars;// minimum risk between targets
@@ -74,6 +83,11 @@ public:
 	void solve_shortestpath(vector<int> &, vector<vector<double>> &);
 	void solve_shortestpath_v2(vector<int> &, vector<vector<double>> &);
 	void solve_shortestpath_v3(vector<int> &, vector<vector<double>> &);
+	pair<TOUR, double> solve_shortestpath_path(vector<int> & seq);
+	void write_optimalpath(string filename, const TOUR& tour);
+	void print(TOUR& tour);
+	void print_tsp(TOUR& tour);
+
 
 	double calc_withdrawal_risk(vector<int> &);
 };

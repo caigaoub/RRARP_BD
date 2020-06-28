@@ -15,10 +15,10 @@ using namespace std;
 
 int main(int argc, const char* argv[]) {
 	argc = argc; // get rid of warning: unused argc
-	int which_BDCut = atoi(argv[1]);
-	const int fischetti_on = atoi(argv[2]);
-	const int nb_dstzn = atoi(argv[3]);
-	const int type_trajc = atoi(argv[4]);
+	int which_BDCut = atoi(argv[1]); // 1.common dual cut;2: shortest path cut 3:strong cut; 4: super cut
+	const int fischetti_on = atoi(argv[2]); // 1 or 2
+	const int nb_dstzn = atoi(argv[3]); // >=4
+	const int type_trajc = atoi(argv[4]); // 1: linear trajectory 2: rotatory trajectory
 	string configfile = argv[5];
 
 	fstream file(configfile);
@@ -33,9 +33,9 @@ int main(int argc, const char* argv[]) {
 		//	string cur_dir  = boost::filesystem::current_path().string();
 		//	auto pos = cur_dir.find_last_of("/");
         	//      cur_dir = cur_dir.substr(0, pos);
-		  string cur_dir = "/projects/academic/josewalt/caigao/RRARP_BD/BendersDecomp/dat/";
+		// string cur_dir = "/projects/academic/josewalt/caigao/RRARP_BD/BendersDecomp/dat/";
 		// string cur_dir = "/home/caigao/Dropbox/Box_Research/Github/RRARP_BD/BendersDecomp/dat/";
-	    	// string cur_dir = "/home/cai/Dropbox/Box_Research/Github/RRARP_BD/BendersDecomp/dat/";
+	    string cur_dir = "/home/latte/Dropbox/Box_Research/Github/RRARP_BD/BendersDecomp/dat/";
 		struct stat buffer;
 	  	if(stat (cur_dir.c_str(), &buffer) != 0){
 	  		cerr << " Path of instances does not exist!! (in main.cpp:line 42) " << endl;
@@ -95,6 +95,17 @@ int main(int argc, const char* argv[]) {
 			// formul_master.print_solution();
 			formul_master.write_solution(dataset_._name, which_BDCut);
 			// formul_master.write_solution_FischettiTest(dataset_._name, which_BDCut, fischetti_on);
+			pair<TOUR, double> ret = network_.solve_shortestpath_path(formul_master._opt_seq); 
+			network_.print(ret.first);
+	 		network_.write_optimalpath(cur_dir+"visualization/optpath.txt", ret.first);
+			// cout << ret.second << endl;
+			TSPModel_STE tspsol;
+			tspsol.init_edge_weights(dataset_._nb_targets+2, network_._risk_C2C);
+			tspsol.create_formula();
+			tspsol.solve();
+			pair<TOUR, double> ret2 = network_.solve_shortestpath_path(tspsol._opt_seq); 
+			network_.print(ret2.first);
+	 		network_.write_optimalpath(cur_dir+"visualization/optpath2.txt", ret2.first);
 		}
 		
 		delete evn_MP_;

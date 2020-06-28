@@ -125,9 +125,9 @@ pair<double, double> STEFormulation::solve_formul_wCB(int which_cut) {
 			_opt_seq.resize(_size_var_y);
 			for (int i = 0; i < len; i++) {
 				_opt_seq.at(i) = tour[i];
-				// cout << tour[i] << ' ';
+				cout << tour[i] << ' ';
 			}
-			// cout << '\n';
+			cout << '\n';
 
 			delete cb;
 			return make_pair(obj_val, v_val);
@@ -304,6 +304,7 @@ pair<bool,int> STEFormulation::add_SECs(double** y_sol) {
 		// 		delete[] y_sym;
 		// 	}
 		// }
+		
 		/* y_sym is same solution as y, serving as input for finding the global min-cut */
 				int m = 0; // number of weighted edges in the solution
 				double ** y_sym = new double*[_size_var_y];
@@ -666,3 +667,5 @@ STEFormulation::~STEFormulation(){
 	delete _var_v;
 
 }
+
+

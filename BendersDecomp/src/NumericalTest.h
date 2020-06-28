@@ -34,7 +34,7 @@ pair<int,int> Fischetti_method(int N, STEFormulation & formul_master) {
 	formul_master.solve_formul_woCB();
 	formul_master.get_optimal_sol(y_star);
 
-	double alpha = 0.2;
+	double alpha = 0.5;
 	// double UB = INFINITY;
 	double LB = -INFINITY;
 
@@ -94,7 +94,7 @@ pair<int,int> Fischetti_method(int N, STEFormulation & formul_master) {
 	cout << "====>>> FISCHETTI GIVES: " << endl;
 	cout << "====>>> total time of solving dual problem: " << chrono::duration<double>(total_time_SP).count()  << endl;		
 	cout << "====>>> nb of subtour cuts added: " << nb_Subtour_Cuts  << endl;		
-	cout << "====>>> nb of user cuts added: " << nb_USER_Cuts << endl;
+	cout << "====>>> nb of BD user cuts added: " << nb_USER_Cuts << endl;
 	cout << "====>>> optimal: " << LB << endl;
 	// cout << "====>>> Time: " << formul_master._model->get(GRB_DoubleAttr_Runtime) << endl;
 	formul_master.set_vars_integer(); // solve IP-TSP
