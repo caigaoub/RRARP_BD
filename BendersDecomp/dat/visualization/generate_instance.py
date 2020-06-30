@@ -68,28 +68,32 @@ if __name__ == "__main__":
     ''' basic setting '''
     if True:
         radius = 1.0
-        size_range = [10]
+        size_range = [12]
         path = '/home/latte/Dropbox/Box_Research/Github/RRARP_BD/BendersDecomp/dat/'
         for nb_targets in size_range:
-            # densitycoef = 5
             print("currently generate instance with size ", nb_targets)
+            # densitycoef = 5.0
             # for i in range(1,11):
             #     print('e',i)
             #     tar_locs, rewards_ratio, width, height = generate_instance(nb_targets, radius, densitycoef)
             #     write_instance(tar_locs, rewards_ratio, path +'n_'+ str(nb_targets) +'_' + 'e_' + str(i) + '.dat')
 
-            # densitycoef = 4
+            # densitycoef = 4.0
             # for i in range(1,11):
             #     print('m',i)
-
             #     tar_locs, rewards_ratio, width, height = generate_instance(nb_targets, radius, densitycoef)
             #     write_instance(tar_locs, rewards_ratio,  path +'n_' + str(nb_targets) +'_' + 'm_' + str(i) + '.dat')
 
-            densitycoef = 1.7
+            densitycoef = 3.0
             for i in range(1,11):
                 print('h',i)
                 tar_locs, rewards_ratio, width, height = generate_instance(nb_targets, radius, densitycoef)
                 write_instance(tar_locs, rewards_ratio,  path +'n_'+ str(nb_targets) +'_' + 'h_' + str(i) + '.dat')
 
 
+            densitycoef = 2
+            for i in range(1,11):
+                print('h',i)
+                tar_locs, rewards_ratio, width, height = generate_instance(nb_targets, radius, densitycoef)
+                write_instance(tar_locs, rewards_ratio,  path +'n_'+ str(nb_targets) +'_' + 's_' + str(i) + '.dat')
 

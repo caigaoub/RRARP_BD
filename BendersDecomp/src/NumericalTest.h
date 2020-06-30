@@ -96,6 +96,8 @@ pair<int,int> Fischetti_method(int N, STEFormulation & formul_master) {
 	cout << "====>>> nb of subtour cuts added: " << nb_Subtour_Cuts  << endl;		
 	cout << "====>>> nb of BD user cuts added: " << nb_USER_Cuts << endl;
 	cout << "====>>> optimal: " << LB << endl;
+
+	cout << " & " << nb_USER_Cuts << " & " << nb_Subtour_Cuts <<  " & " << chrono::duration<double>(total_time_SP).count()  << endl;
 	// cout << "====>>> Time: " << formul_master._model->get(GRB_DoubleAttr_Runtime) << endl;
 	formul_master.set_vars_integer(); // solve IP-TSP
 	// formul_master.solve_formul_woCB(); // add Benders cuts

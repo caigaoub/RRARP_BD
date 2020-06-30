@@ -92,7 +92,7 @@ void DualFormulation::set_objective(double** val_y) {
 			}
 		}
 	}
-	// iii) e in E_3
+	// iii) e in E^(3)
 	for (int s = 1; s <= _nb_targets; s++) {
 		idxmat_1 = (s - 1) * 2 * _nb_dstzn + _nb_dstzn + 1;
 		for (int t = 1; t <= _nb_targets; t++) {

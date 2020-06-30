@@ -26,7 +26,7 @@ void STEFormulation::build_formul(GRBModel* model_MP_, PartitionScheme* network_
 	_model->getEnv().set(GRB_IntParam_LazyConstraints, 1);
 	_model->getEnv().set(GRB_IntParam_PreCrush, 1);
 	_model->getEnv().set(GRB_IntParam_NumericFocus, 1);
-	_model->getEnv().set(GRB_DoubleParam_TimeLimit, 7200);
+	_model->getEnv().set(GRB_DoubleParam_TimeLimit, 1500);
 	// _model->getEnv().set(GRB_DoubleParam_TimeLimit, GRB_INFINITY);
 
 	// Step 1: create variables for master problem 
@@ -226,85 +226,7 @@ pair<bool,int> STEFormulation::add_SECs(double** y_sol) {
 		connected = false;
 		// cout << "SEC1_Cut" << endl;
 	}
-	else {
-		// for (int node = 0; node < _size_var_y; node++) { // ii) if cutting points exist in the solution
-		// 	vector<int> tour2;
-		// 	int num_subcompts2;
-		// 	vector<int> size_subcompts2;
-		// 	check_cutting_point(node, y_sol, tour2, num_subcompts2, size_subcompts2);
-		// 	if (num_subcompts2 > 1) {
-		// 		int start = 0;
-		// 		int size;
-		// 		int num_subtour_constrs = (num_subcompts2 == 2 ? 1 : num_subcompts2);
-		// 		for (int i = 0; i < num_subtour_constrs; i++) {
-		// 			GRBLinExpr expr = 0;
-		// 			size = size_subcompts2[i];
-		// 			for (int j = 0; j < size; j++) {
-		// 				for (int k = j + 1; k < size; k++) {
-		// 					expr += _var_y[tour2[start + j]][tour2[start + k]] + _var_y[tour2[start + k]][tour[start + j]];
-		// 				}
-		// 			}
-		// 			start += size;
-		// 			_model->addConstr(expr <= size - 1, "SEC2_Cut");
-		// 			new_subtour_cuts++;
-		// 			_model->update();
-		// 			_total_nb_subtour_cuts++;
-		// 		}
-		// // 		is_disconnected = true;
-		// 		cout << "SEC2_Cut" << endl;
-		// 	}
-		// 	else { // iii)  check global min cut
-		// 		 /* y_sym is same solution as y, serving as input for finding the global min-cut */
-		// 		int m = 0; // number of weighted edges in the solution
-		// 		double ** y_sym = new double*[_size_var_y];
-		// 		for (int i = 0; i < _size_var_y; i++) {
-		// 			y_sym[i] = new double[_size_var_y];
-		// 		}
-		// 		for (int i = 0; i < _size_var_y; i++) {
-		// 			for (int j = 0; j < _size_var_y; j++) {
-		// 				if (y_sol[i][j] <= 0 && y_sol[j][i] <= 0) {
-		// 					y_sym[i][j] = -1;
-		// 					y_sym[j][i] = -1;
-		// 					m += 1;
-		// 				}
-		// 				else {
-		// 					if (y_sol[i][j] > 0) {
-		// 						y_sym[j][i] = y_sol[i][j];
-		// 						y_sym[i][j] = y_sol[i][j];
-		// 					}
-		// 					if (y_sol[j][i] > 0) {
-		// 						y_sym[j][i] = y_sol[j][i];
-		// 						y_sym[i][j] = y_sol[j][i];
-		// 					}
-		// 				}
-		// 			}
-		// 		}
-		// 		m = _size_var_y * _size_var_y - m;
-		// 		GlobalMC gmc(_size_var_y, m, y_sym);
-		// 		tuple<double, unordered_set<Edge*>, vector<int>> res = gmc.GlobalMinCut();
-		// 		if (get<0>(res) < 2.0) {
-		// 			vector<int> S = get<2>(res);
-		// 			int lens = S.size();
-		// 			GRBLinExpr expr = 0;
-		// 			for (int j = 0; j < lens; j++) {
-		// 				for (int k = j + 1; k < lens; k++) {
-		// 					expr += _var_y[tour[j]][tour[k]] + _var_y[tour[k]][tour[j]];
-		// 				}
-		// 			}
-		// 			_model->addConstr(expr <= lens - 1, "SEC3_Cut");
-		// 			cout << "SEC3_Cut" << endl;
-		// 			new_subtour_cuts++;
-		// 			_model->update();
-		// 			_total_nb_subtour_cuts++;
-		// 			// is_disconnected = true;
-		// 		}
-
-		// 		for (int i = 0; i < _size_var_y; i++)
-		// 			delete[] y_sym[i];
-		// 		delete[] y_sym;
-		// 	}
-		// }
-		
+	else {		
 		/* y_sym is same solution as y, serving as input for finding the global min-cut */
 				int m = 0; // number of weighted edges in the solution
 				double ** y_sym = new double*[_size_var_y];
@@ -571,6 +493,7 @@ void STEFormulation::write_solution(string instance, int algo_idx) {
 	cout << "---> node_count: " << _model->get(GRB_DoubleAttr_NodeCount) << '\n';
 
 	cout << " =====>>>>> Solution is written to file in <../ret/model_outs> !!!" << endl;
+	cout << " & " << _total_nb_Benders_cuts + _total_nb_user_cuts << " & " <<  _total_nb_subtour_cuts << " & " << _time->_elapsed_secs << endl;
 	// cout << " =====>>>>> Solution is written to file in <../ret/model_outs> !!!" << endl;
 	file.close();
 }

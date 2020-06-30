@@ -20,6 +20,7 @@ int main(int argc, const char* argv[]) {
 	const int nb_dstzn = atoi(argv[3]); // >=4
 	const int type_trajc = atoi(argv[4]); // 1: linear trajectory 2: rotatory trajectory
 	string configfile = argv[5];
+	// string instance_name_only = argv[5];
 
 	fstream file(configfile);
 	if (!file) {
@@ -74,13 +75,14 @@ int main(int argc, const char* argv[]) {
 
 		formul_master.add_dualformul(&formul_dual_);
 		formul_master.add_SuperCutformul(&formul_supercut_);
-
+		double temp = 0;
 		if(fischetti_on == 1){
 			auto start_fischetti= chrono::system_clock::now();
 			Fischetti_method(dataset_._nb_targets + 2, formul_master);
 			auto endt_fischetti = chrono::system_clock::now();
 			chrono::duration<double> elapsed_seconds_fischetti = endt_fischetti-start_fischetti;
-			cout << "====>>> Total time of Fischetti_method: " << std::chrono::duration<double>(elapsed_seconds_fischetti).count()  << endl;		
+			cout << "====>>> Total time of Fischetti_method: " << std::chrono::duration<double>(elapsed_seconds_fischetti).count()  << endl;
+			temp = std::chrono::duration<double>(elapsed_seconds_fischetti).count();
 		}
 		if(fischetti_on == 2){
 			auto start_no_fischetti= chrono::system_clock::now();
@@ -94,18 +96,21 @@ int main(int argc, const char* argv[]) {
 			formul_master.solve_formul_wCB(which_BDCut);
 			// formul_master.print_solution();
 			formul_master.write_solution(dataset_._name, which_BDCut);
+			cout << " additional = " << temp << endl;
 			// formul_master.write_solution_FischettiTest(dataset_._name, which_BDCut, fischetti_on);
 			pair<TOUR, double> ret = network_.solve_shortestpath_path(formul_master._opt_seq); 
 			network_.print(ret.first);
 	 		network_.write_optimalpath(cur_dir+"visualization/optpath.txt", ret.first);
-			// cout << ret.second << endl;
+	 		/* TSP solution */
 			TSPModel_STE tspsol;
 			tspsol.init_edge_weights(dataset_._nb_targets+2, network_._risk_C2C);
 			tspsol.create_formula();
 			tspsol.solve();
 			pair<TOUR, double> ret2 = network_.solve_shortestpath_path(tspsol._opt_seq); 
+
 			network_.print(ret2.first);
 	 		network_.write_optimalpath(cur_dir+"visualization/optpath2.txt", ret2.first);
+	 		cout << " :: " << ret.second << ", " << ret2.second << endl;
 		}
 		
 		delete evn_MP_;

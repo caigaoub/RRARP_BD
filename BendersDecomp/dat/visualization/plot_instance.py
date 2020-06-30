@@ -70,7 +70,7 @@ def plot_instance(instancefile):
         itr += 1   
         line_ = file_.readline()
 
-    if True:
+    if False:
         '''plot inner path'''
         filename = '/home/latte/Dropbox/Box_Research/Github/RRARP_BD/BendersDecomp/dat/visualization/optpath.txt'
         fileopath_ = open(filename, 'r')
@@ -101,7 +101,7 @@ def plot_instance(instancefile):
         fileopath_.close()
 
     file_.close()
-    ax.set(xlim=(minx,maxx-1), ylim=(miny,maxy))
+    ax.set(xlim=(minx,maxx), ylim=(miny,maxy))
     ax.set_aspect('equal', adjustable='box')
     # plt.xlabel('x', fontsize=10)
     # plt.ylabel('y', fontsize=10)

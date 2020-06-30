@@ -35,7 +35,6 @@ BendersCuts::BendersCuts(GRBVar** y_, GRBVar* v_, PartitionScheme* partition_, D
 
 }
 
-
 void BendersCuts::callback() {
 	try {
 		if (where == GRB_CB_MIPSOL) {
@@ -427,7 +426,7 @@ GRBLinExpr BendersCuts::generate_SuperCut(vector<int> * fseq, vector<vector<doub
 	// }
 
 	if(_idx_supercut <= _max_supercuts){
-		for (unsigned int i = 0; i < Coefs.size(); i++) {
+		for (unsigned int i = 0; i < min((double)Coefs.size()/3.0,5.0); i++) {
 			// cout << "cut: " << sd;
 			// for (unsigned int j = 0; j < Coefs.size(); j++) {
 			// 		cout << " " << Coefs[j].second << "*X_" << Coefs[j].first.first << "_" << Coefs[j].first.second;		
